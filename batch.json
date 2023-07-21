@@ -1,0 +1,52 @@
+{
+  "batches": [
+    {
+      "id": 1,
+      "values": {
+        "Batchno": "56577",
+        "batchSize": "6",
+        "packing": "normal",
+        "mfgdate": "06-01-2023",
+        "expdate": "06-01-2023",
+        "retestdate": "06-01-2023",
+        "sample": "sodium"
+      }
+    },
+    {
+      "id": 2,
+      "values": {
+        "Batchno": "56577",
+        "batchSize": "6",
+        "packing": "normal",
+        "mfgdate": "06-01-2023",
+        "expdate": "06-01-2023",
+        "retestdate": "06-01-2023",
+        "sample": "monosodium"
+      }
+    },
+    {
+      "id": 3,
+      "values": {
+        "Batchno": "fg",
+        "mfgdate": "2023-07-14",
+        "expdate": "2023-07-13",
+        "retestdate": "2023-07-13",
+        "batchSize": " n ",
+        "packing": "x",
+        "sample": "x"
+      }
+    },
+    {
+      "id": 4,
+      "values": {
+        "uBatchno": "ebvb",
+        "ubatchSize": "ebn",
+        "upacking": "dnn",
+        "umfgdate": "2023-07-01",
+        "uexpdate": "2023-07-01",
+        "uretestdate": "2023-06-29",
+        "usample": "djhj"
+      }
+    }
+  ]
+}
