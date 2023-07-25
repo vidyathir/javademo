@@ -14,7 +14,7 @@ import {RiDeleteBinLine} from 'react-icons/ri'
 import {BiEdit} from 'react-icons/bi'
 import { useEffect } from "react";
 
-export const BatchDetail =()=>{
+export default function  BatchDetail({onButtonClick}) {
 
     const [uBatchno,usetBatchno]=useState("");
       const [ubatchSize,usetBatchSize]=useState(""); 
@@ -39,12 +39,9 @@ export const BatchDetail =()=>{
   
   
     });
-useEffect(()=>{
-    axios.get('http://localhost:3000/batches')
-    .then(res =>setData(res.data))
-    .catch(err =>console.log(err));
-
-},[])
+// useEffect(()=>{
+    
+// },[])
 
 const handleSubmit=(values,{setSubmitting})=>{
   console.log("val", values)
@@ -54,6 +51,10 @@ const handleSubmit=(values,{setSubmitting})=>{
 .then(res => setItems(res))
 .catch(err =>console.log(err));
 setSubmitting(false);
+axios.get('http://localhost:3000/batches')
+    .then(res =>setData(res.data))
+    .catch(err =>console.log(err));
+
 }
 const handleEdit=(id,values)=>{
   axios.get('http://localhost:3000/batches/'+id)
@@ -70,13 +71,32 @@ const handleEdit=(id,values)=>{
 
 setEditId(id)
 }
-const handleUpdate=(values)=>{
+const handleUpdate=()=>{
   axios.put('http://localhost:3000/batches/'+editId,{id:editId,values:{uBatchno,ubatchSize,upacking,umfgdate,uexpdate,uretestdate,usample} })
   .then(res => {
+    // eslint-disable-next-line no-restricted-globals
     location.reload();
     setEditId(-1);
   }).catch(err=>console.log(err));
 }
+const handlePage=(id)=>{
+  axios.delete('http://localhost:3000/batches/'+id)
+  .then(res =>{
+   // eslint-disable-next-line no-restricted-globals
+   location.reload()
+  })
+  .catch(err =>console.log(err));
+  navigate('TypeOfAnalysis')
+}
+ const handleDelete=(id)=>{
+axios.delete('http://localhost:3000/batches/'+id)
+  .then(res =>{
+   // eslint-disable-next-line no-restricted-globals
+   location.reload()
+  })
+  .catch(err =>console.log(err));
+
+ }
   return(
     <div >
         
@@ -295,7 +315,7 @@ const handleUpdate=(values)=>{
                      <tbody className='tablebody-custom'>
                         {
                             data.map((user,index) => ( 
-                              user.id === editId?
+                              user.id === editId ?
                               <tr>
                                 <td>{user.id}</td>
                                 <td><input type="text" value={uBatchno} onChange={(e=>usetBatchno(e.target.value))}/></td>
@@ -310,7 +330,8 @@ const handleUpdate=(values)=>{
                             <BiEdit  size={20} color={'#9AC037'} onClick={handleUpdate}/>
                             </div>
                             </td>
-                              </tr> :     
+                              </tr>: 
+
                      <tr key={index}>
                         <td>{user.id}</td>
                         <td>{user.values.Batchno}</td>
@@ -323,11 +344,11 @@ const handleUpdate=(values)=>{
                         <td >
                             <div>
                             <BiEdit  size={20} color={'#9AC037'} onClick={()=>handleEdit(user.id)}/>
-                            <RiDeleteBinLine className='tablerowicon' size={20} color={'#9AC037'} onClick={()=>handleUpdate()}/>
+                            <RiDeleteBinLine className='tablerowicon' size={20} color={'#9AC037'} onClick={()=> handleDelete(user.id)}/>
                             </div>
                             </td>
-
-                     </tr>
+                            </tr>
+                   
 
                             ))
 }
@@ -338,12 +359,12 @@ const handleUpdate=(values)=>{
 
                 <div className='cardbuttonboubleend'>
                 <button className="cardbuttonoutline"
-                     onClick={() => navigate("SampleDetails")}
+                     onClick={() => onButtonClick("SampleDetails")}
                       >
                        <BiLeftArrowAlt size={24} /> Previous
                     </button>
                     <button className="cardbutton" type='submit'
-                     onClick={() => navigate("TypeOfAnalysis")}
+                     onClick={()=>onButtonClick("TypeOfAnalysis")}
                       >
                       Next <BiRightArrowAlt size={24} /> 
                     </button>

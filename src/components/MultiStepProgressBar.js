@@ -5,72 +5,119 @@ import { ProgressBar, Step } from 'react-step-progress-bar'
 const MultiStepProgressBar = ({ page, onPageNumberClick }) => {
   var stepPercentage = 0;
   if (page === "CustomerDetailes") {
-    stepPercentage = 12;
-  } else if (page === "SampleDetails") {
-    stepPercentage = 37;
-  } else if (page === "ItemList") {
-    stepPercentage = 62;
-  } else if (page === "TypeOfAnalysis") {
-    stepPercentage = 87;
-  } 
-  else if (page === "BootStrap") {
-    stepPercentage = 100;
-  } else {
     stepPercentage = 0;
+  } else if (page === "SampleDetails") {
+    stepPercentage = 20;
+  } else if (page === "BatchDetail") {
+    stepPercentage =40;
+  } else if (page === "TypeOfAnalysis") {
+    stepPercentage = 60;
+  } else if (page === "ConfirmDetails") {
+    stepPercentage =80 ;
+  } else if (page === "SampleVerificationCheckList") {
+    stepPercentage =100 ;
+   } else {
+    stepPercentage =100;
   }
 
   return (
     <ProgressBar percent={stepPercentage}>
+    
       <Step>
         {({ accomplished, index }) => (
+          <div style={{display:'flex',flexDirection:'column',alignItems:'center'}}>
           <div
             className={`indexedStep ${accomplished ? "accomplished" : null}`}
-            onClick={() => onPageNumberClick("1")}
+            // onClick={() => onPageNumberClick("1")}
           >
             {index + 1}
+        
+            
+          </div>
+          <div className="mt-1">
+            <label  className="progressbarfont">Customer Details</label> 
+          </div>
+          </div>
+        )}
+      </Step>
+
+      <Step>
+        {({ accomplished, index }) => (
+          <div style={{display:'flex',flexDirection:'column',alignItems:'center'}}>
+          <div
+            className={`indexedStep ${accomplished ? "accomplished" : null}`}
+            // onClick={() => onPageNumberClick("2")}
+          >
+            {index + 1}
+          </div>
+          <div className="mt-1">
+            <label  className="progressbarfont">Sample Details</label> 
+          </div>
           </div>
         )}
       </Step>
       <Step>
         {({ accomplished, index }) => (
+          <div style={{display:'flex',flexDirection:'column',alignItems:'center'}}>
           <div
             className={`indexedStep ${accomplished ? "accomplished" : null}`}
-            onClick={() => onPageNumberClick("2")}
+            // onClick={() => onPageNumberClick("3")}
           >
             {index + 1}
+          </div>
+          <div className="mt-1">
+            <label  className="progressbarfont">Batch Details</label> 
+          </div>
           </div>
         )}
       </Step>
       <Step>
         {({ accomplished, index }) => (
+          <div style={{display:'flex',flexDirection:'column',alignItems:'center'}}>
           <div
             className={`indexedStep ${accomplished ? "accomplished" : null}`}
-            onClick={() => onPageNumberClick("3")}
+            // onClick={() => onPageNumberClick("4")}
           >
             {index + 1}
+          </div>
+          <div className="mt-1">
+            <label  className="progressbarfont">Type of Analysis</label> 
+          </div>
           </div>
         )}
       </Step>
       <Step>
         {({ accomplished, index }) => (
+          <div style={{display:'flex',flexDirection:'column',alignItems:'center'}}>
           <div
             className={`indexedStep ${accomplished ? "accomplished" : null}`}
-            onClick={() => onPageNumberClick("4")}
+            // onClick={() => onPageNumberClick("5")}
           >
             {index + 1}
+          </div>
+          <div className="mt-1">
+            <label className="progressbarfont">Confirm Details</label> 
+          </div>
           </div>
         )}
       </Step>
       <Step>
         {({ accomplished, index }) => (
+          <div style={{display:'flex',flexDirection:'column',alignItems:'center'}}>
           <div
             className={`indexedStep ${accomplished ? "accomplished" : null}`}
-            onClick={() => onPageNumberClick("5")}
+            // onClick={() => onPageNumberClick("6")}
           >
             {index + 1}
           </div>
+          <div className="mt-1">
+            <label  className="progressbarfont">SampleVerificationChecklist</label> 
+          </div>
+          </div>
         )}
       </Step>
+      
+      
     </ProgressBar>
   );
 };

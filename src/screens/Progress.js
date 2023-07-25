@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import CustomerDetailes from "./CustomerDetailes";
 import SampleDetails from "./SampleDetails";
-import BatchDetails from "./BatchDetails";
-import MultiStepProgressBar from "../components/MultiStepProgressBar";
+import BatchDetail from "./BatchDetail";
+import MultiStepProgressBar from "../components/MultiStepProgressBar"; 
 import BootStrap from './BootStrap'
 import TypeOfAnalysis from "./TypeOfAnalysis";
 import Sidenavbar from "../components/Sidenavbar";
 import Titlebar from "../components/Titlebar";
+import ConfirmDetails from "./ConfirmDetails";
+import SampleVerification from "./SampleVerification";
 import './Styles.css';
 import ItemList from "./ItemList";
 
@@ -27,15 +29,18 @@ function Progress() {
           setPage("SampleDetails");
           break;
         case "3":
-          setPage("ItemList");
+          setPage("BatchDetail");
           break;
           case "4":
           setPage("TypeOfAnalysis");
           break;
          case "5":
-          alert("Ooops! Seems like you did not fill the form.");
+          setPage("ConfirmDetails");
           break;
-          
+          case "6":
+          setPage("SampleVerification");
+          break;
+        
         default:
           setPage("1");
       }
@@ -58,9 +63,12 @@ function Progress() {
           {
             CustomerDetailes: <CustomerDetailes onButtonClick={nextPage} />,
             SampleDetails: <SampleDetails onButtonClick={nextPage} />,
-            ItemList: <ItemList onButtonClick={nextPage} />,
+            BatchDetail: <BatchDetail onButtonClick={nextPage} />,
             TypeOfAnalysis: <TypeOfAnalysis onButtonClick={nextPage} />,
-            BootStrap: <BootStrap />,
+            ConfirmDetails:<ConfirmDetails onButtonClick={nextPage}/>,
+            SampleVerification:<SampleVerification onButtonClick={nextPage}/>
+        
+      
           }[page]
         }
        

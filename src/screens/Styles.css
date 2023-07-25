@@ -1,5 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 .app {
   display: flex;
   height:100vh;
@@ -8,7 +9,7 @@
 
 .sidebar {
   
-  width: 15%;
+  width: 10%;
   height: 100%;
   background-color: #3A4175;
 }
@@ -50,10 +51,14 @@
   display: flex;
   background-color: #ffffff;
 }
+.logocolor img{
+  height: 40px;
+  width: 190px;
+}
 
 
 .main {
-  width: 85%;
+  width: 90%;
   height: 100%;
   
 }
@@ -292,6 +297,8 @@ font-weight: 500;
   margin-top:30px;
   display: flex;
   justify-content: flex-end;
+  /* margin-bottom: 10px; */
+  padding-bottom: 10px;
 }
 
 .hrcolor{
@@ -308,15 +315,31 @@ font-weight: 500;
   /* padding: 10px; */
 
 }
+.table-custom{
+  text-align: center;
+}
 
-.tablebody-custom tr td{
+.table-custom  td{
   font-size:11px;
   font-weight: 500;
   color:#8F8F8F;
- 
-  
+  border: 1px solid #d1d1d1;
+  padding: 5px;
 
 }
+.tablebody-custom  td{
+  font-size:11px;
+  font-weight: 500;
+  color:#8F8F8F;
+  border: 1px solid #d1d1d1;
+  padding: 5px;
+
+}
+ .tablebody-custom{
+   text-align: center; 
+
+ }
+
 
 .tablerowicon{
 margin-left: 10px;
@@ -325,6 +348,22 @@ margin-left: 10px;
 .cardtablesize{
   border-radius: 0px !important;
   margin-top: 30px;
+}
+
+.analyticalbutton{
+  height: 25px !important;
+  width: 48px !important;
+  background-color: #9AC037;
+  border-radius: 5px;
+  /* border: none;
+  outline: none; */
+  color: #ffffff;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  font-size: 12px;
+  font-weight: 500;
+
 }
 
 
@@ -345,9 +384,69 @@ color: #3A4175;
 }
 
 .cardcolhedtext{
+  font-size: 12px;
+  font-weight: 500;
+  color: #3A4175;
+  word-break: break-all;
+  /* overflow: hidden; */
+  /* text-overflow: ellipsis; */
+  
+}
+
+/* --------------------------- analyst samples---------------- */
+
+.analystbackbutton{
   font-size: 15px;
   font-weight: 500;
   color: #3A4175;
+
+}
+.analysttestdata{
+  border: 1px solid #E4E6EE;
+  border-radius: 5px;
+  height: 60px;
+  width: 425px;
+  align-items: center;
+  justify-content: space-between;
+  display: flex;
+  padding: 15px;
+}
+.analysttestdata-text{
+  font-size: 12px;
+  font-weight: 400;
+  color: #AFAFAF;
+}
+.analyscardcolhed{
+  font-size: 11px;
+  font-weight: 500;
+  color: #3A4175;
+}
+.analysupload{
+  height: 255px;
+  width: 468px;
+  border:1px dashed #3A4175;
+  border-radius: 20px;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+  flex-direction: column;
+  display: flex;
+ 
+
+}
+.analysuploadbutton{
+  height: 45px !important;
+  width: 143px !important;
+  border-radius: 10px;
+  background-color: #9AC037;
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 400;
+  align-items: center;
+  outline: none;
+  border: none;
+  
   
 }
 
@@ -389,6 +488,9 @@ margin-top: 10px;
   }
   .cardbuttonoutline{
     margin-top: 20px;
+  }
+  .columnMb{
+    padding-top: 10px;
   }
   
 }

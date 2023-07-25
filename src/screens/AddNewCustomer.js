@@ -62,7 +62,7 @@ export default function AddNewCustomer() {
             </div>
           </div>
 
-          <div className="backbutton" onClick={()=>navigate('/CustomerDetailes')}>
+          <div className="backbutton" onClick={()=>navigate('/Progress')}>
             <AiOutlineLeft /> <text>back</text>
           </div>
 

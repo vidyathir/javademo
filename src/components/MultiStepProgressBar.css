@@ -11,8 +11,14 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    
+    margin-top: 17px;
     /* cursor: pointer; */
+}
+.progressbarfont{
+    font-size: 10px;
+    font-weight: 500;
+    color: #3A4175;
+
 }
 
 .indexedStep.accomplished {
@@ -23,7 +29,7 @@
 
 .RSPBprogressBar {
     height: 2px;
-    width: 97%;
+    width: 90%;
     line-height: 1;
     border-radius: 10px;
     position: relative;
@@ -32,7 +38,8 @@
     justify-content: space-between;
     align-items: center;
     z-index: 0;
-    margin: 20px auto;
+    /* margin: 20px auto; */
+    margin-left: 10px;
 }
 
 .RSPBprogressBar .RSPBstep {

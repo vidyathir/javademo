@@ -505,7 +505,7 @@ export default function TypeOfAnalysis({onButtonClick}) {
                             onChange={handleOptionChange4}
                             style={{ height: 20, width: 20 }}
                           />
-                          <label className="space">Reference NO</label>
+                          <label className="space">Reference no</label>
                         </div>
                         <div style={{ alignItems: "center", display: "flex" }}>
                           <input type="text" style={{ marginLeft: 30 ,border:'1px solid #d1d1d1',height:40,width:'100%',borderRadius:6,color:'#8F8F8F',fontSize:12,paddingLeft:10}} />
@@ -535,7 +535,7 @@ export default function TypeOfAnalysis({onButtonClick}) {
                     </div>
                     <div className="col-6">
                       <div className="mb-3">
-                        <text>Special Instructions If any other</text>
+                        <text>Special Instructions If any/Additional Information</text>
                       </div>
                       <div>
                         <input
@@ -577,7 +577,7 @@ export default function TypeOfAnalysis({onButtonClick}) {
                           Previous
                         </Button>
                         <Button
-                          
+                          onClick={()=>onButtonClick("ConfirmDetails")}
                           style={{
                             height: "40px",
                             width: "122px",

@@ -3,8 +3,8 @@ import Sidenavbar from "../components/Sidenavbar";
 import Titlebar from "../components/Titlebar";
 import { Form, Row, Col, Card, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-
-
+import './Styles.css';
+import { MdOutlineUploadFile } from "react-icons/md";
 import {BiRightArrowAlt,BiLeftArrowAlt} from 'react-icons/bi';
 
 export default function SampleDetails({onButtonClick}) {
@@ -59,7 +59,13 @@ export default function SampleDetails({onButtonClick}) {
               </div>
               <div className="cardcolumnpadding">
                 <label style={{fontSize:12,fontWeight:500,color:'#8F8F8F'}}>Name of the Sample</label>
-                <input className="form-control1"></input>
+                <Form.Select  className='cardcolhedinput' aria-label="Default select example">
+      <option>select sample name</option>
+      <option value="1">paracetamol</option>
+      <option value="2">saridon</option>
+      <option value="3">vicks</option>
+      <option value="3">asprin</option>
+    </Form.Select>
 
                 <hr />
                 {/* ---------------------------------   card column start  -------------------------------------------- */}
@@ -453,7 +459,17 @@ export default function SampleDetails({onButtonClick}) {
                          style={{ height: 20, width: 20 }} />
                         <label className="space">MSDS Attached</label>
                         </span>
+
                         </div>
+                        <div>
+                        <div className="col">
+                        <span style={{display:'flex'}}>
+
+                            <MdOutlineUploadFile size={24} color="#8F8F8F" />
+                            <input type="file" />
+                            </span>
+                            </div>
+                          </div>
                         {/* <span style={{display:'flex'}}>
                         <input type="radio" style={{ height: 20, width: 20 }} />
                         <label>Drug Product</label> */}
@@ -557,7 +573,7 @@ export default function SampleDetails({onButtonClick}) {
                 <hr />
                 <div style={{display:'flex',flexDirection:'row',justifyContent:'flex-end',margin:10}}>
                   <Button  onClick={() => onButtonClick("CustomerDetailes")}style={{height:'40px',width:'122px',borderRadius:'6px',backgroundColor:'#fff',borderColor:'#9AC037',color:'#9AC037',fontSize:12,fontWeight:600,marginRight:10}}><BiLeftArrowAlt size={24} color="#9AC037"/>Previous</Button>
-                  <Button onClick={() => onButtonClick("BatchDetails")}style={{height:'40px',width:'122px',borderRadius:'6px',backgroundColor:'#3A4175',fontWeight:600,fontSize:12}} name="Next">Next <BiRightArrowAlt  size={24} color="#fff"/></Button>
+                  <Button onClick={() => onButtonClick("BatchDetail")}style={{height:'40px',width:'122px',borderRadius:'6px',backgroundColor:'#3A4175',fontWeight:600,fontSize:12}} name="Next">Next <BiRightArrowAlt  size={24} color="#fff"/></Button>
                 </div>
               
                 </div>
