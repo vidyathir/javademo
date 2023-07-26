@@ -137,7 +137,7 @@ export default function RLPLgenerated() {
 
                     
                         <Button className="Rlplbutton"
-                        // onClick={()=>navigate('RlplNotGenerated')}
+                        onClick={()=>navigate('/')}
                       style={{
                         height: "40px",
                         width: "122px",

@@ -149,7 +149,7 @@ export default function RLPLNotgenerated() {
 
                     
                         <Button
-                        // onClick={()=>navigate("AnalystDashboard")}
+                        onClick={()=>navigate("/")}
                       style={{
                         height: "40px",
                         width: "122px",

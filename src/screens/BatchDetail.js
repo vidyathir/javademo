@@ -13,7 +13,7 @@ import {MdOutlineAdd,} from 'react-icons/md'
 import {RiDeleteBinLine} from 'react-icons/ri'
 import {BiEdit} from 'react-icons/bi'
 import { useEffect } from "react";
-
+import {useForm} from "react-hook-form";
 export default function  BatchDetail({onButtonClick}) {
   const [inputs, setInputs] = useState({
     batchno: "",
@@ -24,16 +24,19 @@ export default function  BatchDetail({onButtonClick}) {
     retestdate:"",
     sample:""
   });
-  const { Formik } = formik;
+const {
+  register,
+  handleSubmit,formState:{errors}}
+  =useForm();
+
     const navigate = useNavigate();
     const schema = yup.object().shape({
       batchno: yup.string().required('required'),
       mfgdate: yup.string().required('required'),
       expdate: yup.string().required('required'),
-      retestdate: yup.string().required("required"),
-      batchSize:yup.string().required('required'),
-      packing:yup.string().required('required'),
-      sample:yup.string().required('required'),
+      retestdate: yup.string().required('required'),
+    
+     
   
   
     });
@@ -47,10 +50,9 @@ export default function  BatchDetail({onButtonClick}) {
     });
     
   };
-  const handleSubmit = ({setSubmitting}) => {
+  const onSubmit = (inputs) => {
    // e.preventDefault();
     //const id = inputs.length +1;
-    setSubmitting(false);
   console.log("inputs", inputs);
     if (editClick) {
       const tempTableData = tableData;
@@ -115,36 +117,29 @@ export default function  BatchDetail({onButtonClick}) {
                  <text className="cardtitlehed">Batch Details</text>
                </div>
                <div className="cardcolumnpadding">
-                
                  {/* ---------------------------------   card column start  -------------------------------------------- */}
-                 <Formik
-      validationSchema={schema}
-      onSubmit={handleSubmit}
-      initialValues={{
-        batchno: '',
-        mfgdate: '',
-        expdate: '',
-        retestdate: '',
-
-      }}
-      >{({isSubmitting, handleSubmit,handleReset, values, touched, errors ,}) => (
-                 <Form noValidate onSubmit={handleSubmit}>
-
+                 <form  onSubmit={handleSubmit(onSubmit)}>
              <Row className="mb-3 ">
                <Form.Group as={Col} controlId="validationFormik01">
                  <Form.Label className="cardcolhed">
-                 Batch No./Lot No(s)<text className="cardcolhedstar">*</text><text className='cardcolhedtextsm'></text>
+                 Batch No./Lot No(s)<text className="cardcolhedstar">*</text><text className='cardcolhedtextsm'>(Attach Annexure If multiple sample batches with this TRF)</text>
                  </Form.Label>
                  <Form.Control className="cardcolhedinput" 
                   type="text"
                   name="batchno"
                  //value={inputs.batchno}
                   onChange={handleChange}
-                  isInvalid={!!errors.batchno}     
+                  //isInvalid={!!errors.batchno} 
+                  {...register("batchno",{
+                    required:"required",
+                    pattern:{
+                      message:'please enter a batch no'
+                    }
+                  })}    
                    />
-                    <Form.Control.Feedback type="invalid">
-              {errors.batchno}
-            </Form.Control.Feedback>
+                    
+              {errors.batchno && <p className="errorMsg">{errors.batchno.message}</p>}
+            
                 
                </Form.Group>
 
@@ -158,11 +153,9 @@ export default function  BatchDetail({onButtonClick}) {
                  name="batchSize"
                  //value={inputs.batchSize}
                  onChange={handleChange} 
-                 isInvalid={!!errors.batchSize}    
+                 //isInvalid={!!errors.batchSize}  
+                 {...register("batchSize")}    
                  />
-                 <Form.Control.Feedback type="invalid">
-              {errors.batchSize}
-            </Form.Control.Feedback> 
                </Form.Group>
 
                <Form.Group as={Col} controlId="validationFormik03">
@@ -175,11 +168,12 @@ export default function  BatchDetail({onButtonClick}) {
                  name="packing"
                  //value={inputs.packing}
                  onChange={handleChange}
-                 isInvalid={!!errors.packing}  
+                // isInvalid={!!errors.packing}  
+                {...register("packing")}  
                  />
-                  <Form.Control.Feedback type="invalid">
+                 {/* <Form.Control.Feedback type="invalid">
               {errors.packing}
-            </Form.Control.Feedback> 
+            </Form.Control.Feedback> */}
                </Form.Group>
              </Row>
 
@@ -196,11 +190,16 @@ export default function  BatchDetail({onButtonClick}) {
                   name="mfgdate"
                   //value={inputs.mfgdate}
                   onChange={handleChange}
-                  isInvalid={!!errors.mfgdate}
-                />
-                  <Form.Control.Feedback type="invalid">
-            {errors.mfgdate}
-          </Form.Control.Feedback> 
+                 // isInvalid={!!errors.mfgdate}
+                 {...register("mfgdate",{
+                  required:"required",
+                  pattern:{
+                    message:'please enter a mfg date'
+                  }
+                })}    
+                 />
+                  
+            {errors.mfgdate && <p className="errorMsg">{errors.mfgdate.message}</p>}
                </Form.Group>
 
                <Form.Group as={Col} controlId="validationFormik05">
@@ -213,11 +212,16 @@ export default function  BatchDetail({onButtonClick}) {
                   name="expdate"
                   //value={inputs.expdate}
                   onChange={handleChange}
-                  isInvalid={!!errors.expdate}
+                 // isInvalid={!!errors.expdate}
+                 {...register("expdate",{
+                  required:"required",
+                  pattern:{
+                    message:'please enter a exp date'
+                  }
+                })}    
                  />
-                 <Form.Control.Feedback type="invalid">
-            {errors.expdate}
-          </Form.Control.Feedback> 
+                  
+            {errors.expdate && <p className="errorMsg">{errors.expdate.message}</p>}
                </Form.Group>
 
                <Form.Group as={Col} controlId="validationFormik06">
@@ -230,11 +234,16 @@ export default function  BatchDetail({onButtonClick}) {
                    name="retestdate"
                    //value={inputs.retestdate}
                    onChange={handleChange}
-                   isInvalid={!!errors.retestdate}
-                 />
-                 <Form.Control.Feedback type="invalid">
-            {errors.retestdate}
-          </Form.Control.Feedback> 
+                  // isInvalid={!!errors.retestdate}
+                  {...register("retestdate",{
+                    required:"required",
+                    pattern:{
+                      message:'please enter a retest date'
+                    }
+                  })}    
+                   />
+                    
+              {errors.retestdate && <p className="errorMsg">{errors.retestdate.message}</p>}
                </Form.Group>
              </Row>
 
@@ -251,11 +260,11 @@ export default function  BatchDetail({onButtonClick}) {
                   name="sample"
                   //value={inputs.sample}
                   onChange={handleChange}
-                  isInvalid={!!errors.sample}
-                  />
-                   <Form.Control.Feedback type="invalid">
-            {errors.sample}
-          </Form.Control.Feedback> 
+                  //isInvalid={!!errors.sample}
+                  {...register("sample")}    
+                   />
+                    
+    
                </Form.Group>
 
                <Form.Group as={Col}>
@@ -274,15 +283,13 @@ export default function  BatchDetail({onButtonClick}) {
                    <AiOutlineClose size={24} /> Clear
                 </button>
                 <button className="cardbutton" type="submit" 
-              
+                onClick={handleSubmit}
                   >{editClick ? "update" : "Add"}
                    <MdOutlineAdd size={24} />
                 </button>
                </Form.Group>
              </Row>
-             </Form>
-         )}
-                 </Formik>
+             </form>
                  {/* ---------------------------------   card column start  -------------------------------------------- */}
  
                      <hr className='hrcolor'/>

@@ -2,8 +2,7 @@ import React, { useState } from "react";
 import CustomerDetailes from "./CustomerDetailes";
 import SampleDetails from "./SampleDetails";
 import BatchDetail from "./BatchDetail";
-import MultiStepProgressBar from "../components/MultiStepProgressBar"; 
-import BootStrap from './BootStrap'
+import MultiStepProgressBar from "../components/MultiStepProgressBar";
 import TypeOfAnalysis from "./TypeOfAnalysis";
 import Sidenavbar from "../components/Sidenavbar";
 import Titlebar from "../components/Titlebar";

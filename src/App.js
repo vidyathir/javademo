@@ -5,14 +5,10 @@ import Login from './screens/Login';
 import AddNewCustomer from './screens/AddNewCustomer';
 import CustomerDetailes from './screens/CustomerDetailes';
 import SampleDetails from './screens/SampleDetails';
-import BatchDetails from './screens/BatchDetails';
-import ProgressBar from './components/ProgressBar';
-import BootStrap from './screens/BootStrap';
 import Progress from './screens/Progress';
 import BatchDetail  from './screens/BatchDetail';
 import RLPLgenerated from './screens/RLPLgenerated';
 import RLPLNotgenerated from './screens/RLPLNotgenerated';
-import NewTable from './screens/NewTable';
 
 
 export default function App() {
