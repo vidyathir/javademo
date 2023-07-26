@@ -1,5 +1,5 @@
-import React from 'react'
-import './BatchDetails.css';
+import React,{useState} from 'react'
+import './Styles.css';
 import Sidenavbar from '../components/Sidenavbar';
 import Titlebar from '../components/Titlebar';
 import { Card,Col,Row,Form,Table } from 'react-bootstrap';
@@ -15,6 +15,10 @@ import {RiDeleteBinLine} from 'react-icons/ri'
 import {BiEdit} from 'react-icons/bi'
 
 export default function BatchDetails() {
+  const [inputs, setInputs] = useState({
+    name: "",
+    email: "",
+  });
 
     const { Formik } = formik;
 

@@ -284,7 +284,7 @@ const[formState, setFormState]=useState(true);
                     <button className="cardbutton" type="submit"
                       
                       >
-                      <AiOutlineCheck /> Save
+                      <AiOutlineCheck /> Next
                     </button>
                   </Form.Group>
                 </Row>

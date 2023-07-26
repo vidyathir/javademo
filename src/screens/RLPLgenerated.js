@@ -1,4 +1,6 @@
 import React from "react";
+import './MStyles.css';
+
 import Sidenavbar from "../components/Sidenavbar";
 import Titlebar from "../components/Titlebar";
 import Table from "react-bootstrap/Table";

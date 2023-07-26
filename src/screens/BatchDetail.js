@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import './BatchDetails.css';
+import './Styles.css';
 
 import { Card,Col,Row,Form,Table } from 'react-bootstrap';
 import {useNavigate} from 'react-router-dom';
@@ -15,88 +15,84 @@ import {BiEdit} from 'react-icons/bi'
 import { useEffect } from "react";
 
 export default function  BatchDetail({onButtonClick}) {
-
-    const [uBatchno,usetBatchno]=useState("");
-      const [ubatchSize,usetBatchSize]=useState(""); 
-      const [upacking ,usetPacking]=useState('');
-      const [umfgdate ,usetMfgdate]=useState('');
-      const [uexpdate ,usetExpdate]=useState('');
-      const [uretestdate ,usetRetestdate]=useState('');
-      const[usample,usetSample]=useState('');
-      const [editId ,setEditId]=useState(-1);
-  const[data,setData]=useState([]);
-  const[items,setItems]=useState([]);
-    const { Formik } = formik;
+  const [inputs, setInputs] = useState({
+    batchno: "",
+    batchSize: "",
+    packing:"",
+    mfgdate:"",
+    expdate:"",
+    retestdate:"",
+    sample:""
+  });
+  const { Formik } = formik;
     const navigate = useNavigate();
     const schema = yup.object().shape({
-      Batchno: yup.string().required(),
-      mfgdate: yup.string().required(),
-      expdate: yup.string().required(),
-      retestdate: yup.string().required(),
-      batchSize:yup.string().required(),
-      packing:yup.string().required(),
-      sample:yup.string().required(),
+      batchno: yup.string().required('required'),
+      mfgdate: yup.string().required('required'),
+      expdate: yup.string().required('required'),
+      retestdate: yup.string().required("required"),
+      batchSize:yup.string().required('required'),
+      packing:yup.string().required('required'),
+      sample:yup.string().required('required'),
   
   
     });
-// useEffect(()=>{
+    const [tableData, setTableData] = useState([]);
+  const [editClick, setEditClick] = useState(false);
+  const [editIndex, setEditIndex] = useState("");
+  const handleChange = (e) => {
+    setInputs({
+      ...inputs,
+      [e.target.name]: e.target.value,
+    });
     
-// },[])
+  };
+  const handleSubmit = ({setSubmitting}) => {
+   // e.preventDefault();
+    //const id = inputs.length +1;
+    setSubmitting(false);
+  console.log("inputs", inputs);
+    if (editClick) {
+      const tempTableData = tableData;
+      Object.assign(tempTableData[editIndex], inputs);
+      setTableData([...tempTableData]);
+      setEditClick(false);
+      setInputs({
+         batchno: "",
+        batchSize: "",
+        packing:"",
+        mfgdate:"",
+        expdate:"",
+        retestdate:"",
+        sample:""
+      });
+    } else {
+      setTableData([...tableData, inputs]);
+      setInputs({
+        batchno: "",
+        batchSize: "",
+        packing:"",
+        mfgdate:"",
+        expdate:"",
+        retestdate:"",
+        sample:""
+      });
+    }
+  };
 
-const handleSubmit=(values,{setSubmitting})=>{
-  console.log("val", values)
+  const handleDelete = (index) => {
+    const filterData = tableData.filter((item, i) => i !== index);
+    setTableData(filterData);
+  };
+  const handleEdit = (index) => {
+    const tempData = tableData[index];
 
-  const id = data.length +1;
-  axios.post('http://localhost:3000/batches', {id:id,values: values})
-.then(res => setItems(res))
-.catch(err =>console.log(err));
-setSubmitting(false);
-axios.get('http://localhost:3000/batches')
-    .then(res =>setData(res.data))
-    .catch(err =>console.log(err));
+    setInputs({ batchno: tempData.batchno, batchSize: tempData.batchSize,packing: tempData.packing, 
+    mfgdate:tempData.mfgdate,expdate: tempData.expdate, retestdate:tempData.retestdate,sample: tempData.sample });
+    setEditClick(true);
+    setEditIndex(index);
+  };
 
-}
-const handleEdit=(id,values)=>{
-  axios.get('http://localhost:3000/batches/'+id)
-  .then(res =>{
-    usetBatchno(res.data.values.Batchno)
-    usetBatchSize(res.data.values.batchSize)
-    usetPacking(res.data.values.packing)
-    usetMfgdate(res.data.values.mfgdate)
-    usetExpdate(res.data.values.expdate)
-    usetRetestdate(res.data.values.retestdate)
-    usetSample(res.data.values.sample)
-  })
-  .catch(err =>console.log(err));
-
-setEditId(id)
-}
-const handleUpdate=()=>{
-  axios.put('http://localhost:3000/batches/'+editId,{id:editId,values:{uBatchno,ubatchSize,upacking,umfgdate,uexpdate,uretestdate,usample} })
-  .then(res => {
-    // eslint-disable-next-line no-restricted-globals
-    location.reload();
-    setEditId(-1);
-  }).catch(err=>console.log(err));
-}
-const handlePage=(id)=>{
-  axios.delete('http://localhost:3000/batches/'+id)
-  .then(res =>{
-   // eslint-disable-next-line no-restricted-globals
-   location.reload()
-  })
-  .catch(err =>console.log(err));
-  navigate('TypeOfAnalysis')
-}
- const handleDelete=(id)=>{
-axios.delete('http://localhost:3000/batches/'+id)
-  .then(res =>{
-   // eslint-disable-next-line no-restricted-globals
-   location.reload()
-  })
-  .catch(err =>console.log(err));
-
- }
   return(
     <div >
         
@@ -119,38 +115,35 @@ axios.delete('http://localhost:3000/batches/'+id)
                  <text className="cardtitlehed">Batch Details</text>
                </div>
                <div className="cardcolumnpadding">
+                
                  {/* ---------------------------------   card column start  -------------------------------------------- */}
- 
                  <Formik
-  validationSchema={schema}
-  onSubmit={handleSubmit}
-  initialValues={{
-    Batchno: '',
-    mfgdate: '',
-    expdate: '',
-    retestdate: '',
-    batchSize:'',
-    packing:'',
-    sample:'',
+      validationSchema={schema}
+      onSubmit={handleSubmit}
+      initialValues={{
+        batchno: '',
+        mfgdate: '',
+        expdate: '',
+        retestdate: '',
 
-  }}
-  >
-             {({isSubmitting, handleSubmit, handleChange,handleReset, values, touched, errors }) => (
-    <Form noValidate onSubmit={handleSubmit}>
+      }}
+      >{({isSubmitting, handleSubmit,handleReset, values, touched, errors ,}) => (
+                 <Form noValidate onSubmit={handleSubmit}>
+
              <Row className="mb-3 ">
                <Form.Group as={Col} controlId="validationFormik01">
                  <Form.Label className="cardcolhed">
-                 Batch No./Lot No(s)<text className="cardcolhedstar">*</text><text className='cardcolhedtextsm'>(Attach Annexure If multiple sample batches with this TRF)</text>
+                 Batch No./Lot No(s)<text className="cardcolhedstar">*</text><text className='cardcolhedtextsm'></text>
                  </Form.Label>
                  <Form.Control className="cardcolhedinput" 
                   type="text"
-                  name="Batchno"
-                  value={values.Batchno}
+                  name="batchno"
+                 //value={inputs.batchno}
                   onChange={handleChange}
-                  isInvalid={!!errors.Batchno}     
+                  isInvalid={!!errors.batchno}     
                    />
                     <Form.Control.Feedback type="invalid">
-              {errors.Batchno}
+              {errors.batchno}
             </Form.Control.Feedback>
                 
                </Form.Group>
@@ -163,13 +156,13 @@ axios.delete('http://localhost:3000/batches/'+id)
                  <Form.Control className="cardcolhedinput"
                  type="text"
                  name="batchSize"
-                 value={values.batchSize}
+                 //value={inputs.batchSize}
                  onChange={handleChange} 
-                 //isInvalid={!!errors.batchSize}    
+                 isInvalid={!!errors.batchSize}    
                  />
-                 {/* <Form.Control.Feedback type="invalid">
+                 <Form.Control.Feedback type="invalid">
               {errors.batchSize}
-            </Form.Control.Feedback> */}
+            </Form.Control.Feedback> 
                </Form.Group>
 
                <Form.Group as={Col} controlId="validationFormik03">
@@ -180,13 +173,13 @@ axios.delete('http://localhost:3000/batches/'+id)
                  <Form.Control className="cardcolhedinput" 
                  type="text"
                  name="packing"
-                 value={values.packing}
+                 //value={inputs.packing}
                  onChange={handleChange}
-                // isInvalid={!!errors.packing}  
+                 isInvalid={!!errors.packing}  
                  />
-                 {/* <Form.Control.Feedback type="invalid">
+                  <Form.Control.Feedback type="invalid">
               {errors.packing}
-            </Form.Control.Feedback> */}
+            </Form.Control.Feedback> 
                </Form.Group>
              </Row>
 
@@ -201,13 +194,13 @@ axios.delete('http://localhost:3000/batches/'+id)
                  type="date"
                  //  placeholder="City"
                   name="mfgdate"
-                  value={values.mfgdate}
+                  //value={inputs.mfgdate}
                   onChange={handleChange}
                   isInvalid={!!errors.mfgdate}
                 />
-                 <Form.Control.Feedback type="invalid">
+                  <Form.Control.Feedback type="invalid">
             {errors.mfgdate}
-          </Form.Control.Feedback>
+          </Form.Control.Feedback> 
                </Form.Group>
 
                <Form.Group as={Col} controlId="validationFormik05">
@@ -218,13 +211,13 @@ axios.delete('http://localhost:3000/batches/'+id)
                  type="date"
                  //  placeholder="City"
                   name="expdate"
-                  value={values.expdate}
+                  //value={inputs.expdate}
                   onChange={handleChange}
                   isInvalid={!!errors.expdate}
                  />
                  <Form.Control.Feedback type="invalid">
             {errors.expdate}
-          </Form.Control.Feedback>
+          </Form.Control.Feedback> 
                </Form.Group>
 
                <Form.Group as={Col} controlId="validationFormik06">
@@ -235,13 +228,13 @@ axios.delete('http://localhost:3000/batches/'+id)
                   type="date"
                   //  placeholder="City"
                    name="retestdate"
-                   value={values.retestdate}
+                   //value={inputs.retestdate}
                    onChange={handleChange}
                    isInvalid={!!errors.retestdate}
                  />
-                  <Form.Control.Feedback type="invalid">
+                 <Form.Control.Feedback type="invalid">
             {errors.retestdate}
-          </Form.Control.Feedback>
+          </Form.Control.Feedback> 
                </Form.Group>
              </Row>
 
@@ -256,13 +249,13 @@ axios.delete('http://localhost:3000/batches/'+id)
                  type="text"
                  //  placeholder="City"
                   name="sample"
-                  value={values.sample}
+                  //value={inputs.sample}
                   onChange={handleChange}
-                  //isInvalid={!!errors.sample}
+                  isInvalid={!!errors.sample}
                   />
-                  {/* <Form.Control.Feedback type="invalid">
+                   <Form.Control.Feedback type="invalid">
             {errors.sample}
-          </Form.Control.Feedback> */}
+          </Form.Control.Feedback> 
                </Form.Group>
 
                <Form.Group as={Col}>
@@ -276,20 +269,20 @@ axios.delete('http://localhost:3000/batches/'+id)
                  {/* <Form.Label > </Form.Label> */}
                  {/* <Form.Control className="cardcolhedinput" /> */}
                  <button className="cardbutton" type="reset"
-                  onClick={handleReset}
+                
                   >
                    <AiOutlineClose size={24} /> Clear
                 </button>
-                <button className="cardbutton" type="submit" disabled={isSubmitting}
-                onClick={handleSubmit}
-                  >
-                   <MdOutlineAdd size={24} /> Add
+                <button className="cardbutton" type="submit" 
+              
+                  >{editClick ? "update" : "Add"}
+                   <MdOutlineAdd size={24} />
                 </button>
                </Form.Group>
              </Row>
              </Form>
-     )}
-             </Formik>
+         )}
+                 </Formik>
                  {/* ---------------------------------   card column start  -------------------------------------------- */}
  
                      <hr className='hrcolor'/>
@@ -313,45 +306,27 @@ axios.delete('http://localhost:3000/batches/'+id)
                      </tr>
                      </thead>
                      <tbody className='tablebody-custom'>
-                        {
-                            data.map((user,index) => ( 
-                              user.id === editId ?
+                     {tableData.map((item, i) => (
                               <tr>
-                                <td>{user.id}</td>
-                                <td><input type="text" value={uBatchno} onChange={(e=>usetBatchno(e.target.value))}/></td>
-                                <td><input type="text" value={ubatchSize} onChange={(e=>usetBatchSize(e.target.value))}/></td>
-                                <td><input type="text" value={upacking} onChange={(e=>usetPacking(e.target.value))}/></td>
-                                <td><input type="text" value={umfgdate} onChange={(e=>usetMfgdate(e.target.value))}/></td>
-                                <td><input type="text" value={uexpdate} onChange={(e=>usetExpdate(e.target.value))}/></td>
-                                <td><input type="text" value={uretestdate} onChange={(e=>usetRetestdate(e.target.value))}/></td>
-                                <td><input type="text" value={usample} onChange={(e=>usetSample(e.target.value))}/></td>
-                                <td >
-                            <div>
-                            <BiEdit  size={20} color={'#9AC037'} onClick={handleUpdate}/>
-                            </div>
-                            </td>
-                              </tr>: 
-
-                     <tr key={index}>
-                        <td>{user.id}</td>
-                        <td>{user.values.Batchno}</td>
-                        <td>{user.values.batchSize}</td>
-                        <td>{user.values.packing}</td>
-                        <td>{user.values.mfgdate}</td>
-                        <td>{user.values.expdate}</td>
-                        <td>{user.values.retestdate}</td>
-                        <td>{user.values.sample}</td>
+                                <td>{i}</td>
+                                <td>{item.batchno}</td>
+                        <td>{item.batchSize}</td>
+                        <td>{item.packing}</td>
+                        <td>{item.mfgdate}</td>
+                        <td>{item.expdate}</td>
+                        <td>{item.retestdate}</td>
+                        <td>{item.sample}</td>
                         <td >
                             <div>
-                            <BiEdit  size={20} color={'#9AC037'} onClick={()=>handleEdit(user.id)}/>
-                            <RiDeleteBinLine className='tablerowicon' size={20} color={'#9AC037'} onClick={()=> handleDelete(user.id)}/>
+                            <BiEdit  size={20} color={'#9AC037'} onClick={()=>handleEdit(i)}/>
+                            <RiDeleteBinLine className='tablerowicon' size={20} color={'#9AC037'} onClick={()=> handleDelete(i)}/>
                             </div>
-                            </td>
-                            </tr>
+                            </td>     
+                              </tr>
+
                    
 
-                            ))
-}
+                     ))}
 
                      </tbody>
                     </Table>

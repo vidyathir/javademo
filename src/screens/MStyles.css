@@ -14,6 +14,26 @@
 
 }
 
+.Division{
+  flex: 1;
+}
+
+.logoimage{
+  
+  width: 100vh;
+  height: 100vh;
+  object-fit: cover;
+  max-width: 100%;
+
+
+  
+  }
+ 
+
+.app1{
+  
+}
+
 .division-left {
   display: grid;
   align-items: 'center';
@@ -37,9 +57,11 @@
 }
 
 .image {
-  height: 100vh;
-  object-fit: cover;
-  overflow: hidden;
+ 
+height: 50% !important;
+width: 50%;
+object-fit: cover !important;
+  
 }
 
 .loginhead {
@@ -97,22 +119,60 @@
 @media (max-width: 767px) {
 
   /* CSS for mobile screens */
-  .app {
-    display: flex;
-    /* flex-direction: column; */
+  .app1 {
+    /* display: flex; */
+    flex-direction: column;
     font-size: medium;
+    align-items: center;
+    justify-content: center;
+        
+
+  }
+  .division-left{
+    width: 100%;
+  }
+  .image{
+    height:50%;
+    width: 50%;
+    object-fit:contain;
+    justify-content: center !important;
+    align-items: center !important;
+
+  }
+
+  .logo{
+ 
+  display: block;
+  align-items: center;
+  justify-self: center !important;
+    
   }
 
   .division {
-    display: grid;
+    display: flex;
     justify-content: center;
+    align-items: center;
+  
 
   }
 
   .division-right {
-    padding: '5%';
+    justify-content: center;
+    display:block;
   }
-}
+  .login-form{
+    align-items: center;
+    justify-content: center !important;
+    display: block;
+
+  }
+  .forgotpassword{
+    font-size: 8px;
+    align-self: flex-end;
+    margin-left: 10px !important;
+    display: flex;
+  }
+} 
 
 @media (min-width: 768px) and (max-width: 991px) {
 
@@ -127,17 +187,17 @@
     flex-direction: row;
   }
 
-  .logo {
+  /* .logo {
     height: 20vh;
     width: 50vh;
     justify-self: center;
 
-  }
+  } */
 
-  .image {
+  /* .image {
     height: 100vh;
     width: 60vh;
-  }
+  } */
 
 
 }
@@ -155,7 +215,7 @@
 
 .sidebar {
 
-  width: 15%;
+  width: 10%;
   height: 100vh;
   background-color: #3A4175;
 
@@ -200,8 +260,9 @@
 }
 
 .main {
-  width: 85%;
+  width: 90%;
   height: 100%;
+  overflow-y: scroll;
 
 }
 
@@ -222,6 +283,10 @@
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+  position: sticky;
+  background-color: #ffffff;
+  top: 0px;
+ 
 }
 
 .title {
@@ -365,7 +430,7 @@
 
 .cardcolhedinput {
   height: 35px !important;
-  width: 280px !important;
+  /* width: 280px !important; */
   border-radius: 6px;
   /* margin-top: 5px; */
   border: 1px;
@@ -381,8 +446,8 @@
 
 .cardbutton {
   background-color: #3A4175 !important;
-  height: 35px;
-  width: 150px;
+  height: 40px;
+  width: 122px;
   color: #ffffff;
   border-radius: 6px;
   outline: none;
@@ -433,11 +498,15 @@
   height: 20px;
   width: 20px;
 
+
+}
+input{
+  accent-color: #3A4175;
 }
 .SampleType{
   height: 40px;
   width: 100%;
-  margin-left: -15px;
+  margin-left: -95px;
   border: 1px solid #d1d1d1;
   border-radius: 6px;
   padding: 10px;
@@ -450,7 +519,7 @@
 .NatureOfSample{
   height: 40px;
   width: 100%;
-  margin-left: -60px;
+  margin-left: -95px;
   border: 1px solid #D1D1D1;
   border-radius: 6px;
   padding-left: 10px;
@@ -460,24 +529,65 @@
   border-color: #3A4175;
   outline: none;
 }
+.previous{
+  /* height: 40px;
+  width: 122px;
+  border-radius: 6px;
+  background-color: #fff;
+  border-color: #9AC037 !important;
+  font-size: 12px;
+  color: #9AC037;
+  font-weight: 600;
+  margin-right: 10px;
+  outline: none; */
+  background-color: #fff !important;
+  border-radius: 6px;
+  border:1px solid #9AC037;
+  color: #9AC037;
+  height: 40px;
+  width: 122px;
+  font-size: 12px;
+  font-weight: 600;
+  margin-right: 10px;
+  
+  
+
+}
+/* .previous:hover{
+  background-color: #a4cb50;
+  color: #fff;
+  border: none;
+
+} */
+.next{
+  height: 40px;
+  width: 122px;
+  border-radius: 6px;
+  background-color: #3A4175;
+  font-weight: 600;
+  font-size: 12px;
+  color: #fff;
+  outline: none;
+  border: none;
+
+}
+.next:hover{
+  background-color: #4b5495;
+}
 
 @media (max-width: 767px) {
 
   /* CSS for mobile screens */
-  .app {
-    display: flex;
-    
-    font-size: medium;
-  }
-
-  .division {
-    display: grid;
-    justify-content: center;
-
-  }
+.form-control1{
+  width: 50%;
+  align-items: center;
+}
 
   .division-right {
     padding: '5%';
+  }
+  .headofSampleDetails{
+    flex-direction: column;
   }
 }
 
@@ -509,8 +619,57 @@
   /* CSS for desktop screens */
 
 }
+/*---------------Start----- TypeOfAnalysis CSS Styles-------------------- */
+.methodValidation{
+  margin-left: 20px;
+  border: 1px solid #d1d1d1;
+  height: 40px;
+  width: 250px;
+  border-radius: 6px;
+  color: #8F8F8F;
+  font-size: 12px;
+  padding-left: 10px;
+}
+.methodValidation:focus{
+  border-color: #3A4175;
+
+  outline: none;
+}
+.methodology{
+  margin-left: 30px;
+  border: 1px solid #d1d1d1;
+  height: 40px;
+  width: 100%;
+  border-radius: 6px;
+  color: #8f8f8f;
+  font-size: 12px;
+  padding-left: 10px;
+
+}
+.methodology:focus{
+  border-color: #3A4175;
+  outline: none;
+}
+.spclInstruction{
+  height: 70px;
+  width: 100%;
+  border-radius: 6px;
+  border: 1px solid #d1d1d1;
+  color: #8F8F8F;
+  font-size: 12px;
+  padding-left: 10px;
+
+}
+.spclInstruction:focus{
+  border-color: #3A4175;
+  outline: none;
+}
 
 
+
+/*---------------End----- TypeOfAnalysis CSS Styles-------------------- */
+
+/*--------------------------------- End of Sample Details Styles---------------------- */
 
 .nameofthesample-input {
   height: 40px;
@@ -551,9 +710,9 @@
 
   .maincards {
     flex-direction:column;
-    /* height: fit-content;
+    height: fit-content;
     width: max-content;
-   */
+  
 
   }
   .changerowtocol{
@@ -794,3 +953,19 @@
   font-weight: 500;
 
 }
+
+input[type="radio"]:checked{
+  background-color: #3A4175;
+}
+
+/*-----End---------- AnalystDashboard CSS and Media Queries */
+
+
+/* ------START--------------AwaitingSamples CSS and media Queries--------------- */
+
+
+
+
+
+
+/* -----END---------------AwaitingSamples CSS and media Queries--------------- */

@@ -1,5 +1,4 @@
 import React,{useState} from 'react'
-import './BatchDetails.css';
 import Sidenavbar from '../components/Sidenavbar';
 import Titlebar from '../components/Titlebar';
 import { Card,Col,Row,Form,Table } from 'react-bootstrap';

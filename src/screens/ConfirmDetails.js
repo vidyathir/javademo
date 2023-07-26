@@ -287,7 +287,7 @@ export default function ConfirmDetails({onButtonClick}) {
           <div className="cardbuttonboubleend mb-3">
             <button
               className="cardbuttonoutline"
-              //  onClick={() => navigate("batchdetails")}
+              onClick={() => onButtonClick("TypeOfAnalysis")}
             >
               <BiLeftArrowAlt size={24} /> Previous
             </button>

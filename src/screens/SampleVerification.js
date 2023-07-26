@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-
+import './MStyles.css';
 import { Form, Row, Col, Card, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 
 import { BiRightArrowAlt, BiLeftArrowAlt } from "react-icons/bi";
+import {TiArrowBackOutline}from 'react-icons/ti'
 // import { MdOutlineUploadFile } from "react-icons/md";
 
 export default function SampleVerification({onButtonClick}) {
@@ -587,8 +588,9 @@ export default function SampleVerification({onButtonClick}) {
                           style={{
                             display: "flex",
                             flexDirection: "row",
-                            justifyContent: "flex-end",
+                            justifyContent: "space-between",
                             margin: 10,
+                          
                             
                           }}
                         >
@@ -628,7 +630,7 @@ export default function SampleVerification({onButtonClick}) {
                               marginRight: 10,
                             }}
                           >
-                            <BiLeftArrowAlt size={24} color="#9AC037" />
+                            <TiArrowBackOutline size={24} color="#9AC037" />
                             Reject
                           </Button>
                           <Button

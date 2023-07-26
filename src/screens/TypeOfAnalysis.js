@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import Sidenavbar from "../components/Sidenavbar";
-import Titlebar from "../components/Titlebar";
+
 import { Form, Row, Col, Card, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 
 import { BiRightArrowAlt, BiLeftArrowAlt } from "react-icons/bi";
 import { MdOutlineUploadFile } from "react-icons/md";
+import './MStyles.css';
 
 export default function TypeOfAnalysis({onButtonClick}) {
   const navigate = useNavigate();
@@ -40,11 +40,11 @@ export default function TypeOfAnalysis({onButtonClick}) {
   // ---------------End  of --------------RadioButtons Functionalities using USESTATE-----------------------
 
   return (
-    <div>
-    
-      <div>
+    <div >
+      
+      <div >
         <div >
-          
+        
           <div className="Progressbar"></div>
 
           <div>
@@ -55,7 +55,7 @@ export default function TypeOfAnalysis({onButtonClick}) {
               <div className="cardcolumnpadding">
                 <div className="row">
                   <div className="col">
-                    <Col className="mb-3">
+                    <Col md={12} style={{display:'block'}} className="mb-3">
                       <Form.Group as={Row}>
                         <Form.Label className="cardcolhed">
                           <div className="mb-3">
@@ -65,7 +65,7 @@ export default function TypeOfAnalysis({onButtonClick}) {
                             </text>
                             <text className="cardcolhedstar">*</text>
                           </div>
-                          <div className="row" style={{ width: "100%" }}>
+                          <div className="row">
                             <div className="col-12" style={{ display: "flex" }}>
                               <div className="col">
                                 <div
@@ -200,10 +200,10 @@ export default function TypeOfAnalysis({onButtonClick}) {
                                     style={{ height: 20, width: 20 }}
                                   ></input>
                                   <label className="space">Other</label>
-                                  <input
+                                  {/* <input
                                     type="text"
                                     style={{ marginLeft: 15,marginTop:-10,border:'1px solid #d1d1d1',height:40,width:'100%',borderRadius:6,color:'#8F8F8F',fontSize:12,paddingLeft:10 }}
-                                  ></input>
+                                  ></input> */}
                                 </div>
                               </div>
                             </div>
@@ -217,21 +217,22 @@ export default function TypeOfAnalysis({onButtonClick}) {
                   </div>
                 </div>
 
-                <div className="row cardcolhed">
-                  <Col
-                    className="col-12"
-                    style={{ display: "flex", alignItems: "center" }}
+                <Row className="cardcolhed">
+                  <Col md={6} style={{}}
                   >
-                    <div className="col-6 ">
+                    {/* <div className="col-6 "> */}
                       <div className="mb-3">
                         <text className="mb-3">Other than Regulatory</text>
                         <text className="cardcolhedstar">*</text>
                       </div>
+                      <div className="d-flex">
                       <div style={{ display: "flex", marginBottom: 20 }}>
                         <div style={{ alignItems: "center", display: "flex" }}>
                           <input
                             type="checkbox"
-                           
+                            value="option11"
+                            checked={selectedOption1 === "option11"}
+                            onChange={handleOptionChange1}
                             style={{ height: 20, width: 20 }}
                           ></input>
                           <label className="space">
@@ -248,7 +249,8 @@ export default function TypeOfAnalysis({onButtonClick}) {
                         >
                           <input
                             type="checkbox"
-                           
+                            value="option12"
+                            checked={selectedOption1 === "option12"}
                             onChange={handleOptionChange1}
                             style={{ height: 20, width: 20 }}
                           ></input>
@@ -256,11 +258,14 @@ export default function TypeOfAnalysis({onButtonClick}) {
                         </div>
                       </div>
 
+                          </div>
                       <div style={{ display: "flex" }}>
                         <div style={{ alignItems: "center", display: "flex" }}>
                           <input
                             type="checkbox"
-                          
+                            value="option13"
+                            checked={selectedOption1 === "option13"}
+                            onChange={handleOptionChange1}
                             style={{ height: 20, width: 20 }}
                           ></input>
                           <label className="space">Method Development</label>
@@ -275,14 +280,20 @@ export default function TypeOfAnalysis({onButtonClick}) {
                         >
                           <input
                             type="checkbox"
-                              
+                            value="option14"
+                            checked={selectedOption1 === "option14"}
+                            onChange={handleOptionChange1}
                             style={{ height: 20, width: 20 }}
                           ></input>
                           <label className="space">Batch Analysis</label>
                         </div>
                       </div>
-                    </div>
-                    <div className="col-6 cardcolhedd">
+                    {/* </div> */}
+                    </Col>
+
+
+                    <Col md={6} style={{display:'block'}}>
+                    <div className=" cardcolhedd">
                       <div className="mb-3">
                         <text>
                           If Method Validation/Verification/Transfer/Development
@@ -319,20 +330,20 @@ export default function TypeOfAnalysis({onButtonClick}) {
                           <label className="space">yes</label>
                         </div>
                         <div>
-                          <input type="text" style={{ marginLeft: 20,border:'1px solid #d1d1d1',height:40,width:'100%',borderRadius:6,color:'#8F8F8F',fontSize:12,paddingLeft:10 }} />
+                          <input type="text" className="methodValidation" />
                         </div>
                       </div>
                     </div>
                   </Col>
-                </div>
+                </Row>
                 <hr />
                 {/* --------------------------------------------3rd Column starting ----------------------------------*/}
-                <div className="row">
-                  <Col
+                <Row>
+                  <Col md={6}
                     className="col-12 cardcolhed"
-                    style={{ display: "flex" }}
+                    // style={{ display: "flex" }}
                   >
-                    <div className="col-6">
+                    {/* <div className="col-6"> */}
                       <div className="mb-3">
                         <text>
                           Analytical Test Parameter; If require attach Annexure
@@ -343,15 +354,16 @@ export default function TypeOfAnalysis({onButtonClick}) {
                       <div>
                         <Form.Select
                           defaultValue="..."
-                          style={{ width: "70%" }}
+                          style={{ width: "100%" }}
                         >
                           <option>Choose...</option>
                           <option>...</option>
                         </Form.Select>
                       </div>
-                    </div>
+                    {/* </div> */}
+                    </Col>
 
-                    <div className="col-6">
+                    <Col md={6} className="cardcolhed">
                       <div className="mb-3">
                         <text>Test to be carried out as per</text>
                       </div>
@@ -443,19 +455,19 @@ export default function TypeOfAnalysis({onButtonClick}) {
                           <label className="space">Method of Analysis</label>
                         </div>
                       </div>
-                    </div>
+                    
                   </Col>
-                </div>
+                  </Row>
                 <hr />
 
                 {/*------------------------------------------------------ second column End--------------------------------------------------- */}
 
-                <div className="row">
-                  <Col
+                <Row>
+                  <Col md={6}
                     className="col-12 cardcolhed"
-                    style={{ display: "flex" }}
+                    style={{ display: "block" }}
                   >
-                    <div className="col-6">
+                    {/* <div className="col-6"> */}
                       <div className="mb-3">
                         <text>Methodology</text>
                       </div>
@@ -505,10 +517,10 @@ export default function TypeOfAnalysis({onButtonClick}) {
                             onChange={handleOptionChange4}
                             style={{ height: 20, width: 20 }}
                           />
-                          <label className="space">Reference no</label>
+                          <label className="space">Reference No</label>
                         </div>
                         <div style={{ alignItems: "center", display: "flex" }}>
-                          <input type="text" style={{ marginLeft: 30 ,border:'1px solid #d1d1d1',height:40,width:'100%',borderRadius:6,color:'#8F8F8F',fontSize:12,paddingLeft:10}} />
+                          <input type="text" className="methodology" />
                         </div>
                       </div>
                       <div className="mt-3 mb-3">
@@ -518,12 +530,13 @@ export default function TypeOfAnalysis({onButtonClick}) {
                         <Card
                           style={{
                             height: 70,
-                            width: "80%",
+                            width: "100%",
                             justifyContent: "center",
                             alignItems: "center",
                             fontSize: 12,
                             fontWeight: 500,
                             color: "#8F8F8F",
+                            border:'1px dashed'
                           }}
                         >
                           <div>
@@ -532,21 +545,17 @@ export default function TypeOfAnalysis({onButtonClick}) {
                           </div>
                         </Card>
                       </div>
-                    </div>
-                    <div className="col-6">
+                      
+                    {/* </div> */}
+                    </Col>
+                    <Col md={6} className="cardcolhed" style={{display:'block'}}>
                       <div className="mb-3">
-                        <text>Special Instructions If any/Additional Information</text>
+                        <text>Special Instructions If any other</text>
                       </div>
                       <div>
                         <input
                           type="textarea"
-                          style={{
-                            height: 70,
-                            width: "80%",
-                            borderRadius: 6,
-                            border: "1px solid #d1d1d1",
-                            color:'#8F8F8F',fontSize:12,paddingLeft:10
-                          }}
+                        className="spclInstruction"
                         />
                       </div>
 
@@ -559,41 +568,23 @@ export default function TypeOfAnalysis({onButtonClick}) {
                           marginTop:50
                         }}
                       >
-                        <Button
-                         onClick={() => onButtonClick("BatchDetails")}
-                          style={{
-                            height: "40px",
-                            width: "122px",
-                            borderRadius: "6px",
-                            backgroundColor: "#fff",
-                            borderColor: "#9AC037",
-                            color: "#9AC037",
-                            fontSize: 12,
-                            fontWeight: 600,
-                            marginRight: 10,
-                          }}
+                        <button className="previous" onClick={()=>onButtonClick("BatchDetail")}
+
                         >
                           <BiLeftArrowAlt size={24} color="#9AC037" />
                           Previous
-                        </Button>
-                        <Button
-                          onClick={()=>onButtonClick("ConfirmDetails")}
-                          style={{
-                            height: "40px",
-                            width: "122px",
-                            borderRadius: "6px",
-                            backgroundColor: "#3A4175",
-                            fontWeight: 600,
-                            fontSize: 12,
-                          }}
+                        </button>
+                        <button
+                          onClick={() => onButtonClick("ConfirmDetails")}
+                          className="next"
                           name="Next"
                         >
                           Next <BiRightArrowAlt size={24} color="#fff" />
-                        </Button>
+                        </button>
                       </div>
-                    </div>
+                    
                   </Col>
-                </div>
+                  </Row>
               </div>
             </Card>
           </div>

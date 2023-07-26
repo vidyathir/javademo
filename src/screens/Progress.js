@@ -10,7 +10,6 @@ import Titlebar from "../components/Titlebar";
 import ConfirmDetails from "./ConfirmDetails";
 import SampleVerification from "./SampleVerification";
 import './Styles.css';
-import ItemList from "./ItemList";
 
 
 function Progress() {
@@ -56,7 +55,7 @@ function Progress() {
         
       
 
-        <div style={{marginTop:50,marginBottom:50}}>
+        <div style={{marginTop:50,marginBottom:70}}>
         <MultiStepProgressBar page={page} onPageNumberClick={nextPageNumber} />
         </div>
         {
