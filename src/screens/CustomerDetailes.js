@@ -11,13 +11,14 @@ import {useNavigate} from 'react-router-dom';
 import * as formik from 'formik';
 import * as Yup from 'yup';
 import Select from 'react-select'
-
+import { useDispatch } from 'react-redux';
+import { changeCustomerDetails } from '../redux/FormSlice';
 
 export default function CustomerDetailes({onButtonClick}) {
 const[formState, setFormState]=useState(true);
   const navigate = useNavigate();
   const { Formik } = formik;
-
+  const dispatch = useDispatch();
 
   const schema = Yup.object().shape({
     companyName: Yup.string()
@@ -28,7 +29,7 @@ const[formState, setFormState]=useState(true);
     .required('required'),
     phoneNo: Yup.string()
     .required('required'),
-  emailId: Yup.string()
+    emailId: Yup.string()
     .required('required'),
     address1: Yup.string()
     .required('required'),
@@ -39,6 +40,26 @@ const[formState, setFormState]=useState(true);
     pincode: Yup.string()
     .required('required')
   })
+  
+  const handleSubmit=(values)=>{
+    dispatch(changeCustomerDetails(
+      {
+companyName:values.companyName,
+contactPersonName:values.contactPersonName,
+licenceNo:values.licenceNo,
+phoneNo:values.phoneNo,
+emailId:values.emailId,
+address1:values.address1,
+city:values.city,
+state:values.state,
+pincode:values.pincode,
+phoneNo1:values.phoneNo1,
+address2:values.address2
+
+      })
+    )
+    onButtonClick("SampleDetails")
+  }
 
   return (
 
@@ -63,14 +84,16 @@ const[formState, setFormState]=useState(true);
                 {/* ---------------------------------   card column start  -------------------------------------------- */}
                 <Formik
       validationSchema={schema}
-      onSubmit={() => onButtonClick("SampleDetails")}
+      onSubmit={handleSubmit}
       initialValues={{
         companyName: '',
         contactPersonName: '',
         licenceNo: '',
         phoneNo: '',
+        phoneNo1:'',
         emailId: '',
         address1: '',
+        address2:'',
         city: '',
         state: '',
         pincode: '',
@@ -114,7 +137,7 @@ const[formState, setFormState]=useState(true);
                    <Form.Group as={Col} controlId="validationFormik02">
                     <Form.Label className="cardcolhed">
                       Contact Person Name
-                      <text className="cardcolhedstar">*</text>{" "}
+                      {/* <text className="cardcolhedstar">*</text>{" "} */}
                     </Form.Label>
                     <Form.Control className="cardcolhedinput"
                     type="text"
@@ -125,7 +148,7 @@ const[formState, setFormState]=useState(true);
                     />
                      <Form.Control.Feedback type="invalid">
                   {errors.contactPersonName}
-                </Form.Control.Feedback>
+                </Form.Control.Feedback> 
                   </Form.Group>
 
                   <Form.Group as={Col} controlId="validationFormik15">
@@ -156,41 +179,51 @@ const[formState, setFormState]=useState(true);
                 <Row className="mb-3 ">
                   <Form.Group as={Col} controlId="validationFormik03">
                     <Form.Label className="cardcolhed">
-                      Phone Number<text className="cardcolhedstar">*</text>{" "}
+                      Phone Number
+                      {/* <text className="cardcolhedstar">*</text>{" "} */}
                     </Form.Label>
                     <Form.Control className="cardcolhedinput" 
-                     type="text"
+                     type="numeric"
+                
                     //  placeholder="City"
                      name="phoneNo"
                      value={values.phoneNo}
                      onChange={handleChange}
                      isInvalid={!!errors.phoneNo}
                     />
-                     <Form.Control.Feedback type="invalid">
+                      <Form.Control.Feedback type="invalid">
                 {errors.phoneNo}
-              </Form.Control.Feedback>
+              </Form.Control.Feedback> 
                   </Form.Group>
 
                   <Form.Group as={Col} >
                     <Form.Label className="cardcolhed">
                       Additional Phone Number{" "}
                     </Form.Label>
-                    <Form.Control className="cardcolhedinput" />
+                    <Form.Control className="cardcolhedinput" 
+                     type="numeric"
+                  
+                     //  placeholder="City"
+                      name="phoneNo1"
+                      value={values.phoneNo1}
+                      onChange={handleChange}
+                    />
                   </Form.Group>
 
                   <Form.Group as={Col} controlId="validationFormik04">
                     <Form.Label className="cardcolhed">
-                      Email Id<text className="cardcolhedstar">*</text>{" "}
+                      Email Id
+                      {/* <text className="cardcolhedstar">*</text>{" "} */}
                     </Form.Label>
                     <Form.Control className="cardcolhedinput" 
-                     type="text"
+                     type="email"
                     //  placeholder="State"
                      name="emailId"
                      value={values.emailId}
                      onChange={handleChange}
-                     isInvalid={!!errors.emailId}
+                    isInvalid={!!errors.emailId}
                     />
-                     <Form.Control.Feedback type="invalid">
+                      <Form.Control.Feedback type="invalid">
                 {errors.emailId}
               </Form.Control.Feedback>
                   </Form.Group>
@@ -220,7 +253,12 @@ const[formState, setFormState]=useState(true);
                     <Form.Label className="cardcolhed">
                       Address Line2{" "}
                     </Form.Label>
-                    <Form.Control className="cardcolhedinput" />
+                    <Form.Control className="cardcolhedinput" 
+                    type="text"
+                    //  placeholder="Zip"
+                     name="address2"
+                     value={values.address2}
+                     onChange={handleChange}/>
                   </Form.Group>
 
                   <Form.Group as={Col} controlId="validationFormik06">
@@ -266,7 +304,8 @@ const[formState, setFormState]=useState(true);
                       Pincode<text className="cardcolhedstar">*</text>{" "}
                     </Form.Label>
                     <Form.Control className="cardcolhedinput"
-                     type="text"
+                     type='numeric'
+                
                     //  placeholder="Zip"
                      name="pincode"
                      value={values.pincode}

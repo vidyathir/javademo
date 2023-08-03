@@ -1,6 +1,6 @@
 import React from "react";
 // import profile from "./assets/Profileimg1.jpg";
-import logo from '../assets/logo 2.png';
+// import logo from '../assets/logo 2.png';
 import { Link } from "react-router-dom";
 import { GiArchiveRegister } from "react-icons/gi";
 import { MdOutlineDashboard } from "react-icons/md";
@@ -17,9 +17,9 @@ export default function Sidenavbar() {
   return (
     
     <div className='sidebar'>
-    <div className='logocolor'>
+    {/* <div className='logocolor'>
       <img src={logo} alt='logo'/>
-    </div>
+    </div> */}
    
  
        

@@ -1,63 +1,73 @@
 import React,{useState} from "react";
-import "./Login.css";
-import loginImage from "../assets/loginImage.png";
-import logo2 from "../assets/logo 2.png";
-import { Formik,  Form } from 'formik';
+import logo from "../assets/loginImage.png";
+import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-import {useNavigate} from 'react-router-dom';
-// import {Form} from 'react-bootstrap'
+import './MStyles.css';
+import logo2 from  '../assets//LoginLogo.png';
 import {AiOutlineEyeInvisible,AiFillEye} from 'react-icons/ai'
-
-  const LoginForm = () => {
-    const navigate = useNavigate();
-    const [passwordVisible, setPasswordVisible] = useState(false);
-    const validationSchema = Yup.object().shape({
-      email: Yup.string()
-      .email('Invalid email address')
-      .required('required'),
-      password: Yup.string()
-      .required('required')
-    });
-  
-    const handleSubmit = (
-      { email, password },
-  ) => {
-      console.log("email", email, "password", password);
-      // setTimeout(() => {
-      // }, 1000);
-      navigate('Progress')
-  }; 
-    
-    
-    const togglePasswordVisibility = () => setPasswordVisible(!passwordVisible);
+import { useNavigate } from "react-router-dom";
 
 
-  return (
-    <div className="app" >
-      <div className="division-left">
-        <div className="image">
-          <img src={loginImage} />
-        </div>
-      </div>
-      <div className="division-right" style={{flex:1,padding:'3%'}}>
-        <div className="logo">
+// const validationSchema = Yup.object().se({
+//   email: Yup.string().email('Invalid email address').required('required'),
+//   password: Yup.string().required('required')
+// });
+
+const Login = () => {
+  const initialValues = {
+    email: '',
+    password: '',
+  };
+  const validationSchema = Yup.object().shape({
+    email: Yup.string()
+    .email('Invalid email address')
+    .required('required'),
+    password: Yup.string()
+    .required('required')
+  });
+  const navigate = useNavigate();
+
+  const handleSubmit = (values, { setSubmitting }) => {
+    setTimeout(() => {
+
+      setSubmitting(false);
+    }, 500);
+    navigate("/Progress")
+  };
+
+  const [passwordVisible, setPasswordVisible] = useState(false);
+  const togglePasswordVisibility = () => setPasswordVisible(!passwordVisible);
+
+
+ return (
+     
+
+ <div className="row">
+ <div className="col-sm-6 xs-6 md-6" >
+ {/* Image */}
+ <img
+ src={logo}
+ alt="Logi"
+ className="img-fluid logoimage"
+ style={{width:'100vh',height:'100vh',objectFit:'cover'}}
+ />
+ </div>
+  <div className="col-sm-6 xs-6 md-6  p-3" style={{alignItems:'center'}}>
+ {/* Login Form */}
+
+ <div className="logo">
           <img src={logo2} />
-        </div>
+     
 
         <div className="login-form" style={{justifySelf:'center'}}>
-          <h5 className="loginhead">Login</h5>
-          <p>Please enter your login details to sign in.</p>
+          <h5 className="loginhead mt-5">Login</h5>
+          <p className="mb-3">Please enter your login details to sign in.</p>
         <br /> 
-        <Formik initialValues={{
-                    email: "",
-                    password: "",
-                  
-                }}
+      
+        <Formik initialValues={initialValues}
         validationSchema={validationSchema}
-        onSubmit={(values,errors) =>{
-          handleSubmit(values,errors);
-        }} > 
-    {({
+        onSubmit={handleSubmit} > 
+         {({
                     values,
                     errors,
                     touched,
@@ -67,12 +77,12 @@ import {AiOutlineEyeInvisible,AiFillEye} from 'react-icons/ai'
                 }) => {
                   return(
            <Form onSubmit={handleSubmit}> 
-            <label style={{ color: "#818181",fontSize:12,fontWeight:500 }}>Email Address</label>
+            <label style={{ color: "#818181",fontSize:12,fontWeight:500,marginBottom:10 }}>Email Address</label>
             <div>
-              <div className="form-control" style={{outline:'none'}}>
+              <div className="form-control " style={{outline:'none'}}>
             <input
               type="email"
-              className=""
+              className="loginInputEmail"
               placeholder="example@gmail.com" 
               value={values.email}
               onChange={handleChange("email")}
@@ -82,39 +92,38 @@ import {AiOutlineEyeInvisible,AiFillEye} from 'react-icons/ai'
  
             </div>  
         
-             <div>{touched.email && errors.email}</div> 
-           
-            <label style={{ color: "#818181",fontSize:12,fontWeight:500 }}>Password</label>
+             <div style={{color:"red"}}>{touched.email && errors.email}</div>           
+            <br />
+            <label style={{ color: "#818181",fontSize:12,fontWeight:500,marginBottom:10,marginTop:15 }}>Password</label>
 
             <div className="form-control"style={{flexDirection:'row',alignItems:'center',display:'flex',justifyContent:'space-between',}}>
               <div>
             <input 
-          type= {passwordVisible ? 'text' : 'password'}
-              className=""
+              type={passwordVisible ? 'text' : 'password'}
+              className="loginInputPass"
               placeholder="***********" color="#3A4175"
-              style={{border:'none',outline:'none',width:360,color:'#3A4175',fontSize:20,fontWeight:600,}}
-             value={values.password}
+              value={values.password}
             onChange={handleChange("password")}
             onBlur={handleBlur("password")}
-            />
-           
-            
+             />
+             
               </div>
-              <div >  
-              <span className="icon-span" onClick={togglePasswordVisibility}>
-        {passwordVisible ? <AiFillEye size={24} color="#3A4175"/> : <AiOutlineEyeInvisible size={24} color="#3A4175"/>}
-      </span>
-            
-            </div>
-              
-              </div>  
-            <div>{touched.password && errors.password}</div>
+              <div onClick={togglePasswordVisibility}>  
+             
+              {passwordVisible ? <AiFillEye size={24} color="#3A4175" /> : <AiOutlineEyeInvisible size={24} color="#3A4175" />}
            
+             </div>
+              </div>  
+              <div style={{color:"red"}}>{touched.password && errors.password}</div>
+            <br /> 
             <div
               style={{
                 alignItems: "center",
                 display: "flex",
                 justifyContent: "space-between",
+                width:434,
+                marginTop:15,
+                marginBottom:15
               }}
             >
               <div style={{flexDirection:'row',display:'flex',alignItems:'center',justifyContent:'center' }}>
@@ -122,17 +131,16 @@ import {AiOutlineEyeInvisible,AiFillEye} from 'react-icons/ai'
                 <text style={{fontSize:16,fontWeight:500,color:'#818181',paddingLeft:4}}>keep me logged in</text> 
               </div>
 
-              <p className="forgotpassword" >
-                <a href ="#" style={{color:'#9AC037',fontSize:16,fontWeight:500,cursor:'pointer'}}>Forgot Password?</a>
-              </p>
+              <div className="forgotpassword" >
+                <a href ="/" style={{color:'#9AC037',fontSize:16,fontWeight:500,cursor:'pointer'}}>Forgot Password?</a>
+              </div>
             </div>
           </div>
           <br />
-          <button
+          <button 
             type="submit"
             className="button"
             style={{ fontSize: 20, fontWeight: 700 }}
-
           >
             Log In
           </button>
@@ -140,8 +148,11 @@ import {AiOutlineEyeInvisible,AiFillEye} from 'react-icons/ai'
                 }}
           </Formik>
         </div>
-      </div>
-    </div>
-  );
-}
-export default LoginForm;
+
+</div>
+</div>
+</div>
+);
+};
+
+export default Login;

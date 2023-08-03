@@ -8,11 +8,7 @@
 
 }
 
-.app {
-  display: flex;
 
-
-}
 
 .Division{
   flex: 1;
@@ -70,6 +66,33 @@ object-fit: cover !important;
   font-size: 25px;
 
 
+}
+.loginInputEmail{
+  color: #3A4175;
+  outline: none;
+  border: none;
+  height: 40px;
+  width: 400px;
+  align-self: center;
+  font-size: 12px;
+  font-weight: 500;
+}
+.loginInputEmail:focus{
+  border-color: #3A4175;
+}
+.loginInputPass{
+  color: #3A4175;
+  outline: none;
+  border: none;
+  height: 40px;
+  width: 360px;
+  align-self: center;
+  font-size: 20px;
+  font-weight: 500;
+
+}
+input::placeholder{
+  color: #3A4175;
 }
 
 .login-form {
@@ -215,8 +238,8 @@ object-fit: cover !important;
 
 .sidebar {
 
-  width: 10%;
-  height: 100vh;
+  width: 10vw;
+  height: 93vh;
   background-color: #3A4175;
 
 }
@@ -260,9 +283,8 @@ object-fit: cover !important;
 }
 
 .main {
-  width: 90%;
-  height: 100%;
-  overflow-y: scroll;
+  width: 90vw;
+  height: 93vh;
 
 }
 
@@ -283,10 +305,6 @@ object-fit: cover !important;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  position: sticky;
-  background-color: #ffffff;
-  top: 0px;
- 
 }
 
 .title {
@@ -446,8 +464,8 @@ object-fit: cover !important;
 
 .cardbutton {
   background-color: #3A4175 !important;
-  height: 40px;
-  width: 122px;
+  height: 35px;
+  width: 150px;
   color: #ffffff;
   border-radius: 6px;
   outline: none;
@@ -530,35 +548,24 @@ input{
   outline: none;
 }
 .previous{
-  /* height: 40px;
+  height: 40px;
   width: 122px;
   border-radius: 6px;
   background-color: #fff;
-  border-color: #9AC037 !important;
+  border-color: #9AC037;
   font-size: 12px;
   color: #9AC037;
   font-weight: 600;
   margin-right: 10px;
-  outline: none; */
-  background-color: #fff !important;
-  border-radius: 6px;
-  border:1px solid #9AC037;
-  color: #9AC037;
-  height: 40px;
-  width: 122px;
-  font-size: 12px;
-  font-weight: 600;
-  margin-right: 10px;
-  
-  
+  border: 1px solid;
 
 }
-/* .previous:hover{
+.previous:hover{
   background-color: #a4cb50;
   color: #fff;
   border: none;
 
-} */
+}
 .next{
   height: 40px;
   width: 122px;
@@ -567,13 +574,17 @@ input{
   font-weight: 600;
   font-size: 12px;
   color: #fff;
-  outline: none;
-  border: none;
+  border: 1px solid;
 
 }
 .next:hover{
   background-color: #4b5495;
 }
+.uploadCustomer{
+  height: 20px;
+  width: 190px;
+}
+
 
 @media (max-width: 767px) {
 
@@ -664,6 +675,16 @@ input{
   border-color: #3A4175;
   outline: none;
 }
+.customInput::-webkit-file-upload-button{
+
+  color: #9AC037;
+  border-color: #9AC037;
+  background-color: #fff !important;
+  outline: none;
+  box-shadow: none;
+  border: 1px solid ;
+}
+
 
 
 
@@ -848,6 +869,7 @@ input{
 
 /*----Start----------- RlplGenerated CSS and Media Queries */
 
+
 .topWord{
 
   color: #8F8F8F;
@@ -869,103 +891,16 @@ input{
   color: #3A4175;
 
 }
-
-/*-----End---------- RlplGenerated CSS and Media Queries */
-
-
-
-
-
-/*-----Start---------- AnalystDashboard CSS and Media Queries */
-.wholeCardDiv{
-  justify-content: space-around;
-
-}
-.mainCard1{
-
-  height: 100px;
-  width: 252px;
-  background-color: #3A4175;
-  color: #fff;
-  outline: none;
-  border: none;
-  
-
-}
-.mainCard2{
-
-  height: 100px;
-  width: 252px;
-  background-color: #9AC037;
-  color: #fff;
-  outline: none;
-  border: none;
-
-}
-.cardNum{
-  font-size: 24px;
-  font-weight: 700;
- 
-}
-.cardArrangement{
-  display: flex;
-  justify-content: space-between;
-  flex-direction: row;
-  align-items: center;
-
-}
-.tableTop{
-  color: #9AC037;
-  font-weight: 600;
-  font-size: 15px;
-
-}
-.table{
-  text-align: center;
-}
-.tbhed{
-  color: #fff;
-  font-size: 13px;
-  font-weight: 600;
-  height: 30px;
-  align-items: center;
-  justify-content: center;
- 
-}
-.tbbutton{
-  height: 25px;
-  width: 62px;
-  background-color: #9AC037 !important;
+thead tr th {
+  background-color: #3A4175 !important;
   color: #fff !important;
-  font-size: 13px;
-  font-weight: 500;
-  border-radius: 6px;
-  justify-content: center !important;
-  align-items: center !important;
-  border: none;
-  outline: none;
-  text-align: center !important;
-}
-.trAlign tr td {
-
-  font-size: 13px;
-  color: #8F8F8F;
-  font-weight: 500;
-
 }
 
-input[type="radio"]:checked{
-  background-color: #3A4175;
+@media (max-width:600px){
+  .tablet{
+    justify-content: center;
+    width: 100vh;
+    height: max-content;
+    width:max-content;
+  }
 }
-
-/*-----End---------- AnalystDashboard CSS and Media Queries */
-
-
-/* ------START--------------AwaitingSamples CSS and media Queries--------------- */
-
-
-
-
-
-
-/* -----END---------------AwaitingSamples CSS and media Queries--------------- */

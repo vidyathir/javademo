@@ -2,18 +2,60 @@ import React, { useState } from "react";
 
 import { Form, Row, Col, Card, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-
+import { useDispatch } from 'react-redux';
 import { BiRightArrowAlt, BiLeftArrowAlt } from "react-icons/bi";
 import { MdOutlineUploadFile } from "react-icons/md";
 import './MStyles.css';
+import { useForm,Controller} from 'react-hook-form'
+import Select from 'react-select';
+import { changeTypeofAnalysis } from '../redux/FormSlice';
 
 export default function TypeOfAnalysis({onButtonClick}) {
+  const testparameters=[
+    {value:"a", label:"a"},
+    {value:"b", label:"b"},
+    {value:"c",label:"c"},
+    {value:"d", label:"d"},
+    {value:"e",label:"e"},
+    {value:"f", label:"f"},
+    {value:"g",label:"g"},
+    {value:"h", label:"h"},
+    {value:"i",label:"i"},
+    {value:"j", label:"j"},
+    {value:"k",label:"k"},
+    {value:"l", label:"l"},
+    {value:"m",label:"m"},
+
+  ]
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   // ---------------Start of --------------RadioButtons Functionalities using USESTATE-----------------------
 
   const [selectedOption, setSelectedOption] = useState("");
-
+  const {
+    control,
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm()
+  const onSubmit = (data) => {
+    dispatch(changeTypeofAnalysis(
+      {
+        analyticalfeasibile:data.analyticalfeasibile,
+        choosefile:data.choosefile,
+        formfilling:data.formfilling,
+        methodologyfollowed:data.methodologyfollowed,
+        methodvalidation:data.methodvalidation,
+        specialinstruction:data.specialinstruction,
+        //test:data.test,
+        //testparameters:data.testparameters
+      })
+    )
+    console.log("data",data)
+    onButtonClick("ConfirmDetails")
+    
+      }
   const handleOptionChange = (event) => {
     setSelectedOption(event.target.value);
   };
@@ -52,6 +94,7 @@ export default function TypeOfAnalysis({onButtonClick}) {
               <div className="cardtitle">
                 <text className="cardtitlehed">Type of Analysis</text>
               </div>
+              <form onSubmit={handleSubmit(onSubmit)}>
               <div className="cardcolumnpadding">
                 <div className="row">
                   <div className="col">
@@ -72,10 +115,12 @@ export default function TypeOfAnalysis({onButtonClick}) {
                                   style={{ display: "flex", marginBottom: 20 }}
                                 >
                                   <input
+                                  {...register('formfilling', { required: true })}
                                     type="radio"
-                                    value="option1"
-                                    checked={selectedOption === "option1"}
-                                    onChange={handleOptionChange}
+                                    value="validation"
+                                    name="formfilling"
+                                    //checked={selectedOption === "option1"}
+                                    //onChange={handleOptionChange}
                                     style={{ height: 20, width: 20 }}
                                   />
                                   <label className="space">Validation</label>
@@ -85,10 +130,12 @@ export default function TypeOfAnalysis({onButtonClick}) {
                               <div className="col">
                                 <div style={{ display: "flex" }}>
                                   <input
+                                  {...register('formfilling', { required: true })}
                                     type="radio"
-                                    value="option2"
-                                    checked={selectedOption === "option2"}
-                                    onChange={handleOptionChange}
+                                    value="verification"
+                                    name="formfilling"
+                                    //checked={selectedOption === "option2"}
+                                   // onChange={handleOptionChange}
                                     style={{ height: 20, width: 20 }}
                                   ></input>
                                   <label className="space">Verification</label>
@@ -98,10 +145,12 @@ export default function TypeOfAnalysis({onButtonClick}) {
                               <div className="col">
                                 <div style={{ display: "flex" }}>
                                   <input
+                                  {...register('formfilling', { required: true })}
                                     type="radio"
-                                    value="option3"
-                                    checked={selectedOption === "option3"}
-                                    onChange={handleOptionChange}
+                                    value="transfer"
+                                    name="formfilling"
+                                   // checked={selectedOption === "option3"}
+                                    //onChange={handleOptionChange}
                                     style={{ height: 20, width: 20 }}
                                   ></input>
                                   <label className="space">Transfer</label>
@@ -111,10 +160,12 @@ export default function TypeOfAnalysis({onButtonClick}) {
                               <div className="col">
                                 <div style={{ display: "flex" }}>
                                   <input
+                                  {...register('formfilling', { required: true })}
                                     type="radio"
-                                    value="option4"
-                                    checked={selectedOption === "option4"}
-                                    onChange={handleOptionChange}
+                                    value="stability"
+                                    name="formfilling"
+                                    //checked={selectedOption === "option4"}
+                                   // onChange={handleOptionChange}
                                     style={{ height: 20, width: 20 }}
                                   ></input>
                                   <label className="space">Stability</label>
@@ -124,10 +175,12 @@ export default function TypeOfAnalysis({onButtonClick}) {
                               <div className="col">
                                 <div style={{ display: "flex" }}>
                                   <input
+                                  {...register('formfilling', { required: true })}
                                     type="radio"
-                                    value="option5"
-                                    checked={selectedOption === "option5"}
-                                    onChange={handleOptionChange}
+                                    value="batchrelease"
+                                    name="formfilling"
+                                    //checked={selectedOption === "option5"}
+                                    //onChange={handleOptionChange}
                                     style={{ height: 20, width: 20 }}
                                   ></input>
                                   <label className="space">Batch Release</label>
@@ -139,10 +192,12 @@ export default function TypeOfAnalysis({onButtonClick}) {
                               <div className="col">
                                 <div style={{ display: "flex" }}>
                                   <input
+                                  {...register('formfilling', { required: true })}
                                     type="radio"
-                                    value="option6"
-                                    checked={selectedOption === "option6"}
-                                    onChange={handleOptionChange}
+                                    value="usfda"
+                                    name="formfilling"
+                                    //checked={selectedOption === "option6"}
+                                    //onChange={handleOptionChange}
                                     style={{ height: 20, width: 20 }}
                                   ></input>
                                   <label className="space">USFDA</label>
@@ -152,10 +207,12 @@ export default function TypeOfAnalysis({onButtonClick}) {
                               <div className="col">
                                 <div style={{ display: "flex" }}>
                                   <input
+                                  {...register('formfilling', { required: true })}
                                     type="radio"
-                                    value="option7"
-                                    checked={selectedOption === "option7"}
-                                    onChange={handleOptionChange}
+                                    value="eugmp"
+                                    name="formfilling"
+                                    //checked={selectedOption === "option7"}
+                                    //onChange={handleOptionChange}
                                     style={{ height: 20, width: 20 }}
                                   ></input>
                                   <label className="space">EU GMP</label>
@@ -165,10 +222,12 @@ export default function TypeOfAnalysis({onButtonClick}) {
                               <div className="col">
                                 <div style={{ display: "flex" }}>
                                   <input
+                                  {...register('formfilling', { required: true })}
                                     type="radio"
-                                    value="option8"
-                                    checked={selectedOption === "option8"}
-                                    onChange={handleOptionChange}
+                                    value="localfda"
+                                    name="formfilling"
+                                    //checked={selectedOption === "option8"}
+                                    //onChange={handleOptionChange}
                                     style={{ height: 20, width: 20 }}
                                   ></input>
                                   <label className="space">
@@ -180,10 +239,12 @@ export default function TypeOfAnalysis({onButtonClick}) {
                               <div className="col">
                                 <div style={{ display: "flex" }}>
                                   <input
+                                  {...register('formfilling', { required: true })}
                                     type="radio"
-                                    value="option9"
-                                    checked={selectedOption === "option9"}
-                                    onChange={handleOptionChange}
+                                    value="nabl"
+                                    name="formfilling"
+                                    //checked={selectedOption === "option9"}
+                                   // onChange={handleOptionChange}
                                     style={{ height: 20, width: 20 }}
                                   ></input>
                                   <label className="space">NABL</label>
@@ -193,10 +254,12 @@ export default function TypeOfAnalysis({onButtonClick}) {
                               <div className="col">
                                 <div style={{ display: "flex" }}>
                                   <input
+                                  {...register('formfilling', { required: true })}
                                     type="radio"
-                                    value="option10"
-                                    checked={selectedOption === "option10"}
-                                    onChange={handleOptionChange}
+                                    value="other"
+                                    name="other"
+                                    //checked={selectedOption === "option10"}
+                                    //onChange={handleOptionChange}
                                     style={{ height: 20, width: 20 }}
                                   ></input>
                                   <label className="space">Other</label>
@@ -208,6 +271,10 @@ export default function TypeOfAnalysis({onButtonClick}) {
                               </div>
                             </div>
                           </div>
+                          <div className="text-danger mt-3">
+          {errors.formfilling?.type === 'required' &&
+            'This field is required.'}
+            </div>
                         </Form.Label>
                       </Form.Group>
                     </Col>
@@ -229,10 +296,13 @@ export default function TypeOfAnalysis({onButtonClick}) {
                       <div style={{ display: "flex", marginBottom: 20 }}>
                         <div style={{ alignItems: "center", display: "flex" }}>
                           <input
-                            type="checkbox"
-                            value="option11"
-                            checked={selectedOption1 === "option11"}
-                            onChange={handleOptionChange1}
+                           {...register('analyticalfeasibile', { required: true })}
+                           type="checkbox"
+                           value="r&dsample"
+                           name="analytical"
+                            
+                        // checked={selectedOption1 === "option11"}
+                            // onChange={handleOptionChange1}
                             style={{ height: 20, width: 20 }}
                           ></input>
                           <label className="space">
@@ -248,10 +318,12 @@ export default function TypeOfAnalysis({onButtonClick}) {
                           }}
                         >
                           <input
+                           {...register('analyticalfeasibile', { required: true })}
                             type="checkbox"
-                            value="option12"
-                            checked={selectedOption1 === "option12"}
-                            onChange={handleOptionChange1}
+                            value="r&dsample"
+                            name="analyticalfeasibile"
+                            // checked={selectedOption1 === "option12"}
+                            // onChange={handleOptionChange1}
                             style={{ height: 20, width: 20 }}
                           ></input>
                           <label className="space">R&D Sample</label>
@@ -262,10 +334,12 @@ export default function TypeOfAnalysis({onButtonClick}) {
                       <div style={{ display: "flex" }}>
                         <div style={{ alignItems: "center", display: "flex" }}>
                           <input
+                           {...register('analyticalfeasibile', { required: true })}
                             type="checkbox"
-                            value="option13"
-                            checked={selectedOption1 === "option13"}
-                            onChange={handleOptionChange1}
+                            value="methoddevelopement"
+                            name="analyticalfeasibile"
+                            // checked={selectedOption1 === "option13"}
+                            // onChange={handleOptionChange1}
                             style={{ height: 20, width: 20 }}
                           ></input>
                           <label className="space">Method Development</label>
@@ -279,15 +353,21 @@ export default function TypeOfAnalysis({onButtonClick}) {
                           }}
                         >
                           <input
+                           {...register('analyticalfeasibile', { required: true })}
                             type="checkbox"
-                            value="option14"
-                            checked={selectedOption1 === "option14"}
-                            onChange={handleOptionChange1}
+                            value="batchanalysis"
+                            name="analyticalfeasibile"
+                            // checked={selectedOption1 === "option14"}
+                            // onChange={handleOptionChange1}
                             style={{ height: 20, width: 20 }}
                           ></input>
                           <label className="space">Batch Analysis</label>
                         </div>
                       </div>
+                      <div className="text-danger mt-3">
+          {errors.analyticalfeasibile?.type === 'required' &&
+            'This field is required.'}
+        </div>
                     {/* </div> */}
                     </Col>
 
@@ -305,10 +385,12 @@ export default function TypeOfAnalysis({onButtonClick}) {
                       <div className="d-flex">
                         <div style={{ alignItems: "center", display: "flex" }}>
                           <input
+                           {...register('methodvalidation', { required: false })}
                             type="radio"
-                            value="option14"
-                            checked={selectedOption2 === "option14"}
-                            onChange={handleOptionChange2}
+                            value="no"
+                            name="methodvalidation"
+                           // checked={selectedOption2 === "option14"}
+                            //onChange={handleOptionChange2}
                             style={{ height: 20, width: 20 }}
                           />
                           <label className="space">No</label>
@@ -321,16 +403,20 @@ export default function TypeOfAnalysis({onButtonClick}) {
                           }}
                         >
                           <input
+                           {...register('methodvalidation', { required: false })}
                             type="radio"
-                            value="option15"
-                            checked={selectedOption2 === "option15"}
-                            onChange={handleOptionChange2}
+                            value="yes"
+                            name="methodvalidation"
+                            //checked={selectedOption2 === "option15"}
+                            //onChange={handleOptionChange2}
                             style={{ height: 20, width: 20 }}
                           />
                           <label className="space">yes</label>
                         </div>
                         <div>
-                          <input type="text" className="methodValidation" />
+                          <input type="text" className="methodValidation" 
+                
+                      />
                         </div>
                       </div>
                     </div>
@@ -352,14 +438,18 @@ export default function TypeOfAnalysis({onButtonClick}) {
                         <text className="cardcolhedstar">*</text>
                       </div>
                       <div>
-                        <Form.Select
-                          defaultValue="..."
-                          style={{ width: "100%" }}
-                        >
-                          <option>Choose...</option>
-                          <option>...</option>
-                        </Form.Select>
+                        <Controller
+                        name="testparameters"
+                        control={control}
+                        rules={{required:true}}
+                        render={({field})=>(
+                          <Select {...field} isMulti options={testparameters}/>
+                        )}
+                        />
                       </div>
+                      {errors.testparameters && (
+                        <p className="errorMsg" style={{color:"red"}}>This field is required</p>
+                      )}
                     {/* </div> */}
                     </Col>
 
@@ -376,10 +466,12 @@ export default function TypeOfAnalysis({onButtonClick}) {
                           }}
                         >
                           <input
-                            type="radio"
-                            value="option16"
-                            checked={selectedOption3 === "option16"}
-                            onChange={handleOptionChange3}
+                           {...register('test')}
+                            type="checkbox"
+                            value="usp"
+                            name="test"
+                            //checked={selectedOption3 === "option16"}
+                            //onChange={handleOptionChange3}
                             style={{ height: 20, width: 20 }}
                           />
                           <label className="space">USP</label>
@@ -392,20 +484,24 @@ export default function TypeOfAnalysis({onButtonClick}) {
                           }}
                         >
                           <input
-                            type="radio"
-                            value="option17"
-                            checked={selectedOption3 === "option17"}
-                            onChange={handleOptionChange3}
+                           {...register('test')}
+                            type="checkbox"
+                            value="bp"
+                            name="test"
+                            //checked={selectedOption3 === "option17"}
+                            //onChange={handleOptionChange3}
                             style={{ height: 20, width: 20 }}
                           />
                           <label className="space">BP</label>
                         </div>
                         <div style={{ alignItems: "center", display: "flex" }}>
                           <input
-                            type="radio"
-                            value="option18"
-                            checked={selectedOption3 === "option18"}
-                            onChange={handleOptionChange3}
+                           {...register('test')}
+                            type="checkbox"
+                            value="ep"
+                            name="test"
+                           // checked={selectedOption3 === "option18"}
+                            //onChange={handleOptionChange3}
                             style={{ height: 20, width: 20 }}
                           />
                           <label className="space">EP</label>
@@ -420,10 +516,12 @@ export default function TypeOfAnalysis({onButtonClick}) {
                           }}
                         >
                           <input
-                            type="radio"
-                            value="option19"
-                            checked={selectedOption3 === "option19"}
-                            onChange={handleOptionChange3}
+                           {...register('test')}
+                            type="checkbox"
+                            value="ip"
+                            name="test"
+                            //checked={selectedOption3 === "option19"}
+                            //onChange={handleOptionChange3}
                             style={{ height: 20, width: 20 }}
                           />
                           <label className="space">IP</label>
@@ -436,20 +534,24 @@ export default function TypeOfAnalysis({onButtonClick}) {
                           }}
                         >
                           <input
-                            type="radio"
-                            value="option20"
-                            checked={selectedOption3 === "option20"}
-                            onChange={handleOptionChange3}
+                           {...register('test')}
+                            type="checkbox"
+                            value="is"
+                            name="test"
+                            //checked={selectedOption3 === "option20"}
+                            //onChange={handleOptionChange3}
                             style={{ height: 20, width: 20 }}
                           />
                           <label className="space">IS</label>
                         </div>
                         <div style={{ alignItems: "center", display: "flex" }}>
                           <input
-                            type="radio"
-                            value="option21"
-                            checked={selectedOption3 === "option21"}
-                            onChange={handleOptionChange3}
+                           {...register('test')}
+                            type="checkbox"
+                            value="methodofanalysis"
+                            name="test"
+                            //checked={selectedOption3 === "option21"}
+                            //onChange={handleOptionChange3}
                             style={{ height: 20, width: 20 }}
                           />
                           <label className="space">Method of Analysis</label>
@@ -479,10 +581,12 @@ export default function TypeOfAnalysis({onButtonClick}) {
                       >
                         <div style={{ alignItems: "center", display: "flex" }}>
                           <input
+                           {...register('methodologyfollowed')}
                             type="radio"
-                            value="option22"
-                            checked={selectedOption4 === "option22"}
-                            onChange={handleOptionChange4}
+                            value="stp"
+                            name="methodologyfollowed"
+                            //checked={selectedOption4 === "option22"}
+                            //onChange={handleOptionChange4}
                             style={{ height: 20, width: 20 }}
                           />
                           <label className="space">STP</label>
@@ -495,10 +599,12 @@ export default function TypeOfAnalysis({onButtonClick}) {
                           }}
                         >
                           <input
+                           {...register('methodologyfollowed')}
                             type="radio"
-                            value="option23"
-                            checked={selectedOption4 === "option23"}
-                            onChange={handleOptionChange4}
+                            value="gtp"
+                            name="methodologyfollowed"
+                            //checked={selectedOption4 === "option23"}
+                            //onChange={handleOptionChange4}
                             style={{ height: 20, width: 20 }}
                           />
                           <label className="space"> GTP</label>
@@ -511,16 +617,18 @@ export default function TypeOfAnalysis({onButtonClick}) {
                           }}
                         >
                           <input
+                          {...register('methodologyfollowed')}
                             type="radio"
-                            value="option24"
-                            checked={selectedOption4 === "option24"}
-                            onChange={handleOptionChange4}
+                            value="referenceno"
+                            name="methodologyfollowed"
+                            //checked={selectedOption4 === "option24"}
+                            //onChange={handleOptionChange4}
                             style={{ height: 20, width: 20 }}
                           />
                           <label className="space">Reference No</label>
                         </div>
                         <div style={{ alignItems: "center", display: "flex" }}>
-                          <input type="text" className="methodology" />
+                          <input type="text" className="methodology"/>
                         </div>
                       </div>
                       <div className="mt-3 mb-3">
@@ -540,8 +648,9 @@ export default function TypeOfAnalysis({onButtonClick}) {
                           }}
                         >
                           <div>
-                            <MdOutlineUploadFile size={24} color="#8F8F8F" />
-                            <input type="file" />
+                            <MdOutlineUploadFile size={24} color="#9AC037" />
+                            <input type="file"
+                            className="customInput" {...register('choosefile')}/>
                           </div>
                         </Card>
                       </div>
@@ -555,7 +664,8 @@ export default function TypeOfAnalysis({onButtonClick}) {
                       <div>
                         <input
                           type="textarea"
-                        className="spclInstruction"
+                        className="spclInstruction"{...register('specialinstruction')}
+
                         />
                       </div>
 
@@ -568,14 +678,14 @@ export default function TypeOfAnalysis({onButtonClick}) {
                           marginTop:50
                         }}
                       >
-                        <button className="previous" onClick={()=>onButtonClick("BatchDetail")}
+                        <button className="previous" onClick={()=>onButtonClick("BatchDetails")}
 
                         >
                           <BiLeftArrowAlt size={24} color="#9AC037" />
                           Previous
                         </button>
-                        <button
-                          onClick={() => onButtonClick("ConfirmDetails")}
+                        <button type="submit"
+                          
                           className="next"
                           name="Next"
                         >
@@ -586,6 +696,7 @@ export default function TypeOfAnalysis({onButtonClick}) {
                   </Col>
                   </Row>
               </div>
+              </form>
             </Card>
           </div>
         </div>

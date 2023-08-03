@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import CustomerDetailes from "./CustomerDetailes";
 import SampleDetails from "./SampleDetails";
-import BatchDetail from "./BatchDetail";
+import BatchDetails from "./BatchDetails";
 import MultiStepProgressBar from "../components/MultiStepProgressBar";
 import TypeOfAnalysis from "./TypeOfAnalysis";
 import Sidenavbar from "../components/Sidenavbar";
-import Titlebar from "../components/Titlebar";
 import ConfirmDetails from "./ConfirmDetails";
 import SampleVerification from "./SampleVerification";
 import './Styles.css';
+import Navbartitle from "../components/Navbartitle";
 
 
 function Progress() {
@@ -27,7 +27,7 @@ function Progress() {
           setPage("SampleDetails");
           break;
         case "3":
-          setPage("BatchDetail");
+          setPage("BatchDetails");
           break;
           case "4":
           setPage("TypeOfAnalysis");
@@ -47,10 +47,16 @@ function Progress() {
     return (
       
          <div className="app">
-      <Sidenavbar />
+
+          <Navbartitle/>
+
+<div className="d-flex">
+
+          <Sidenavbar />
+          
       <div className="main">
         <div className="mainitem">
-          <Titlebar />
+        
         
       
 
@@ -61,7 +67,7 @@ function Progress() {
           {
             CustomerDetailes: <CustomerDetailes onButtonClick={nextPage} />,
             SampleDetails: <SampleDetails onButtonClick={nextPage} />,
-            BatchDetail: <BatchDetail onButtonClick={nextPage} />,
+            BatchDetails: <BatchDetails onButtonClick={nextPage} />,
             TypeOfAnalysis: <TypeOfAnalysis onButtonClick={nextPage} />,
             ConfirmDetails:<ConfirmDetails onButtonClick={nextPage}/>,
             SampleVerification:<SampleVerification onButtonClick={nextPage}/>
@@ -71,6 +77,7 @@ function Progress() {
         }
        
        </div> 
+      </div>
       </div>
       </div>
       

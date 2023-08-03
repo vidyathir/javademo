@@ -5,6 +5,8 @@ import { useNavigate } from "react-router-dom";
 
 import { BiRightArrowAlt, BiLeftArrowAlt } from "react-icons/bi";
 import {TiArrowBackOutline}from 'react-icons/ti'
+import {MdDone} from 'react-icons/md'
+import{TbLogout2} from 'react-icons/tb'
 // import { MdOutlineUploadFile } from "react-icons/md";
 
 export default function SampleVerification({onButtonClick}) {
@@ -610,7 +612,7 @@ export default function SampleVerification({onButtonClick}) {
                                 
                               }}onClick={()=>onButtonClick("ConfirmDetails")}
                             >
-                              <BiLeftArrowAlt size={24} color="#9AC037" />
+                              <BiLeftArrowAlt size={24} color="#9AC037" />&nbsp;
                               Previous
                             </Button>
                           </div>
@@ -630,7 +632,7 @@ export default function SampleVerification({onButtonClick}) {
                               marginRight: 10,
                             }}
                           >
-                            <TiArrowBackOutline size={24} color="#9AC037" />
+                            <TbLogout2 size={24} color="#9AC037" />&nbsp;
                             Reject
                           </Button>
                           <Button
@@ -642,10 +644,11 @@ export default function SampleVerification({onButtonClick}) {
                               backgroundColor: "#3A4175",
                               fontWeight: 600,
                               fontSize: 12,
+                              border:'none'
                             }}
                             name="Next"
                           >
-                            Next <BiRightArrowAlt size={24} color="#fff" />
+                             <MdDone size={24} color="#fff" />&nbsp;Accept
                           </Button>
                           </div>
                         </div>

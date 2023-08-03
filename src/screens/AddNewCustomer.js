@@ -12,6 +12,8 @@ import Sidenavbar from "../components/Sidenavbar";
 import {useNavigate} from 'react-router-dom';
 import * as formik from 'formik';
 import * as yup from 'yup';
+// import Navbartitle from "../components/Navbartitle";
+import NavbartitleAddco from "../components/NavbartitleAddco";
 
 
 export default function AddNewCustomer() {
@@ -36,31 +38,16 @@ export default function AddNewCustomer() {
 
   return (
     <div className="app">
-      {/* <div className='sidebar'>
-          <div className='logocolor'>
-            <img src={logo} alt='logo'/>
-          </div>
-         
-        </div> */}
+      
+      <NavbartitleAddco/>
+
+    <div className="d-flex">
+
       <Sidenavbar />
 
       <div className="main">
         <div className="mainitem">
-          <div className="maintitlestyle">
-            <div>
-              <text className="title">
-                Welcome Back Jeyaprakash{" "}
-                <text className="titlecolor">(SRO)</text>
-              </text>
-            </div>
-            <div className="titleprofile">
-              <img className="profilepic" src={profilepic} alt="profile" />
-              <select className="titleselect titleselectsize">
-                <option className="titleselect">Jeyaprakash</option>
-                <option className="titleselect">Mahendra varma</option>
-              </select>
-            </div>
-          </div>
+         
 
           <div className="backbutton" onClick={()=>navigate('/Progress')}>
             <AiOutlineLeft /> <text>back</text>
@@ -300,6 +287,7 @@ export default function AddNewCustomer() {
             </Card>
           </div>
         </div>
+      </div>
       </div>
     </div>
   );

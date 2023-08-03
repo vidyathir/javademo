@@ -1,6 +1,5 @@
 import React from "react";
 import Sidenavbar from "../components/Sidenavbar";
-import Titlebar from "../components/Titlebar";
 import Table from "react-bootstrap/Table";
 import { Button } from "react-bootstrap";
 // import { BiRightArrowAlt, BiLeftArrowAlt } from "react-icons/bi";
@@ -12,16 +11,22 @@ import {LuFolderCheck} from 'react-icons/lu'
 // import {BsFileEarmarkCheck} from 'react-icons/bs';
 import {BsFolderX} from 'react-icons/bs';
 import { useNavigate } from "react-router-dom";
+import Navbartitle from "../components/Navbartitle";
 
 export default function RLPLNotgenerated() {
   const navigate = useNavigate();
   return (
     <div className="app">
+
+<Navbartitle/>
+
+<div className="d-flex">
+
       <Sidenavbar />
 
       <div className="main">
         <div className="mainitem">
-          <Titlebar />
+
           <div className="progressbar"></div>
             <div style={{justifyContent:'center',display:'flex'}} >
             <div style={{display:'flex',alignContent:'center',justifyContent:'center',flexDirection:'column',width:'50%',border:'none',marginTop:50}}>
@@ -178,186 +183,9 @@ export default function RLPLNotgenerated() {
 
 
 
-          {/* <div style={{ justifyContent: "center", display: "flex", flex: 1 }}>
-            <div
-              className="d-flex mt-5"
-              style={{
-                height: 645,
-                width: "76%",
-                border: "none",
-                justifyContent:'center',
-                alignItems:'center',
-                display:'flex'
-                
-              }}
-            >
-              <div
-                style={{
-                  alignItems: "center",
-                  flex:1,
-                  justifyContent: "center",
-                  
-                }}
-              >
-                <TbFileLike
-                  size={80}
-                  color="#9AC037"
-                  style={{
-                    alignItems: "center",
-                    display: "block",
-                    marginLeft: "40%",
-                  }}
-                />
-
-                <text
-                  style={{
-                    alignItems: "center",
-                    display: "flex",
-                    color: "#8F8F8F",
-                    marginLeft: "15%",
-                  }}
-                >
-                  The Samples has been Approved, The RLPL has been generated for
-                  below batches
-                </text>
-                <div className="mt-3 mb-3" style={{ width: "80%" }}>
-                  <label
-                    className="mb-3"
-                    style={{ fontSize: 18, fontWeight: 600, color: "#3A4175" }}
-                  >
-                    Sample Details
-                  </label>
-                  <Table>
-                    <tr
-                      style={{
-                        color: "#8F8F8F",
-                        fontSize: 12,
-                        fontWeight: 500,
-                      }}
-                    >
-                      <td>Name of the Sample</td>
-                      <td>Sample Type</td>
-                      <td>Nature of Sample</td>
-                      <td>Storage Condition</td>
-                    </tr>
-                    <tr
-                      style={{
-                        color: "#3A4175",
-                        fontSize: 12,
-                        fontWeight: 500,
-                      }}
-                    >
-                      <td>XXXX XXXXXX</td>
-                      <td>XXXX XXXXXX</td>
-                      <td>XXXX XXXXXX</td>
-                      <td>XXXX XXXXXX</td>
-                    </tr>
-                  </Table>
-
-                  <Table
-                    className="mt-5 mb-5"
-                    style={{ fontSize: 12, width: "80%" }}
-                  >
-                    <tr
-                      style={{
-                        backgroundColor: "#3A4175",
-                        color: "#fff",
-                        fontSize: 12,
-                        fontWeight: 600,
-                        height: 40,
-                        padding: 10,
-                      }}
-                    >
-                      <th>S.No</th>
-                      <th>Registration No</th>
-                      <th>Batch No./Lot No(s)</th>
-                      <th>Batch Size</th>
-                      <th>Batch Quantity</th>
-                    </tr>
-
-                    <tbody>
-                      <tr>
-                        <td style={{ color: "#8F8F8F" }}>1</td>
-                        <td style={{ color: "#8F8F8F" }}>RLPLR2317026</td>
-                        <td style={{ color: "#8F8F8F" }}>XXXXX</td>
-                        <td style={{ color: "#8F8F8F" }}>XXXXX</td>
-                        <td style={{ color: "#8F8F8F" }}>XXXXX</td>
-                      </tr>
-                      <tr>
-                        <td style={{ color: "#8F8F8F" }}>2</td>
-                        <td style={{ color: "#8F8F8F" }}>RLPLR2317026</td>
-                        <td style={{ color: "#8F8F8F" }}>XXXXX</td>
-                        <td style={{ color: "#8F8F8F" }}>XXXXX</td>
-                        <td style={{ color: "#8F8F8F" }}>XXXXX</td>
-                      </tr>
-
-                      <tr>
-                        <td style={{ color: "#8F8F8F" }}>3</td>
-                        <td style={{ color: "#8F8F8F" }}>RLPLR2317026</td>
-                        <td style={{ color: "#8F8F8F" }}>XXXXX</td>
-                        <td style={{ color: "#8F8F8F" }}>XXXXX</td>
-                        <td style={{ color: "#8F8F8F" }}> XXXXX</td>
-                      </tr>
-                    </tbody>
-                  </Table>
-                  <Button
-                    style={{
-                      height: "40px",
-                      width: "166px",
-                      borderRadius: "6px",
-                      backgroundColor: "#3A4175",
-                      fontWeight: 600,
-                      fontSize: 12,
-                    }}
-                    name="Next"
-                  >
-                    <AiOutlineMail size={24} color="#fff" />
-                    Send an email
-                  </Button>
-                  <Button
-                    style={{
-                      height: "40px",
-                      width: "122px",
-                      borderRadius: "6px",
-                      backgroundColor: "#9AC037",
-                      fontWeight: 600,
-                      fontSize: 12,
-                      marginLeft: 20,
-                    }}
-                    name="Next"
-                  >
-                    <AiFillPrinter size={24} color="#fff" />
-                    Print
-                  </Button>
-                  <div
-                    style={{
-                      display: "flex",
-                      flexDirection: "row",
-                      justifyContent: "flex-end",
-                      margin: 10,
-                      marginTop: 50,
-                    }}
-                  >
-                    <Button
-                      style={{
-                        height: "40px",
-                        width: "122px",
-                        borderRadius: "6px",
-                        backgroundColor: "#3A4175",
-                        fontWeight: 600,
-                        fontSize: 12,
-                      }}
-                      name="Next"
-                    >
-                      <AiOutlineCheck size={24} color="#fff" />
-                      Done
-                    </Button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div> */}
+        
         </div>
+      </div>
       </div>
     </div>
   );

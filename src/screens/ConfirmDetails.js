@@ -4,11 +4,14 @@ import { Col, Row, Table } from "react-bootstrap";
 import { PiFilePdfFill } from "react-icons/pi";
 import { BiLeftArrowAlt, BiRightArrowAlt } from "react-icons/bi";
 import { useNavigate } from "react-router-dom";
-
+import { useSelector } from "react-redux";
 export default function ConfirmDetails({onButtonClick}) {
-
-    const navigate = useNavigate();
-
+  const form=useSelector(state =>state.form.customer);
+  const sample=useSelector(state =>state.form.sampleDetails);
+  const analysis=useSelector(state =>state.form.typeofanalysis);
+  const batch=useSelector(state=>state.form.batchdetails); 
+  const navigate = useNavigate();
+console.log("batch", batch)
   return (
     <div>
       
@@ -30,26 +33,26 @@ export default function ConfirmDetails({onButtonClick}) {
             <Col className="">
               <div className="d-flex row " >
                 <text className="cardcolhed" xs={8}>Contact Person Name</text>
-                <text className="cardcolhedtext mt-1">Jacktom</text>
+                <text className="cardcolhedtext mt-1">{form.contactPersonName}</text>
               </div>
             </Col>
             <Col className="columnMb">
               <div className="d-flex row ">
                 <text className="cardcolhed">Manufacturing Lic No</text>
-                <text className="cardcolhedtext mt-1">001</text>
+                <text className="cardcolhedtext mt-1">{form.licenceNo}</text>
               </div>
             </Col>
             <Col  className="columnMb">
               <div className="d-flex row ">
                 <text className="cardcolhed ">Email Id</text>
-                <text className="cardcolhedtext mt-1 ">Jacktom@gmail.com</text>
+                <text className="cardcolhedtext mt-1 ">{form.emailId}</text>
               </div>
             </Col>
             <Col className="columnMb">
               <div className="d-flex row ">
                 <text className="cardcolhed">Company Name & Address</text>
                 <text className="cardcolhedtext mt-1">
-                  XYZ Private Limited ABC mainroad 2/354A leftside{" "}
+                  {form.companyName},{form.address1}
                 </text>
               </div>
             </Col>
@@ -59,13 +62,13 @@ export default function ConfirmDetails({onButtonClick}) {
             <Col className="columnMb col-3">
               <div className="d-flex row">
                 <text className="cardcolhed">Phone Number</text>
-                <text className="cardcolhedtext mt-1">0987654321</text>
+                <text className="cardcolhedtext mt-1">{form.phoneNo}</text>
               </div>
             </Col>
             <Col className="columnMb col-4">
               <div className="d-flex row">
                 <text className="cardcolhed">Additional Phone Number</text>
-                <text className="cardcolhedtext mt-1">001</text>
+                <text className="cardcolhedtext mt-1">{form.phoneNo1}</text>
               </div>
             </Col>
           </Row>
@@ -79,25 +82,25 @@ export default function ConfirmDetails({onButtonClick}) {
             <Col className="">
               <div className="d-flex row">
                 <text className="cardcolhed">Name of the Sample</text>
-                <text className="cardcolhedtext mt-1">xxxxx</text>
+                <text className="cardcolhedtext mt-1">{sample.samplename}</text>
               </div>
             </Col>
             <Col className="columnMb">
               <div className="d-flex row">
                 <text className="cardcolhed">Storage Condition</text>
-                <text className="cardcolhedtext mt-1">xxxxxxx</text>
+                <text className="cardcolhedtext mt-1">{sample.storage}</text>
               </div>
             </Col>
             <Col className="columnMb">
               <div className="d-flex row">
                 <text className="cardcolhed">Type of Submission</text>
-                <text className="cardcolhedtext mt-1">xxxxxx xxx</text>
+                <text className="cardcolhedtext mt-1">{sample.submissiontype}</text>
               </div>
             </Col>
             <Col className="columnMb">
               <div className="d-flex row">
                 <text className="cardcolhed">Sample Type</text>
-                <text className="cardcolhedtext mt-1">xxxxx xxxxx </text>
+                <text className="cardcolhedtext mt-1">{sample.sampletype}</text>
               </div>
             </Col>
           </Row>
@@ -106,7 +109,7 @@ export default function ConfirmDetails({onButtonClick}) {
             <Col className="columnMb col-3">
               <div className="d-flex row">
                 <text className="cardcolhed">Nature of Sample</text>
-                <text className="cardcolhedtext mt-1">xxxxxx</text>
+                <text className="cardcolhedtext mt-1">{sample.natureofsample}</text>
               </div>
             </Col>
             <Col className="columnMb col-3">
@@ -114,7 +117,7 @@ export default function ConfirmDetails({onButtonClick}) {
                 <text className="cardcolhed">
                   Report required as per Form-39*
                 </text>
-                <text className="cardcolhedtext mt-1">xxxxxx</text>
+                <text className="cardcolhedtext mt-1">{sample.report}</text>
               </div>
             </Col>
             <Col className="columnMb col-6">
@@ -122,7 +125,7 @@ export default function ConfirmDetails({onButtonClick}) {
                 <text className="cardcolhed">
                   Sample Retention required(Drug Product/Substance){" "}
                 </text>
-                <text className="cardcolhedtext mt-1">xxxxxx</text>
+                <text className="cardcolhedtext mt-1">{sample.sampleretension}</text>
               </div>
             </Col>
           </Row>
@@ -213,13 +216,13 @@ export default function ConfirmDetails({onButtonClick}) {
                 <text className="cardcolhed">
                   Regulatory(Form-39/DMF Filing/ANDA Filing/Any Query)
                 </text>
-                <text className="cardcolhedtext mt-1">xxxxxx xxxxx</text>
+                <text className="cardcolhedtext mt-1">{analysis.formfilling}</text>
               </div>
             </Col>
             <Col className="columnMb">
               <div className="d-flex row">
                 <text className="cardcolhed">Other than Regulatory </text>
-                <text className="cardcolhedtext mt-1">xxxxxx xxxxx</text>
+                <text className="cardcolhedtext mt-1">{analysis.analyticalfeasibile}</text>
               </div>
             </Col>
           </Row>
@@ -230,7 +233,7 @@ export default function ConfirmDetails({onButtonClick}) {
                 <text className="cardcolhed">
                   Test to be carried out as per{" "}
                 </text>
-                <text className="cardcolhedtext mt-1">xxxxxx xxxxx</text>
+                <text className="cardcolhedtext mt-1"></text>
               </div>
             </Col>
             <Col className="columnMb">
@@ -238,7 +241,7 @@ export default function ConfirmDetails({onButtonClick}) {
                 <text className="cardcolhed">
                   Special Instructions If any other{" "}
                 </text>
-                <text className="cardcolhedtext mt-1">xxxxxx xxxxx</text>
+                <text className="cardcolhedtext mt-1">{analysis.specialinstruction}</text>
               </div>
             </Col>
           </Row>
@@ -250,7 +253,7 @@ export default function ConfirmDetails({onButtonClick}) {
                   If Method Validation/Verification/Transfer/Development are
                   performed atRevin Labs please specify the Report Ref. No.{" "}
                 </text>
-                <text className="cardcolhedtext mt-1">xxxxxx xxxxx</text>
+                <text className="cardcolhedtext mt-1">{analysis.methodvalidation}</text>
               </div>
             </Col>
             <Col className="columnMb">
@@ -259,7 +262,7 @@ export default function ConfirmDetails({onButtonClick}) {
                   Analytical Test Parameter; If require attach Annexure along
                   with this filled TRF{" "}
                 </text>
-                <text className="cardcolhedtext mt-1">xxxxxx xxxxx</text>
+                <text className="cardcolhedtext mt-1"></text>
               </div>
             </Col>
           </Row>
@@ -268,7 +271,7 @@ export default function ConfirmDetails({onButtonClick}) {
             <Col className="columnMb">
               <div className="d-flex row">
                 <text className="cardcolhed">Methodology </text>
-                <text className="cardcolhedtext mt-1">xxxxxx xxxxx</text>
+                <text className="cardcolhedtext mt-1">{analysis.methodologyfollowed}</text>
               </div>
             </Col>
             <Col className="columnMb">
@@ -276,7 +279,7 @@ export default function ConfirmDetails({onButtonClick}) {
                 <text className="cardcolhed">Attachments </text>
                 <span>
                   <PiFilePdfFill />
-                  <text className="cardcolhedtext mt-1">xyz.pdf</text>
+                  <text className="cardcolhedtext mt-1">{analysis.choosefile}</text>
                 </span>
               </div>
             </Col>

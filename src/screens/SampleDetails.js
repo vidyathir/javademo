@@ -4,17 +4,59 @@ import Titlebar from "../components/Titlebar";
 import { Form, Row, Col, Card, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import './MStyles.css';
-
-
+import { MdOutlineUploadFile } from "react-icons/md";
+import * as yup from 'yup';
 import { BiRightArrowAlt, BiLeftArrowAlt } from "react-icons/bi";
-
+import { useForm } from 'react-hook-form'
+import { useSelector } from "react-redux";
+import { useDispatch } from 'react-redux';
+import { changeSampleDetails } from '../redux/FormSlice';
 export default function SampleDetails({onButtonClick}) {
   const navigate = useNavigate();
-
+  const dispatch = useDispatch();
+  const form=useSelector(state =>state.form.customer);
   // ---------------Start of --------------RadioButtons Functionalities using USESTATE-----------------------
-
+const [sampleDetails,setSampleDetails]= useState({
+  natureofsample: "",
+report: "",
+samplename: "",
+sampleretension: "",
+sampletype: [''],
+storage: "",
+submissiontype: ""
+})
   const [selectedOption, setSelectedOption] = useState("");
+  //const schema = yup
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+  const handleChange = (e) => {
+    setSampleDetails({
+      ...sampleDetails,
+      [e.target.name]: e.target.value,
+    });
+    
+  };
 
+  const onSubmit = (data) => {
+    dispatch(changeSampleDetails(
+      {
+natureofsample:data.natureofsample,
+report:data.report,
+samplename:data.samplename,
+sampletype:data.sampletype,
+sampleretension:data.sampleretension,
+storage:data.storage,
+submissiontype:data.submissiontype,
+
+      })
+    )
+    console.log("useForm",data)
+onButtonClick("BatchDetails")
+
+  }
   const handleOptionChange = (event) => {
     setSelectedOption(event.target.value);
   };
@@ -55,19 +97,22 @@ export default function SampleDetails({onButtonClick}) {
         
 
           <div>
+            
             <Card className="maincards">
               <div className="cardtitle">
                 <text className="cardtitlehed">Sample Details</text>
               </div>
+              <form onSubmit={handleSubmit(onSubmit)}>
               <div className="cardcolumnpadding">
                 <label className="defaultStyles"> Name of the Sample</label>
-                <input className="form-control1"></input>
+                <input className="form-control1"  type="text" name="samplename" {...register("samplename")}   ></input>
 
                 <hr />
+               
                 <div className="row d-flex">
                   <Row>
                     <Col md={6}>
-                    <Form.Label
+                    <div
                         className="cardcolhed mb-4"
                         style={{ display: "block" }}
                       >
@@ -89,10 +134,13 @@ export default function SampleDetails({onButtonClick}) {
                               style={{ alignItems: "center", display: "flex" }}
                             >
                               <input
+                               {...register('report', { required: true })}
                                 type="radio"
-                                value="option1"
-                                checked={selectedOption === "option1"}
-                                onChange={handleOptionChange}
+                                value="yes"
+                                id="yes"
+                                name="report"
+                                // checked={selectedOption === "option1"}
+                               //onChange={handleChange}
                                 className="customRadio"
                               />
                               <label className="space">Yes</label>
@@ -102,10 +150,13 @@ export default function SampleDetails({onButtonClick}) {
                           <div className="col">
                             <span style={{ display: "flex" }}>
                               <input
+                               {...register('report', { required: true })}
                                 type="radio"
-                                value="option2"
-                                checked={selectedOption === "option2"}
-                                onChange={handleOptionChange}
+                                value="no"
+                                id="no"
+                                name="report"
+                                // checked={selectedOption === "option2"}
+                                 //onChange={handleChange}
                                 className="customRadio"
                               />
                               <label className="space">No</label>
@@ -114,20 +165,27 @@ export default function SampleDetails({onButtonClick}) {
                           <div className="col">
                             <span style={{ display: "flex" }}>
                               <input
+                               {...register('report', { required: true })}
                                 type="radio"
-                                value="option3"
-                                checked={selectedOption === "option3"}
-                                onChange={handleOptionChange}
+                                value="local"
+                                id="local"
+                                name="report"
+                                // checked={selectedOption === "option3"}
+                                //onChange={handleChange}
                                 className="customRadio"
                               />
                               <label className="space">Local FDA(DCA)</label>
                             </span>
                           </div>
                         </div>
-                      </Form.Label>
+                        <div className="text-danger mt-3">
+          {errors.report?.type === 'required' &&
+            'This field is required.'}
+        </div>
+                      </div>
                       </Col>
                       <Col md={6}>
-                      <Form.Label
+                      <div
                         className="cardcolhed mb-4"
                         style={{ display: "block" }}
                       >
@@ -146,11 +204,14 @@ export default function SampleDetails({onButtonClick}) {
                           <div className="col">
                             <span style={{ display: "flex" }}>
                               <input
+                               {...register('storage', { required: true })}
                                 type="radio"
-                                value="option13"
-                                checked={selectedOption3 === "option13"}
-                                onChange={handleOptionChange3}
+                                name="storage"
+                                value="Ambient/RT"
+                                // checked={selectedOption3 === "option13"}
+                                 //onChange={handleChange}
                                 className="customRadio"
+                                id="Ambient/RT"
                               />
                               <label className="space">Ambient/RT</label>
                             </span>
@@ -158,10 +219,13 @@ export default function SampleDetails({onButtonClick}) {
                           <div className="col">
                             <span style={{ display: "flex" }}>
                               <input
+                               {...register('storage', { required: true })}
                                 type="radio"
-                                value="option14"
-                                checked={selectedOption3 === "option14"}
-                                onChange={handleOptionChange3}
+                                name="storage"
+                                value="Freezer"
+                                id="Freezer"
+                                // checked={selectedOption3 === "option14"}
+                                //onChange={handleChange}
                                 className="customRadio"
                               />
                               <label className="space">Freezer (-20°C)</label>
@@ -170,10 +234,13 @@ export default function SampleDetails({onButtonClick}) {
                           <div className="col">
                             <span style={{ display: "flex" }}>
                               <input
+                               {...register('storage', { required: true })}
                                 type="radio"
-                                value="option15"
-                                checked={selectedOption3 === "option15"}
-                                onChange={handleOptionChange3}
+                                value="Refrigerator"
+                                id="Refrigerator"
+                                name="storage"
+                                // checked={selectedOption3 === "option15"}
+                               // onChange={handleChange}
                                 className="customRadio"
                               />
                               <label className="space">
@@ -182,7 +249,11 @@ export default function SampleDetails({onButtonClick}) {
                             </span>
                           </div>
                         </div>
-                      </Form.Label>
+                        <div className="text-danger mt-3">
+          {errors.storage?.type === 'required' &&
+            'This field is required.'}
+        </div>
+                    </div>
                       </Col>
                       </Row>
                       <hr />
@@ -212,10 +283,11 @@ export default function SampleDetails({onButtonClick}) {
                               style={{ alignItems: "center", display: "flex" }}
                             >
                               <input
+                               {...register('natureofsample', { required: true })}
                                 type="radio"
-                                value="option4"
-                                checked={selectedOption1 === "option4"}
-                                onChange={handleOptionChange1}
+                                value="RM"
+                                //checked={selectedOption1 === "option4"}
+                                //onChange={handleChange}
                                 className="customRadio"
                               />
                               <label className="space">RM</label>
@@ -224,11 +296,12 @@ export default function SampleDetails({onButtonClick}) {
 
                           <div className="col">
                             <span style={{ display: "flex" }}>
-                              <input
+                              <input {...register('natureofsample', { required: true })}
+
                                 type="radio"
-                                value="option5"
-                                checked={selectedOption1 === "option5"}
-                                onChange={handleOptionChange1}
+                                value="In-Progress"
+                                //checked={selectedOption1 === "In-Progress"}
+                                //onChange={handleChange}
                                 className="customRadio"
                               />
                               <label className="space">In-Progress</label>
@@ -237,10 +310,11 @@ export default function SampleDetails({onButtonClick}) {
                           <div className="col">
                             <span style={{ display: "flex" }}>
                               <input
+                               {...register('natureofsample', { required: true })}
                                 type="radio"
-                                value="option6"
-                                checked={selectedOption1 === "option6"}
-                                onChange={handleOptionChange1}
+                                value="Intermediate"
+                                //checked={selectedOption1 === "option6"}
+                                //onChange={handleChange}
                                 className="customRadio"
                               />
                               <label className="space">Intermediate</label>
@@ -266,10 +340,11 @@ export default function SampleDetails({onButtonClick}) {
                           <div className="col">
                             <span style={{ display: "flex" }}>
                               <input
+                               {...register('natureofsample', { required: true })}
                                 type="radio"
-                                value="option7"
-                                checked={selectedOption1 === "option7"}
-                                onChange={handleOptionChange1}
+                                value="API"
+                                //checked={selectedOption1 === "option7"}
+                                //onChange={handleChange}
                                 className="customRadio"
                               />
                               <label className="space">API</label>
@@ -278,10 +353,11 @@ export default function SampleDetails({onButtonClick}) {
                           <div className="col">
                             <span style={{ display: "flex" }}>
                               <input
+                               {...register('natureofsample', { required: true })}
                                 type="radio"
-                                value="option8"
-                                checked={selectedOption1 === "option8"}
-                                onChange={handleOptionChange1}
+                                value="Excipient"
+                                //checked={selectedOption1 === "option8"}
+                               // onChange={handleChange}
                                 className="customRadio"
                               />
                               <label className="space">Excipient</label>
@@ -290,10 +366,11 @@ export default function SampleDetails({onButtonClick}) {
                           <div className="col">
                             <span style={{ display: "flex" }}>
                               <input
+                               {...register('natureofsample', { required: true })}
                                 type="radio"
-                                value="option9"
-                                checked={selectedOption1 === "option9"}
-                                onChange={handleOptionChange1}
+                                value="Drugproduct"
+                                //checked={selectedOption1 === "option9"}
+                                //onChange={handleChange}
                                 className="customRadio"
                               />
                               <label className="space">Drug Product</label>
@@ -318,10 +395,11 @@ export default function SampleDetails({onButtonClick}) {
                           <div className="col">
                             <span style={{ display: "flex" }}>
                               <input
+                               {...register('natureofsample', { required: true })}
                                 type="radio"
-                                value="option10"
-                                checked={selectedOption1 === "option10"}
-                                onChange={handleOptionChange1}
+                                value="others"
+                                //checked={selectedOption1 === "option10"}
+                                //onChange={handleChange}
                                 className="customRadio"
                               />
                               <label className="space">Others</label>
@@ -334,7 +412,12 @@ export default function SampleDetails({onButtonClick}) {
                           </div>
                         </div>
                       </Form.Label>
+                       <div className="text-danger mt-1 mb-4">
+          {errors.storage?.type === 'required' &&
+            'This field is required.'}
+        </div>
                       </Col>
+
                       <Col md={6}>
                       <Form.Label
                         className="cardcolhed mb-4"
@@ -357,10 +440,11 @@ export default function SampleDetails({onButtonClick}) {
                               style={{ alignItems: "center", display: "flex" }}
                             >
                               <input
+                               {...register('sampletype', { required: true })}
                                 type="checkbox"
-                                value="option16"
+                                value="hygroscopic"
                                 // checked={selectedOption4 === "option16"}
-                                // onChange={handleOptionChange4}
+                                //onChange={handleChange}
                                 className="customRadio"
                               />
                               <label className="space">Hygroscopic</label>
@@ -369,10 +453,11 @@ export default function SampleDetails({onButtonClick}) {
                           <div className="col">
                             <span style={{ display: "flex" }}>
                               <input
+                               {...register('sampletype', { required: true })}
                                 type="checkbox"
-                                value="option17"
+                                value="lightsensitive"
                                 // checked={selectedOption4 === "option17"}
-                                // onChange={handleOptionChange4}
+                               // onChange={handleChange}
                                 className="customRadio"
                               />
                               <label className="space">Light Sensitive</label>
@@ -381,10 +466,11 @@ export default function SampleDetails({onButtonClick}) {
                           <div className="col">
                             <span style={{ display: "flex" }}>
                               <input
+                               {...register('sampletype', { required: true })}
                                 type="checkbox"
-                                value="option18"
+                                value="non-hazardous"
                                 // checked={selectedOption4 === "option18"}
-                                // onChange={handleOptionChange4}
+                                //onChange={handleOptionChange}
                                 className="customRadio"
                               />
                               <label className="space">Non-Hazardous</label>
@@ -410,10 +496,11 @@ export default function SampleDetails({onButtonClick}) {
                           <div className="col">
                             <span style={{ display: "flex" }}>
                               <input
+                               {...register('sampletype', { required: true })}
                                 type="checkbox"
-                                value="option19"
+                                value="hazardous"
                                 // checked={selectedOption4 === "option19"}
-                                // onChange={handleOptionChange4}
+                                //onChange={handleChange}
                                 className="customRadio"
                               />
                               <label className="space">Hazardous</label>
@@ -422,21 +509,32 @@ export default function SampleDetails({onButtonClick}) {
                           <div className="col">
                             <span style={{ display: "flex" }}>
                               <input
+                               {...register('sampletype', { required: true })}
                                 type="checkbox"
-                                value="option20"
+                                value="msdsattached"
                                 // checked={selectedOption4 === "option20"}
-                                // onChange={handleOptionChange4}
+                               //onChange={handleChange}
                                 className="customRadio"
                               />
                               <label className="space">MSDS Attached</label>
                             </span>
                           </div>
+
                           <div className="col">
                             <span style={{ display: "flex" }}>
-                             
-                              <label className="space"> </label>
+                              <input
+                                type="file"
+                                style={{width:170}}
+                              
+                                className="customInput"
+                              />
                             </span>
                           </div>
+
+                         
+                          
+                            
+                          
                         </div>
                       </Form.Label>
 
@@ -456,10 +554,11 @@ export default function SampleDetails({onButtonClick}) {
                           <div className="col">
                             <span style={{ display: "flex" }}>
                               <input
+                               {...register('sampletype', { required: true })}
                                 type="checkbox"
-                                value="option21"
-                                checked={selectedOption4 === "option21"}
-                                onChange={handleOptionChange4}
+                                value="others"
+                                //checked={selectedOption4 === "option21"}
+                                //onChange={handleChange}
                                 className="customRadio"
                               />
                               <label className="space">Others</label>
@@ -472,6 +571,10 @@ export default function SampleDetails({onButtonClick}) {
                           </div>
                         </div>
                       </Form.Label>
+                      <div className="text-danger mt-3">
+          {errors.sampletype?.type === 'required' &&
+            'This field is required.'}
+        </div>
                       </Col>
                       </Row>
                       <hr />
@@ -498,10 +601,11 @@ export default function SampleDetails({onButtonClick}) {
                           <div className="col">
                             <span style={{ display: "flex" }}>
                               <input
+                              {...register('sampleretension', { required: true })}
                                 type="radio"
-                                value="option11"
-                                checked={selectedOption2 === "option11"}
-                                onChange={handleOptionChange2}
+                                value="yes"
+                                //checked={selectedOption2 === "option11"}
+                               // onChange={handleChange}
                                 className="customRadio"
                               />
                               <label className="space">Yes</label>
@@ -510,10 +614,11 @@ export default function SampleDetails({onButtonClick}) {
                           <div className="col">
                             <span style={{ display: "flex" }}>
                               <input
+                              {...register('sampleretension', { required: true })}
                                 type="radio"
-                                value="option12"
-                                checked={selectedOption2 === "option12"}
-                                onChange={handleOptionChange2}
+                                value="no"
+                                //checked={selectedOption2 === "option12"}
+                                //onChange={handleChange}
                                 className="customRadio"
                               />
                               <label className="space">No</label>
@@ -526,6 +631,10 @@ export default function SampleDetails({onButtonClick}) {
                             </span>
                           </div>
                         </div>
+                        <div className="text-danger mt-3">
+          {errors.sampleretension?.type === 'required' &&
+            'This field is required.'}
+        </div>
                       </Form.Label>
                       </Col>
                       <Col md={6}>
@@ -549,10 +658,11 @@ export default function SampleDetails({onButtonClick}) {
                           <div className="col">
                             <span style={{ display: "flex" }}>
                               <input
+                              {...register('submissiontype', { required: true })}
                                 type="radio"
-                                value="option22"
-                                checked={selectedOption5 === "option22"}
-                                onChange={handleOptionChange5}
+                                value="person"
+                                //checked={selectedOption5 === "option22"}
+                                //onChange={handleChange}
                                 className="customRadio"
                               />
                               <label className="space">Person</label>
@@ -561,10 +671,11 @@ export default function SampleDetails({onButtonClick}) {
                           <div className="col">
                             <span style={{ display: "flex" }}>
                               <input
+                              {...register('submissiontype', { required: true })}
                                 type="radio"
-                                value="option23"
-                                checked={selectedOption5 === "option23"}
-                                onChange={handleOptionChange5}
+                                value="courier"
+                               // checked={selectedOption5 === "option23"}
+                              // onChange={handleChange}
                                 className="customRadio"
                               />
                               <label className="space">Courier</label>
@@ -573,20 +684,25 @@ export default function SampleDetails({onButtonClick}) {
                           <div className="col">
                             <span style={{ display: "flex" }}>
                               <input
+                              {...register('submissiontype', { required: true })}
                                 type="radio"
-                                value="option24"
-                                checked={selectedOption5 === "option24"}
-                                onChange={handleOptionChange5}
+                                value="Bypost"
+                                //checked={selectedOption5 === "option24"}
+                               // onChange={handleChange}
                                 className="customRadio"
                               />
                               <label className="space">By Post</label>
                             </span>
                           </div>
                         </div>
+                        <div className="text-danger mt-3">
+          {errors.submissiontype?.type === 'required' &&
+            'This field is required.'}
+        </div>
                       </Form.Label>
                     </Col>
                      
-                        
+                    
                     
                     <hr />
                     <div
@@ -604,8 +720,8 @@ export default function SampleDetails({onButtonClick}) {
                         Previous
                       </button>
                       
-                      <button
-                        onClick={() => onButtonClick("BatchDetail")}
+                      <button type="submit"
+                       //onClick={() => onButtonClick("BatchDetail")}
                         className="next"
                         name="Next"
                       >
@@ -615,6 +731,7 @@ export default function SampleDetails({onButtonClick}) {
                   </Row>
                 </div>
               </div>
+              </form>
             </Card>
           </div>
         </div>
