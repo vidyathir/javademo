@@ -6,19 +6,22 @@ import { useNavigate } from "react-router-dom";
 // import { BiRightArrowAlt, BiLeftArrowAlt } from "react-icons/bi";
 // import { MdOutlineUploadFile } from "react-icons/md";
 import { AiOutlineMail, AiOutlineCheck, AiFillPrinter } from "react-icons/ai";
-
+import Sidenavbar from "../components/Sidenavbar";
 // import { TbFileLike } from "react-icons/tb";
 import { LuFolderCheck } from "react-icons/lu";
 // import {BsFileEarmarkCheck} from 'react-icons/bs';
-
+import Navbartitle from "../components/Navbartitle";
 export default function RlplGenerated() {
   const navigate = useNavigate();
   return (
-    <div className="">
-    
+    <div className="app">
+    <Navbartitle/>
 
-      <div className="">
-        <div className="">
+      <div className="d-flex">
+      <Sidenavbar />
+      <div className="main">
+        <div className="mainitem">
+        
           
 
           <div
@@ -393,6 +396,7 @@ export default function RlplGenerated() {
           </div>
         </div>
       </div>
+    </div>
     </div>
   );
 }
