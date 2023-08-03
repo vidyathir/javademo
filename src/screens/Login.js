@@ -3,6 +3,7 @@ import logo from "../assets/loginImage.png";
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 import './MStyles.css';
+import logo2 from  '../assets//LoginLogo.png';
 import {AiOutlineEyeInvisible,AiFillEye} from 'react-icons/ai'
 import { useNavigate } from "react-router-dom";
 
@@ -55,7 +56,8 @@ const Login = () => {
  {/* Login Form */}
 
  <div className="logo">
-          
+        
+          <img src={logo2} alt="" />
      
 
         <div className="login-form" style={{justifySelf:'center'}}>
