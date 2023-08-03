@@ -1,22 +1,17 @@
-import React,{useState} from 'react'
+import React from 'react'
 import './Styles.css';
-import Sidenavbar from '../components/Sidenavbar';
-import profilepic from "../assets/avater2.jpg";
-import {IoIosAddCircleOutline} from 'react-icons/io';
-import { AiOutlineLeft, AiOutlineCheck } from "react-icons/ai";
-import {BiRightArrowAlt} from 'react-icons/bi'
-import Titlebar from '../components/Titlebar';
-import { Card,Col,Row,Form, Button,InputGroup,} from 'react-bootstrap';
-import {useNavigate} from 'react-router-dom';
+
+import { AiOutlineCheck } from "react-icons/ai";
+import { Card,Col,Row,Form, InputGroup,} from 'react-bootstrap';
 import * as formik from 'formik';
 import * as Yup from 'yup';
-import Select from 'react-select'
+
 import { useDispatch } from 'react-redux';
 import { changeCustomerDetails } from '../redux/FormSlice';
 
 export default function CustomerDetailes({onButtonClick}) {
-const[formState, setFormState]=useState(true);
-  const navigate = useNavigate();
+
+  
   const { Formik } = formik;
   const dispatch = useDispatch();
 

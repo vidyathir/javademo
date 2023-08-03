@@ -3,8 +3,6 @@ import {BrowserRouter,Routes,Route} from 'react-router-dom';
 import Login from './screens/Login';
 
 import AddNewCustomer from './screens/AddNewCustomer';
-import CustomerDetailes from './screens/CustomerDetailes';
-import SampleDetails from './screens/SampleDetails';
 import Progress from './screens/Progress';
 import RLPLgenerated from './screens/RLPLgenerated';
 import RLPLNotgenerated from './screens/RLPLNotgenerated';

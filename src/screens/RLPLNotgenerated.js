@@ -7,9 +7,7 @@ import { Button } from "react-bootstrap";
 import { AiOutlineMail, AiOutlineCheck, AiFillPrinter ,AiOutlineFileExcel} from "react-icons/ai";
 import'./MStyles.css';
 // import { TbFileLike } from "react-icons/tb";
-import {LuFolderCheck} from 'react-icons/lu'
 // import {BsFileEarmarkCheck} from 'react-icons/bs';
-import {BsFolderX} from 'react-icons/bs';
 import { useNavigate } from "react-router-dom";
 import Navbartitle from "../components/Navbartitle";
 

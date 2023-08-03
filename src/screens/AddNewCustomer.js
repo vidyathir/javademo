@@ -1,7 +1,5 @@
 import React from "react";
 import "./Styles.css";
-// import logo from '../assets/logo 2.png';
-import profilepic from "../assets/avater2.jpg";
 import { AiOutlineLeft, AiOutlineCheck } from "react-icons/ai";
 import { Card } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
@@ -12,7 +10,6 @@ import Sidenavbar from "../components/Sidenavbar";
 import {useNavigate} from 'react-router-dom';
 import * as formik from 'formik';
 import * as yup from 'yup';
-// import Navbartitle from "../components/Navbartitle";
 import NavbartitleAddco from "../components/NavbartitleAddco";
 
 

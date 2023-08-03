@@ -3,14 +3,13 @@ import "./Styles.css";
 import { Col, Row, Table } from "react-bootstrap";
 import { PiFilePdfFill } from "react-icons/pi";
 import { BiLeftArrowAlt, BiRightArrowAlt } from "react-icons/bi";
-import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 export default function ConfirmDetails({onButtonClick}) {
   const form=useSelector(state =>state.form.customer);
   const sample=useSelector(state =>state.form.sampleDetails);
   const analysis=useSelector(state =>state.form.typeofanalysis);
   const batch=useSelector(state=>state.form.batchdetails); 
-  const navigate = useNavigate();
+
 console.log("batch", batch)
   return (
     <div>

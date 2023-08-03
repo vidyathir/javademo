@@ -1,44 +1,26 @@
-import React, { useState } from "react";
-import Sidenavbar from "../components/Sidenavbar";
-import Titlebar from "../components/Titlebar";
-import { Form, Row, Col, Card, Button } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
+import React from "react";
+
+import { Form, Row, Col, Card} from "react-bootstrap";
 import './MStyles.css';
-import { MdOutlineUploadFile } from "react-icons/md";
-import * as yup from 'yup';
+
 import { BiRightArrowAlt, BiLeftArrowAlt } from "react-icons/bi";
-import { useForm } from 'react-hook-form'
-import { useSelector } from "react-redux";
+import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import { changeSampleDetails } from '../redux/FormSlice';
 export default function SampleDetails({onButtonClick}) {
-  const navigate = useNavigate();
+
   const dispatch = useDispatch();
-  const form=useSelector(state =>state.form.customer);
+  
   // ---------------Start of --------------RadioButtons Functionalities using USESTATE-----------------------
-const [sampleDetails,setSampleDetails]= useState({
-  natureofsample: "",
-report: "",
-samplename: "",
-sampleretension: "",
-sampletype: [''],
-storage: "",
-submissiontype: ""
-})
-  const [selectedOption, setSelectedOption] = useState("");
+
+  
   //const schema = yup
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const handleChange = (e) => {
-    setSampleDetails({
-      ...sampleDetails,
-      [e.target.name]: e.target.value,
-    });
-    
-  };
+  
 
   const onSubmit = (data) => {
     dispatch(changeSampleDetails(
@@ -57,33 +39,7 @@ submissiontype:data.submissiontype,
 onButtonClick("BatchDetails")
 
   }
-  const handleOptionChange = (event) => {
-    setSelectedOption(event.target.value);
-  };
-
-  const [selectedOption1, setSelectedOption1] = useState("");
-  const handleOptionChange1 = (event) => {
-    setSelectedOption1(event.target.value);
-  };
-
-  const [selectedOption2, setSelectedOption2] = useState("");
-  const handleOptionChange2 = (event) => {
-    setSelectedOption2(event.target.value);
-  };
-
-  const [selectedOption3, setSelectedOption3] = useState("");
-  const handleOptionChange3 = (event) => {
-    setSelectedOption3(event.target.value);
-  };
-  const [selectedOption4, setSelectedOption4] = useState("");
-  const handleOptionChange4 = (event) => {
-    setSelectedOption4(event.target.value);
-  };
-
-  const [selectedOption5, setSelectedOption5] = useState("");
-  const handleOptionChange5 = (event) => {
-    setSelectedOption5(event.target.value);
-  };
+ 
 
   // ---------------End  of --------------RadioButtons Functionalities using USESTATE-----------------------
 

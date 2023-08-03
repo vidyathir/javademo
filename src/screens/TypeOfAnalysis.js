@@ -1,7 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 
-import { Form, Row, Col, Card, Button } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
+import { Form, Row, Col, Card} from "react-bootstrap";
 import { useDispatch } from 'react-redux';
 import { BiRightArrowAlt, BiLeftArrowAlt } from "react-icons/bi";
 import { MdOutlineUploadFile } from "react-icons/md";
@@ -28,11 +27,10 @@ export default function TypeOfAnalysis({onButtonClick}) {
 
   ]
   const dispatch = useDispatch();
-  const navigate = useNavigate();
+  
 
   // ---------------Start of --------------RadioButtons Functionalities using USESTATE-----------------------
 
-  const [selectedOption, setSelectedOption] = useState("");
   const {
     control,
     register,
@@ -56,29 +54,7 @@ export default function TypeOfAnalysis({onButtonClick}) {
     onButtonClick("ConfirmDetails")
     
       }
-  const handleOptionChange = (event) => {
-    setSelectedOption(event.target.value);
-  };
-
-  const [selectedOption1, setSelectedOption1] = useState("");
-  const handleOptionChange1 = (event) => {
-    setSelectedOption1(event.target.value);
-  };
-
-  const [selectedOption2, setSelectedOption2] = useState("");
-  const handleOptionChange2 = (event) => {
-    setSelectedOption2(event.target.value);
-  };
-
-  const [selectedOption3, setSelectedOption3] = useState("");
-  const handleOptionChange3 = (event) => {
-    setSelectedOption3(event.target.value);
-  };
-  const [selectedOption4, setSelectedOption4] = useState("");
-  const handleOptionChange4 = (event) => {
-    setSelectedOption4(event.target.value);
-  };
-
+  
   // ---------------End  of --------------RadioButtons Functionalities using USESTATE-----------------------
 
   return (

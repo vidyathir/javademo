@@ -1,7 +1,5 @@
 import React,{useState,useEffect} from "react";
 import "./Styles.css";
-import Sidenavbar from "../components/Sidenavbar";
-import Navbartitle from "../components/Navbartitle";
 import {
   Card,
   Col,
@@ -9,21 +7,17 @@ import {
   //   Form,
   Table,
 } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
-// import * as formik from "formik";
-// import * as yup from "yup";
-import { useDispatch } from 'react-redux';
+
 import { BiRightArrowAlt } from "react-icons/bi";
 import { BiLeftArrowAlt } from "react-icons/bi";
 import { AiOutlineClose } from "react-icons/ai";
 import { MdOutlineAdd } from "react-icons/md";
 import { RiDeleteBinLine } from "react-icons/ri";
 import { BiEdit } from "react-icons/bi";
-import { changeBatchDetails } from "../redux/FormSlice";
+//import { changeBatchDetails } from "../redux/FormSlice";
 
 export default function BatchDetails({onButtonClick}) {
-  const navigate = useNavigate();
-    const dispatch = useDispatch();
+    
   const [inputs, setInputs] = useState({
     batchno: "",
     batchSize: "",
@@ -47,7 +41,7 @@ export default function BatchDetails({onButtonClick}) {
   };
   const handleSubmit = (e) => {
    e.preventDefault();
-    //const id = inputs.length +1;
+
     setFormErrors(validate(inputs))
     
     if (editClick) {
@@ -55,7 +49,7 @@ export default function BatchDetails({onButtonClick}) {
       Object.assign(tempTableData[editIndex], inputs);
       setTableData([...tempTableData]);
       setEditClick(false);
-      setInputs([{
+      setInputs({
          batchno: "",
         batchSize: "",
         packing:"",
@@ -63,10 +57,10 @@ export default function BatchDetails({onButtonClick}) {
         expdate:"",
         retestdate:"",
         sample:""
-      }]);
+      });
     } else {
       setTableData([...tableData, inputs]);
-      setInputs([{
+      setInputs({
         batchno: "",
         batchSize: "",
         packing:"",
@@ -74,10 +68,10 @@ export default function BatchDetails({onButtonClick}) {
         expdate:"",
         retestdate:"",
         sample:""
-      }]);
+      });
     }
     
-    //setIsSubmit(true)
+    setIsSubmit(true)
   };
   useEffect(() => {
     
@@ -85,11 +79,10 @@ export default function BatchDetails({onButtonClick}) {
     if (Object.keys(formErrors).length === 0 && isSubmit) {
       console.log(inputs);
     }
-  }, [formErrors]);
+  }, [formErrors, inputs, isSubmit]);
 
 const handleDispatch=()=>{
-  dispatch(changeBatchDetails(inputs)
-  )
+  
   onButtonClick("TypeOfAnalysis")
 }
 
@@ -132,10 +125,7 @@ const handleDispatch=()=>{
           <div >
             <div>
                 <form onSubmit={handleSubmit}>
-                {/* {Object.keys(formErrors).length === 0 && isSubmit ? (
-                  setIsSubmit(true)):(
-                    console.log("error")
-                      )} */}
+            
               <Card className="maincards">
                 <div className="cardtitle">
                   <text className="cardtitlehed">Batch Details</text>
@@ -326,7 +316,7 @@ const handleDispatch=()=>{
                    
                     <tbody className="tablebody-custom ">
                     {tableData.map((item, i) => (
-                      <tr>
+                      <tr key={item.id}>
                         <td>{i+1}</td>
                                 <td>{item.batchno}</td>
                         <td>{item.batchSize}</td>

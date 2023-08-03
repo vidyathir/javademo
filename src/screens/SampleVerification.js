@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import './MStyles.css';
-import { Form, Row, Col, Card, Button } from "react-bootstrap";
+import {  Card, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 
-import { BiRightArrowAlt, BiLeftArrowAlt } from "react-icons/bi";
-import {TiArrowBackOutline}from 'react-icons/ti'
+import {  BiLeftArrowAlt } from "react-icons/bi";
 import {MdDone} from 'react-icons/md'
 import{TbLogout2} from 'react-icons/tb'
 // import { MdOutlineUploadFile } from "react-icons/md";
