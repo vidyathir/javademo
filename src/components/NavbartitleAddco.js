@@ -9,9 +9,6 @@ import Navbar from 'react-bootstrap/Navbar';
 import logo from "../assets/logo 2.png"
 import profilepic from "../assets/avater2.jpg";
 
-
-import {IoIosAddCircleOutline} from 'react-icons/io'
-
 function NavbartitleAddco() {
   return (
     <Navbar expand="lg" className="bg-body navbartop" bg="light">
