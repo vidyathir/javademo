@@ -28,7 +28,7 @@ function Navbartitle() {
             style={{ maxHeight: '100px' }}
             navbarScroll
           >
-            <text className="title">Welcome Back Ajay Varadharajan<span className="titlecolor"> (SRO) </span></text>
+            <text className="title">Welcome Back <span className="titlecolor"></span></text>
             {/* <Nav.Link href="#action1">Home</Nav.Link>
             <Nav.Link href="#action2">Link</Nav.Link>
             <NavDropdown title="Link" id="navbarScrollingDropdown">

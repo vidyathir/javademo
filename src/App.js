@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import {BrowserRouter,Routes,Route} from 'react-router-dom';
 import Login from './screens/Login';
 
@@ -8,7 +8,16 @@ import RLPLgenerated from './screens/RLPLgenerated';
 import RLPLNotgenerated from './screens/RLPLNotgenerated';
 import { Provider } from 'react-redux';
 import { store } from "./redux/store";
-import { Fragment } from 'react';
+import AnalystDashboaed from './screens/AnalystDashboaed';
+import AwaitingSamples from './screens/AwaitingSamples';
+import AnalystBatchandRLPLdetails from './screens/AnalystBatchandRLPLdetails';
+import ReviewDashboard from './screens/ReviewDashboard';
+import AwaitingSamplesReview from './screens/AwaitingSamplesReview';
+import ReviewerDetails from './screens/ReviewerDetails';
+import ApproverDashboard from './screens/ApproverDashboard';
+import AwaitingSamplesApprover from './screens/AwaitingSamplesApprover';
+import ApproverDetails from './screens/ApproverDetails';
+import SearchCustomer from './screens/SearchCustomer';
 
 
 export default function App() {
@@ -19,15 +28,22 @@ export default function App() {
     <Routes>
   
      <Route exact path='/' element={<Login/>} />
-        
+     <Route exact path='/SearchCustomer' element={<SearchCustomer/>}/>    
      <Route exact path='/Progress' element={<Progress/>}/>  
      <Route exact path='/Progress/AddNewCustomer' element={<AddNewCustomer/>}/>
      <Route exact path='/Progress/RLPLgenerated' element={<RLPLgenerated/>}/>  
-     <Route exact path='/Progress/RLPLNotgenerated' element={<RLPLNotgenerated/>}/> 
-     {/* <Route exact path='/CustomerDetailes' element={<CustomerDetailes/>}/>
-    <Route exact path='/SampleDetails' element={<SampleDetails/>}/>
-   <Route exact path='/BatchDetails' element={<BatchDetails/>}/>  */}
-    </Routes>
+     <Route exact path='/Progress/RLPLNotgenerated' element={<RLPLNotgenerated/>}/>
+     <Route exact path='/Progress/RLPLNotgenerated' element={<RLPLNotgenerated/>}/>
+     <Route exact path='/AnalystDashboaed' element={<AnalystDashboaed/>}/>  
+     <Route exact path='/AnalystDashboaed/AwaitingSamples' element={<AwaitingSamples/>}/>  
+     <Route exact path='/AnalystDashboaed/AwaitingSamples/AnalystBatchandRLPLdetails' element={<AnalystBatchandRLPLdetails/>}/>  
+     <Route exact path='/ReviewDashboard' element={<ReviewDashboard/>}/>  
+     <Route exact path='/ReviewDashboard/AwaitingSamplesReview' element={<AwaitingSamplesReview/>}/>  
+     <Route exact path='/ReviewDashboard/AwaitingSamplesReview/ReviewerDetails' element={<ReviewerDetails/>}/>  
+     <Route exact path='/ApproverDashboard' element={<ApproverDashboard/>}/>  
+     <Route exact path='/ApproverDashboard/AwaitingSamplesApprover' element={<AwaitingSamplesApprover/>}/>  
+     <Route exact path='/ApproverDashboard/AwaitingSamplesApprover/ApproverDetails' element={<ApproverDetails/>}/>
+     </Routes>
     </BrowserRouter>
     </Provider>
     </Fragment>

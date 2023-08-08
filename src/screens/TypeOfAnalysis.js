@@ -4,35 +4,18 @@ import { Form, Row, Col, Card} from "react-bootstrap";
 import { useDispatch } from 'react-redux';
 import { BiRightArrowAlt, BiLeftArrowAlt } from "react-icons/bi";
 import { MdOutlineUploadFile } from "react-icons/md";
-import './MStyles.css';
-import { useForm,Controller} from 'react-hook-form'
-import Select from 'react-select';
+import './Styles.css';
+import { useForm} from 'react-hook-form'
 import { changeTypeofAnalysis } from '../redux/FormSlice';
 
 export default function TypeOfAnalysis({onButtonClick}) {
-  const testparameters=[
-    {value:"a", label:"a"},
-    {value:"b", label:"b"},
-    {value:"c",label:"c"},
-    {value:"d", label:"d"},
-    {value:"e",label:"e"},
-    {value:"f", label:"f"},
-    {value:"g",label:"g"},
-    {value:"h", label:"h"},
-    {value:"i",label:"i"},
-    {value:"j", label:"j"},
-    {value:"k",label:"k"},
-    {value:"l", label:"l"},
-    {value:"m",label:"m"},
-
-  ]
+  
   const dispatch = useDispatch();
   
 
   // ---------------Start of --------------RadioButtons Functionalities using USESTATE-----------------------
 
   const {
-    control,
     register,
     handleSubmit,
     formState: { errors },
@@ -406,27 +389,68 @@ export default function TypeOfAnalysis({onButtonClick}) {
                     // style={{ display: "flex" }}
                   >
                     {/* <div className="col-6"> */}
-                      <div className="mb-3">
-                        <text>
-                          Analytical Test Parameter; If require attach Annexure
-                          along with this filled TRF
-                        </text>
-                        <text className="cardcolhedstar">*</text>
+                     
+                    <div className="mb-3">
+                        <text>Methodology</text>
                       </div>
-                      <div>
-                        <Controller
-                        name="testparameters"
-                        control={control}
-                        rules={{required:true}}
-                        render={({field})=>(
-                          <Select {...field} isMulti options={testparameters}/>
-                        )}
-                        />
+                      <div
+                        style={{
+                          display: "flex",
+                          justifyContent: "normal",
+                        }}
+                      >
+                        <div style={{ alignItems: "center", display: "flex" }}>
+                          <input
+                           {...register('methodologyfollowed')}
+                            type="radio"
+                            value="stp"
+                            name="methodologyfollowed"
+                            //checked={selectedOption4 === "option22"}
+                            //onChange={handleOptionChange4}
+                            style={{ height: 20, width: 20 }}
+                          />
+                          <label className="space">STP</label>
+                        </div>
+                        <div
+                          style={{
+                            alignItems: "center",
+                            display: "flex",
+                            marginLeft: 50,
+                          }}
+                        >
+                          <input
+                           {...register('methodologyfollowed')}
+                            type="radio"
+                            value="gtp"
+                            name="methodologyfollowed"
+                            //checked={selectedOption4 === "option23"}
+                            //onChange={handleOptionChange4}
+                            style={{ height: 20, width: 20 }}
+                          />
+                          <label className="space"> GTP</label>
+                        </div>
+                        <div
+                          style={{
+                            alignItems: "center",
+                            display: "flex",
+                            marginLeft: 50,
+                          }}
+                        >
+                          <input
+                          {...register('methodologyfollowed')}
+                            type="radio"
+                            value="referenceno"
+                            name="methodologyfollowed"
+                            //checked={selectedOption4 === "option24"}
+                            //onChange={handleOptionChange4}
+                            style={{ height: 20, width: 20 }}
+                          />
+                          <label className="space">Reference No</label>
+                        </div>
+                        <div style={{ alignItems: "center", display: "flex" }}>
+                          <input type="text" className="methodology"/>
+                        </div>
                       </div>
-                      {errors.testparameters && (
-                        <p className="errorMsg" style={{color:"red"}}>This field is required</p>
-                      )}
-                    {/* </div> */}
                     </Col>
 
                     <Col md={6} className="cardcolhed">
@@ -546,67 +570,7 @@ export default function TypeOfAnalysis({onButtonClick}) {
                     style={{ display: "block" }}
                   >
                     {/* <div className="col-6"> */}
-                      <div className="mb-3">
-                        <text>Methodology</text>
-                      </div>
-                      <div
-                        style={{
-                          display: "flex",
-                          justifyContent: "normal",
-                        }}
-                      >
-                        <div style={{ alignItems: "center", display: "flex" }}>
-                          <input
-                           {...register('methodologyfollowed')}
-                            type="radio"
-                            value="stp"
-                            name="methodologyfollowed"
-                            //checked={selectedOption4 === "option22"}
-                            //onChange={handleOptionChange4}
-                            style={{ height: 20, width: 20 }}
-                          />
-                          <label className="space">STP</label>
-                        </div>
-                        <div
-                          style={{
-                            alignItems: "center",
-                            display: "flex",
-                            marginLeft: 50,
-                          }}
-                        >
-                          <input
-                           {...register('methodologyfollowed')}
-                            type="radio"
-                            value="gtp"
-                            name="methodologyfollowed"
-                            //checked={selectedOption4 === "option23"}
-                            //onChange={handleOptionChange4}
-                            style={{ height: 20, width: 20 }}
-                          />
-                          <label className="space"> GTP</label>
-                        </div>
-                        <div
-                          style={{
-                            alignItems: "center",
-                            display: "flex",
-                            marginLeft: 50,
-                          }}
-                        >
-                          <input
-                          {...register('methodologyfollowed')}
-                            type="radio"
-                            value="referenceno"
-                            name="methodologyfollowed"
-                            //checked={selectedOption4 === "option24"}
-                            //onChange={handleOptionChange4}
-                            style={{ height: 20, width: 20 }}
-                          />
-                          <label className="space">Reference No</label>
-                        </div>
-                        <div style={{ alignItems: "center", display: "flex" }}>
-                          <input type="text" className="methodology"/>
-                        </div>
-                      </div>
+                      
                       <div className="mt-3 mb-3">
                         <text>Attachfile</text>
                       </div>

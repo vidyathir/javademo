@@ -8,16 +8,32 @@ import {
   Table,
 } from "react-bootstrap";
 
-import { BiRightArrowAlt } from "react-icons/bi";
-import { BiLeftArrowAlt } from "react-icons/bi";
+import { BiRightArrowAlt, BiEdit, BiLeftArrowAlt } from "react-icons/bi";
 import { AiOutlineClose } from "react-icons/ai";
 import { MdOutlineAdd } from "react-icons/md";
 import { RiDeleteBinLine } from "react-icons/ri";
-import { BiEdit } from "react-icons/bi";
-//import { changeBatchDetails } from "../redux/FormSlice";
+import { useDispatch } from 'react-redux';
+import { changeBatchDetails } from "../redux/FormSlice";
+import Select from "react-dropdown-select";
 
 export default function BatchDetails({onButtonClick}) {
-    
+  const dispatch = useDispatch();
+  const testparameters=[
+    {value:"a", label:"a"},
+    {value:"b", label:"b"},
+    {value:"c",label:"c"},
+    {value:"d", label:"d"},
+    {value:"e",label:"e"},
+    {value:"f", label:"f"},
+    {value:"g",label:"g"},
+    {value:"h", label:"h"},
+    {value:"i",label:"i"},
+    {value:"j", label:"j"},
+    {value:"k",label:"k"},
+    {value:"l", label:"l"},
+    {value:"m",label:"m"},
+
+  ]
   const [inputs, setInputs] = useState({
     batchno: "",
     batchSize: "",
@@ -26,12 +42,18 @@ export default function BatchDetails({onButtonClick}) {
     expdate:"",
     retestdate:"",
     sample:"",
+    testparameters:[]
   });
   const [formErrors, setFormErrors] = useState({});
   const [isSubmit, setIsSubmit] = useState(false);
   const [tableData, setTableData] = useState([]);
   const [editClick, setEditClick] = useState(false);
   const [editIndex, setEditIndex] = useState("");
+  const [selectedOptions, setSelectedOptions] = useState([]);
+
+  const handleSelectChange = (selectedOptions) => {
+    setSelectedOptions(selectedOptions);
+  };
   const handleChange = (e) => {
     setInputs({
       ...inputs,
@@ -56,7 +78,8 @@ export default function BatchDetails({onButtonClick}) {
         mfgdate:"",
         expdate:"",
         retestdate:"",
-        sample:""
+        sample:"",
+        testparameters:[],
       });
     } else {
       setTableData([...tableData, inputs]);
@@ -67,7 +90,8 @@ export default function BatchDetails({onButtonClick}) {
         mfgdate:"",
         expdate:"",
         retestdate:"",
-        sample:""
+        sample:"",
+        testparameters:[],
       });
     }
     
@@ -82,7 +106,8 @@ export default function BatchDetails({onButtonClick}) {
   }, [formErrors, inputs, isSubmit]);
 
 const handleDispatch=()=>{
-  
+  dispatch(changeBatchDetails(tableData))
+    
   onButtonClick("TypeOfAnalysis")
 }
 
@@ -95,7 +120,7 @@ const handleDispatch=()=>{
     const tempData = tableData[index];
 
     setInputs({ batchno: tempData.batchno, batchSize: tempData.batchSize, packing: tempData.packing, 
-    mfgdate:tempData.mfgdate,expdate: tempData.expdate, retestdate:tempData.retestdate,sample: tempData.sample });
+    mfgdate:tempData.mfgdate,expdate: tempData.expdate, retestdate:tempData.retestdate,sample: tempData.sample ,testparameters:tempData.testparameters});
     setEditClick(true);
     setEditIndex(index);
   };
@@ -112,6 +137,9 @@ const handleDispatch=()=>{
     }
     if (!values.retestdate) {
       errors.retestdate = "This field is required!";
+    }
+    if (!values.testparameters) {
+      errors.testparameters = "This field is required!";
     }
     return errors;
   };
@@ -256,14 +284,21 @@ const handleDispatch=()=>{
                     </Col>
 
                     <Col>
-                      {/* <div>
-<label className="cardcolhed">Batch Size
-<text className="cardcolhedstar">*</text>
-</label>
-</div>
-<div>
-<input type="date"  className="cardcolumninputtype" />
-</div> */}
+                    <div>
+                    <label className="cardcolhed">
+                    Analytical Test Parameter
+                   <text style={{fontSize:10.5,fontWeight:300}}>(If require attach Annexure
+                          along with this filled TRF)</text> 
+                          {/* <text className="cardcolhedstar">*</text> */}
+                        </label>
+                        </div>
+                    <div>
+                      
+                    <Select name="testparameters"  value={selectedOptions}
+        onChange={handleSelectChange}style={{borderRadius:6}} options={testparameters} multi={true}   className="cardcolumninputtype" />
+            
+                      </div>
+                      <p style={{color:"red"}}>{formErrors.testparameters}</p>
                     </Col>
 
                     <Col>
@@ -310,6 +345,7 @@ const handleDispatch=()=>{
                         <th>Exp. Date</th>
                         <th>Retest Date</th>
                         <th>Sample Quantity</th>
+                        <th>Test Parameter</th>
                         <th>Edit & Delete</th>
                       </tr>
                     </thead>
@@ -325,6 +361,7 @@ const handleDispatch=()=>{
                         <td>{item.expdate}</td>
                         <td>{item.retestdate}</td>
                         <td>{item.sample}</td>
+                        <td>{selectedOptions.map(option => option.label).join(', ')}</td>
                         <td>
                           <div className="tablerowicon">
                             <BiEdit size={20} color={"#9AC037"} onClick={() => handleEdit(i)} />

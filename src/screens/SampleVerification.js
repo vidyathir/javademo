@@ -1,12 +1,11 @@
 import React, { useState } from "react";
-import './MStyles.css';
+import './Styles.css';
 import {  Card, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 
 import {  BiLeftArrowAlt } from "react-icons/bi";
 import {MdDone} from 'react-icons/md'
-import{TbLogout2} from 'react-icons/tb'
-// import { MdOutlineUploadFile } from "react-icons/md";
+import{TbLogout2} from 'react-icons/tb';
 
 export default function SampleVerification({onButtonClick}) {
   const navigate = useNavigate();

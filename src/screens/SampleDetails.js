@@ -1,7 +1,7 @@
 import React from "react";
 
 import { Form, Row, Col, Card} from "react-bootstrap";
-import './MStyles.css';
+import './Styles.css';
 
 import { BiRightArrowAlt, BiLeftArrowAlt } from "react-icons/bi";
 import { useForm } from 'react-hook-form';

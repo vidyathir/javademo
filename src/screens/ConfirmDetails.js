@@ -8,7 +8,7 @@ export default function ConfirmDetails({onButtonClick}) {
   const form=useSelector(state =>state.form.customer);
   const sample=useSelector(state =>state.form.sampleDetails);
   const analysis=useSelector(state =>state.form.typeofanalysis);
-  const batch=useSelector(state=>state.form.batchdetails); 
+  const batch=useSelector(state=>state.form.tabledata); 
 
 console.log("batch", batch)
   return (
@@ -150,56 +150,21 @@ console.log("batch", batch)
                 </tr>
               </thead>
               <tbody className="tablebody-custom">
-                <tr>
-                  <td>01</td>
-                  <td>0101</td>
-                  <td>xxxxx</td>
-                  <td>xxxxx</td>
-                  <td>11/02/2023</td>
-                  <td>31/04/2023</td>
-                  <td>01/02/2023</td>
-                  <td>xxxxxx</td>
-                  {/* <td >
-                            <div>
-                            <BiEdit  size={20} color={'#9AC037'}/>
-                            <RiDeleteBinLine className='tablerowicon' size={20} color={'#9AC037'}/>
-                            </div>
-                            </td> */}
+              {batch.map((item, i) => (
+                      <tr key={item.id}>
+                
+                  <td>{i+1}</td>
+                       <td>{item.batchno}</td>
+                        <td>{item.batchSize}</td>
+                        <td>{item.packing}</td>
+                        <td>{item.mfgdate}</td>
+                        <td>{item.expdate}</td>
+                        <td>{item.retestdate}</td>
+                        <td>{item.sample}</td>
+                
                 </tr>
-
-                <tr>
-                  <td>01</td>
-                  <td>0101</td>
-                  <td>xxxxx</td>
-                  <td>xxxxx</td>
-                  <td>11/02/2023</td>
-                  <td>31/04/2023</td>
-                  <td>01/02/2023</td>
-                  <td>xxxxxx</td>
-                  {/* <td >
-                            <div>
-                            <BiEdit  size={20} color={'#9AC037'}/>
-                            <RiDeleteBinLine className='tablerowicon' size={20} color={'#9AC037'}/>
-                            </div>
-                            </td> */}
-                </tr>
-
-                <tr>
-                  <td>01</td>
-                  <td>0101</td>
-                  <td>xxxxx</td>
-                  <td>xxxxx</td>
-                  <td>11/02/2023</td>
-                  <td>31/04/2023</td>
-                  <td>01/02/2023</td>
-                  <td>xxxxxx</td>
-                  {/* <td >
-                            <div>
-                            <BiEdit  size={20} color={'#9AC037'}/>
-                            <RiDeleteBinLine className='tablerowicon' size={20} color={'#9AC037'}/>
-                            </div>
-                            </td> */}
-                </tr>
+              ))}
+               
               </tbody>
             </Table>
           {/* </Card> */}
@@ -221,7 +186,7 @@ console.log("batch", batch)
             <Col className="columnMb">
               <div className="d-flex row">
                 <text className="cardcolhed">Other than Regulatory </text>
-                <text className="cardcolhedtext mt-1">{analysis.analyticalfeasibile}</text>
+                <text className="cardcolhedtext mt-1"></text>
               </div>
             </Col>
           </Row>

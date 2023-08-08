@@ -5,7 +5,7 @@ import { Button } from "react-bootstrap";
 // import { BiRightArrowAlt, BiLeftArrowAlt } from "react-icons/bi";
 // import { MdOutlineUploadFile } from "react-icons/md";
 import { AiOutlineMail, AiOutlineCheck, AiFillPrinter ,AiOutlineFileExcel} from "react-icons/ai";
-import'./MStyles.css';
+import'./Styles.css';
 // import { TbFileLike } from "react-icons/tb";
 // import {BsFileEarmarkCheck} from 'react-icons/bs';
 import { useNavigate } from "react-router-dom";

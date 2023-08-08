@@ -23,8 +23,12 @@ export default function CustomerDetailes({onButtonClick}) {
     licenceNo: Yup.string()
     .required('required'),
     phoneNo: Yup.string()
+    .matches(/^[0-9]+$/,"must be only digits")
+    .min(10,"must be 10 digits")
+    .max(10,"must be 10 digits")
     .required('required'),
     emailId: Yup.string()
+    .email('Invalid email address')
     .required('required'),
     address1: Yup.string()
     .required('required'),
@@ -33,6 +37,9 @@ export default function CustomerDetailes({onButtonClick}) {
     state: Yup.string()
     .required('required'),
     pincode: Yup.string()
+    .matches(/^[0-9]+$/,"must be only digits")
+    .min(6,"must be 6 digits")
+    .max(6,"must be 6 digits")
     .required('required')
   })
   
@@ -132,7 +139,7 @@ address2:values.address2
                    <Form.Group as={Col} controlId="validationFormik02">
                     <Form.Label className="cardcolhed">
                       Contact Person Name
-                      {/* <text className="cardcolhedstar">*</text>{" "} */}
+                       <text className="cardcolhedstar">*</text>{" "} 
                     </Form.Label>
                     <Form.Control className="cardcolhedinput"
                     type="text"
@@ -154,7 +161,7 @@ address2:values.address2
                     <InputGroup hasValidation>
                     {/* <InputGroup.Text id="inputGroupPrepend">@</InputGroup.Text> */}
                     <Form.Control className="cardcolhedinput" 
-                     type="text"
+                     type="number"
                     //  placeholder="Username"
                      aria-describedby="inputGroupPrepend"
                      name="licenceNo"
@@ -175,10 +182,14 @@ address2:values.address2
                   <Form.Group as={Col} controlId="validationFormik03">
                     <Form.Label className="cardcolhed">
                       Phone Number
-                      {/* <text className="cardcolhedstar">*</text>{" "} */}
+                      <text className="cardcolhedstar">*</text>{" "} 
                     </Form.Label>
                     <Form.Control className="cardcolhedinput" 
-                     type="numeric"
+                     type="number"
+                     
+                minLength={10}
+                maxLength={10}
+                datatype="integer"
                 
                     //  placeholder="City"
                      name="phoneNo"
@@ -196,7 +207,9 @@ address2:values.address2
                       Additional Phone Number{" "}
                     </Form.Label>
                     <Form.Control className="cardcolhedinput" 
-                     type="numeric"
+                     type="number"
+                     minLength={10}
+                     maxLength={10}
                   
                      //  placeholder="City"
                       name="phoneNo1"
@@ -208,7 +221,7 @@ address2:values.address2
                   <Form.Group as={Col} controlId="validationFormik04">
                     <Form.Label className="cardcolhed">
                       Email Id
-                      {/* <text className="cardcolhedstar">*</text>{" "} */}
+                      <text className="cardcolhedstar">*</text>{" "} 
                     </Form.Label>
                     <Form.Control className="cardcolhedinput" 
                      type="email"
@@ -299,7 +312,9 @@ address2:values.address2
                       Pincode<text className="cardcolhedstar">*</text>{" "}
                     </Form.Label>
                     <Form.Control className="cardcolhedinput"
-                     type='numeric'
+                     type='number'
+                     maxLength={6}
+                     minLength={6}
                 
                     //  placeholder="Zip"
                      name="pincode"

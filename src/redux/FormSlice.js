@@ -35,11 +35,11 @@ methodvalidation:"",
 specialinstruction:"",
 
 },
-batchdetails:[]
+tabledata:[]
   },
   reducers: { 
       changeCustomerDetails: (state,action)=> {
-        console.log(action.payload)
+        
           state.customer = action.payload   
         },
         changeSampleDetails: (state,action)=> {
@@ -50,8 +50,8 @@ state.typeofanalysis = action.payload
 },
 
 changeBatchDetails: (state,action)=>{
-
-state.push(action.payload) ;
+  console.log(action.payload)
+state.tabledata =action.payload;
 },
 
 

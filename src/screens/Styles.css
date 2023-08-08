@@ -454,7 +454,7 @@ color: #3A4175;
 }
 .analysupload{
   height: 255px;
-  width: 468px;
+  width: 100%;
   border:1px dashed #3A4175;
   border-radius: 20px;
   align-items: center;
@@ -527,7 +527,50 @@ color: #3A4175;
 
 
 
+/* --------------------------------------Search Customer------------------------- */
 
+.SearchCustomerSearchbox{
+  width: 50%;
+  height: 45px;
+  border-radius: 10px;
+  border: 1px solid #D1D1D1;
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  padding: 5px;
+
+}
+
+.SearchCustomerSearchbox-input{
+  width: 30vw;
+  color: #9893A6;
+  font-size: 15px;
+  font-weight: 400;
+  border: none;
+  outline: none;
+}
+
+.SearchCustomer-searchbox-button{
+  height: 30px;
+  width: 90px;
+  border-radius: 8px;
+  background-color: #9AC037;
+  align-items: center;
+  outline: none;
+  border: none;
+}
+
+.SearchCustomer-searchbox-button-icon{
+  size: 15px;
+  color: #ffffff;
+}
+.SearchCustomer-searchbox-button-text{
+  font-size: 15px;
+  font-weight: 400;
+  color: #ffffff;
+
+}
 
 
 
@@ -616,6 +659,7 @@ margin-top: 10px;
     display: none;
   }
   
+  
 }
 
 @media (max-width:991px) {
@@ -643,7 +687,829 @@ margin-top: 10px;
   } */
 }
 
-.text-danger{
-  font-size: 12px !important;
-  font-weight: 500 !important;
+
+
+
+
+
+
+/* ----------------------------------------------------------mahendra styles.css------------------------------------------- */
+
+
+
+
+
+
+
+
+
+
+/* 
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+
+
+} */
+
+/* .app {
+  display: flex;
+
+
+} */
+
+.Division{
+  flex: 1;
 }
+
+.logoimage{
+  
+  width: 100vh;
+  height: 100vh;
+  object-fit: cover;
+  max-width: 100%;
+
+
+  
+  }
+ 
+
+/* .app1{
+  
+} */
+
+.division-left {
+  display: grid;
+  align-items: 'center';
+  justify-content: center;
+
+}
+
+.division-right {
+  display: grid;
+  align-items: 'center';
+  justify-content: center;
+
+}
+
+.logo {
+  display: grid;
+  /* margin-top: 30px; */
+  align-items: center;
+  place-items: center;
+  justify-content: center;
+}
+
+
+
+.loginhead {
+  color: #9AC037;
+  font-weight: 700;
+  font-size: 25px;
+
+
+}
+.loginInputEmail{
+  color: #3A4175;
+  outline: none;
+  border: none;
+  height: 40px;
+  width: 400px;
+  align-self: center;
+  font-size: 12px;
+  font-weight: 500;
+}
+.loginInputEmail:focus{
+  border-color: #3A4175;
+}
+.loginInputPass{
+  color: #3A4175;
+  outline: none;
+  border: none;
+  height: 40px;
+  width: 360px;
+  align-self: center;
+  font-size: 20px;
+  font-weight: 500;
+
+}
+input::placeholder{
+  color: #3A4175;
+}
+
+.login-form {
+
+  justify-content: center;
+  align-items: center;
+
+}
+
+.login-form p {
+  font-size: 16px;
+  color: #818181;
+  font-weight: 400;
+}
+
+.form-control {
+  height: 60px;
+  width: 434px;
+  border-radius: 10px;
+  color: #3A4175;
+  font-weight: 500;
+
+}
+
+.custom-checkbox:checked {
+  background-color: #3A4175;
+}
+
+.form-control:active {
+  border-color: #3A4175;
+}
+
+.button {
+  height: 60px;
+  width: 434px;
+  background-color: #3A4175;
+  border-radius: 10px;
+  color: #ffffff;
+  border-color: white;
+  outline: none;
+  border: none;
+}
+
+.button:hover {
+  background-color: #3A4175;
+  opacity: 0.9
+}
+
+@media (max-width: 767px) {
+
+  /* CSS for mobile screens */
+  .app1 {
+    /* display: flex; */
+    flex-direction: column;
+    font-size: medium;
+    align-items: center;
+    justify-content: center;
+        
+
+  }
+  .division-left{
+    width: 100%;
+  }
+  .image{
+    height:50%;
+    width: 50%;
+    object-fit:contain;
+    justify-content: center !important;
+    align-items: center !important;
+
+  }
+
+  .logo{
+ 
+  display: block;
+  align-items: center;
+  justify-self: center !important;
+    
+  }
+
+  .division {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  
+
+  }
+
+  .division-right {
+    justify-content: center;
+    display:block;
+  }
+  .login-form{
+    align-items: center;
+    justify-content: center !important;
+    display: block;
+
+  }
+  .forgotpassword{
+    font-size: 8px;
+    align-self: flex-end;
+    margin-left: 10px !important;
+    display: flex;
+  }
+} 
+
+@media (min-width: 768px) and (max-width: 991px) {
+
+  /* CSS for tablet screens */
+  .division {
+    display: grid;
+
+
+  }
+
+  .app {
+    flex-direction: row;
+  }
+
+  /* .logo {
+    height: 20vh;
+    width: 50vh;
+    justify-self: center;
+
+  } */
+
+  /* .image {
+    height: 100vh;
+    width: 60vh;
+  } */
+
+
+}
+
+@media (min-width: 992px) {
+  /* CSS for desktop screens */
+
+}
+
+/*---------------------------------------------------------- SAMPLE DETAILS PAGE STYLES---------------------------------------------- */
+
+
+/*---------------------------------------Start of  Static Styles fo SRO SampleDetails and TypeOfAnalysis ,SampleVerificationCheckList----------------------------------- */
+
+
+
+/*---------------------------------------End of  Static Styles fo SRO SampleDetails and TypeOfAnalysis ,SampleVerificationCheckList----------------------------------- */
+
+/* ------------------------Styles for Sample Details ----------------------------------------*/
+.defaultStyles{
+  font-size: 12px;
+  font-weight: 500;
+  color: #8F8F8F;
+
+}
+.form-control1 {
+  height: 40px;
+  width: 100%;
+  border-radius: 10px;
+  border: 1px solid #D1D1D1;
+  padding-left: 10px;
+  color: #818181;
+}
+.form-control1:focus{
+ border-color: #3A4175 !important;
+ outline: none;
+
+}
+.radio:focus{
+  border-color: #3A4175;
+  outline: none;
+  background-color: #3A4175;
+}
+
+.fontcolorSize{
+
+  flex-direction: row;
+  justify-content: space-between;
+  display: flex;
+  margin-top: 5px;
+  font-size: 12px;
+  font-weight: 400;
+  width: 350px;
+}
+.customRadio{
+  height: 20px;
+  width: 20px;
+
+
+}
+input{
+  accent-color: #3A4175;
+}
+.SampleType{
+  height: 40px;
+  width: 100%;
+  margin-left: -95px;
+  border: 1px solid #d1d1d1;
+  border-radius: 6px;
+  padding: 10px;
+  color: #8f8f8f;
+}
+.SampleType:focus{
+  border-color: #3A4175;
+  outline: none;
+}
+.NatureOfSample{
+  height: 40px;
+  width: 100%;
+  margin-left: -95px;
+  border: 1px solid #D1D1D1;
+  border-radius: 6px;
+  padding-left: 10px;
+  color: #8F8F8F;
+}
+.NatureOfSample:focus{
+  border-color: #3A4175;
+  outline: none;
+}
+.previous{
+  height: 40px;
+  width: 122px;
+  border-radius: 6px;
+  background-color: #fff;
+  border-color: #9AC037;
+  font-size: 12px;
+  color: #9AC037;
+  font-weight: 600;
+  margin-right: 10px;
+  border: 1px solid;
+
+}
+.previous:hover{
+  background-color: #a4cb50;
+  color: #fff;
+  border: none;
+
+}
+.next{
+  height: 40px;
+  width: 122px;
+  border-radius: 6px;
+  background-color: #3A4175;
+  font-weight: 600;
+  font-size: 12px;
+  border: 1px solid;
+  color: #fff;
+
+}
+.next:hover{
+  background-color: #4b5495;
+}
+
+@media (max-width: 767px) {
+
+  /* CSS for mobile screens */
+.form-control1{
+  width: 50%;
+  align-items: center;
+}
+
+  .division-right {
+    padding: '5%';
+  }
+  .headofSampleDetails{
+    flex-direction: column;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+
+  /* CSS for tablet screens */
+  .division {
+    display: grid;
+  }
+  .Rlplbutton{
+    width: 100px;
+    font-size: 6px;
+
+  }
+
+  .app {
+    flex-direction: row;
+  }
+
+ .headofSampleDetails{
+  display: grid;
+  
+  
+ }
+
+}
+
+@media (min-width: 992px) {
+  /* CSS for desktop screens */
+
+}
+/*---------------Start----- TypeOfAnalysis CSS Styles-------------------- */
+.methodValidation{
+  margin-left: 20px;
+  border: 1px solid #d1d1d1;
+  height: 40px;
+  width: 250px;
+  border-radius: 6px;
+  color: #8F8F8F;
+  font-size: 12px;
+  padding-left: 10px;
+}
+.methodValidation:focus{
+  border-color: #3A4175;
+
+  outline: none;
+}
+.methodology{
+  margin-left: 30px;
+  border: 1px solid #d1d1d1;
+  height: 40px;
+  width: 100%;
+  border-radius: 6px;
+  color: #8f8f8f;
+  font-size: 12px;
+  padding-left: 10px;
+
+}
+.methodology:focus{
+  border-color: #3A4175;
+  outline: none;
+}
+.spclInstruction{
+  height: 70px;
+  width: 100%;
+  border-radius: 6px;
+  border: 1px solid #d1d1d1;
+  color: #8F8F8F;
+  font-size: 12px;
+  padding-left: 10px;
+
+}
+.spclInstruction:focus{
+  border-color: #3A4175;
+  outline: none;
+}
+.customInput::-webkit-file-upload-button{
+
+  color: #9AC037;
+  border-color: #9AC037;
+  background-color: #fff !important;
+  outline: none;
+  box-shadow: none;
+  border: 1px solid ;
+}
+
+
+
+
+/*---------------End----- TypeOfAnalysis CSS Styles-------------------- */
+
+/*--------------------------------- End of Sample Details Styles---------------------- */
+
+.nameofthesample-input {
+  height: 40px;
+  width: 1070px;
+  border-radius: 6px;
+  border-color: #D1D1D1;
+}
+
+.nameofsample {
+  font-size: 12px;
+  font-weight: 500;
+  color: #8F8F8F;
+}
+
+.fourthpage-checkbox {
+  height: 15px;
+  width: 15px;
+  border-radius: 17px;
+}
+
+.form-control1:focus {
+  border-color: #3A4175;
+}
+
+.space {
+  margin-left: 5px;
+}
+
+.table th {
+  background-color: #3A4175;
+}
+
+
+
+
+@media (max-width: 767px) {
+  /* CSS for mobile screens */
+
+  /* .maincards {
+    flex-direction:column;
+    height: fit-content;
+    width: max-content;
+  
+
+  } */
+  .changerowtocol{
+    flex-direction: column;
+    grid-gap: 2px;
+  }
+
+  .customheadcolor {
+    background-color: #3A4175 !important;
+    color: #fff;
+
+  }
+  .title{
+    font-size: 10px;
+    
+  }
+ .titlebuttonsize{
+  font-size: 10px;
+  height: 30px;
+  width: 130px;
+ }
+ .logocolor{
+  height: auto;
+  width: 120px;
+ }
+ .titleprofile{
+  position: relative;
+ }
+ .new{
+  flex-direction: column;
+
+ }
+
+
+}
+/* sampleVerificationCheckList CSS and  MediaQueries */
+
+.customRadio{
+  height: 20px;
+  width: 20px;
+
+}
+.customRadioMargin{
+  height: 20px;
+  width: 20px;
+  margin-left: 40px;
+
+}
+.commentsInput{
+  border:1px solid #d1d1d1;
+  height:40px;
+  width: 100%;
+  border-radius: 6px;
+  color: #8f8f8f;
+  font-size: 12px;
+  padding-left: 10px;
+}
+.commentsInput:focus{
+  border-color: #3A4175;
+  outline: none;
+}
+
+
+
+
+
+
+@media (max-width: 767px) {
+  /* CSS for mobile screens */
+
+  /* .maincards{
+    height: max-content;
+    width: 400px;
+    align-items: center;
+  } */
+  .new{
+    flex-direction: column;
+  }
+  .new1{
+    width: 340px;
+  }
+
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  /* CSS for tablet screens */
+ 
+}
+
+@media (min-width: 992px) {
+  /* CSS for desktop screens */
+
+}
+
+/* END-OF-----sampleVerificationCheckList CSS and  MediaQueries */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@media (min-width: 768px) and (max-width: 991px) {
+  /* CSS for tablet screens */
+  .changerowtocol{
+    flex-direction:column;
+  }
+  /* .maincards {
+    flex-direction:column;
+    height: fit-content;
+    width: max-content;
+  
+
+  } */
+  
+
+
+}
+
+@media (min-width: 992px) {
+  /* CSS for desktop screens */
+
+}
+
+/*----Start----------- RlplGenerated CSS and Media Queries */
+
+
+.topWord{
+
+  color: #8F8F8F;
+  font-size: 12px;
+  font-weight: 500;
+}
+.headd{
+  color: #3A4175;
+  font-size: 18px;
+  font-weight: 600;
+
+}
+.tablehed{
+  color: #8F8F8F;
+  font-size: 12px;
+  font-weight: 500;
+}
+.tabledata{
+  color: #3A4175;
+
+}
+.table  th{
+  background-color: #3A4175 !important;
+  color: #fff;
+}
+
+@media (max-width:600px){
+  .tablet{
+    justify-content: center;
+    width: 100vh;
+    height: max-content;
+    width:max-content;
+    align-items: center;
+    margin-left: -100px;
+
+  }
+ 
+  
+ 
+
+}
+
+/*-----End---------- RlplGenerated CSS and Media Queries */
+
+
+
+
+
+/*-----Start---------- AnalystDashboard CSS and Media Queries */
+.wholeCardDiv{
+  justify-content: space-around;
+
+}
+.mainCard1{
+
+  height: 100px;
+  width: 252px;
+  background-color: #3A4175 !important;
+  color: #fff !important;
+  outline: none !important;
+  border: none !important;
+  
+
+}
+.mainCard2{
+
+  height: 100px;
+  width: 252px;
+  background-color: #9AC037 !important;
+  color: #fff !important;
+  outline: none !important;
+  border: none !important;
+
+}
+.cardNum{
+  font-size: 24px;
+  font-weight: 700;
+ 
+}
+.cardArrangement{
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  align-items: center;
+
+}
+.tableTop{
+  color: #9AC037;
+  font-weight: 600;
+  font-size: 15px;
+
+}
+.table{
+  text-align: center;
+}
+.tbhed{
+  color: #fff;
+  font-size: 13px;
+  font-weight: 600;
+  height: 30px;
+  align-items: center;
+  justify-content: center;
+  text-align: center !important;
+  
+ 
+}
+.tbbutton{
+  height: 25px;
+  width: 62px;
+  background-color: #9AC037 !important;
+  color: #fff !important;
+  font-size: 13px;
+  font-weight: 500;
+  border-radius: 6px;
+  justify-content: center !important;
+  align-items: center !important;
+  border: none;
+  outline: none;
+  text-align: center !important;
+}
+.trAlign tr td {
+
+  font-size: 13px;
+  color: #8F8F8F;
+  font-weight: 500;
+
+}
+
+input[type="radio"]:checked{
+  background-color: #3A4175;
+}
+
+/*-----End---------- AnalystDashboard CSS and Media Queries */
+
+
+/* ------START--------------AwaitingSamples CSS and media Queries--------------- */
+
+
+
+
+
+
+/* -----END---------------AwaitingSamples CSS and media Queries--------------- */
+
+
+/* -------Start----------------Reviewer-Dashboard CSS---------------- */
+
+.overview{
+  font-size: 20px;
+  font-weight: 600;
+  color: #9AC037;
+
+
+}
+thead tr th{
+  background-color: #3A4175;
+  color: #fff !important;
+}
+
+.viewAll{
+  color: #3A4175;
+  font-size: 12px;
+  font-weight: 600;
+}
+.topforsamplewaitingandviewall{
+  justify-content: space-between;
+  align-items: center !important;
+  display: flex;
+
+}
+a {
+  text-decoration: none !important;
+}
+
+
+
+
+/* --------End---------------Reviewer-Dashboard CSS---------------- */

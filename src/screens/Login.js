@@ -2,18 +2,13 @@ import React,{useState} from "react";
 import logo from "../assets/loginImage.png";
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
-import './MStyles.css';
+import './Styles.css';
 import logo2 from  '../assets//LoginLogo.png';
 import {AiOutlineEyeInvisible,AiFillEye} from 'react-icons/ai'
 import { useNavigate } from "react-router-dom";
 
-
-// const validationSchema = Yup.object().se({
-//   email: Yup.string().email('Invalid email address').required('required'),
-//   password: Yup.string().required('required')
-// });
-
 const Login = () => {
+
   const initialValues = {
     email: '',
     password: '',
@@ -28,11 +23,20 @@ const Login = () => {
   const navigate = useNavigate();
 
   const handleSubmit = (values, { setSubmitting }) => {
-    setTimeout(() => {
 
-      setSubmitting(false);
-    }, 500);
+  
+  if(values.email==="revinlabsro@gmail.com"&& values.password==="srorevinlab"){
     navigate("/Progress")
+  }
+  if(values.email==="revinlabanalyst@gmail.com"&& values.password==="analystrevinlab"){
+    navigate("/AnalystDashboaed")
+  }
+  if(values.email==="revinlabreviewer@gmail.com"&& values.password==="reviewerrevinlab"){
+    navigate("/ReviewerDashboard")
+  }
+  if(values.email==="revinlabapprover@gmail.com"&& values.password==="approverrevinlab"){
+    navigate("/approverDashboard")
+  }  
   };
 
   const [passwordVisible, setPasswordVisible] = useState(false);

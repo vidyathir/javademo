@@ -1,16 +1,16 @@
 import React from "react";
-// import profile from "./assets/Profileimg1.jpg";
-// import logo from '../assets/logo 2.png';
 import { Link } from "react-router-dom";
-import { GiArchiveRegister } from "react-icons/gi";
+import { GiArchiveRegister} from "react-icons/gi";
 import { MdOutlineDashboard } from "react-icons/md";
+import { BiSearch } from "react-icons/bi";
 
 export default function Sidenavbar() {
-  // const viewHeight = window.outerHeight;
+
 
   const menus = [
     { name: "Dashboard", icon: MdOutlineDashboard },
     { name: "Registration", link: "/Progress", icon: GiArchiveRegister },
+    { name: "SearchCustomer", link: "/SearchCustomer", icon: BiSearch },
   
   ];
 

@@ -1,15 +1,11 @@
 import React from "react";
-import './MStyles.css'
+import './Styles.css'
 import Table from "react-bootstrap/Table";
 import { Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-// import { BiRightArrowAlt, BiLeftArrowAlt } from "react-icons/bi";
-// import { MdOutlineUploadFile } from "react-icons/md";
 import { AiOutlineMail, AiOutlineCheck, AiFillPrinter } from "react-icons/ai";
 import Sidenavbar from "../components/Sidenavbar";
-// import { TbFileLike } from "react-icons/tb";
 import { LuFolderCheck } from "react-icons/lu";
-// import {BsFileEarmarkCheck} from 'react-icons/bs';
 import Navbartitle from "../components/Navbartitle";
 export default function RlplGenerated() {
   const navigate = useNavigate();
