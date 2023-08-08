@@ -26,9 +26,9 @@ export default function AnalystBatchandRLPLdetails() {
           <div className="mainitem">
             <div
               className="analystbackbutton mt-3"
-              //  onClick={()=> navigate ('/')}
+               onClick={()=> navigate ('/AnalystDashboaed/AwaitingSamples')}
             >
-              <AiOutlineLeft /> <text>back</text>
+              <AiOutlineLeft onClick={()=> navigate ('/AnalystDashboaed/AwaitingSamples')}/> <text>back</text>
             </div>
 
             <div className="mt-3">

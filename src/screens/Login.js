@@ -32,7 +32,7 @@ const Login = () => {
     navigate("/AnalystDashboaed")
   }
   if(values.email==="revinlabreviewer@gmail.com"&& values.password==="reviewerrevinlab"){
-    navigate("/ReviewerDashboard")
+    navigate("/ReviewDashboard")
   }
   if(values.email==="revinlabapprover@gmail.com"&& values.password==="approverrevinlab"){
     navigate("/approverDashboard")

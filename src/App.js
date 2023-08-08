@@ -30,7 +30,7 @@ export default function App() {
      <Route exact path='/' element={<Login/>} />
      <Route exact path='/SearchCustomer' element={<SearchCustomer/>}/>    
      <Route exact path='/Progress' element={<Progress/>}/>  
-     <Route exact path='/Progress/AddNewCustomer' element={<AddNewCustomer/>}/>
+     <Route exact path='/AddNewCustomer' element={<AddNewCustomer/>}/>
      <Route exact path='/Progress/RLPLgenerated' element={<RLPLgenerated/>}/>  
      <Route exact path='/Progress/RLPLNotgenerated' element={<RLPLNotgenerated/>}/>
      <Route exact path='/Progress/RLPLNotgenerated' element={<RLPLNotgenerated/>}/>

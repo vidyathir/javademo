@@ -8,10 +8,7 @@ import { useNavigate } from "react-router-dom";
 import {AiOutlineLeft,AiOutlineEye} from 'react-icons/ai';
 import {RiFileWord2Fill} from 'react-icons/ri';
 import {BsArrowDownCircle} from 'react-icons/bs';
-// import {PiUpload} from 'react-icons/pi';
-// import {CgCloseR} from 'react-icons/cg';
-// import {BiRightArrowAlt} from 'react-icons/bi';
-// import {PiFilePdfFill} from "react-icons/pi"
+
 
 
 export default function ReviewerDetails() {
@@ -33,9 +30,9 @@ export default function ReviewerDetails() {
       
 
         <div className='analystbackbutton mt-3'
-        //  onClick={()=> navigate ('/')}
+        onClick={()=> navigate ('/ReviewDashboard/AwaitingSamplesReview')}
           >
-            <AiOutlineLeft /> <text>back</text>
+            <AiOutlineLeft onClick={()=> navigate ('/ReviewDashboard/AwaitingSamplesReview')} /> <text>back</text>
            
         </div>
 

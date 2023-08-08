@@ -1,11 +1,11 @@
 
 import React from "react";
-// import Button from 'react-bootstrap/Button';
+
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
-// import NavDropdown from 'react-bootstrap/NavDropdown';
+
 import logo from "../assets/logo 2.png"
 import profilepic from "../assets/avater2.jpg";
 import {useNavigate} from 'react-router-dom';
@@ -49,7 +49,7 @@ function Navbartitle() {
 
           
         <div className="me-2">
-          <button className="titlebuttonsize" onClick={()=>navigate("AddNewCustomer")}>
+          <button className="titlebuttonsize" onClick={()=>navigate("/AddNewCustomer")}>
 
             <IoIosAddCircleOutline size={24} color={"#ffffff"} />
             <text className="titlebuttontext">Add Company</text>

@@ -33,9 +33,9 @@ export default function ApproverDetails() {
       
 
         <div className='analystbackbutton mt-3'
-        //  onClick={()=> navigate ('/')}
+        onClick={()=> navigate ('/Approverdashboard/AwaitingSamplesApprover')}
           >
-            <AiOutlineLeft /> <text>back</text>
+            <AiOutlineLeft  onClick={()=> navigate ('/Approverdashboard/AwaitingSamplesApprover')} /> <text>back</text>
            
         </div>
 
