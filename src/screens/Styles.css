@@ -15,7 +15,7 @@
   /* position: sticky;
   top: 0px; */
   width: 10vw;
-  height: 93vh;
+  height: 92vh;
   background-color: #3A4175;
  
 }
@@ -66,7 +66,7 @@
 
 .main {
    width: 90vw;
-  height: 93vh; 
+  height: 92vh; 
   overflow-y: scroll;
   /* scroll-behavior: smooth; */
   scrollbar-width: none;
@@ -383,7 +383,7 @@ margin-left: 10px;
 
 .analyticalbutton{
   height: 25px !important;
-  width: 100px !important;
+  width: auto !important;
   background-color: #9AC037;
   border-radius: 5px;
   /* border: none;
@@ -392,9 +392,15 @@ margin-left: 10px;
   align-items: center;
   justify-content: center;
   display: flex;
+  padding: 3px;
   font-size: 12px;
   font-weight: 500;
 
+}
+
+.analyticalbutton-div{
+  display: flex;
+  flex-direction: row;
 }
 
 
@@ -423,6 +429,41 @@ color: #3A4175;
   /* text-overflow: ellipsis; */
   
 }
+
+
+/* -----------------------------------------DITSuccess------------------------------------ */
+
+.DITSuccess-card{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
+  height: 100%;
+}
+
+
+.DITSuccesstext{
+  font-size: 12px;
+  font-weight: 500;
+  color: #8F8F8F;
+}
+
+.DITSuccessButton{
+  width:80px;
+  height:40px;
+  border-radius:6;
+  background:'#9AC037';
+  border: none;
+}
+
+.DITSuccessButtontext{
+  font-size: 12px;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+
+
 
 /* --------------------------- analyst samples---------------- */
 
