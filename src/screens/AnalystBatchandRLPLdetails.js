@@ -1,23 +1,28 @@
 import React from "react";
 import "./Styles.css";
 import Sidenavbar from "../components/Sidenavbar";
-import Navbartitle from "../components/Navbartitle";
-import { Col, Row, Table } from "react-bootstrap";
+// import Navbartitle from "../components/Navbartitle";
+import {
+  //  Col, Row,
+  Table,
+} from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 
 import { AiOutlineLeft } from "react-icons/ai";
-import { RiFileWord2Fill } from "react-icons/ri";
+// import { RiFileWord2Fill } from "react-icons/ri";
 import { BsArrowDownCircle } from "react-icons/bs";
-import { PiUpload } from "react-icons/pi";
-import { CgCloseR } from "react-icons/cg";
+import { PiFileArrowUp } from "react-icons/pi";
+// import { PiUpload } from "react-icons/pi";
+// import { CgCloseR } from "react-icons/cg";
 import { BiRightArrowAlt } from "react-icons/bi";
+import NavbartitleAddco from "../components/NavbartitleAddco";
 
 export default function AnalystBatchandRLPLdetails() {
   const navigate = useNavigate();
 
   return (
     <div className="app">
-      <Navbartitle />
+      <NavbartitleAddco />
 
       <div className="d-flex">
         <Sidenavbar />
@@ -26,9 +31,12 @@ export default function AnalystBatchandRLPLdetails() {
           <div className="mainitem">
             <div
               className="analystbackbutton mt-3"
-               onClick={()=> navigate ('/AnalystDashboaed/AwaitingSamples')}
+              onClick={() => navigate("/AnalystDashboaed/AwaitingSamples")}
             >
-              <AiOutlineLeft onClick={()=> navigate ('/AnalystDashboaed/AwaitingSamples')}/> <text>back</text>
+              <AiOutlineLeft
+                onClick={() => navigate("/AnalystDashboaed/AwaitingSamples")}
+              />{" "}
+              <text>back</text>
             </div>
 
             <div className="mt-3">
@@ -41,8 +49,7 @@ export default function AnalystBatchandRLPLdetails() {
               <hr />
             </div>
 
-            {/* <Card className="cardtablesize"> */}
-            <Table responsive border={1} className="table-custom">
+            <Table responsive border={1}>
               <thead className="table-custom">
                 <tr>
                   <th>S.No</th>
@@ -54,12 +61,56 @@ export default function AnalystBatchandRLPLdetails() {
                   <th>Exp. Date</th>
                   <th>Retest Date</th>
                   <th>Test Parameter</th>
-                  {/* <th>Edit & Delete</th> */}
+                  <th>Required DOcuments</th>
                 </tr>
               </thead>
-              {/* <tbody className="tablebody-custom "> */}
+              <tbody className="tablebody-custom">
+                <tr>
+                  <td>01</td>
+                  <td>0101</td>
+                  <td>xxxxx</td>
+                  <td>xxxxx</td>
+                  <td>xxxxx</td>
+                  <td>11/02/2023</td>
+                  <td>31/04/2023</td>
+                  <td>01/02/2023</td>
+                  <td>xxxxxx</td>
+                  <td>xxxxxx</td>
+                </tr>
 
-              {/* 
+                <tr>
+                  <td>01</td>
+                  <td>0101</td>
+                  <td>xxxxx</td>
+                  <td>xxxxx</td>
+                  <td>xxxxx</td>
+                  <td>11/02/2023</td>
+                  <td>31/04/2023</td>
+                  <td>01/02/2023</td>
+                  <td>xxxxxx</td>
+                  <td>xxxxxx</td>
+                </tr>
+
+                <tr>
+                  <td>01</td>
+                  <td>0101</td>
+                  <td>xxxxx</td>
+                  <td>xxxxx</td>
+                  <td>xxxxx</td>
+                  <td>11/02/2023</td>
+                  <td>31/04/2023</td>
+                  <td>01/02/2023</td>
+                  <td>xxxxxx</td>
+                  <td>xxxxxx</td>
+                </tr>
+              </tbody>
+            </Table>
+
+            {/* <Card className="cardtablesize"> */}
+
+            {/* <tbody className="tablebody-custom "> */}
+
+            {/* 
               <tr >
     <td align='center'>01</td>
     <td align='center'>RLPLR2317026</td>
@@ -82,47 +133,91 @@ export default function AnalystBatchandRLPLdetails() {
       <td>xxxxxx</td>
   </tr> */}
 
+            {/* </Card> */}
+
+            <div className="mt-3">
+              <text className="mainheadtitlesub">TDS details</text>
+              <hr />
+            </div>
+
+            {/* <Card className="cardtablesize"> */}
+            <Table responsive border={1}>
+              <thead className="table-custom">
+                <tr>
+                  <th>S.No</th>
+                  <th>TDS Number</th>
+                  <th>Test Parameter</th>
+                  <th>Download</th>
+                  <th>TDS Upload</th>
+                  <th>Analytical Data Upload</th>
+                </tr>
+              </thead>
               <tbody className="tablebody-custom">
                 <tr>
-                  <td>01</td>
-                  <td>0101</td>
-                  <td>xxxxx</td>
-                  <td>xxxxx</td>
-                  <td>11/02/2023</td>
-                  <td>31/04/2023</td>
-                  <td>01/02/2023</td>
-                  <td>xxxxxx</td>
-                  <td>SOR.doc</td>
+                  <td>1</td>
+                  <td>TDS/SOR/23/1234</td>
+                  <td>SOR</td>
+                  <td>
+                    {" "}
+                    <BsArrowDownCircle size={23} color="#9AC037" />
+                  </td>
+                  <td>
+                    <PiFileArrowUp size={23} color="#818181" />
+                  </td>
+                  <td>
+                    <PiFileArrowUp size={23} color="#818181" />
+                  </td>
                 </tr>
 
                 <tr>
-                  <td>01</td>
-                  <td>0101</td>
-                  <td>xxxxx</td>
-                  <td>xxxxx</td>
-                  <td>11/02/2023</td>
-                  <td>31/04/2023</td>
-                  <td>01/02/2023</td>
-                  <td>xxxxxx</td>
-                  <td>SOR.doc</td>
+                  <td>2</td>
+                  <td>TDS/SOR/23/1234</td>
+                  <td>XRD</td>
+                  <td>
+                    <BsArrowDownCircle size={23} color="#9AC037" />
+                  </td>
+                  <td>
+                    <PiFileArrowUp size={23} color="#818181" />
+                  </td>
+                  <td>
+                    <PiFileArrowUp size={23} color="#818181" />
+                  </td>
                 </tr>
 
                 <tr>
-                  <td>01</td>
-                  <td>0101</td>
-                  <td>xxxxx</td>
-                  <td>xxxxx</td>
-                  <td>11/02/2023</td>
-                  <td>31/04/2023</td>
-                  <td>01/02/2023</td>
-                  <td>xxxxxx</td>
-                  <td>SOR.doc</td>
+                  <td>3</td>
+                  <td>TDS/SOR/23/1234</td>
+                  <td>SOR</td>
+                  <td>
+                    <BsArrowDownCircle size={23} color="#9AC037" />
+                  </td>
+                  <td>
+                    <PiFileArrowUp size={23} color="#818181" />
+                  </td>
+                  <td>
+                    <PiFileArrowUp size={23} color="#818181" />
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>3</td>
+                  <td>TDS/SOR/23/1234</td>
+                  <td>DSC</td>
+                  <td>
+                    <BsArrowDownCircle size={23} color="#9AC037" />
+                  </td>
+                  <td>
+                    <PiFileArrowUp size={23} color="#818181" />
+                  </td>
+                  <td>
+                    <PiFileArrowUp size={23} color="#818181" />
+                  </td>
                 </tr>
               </tbody>
             </Table>
             {/* </Card> */}
 
-            <div className="mt-3">
+            {/* <div className="mt-3">
               <text className="mainheadtitlesub">
                 Test Data Sheet & Special Instructions
               </text>
@@ -199,6 +294,23 @@ export default function AnalystBatchandRLPLdetails() {
                 className="cardbutton"
                 type="submit"
                 onClick={() => navigate("/")}
+              >
+                Submit <BiRightArrowAlt size={24} />
+              </button>
+            </div>
+          </div> */}
+
+            <div className="cardbuttonboubleend mb-3">
+              {/* <button
+              className="cardbuttonoutline"
+              onClick={() => onButtonClick("TypeOfAnalysis")}
+            >
+              <BiLeftArrowAlt size={24} /> Previous
+            </button> */}
+              <button
+                className="cardbutton"
+                type="submit"
+                onClick={() => navigate("AnalystDashboaed")}
               >
                 Submit <BiRightArrowAlt size={24} />
               </button>
