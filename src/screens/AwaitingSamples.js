@@ -1,9 +1,10 @@
 import React from "react";
-import Sidenavbar from "../components/Sidenavbar";
+// import Sidenavbar from "../components/Sidenavbar";
 // import Navbartitle from '../components/Navbartitle';
 import { Table } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import NavbartitleAddco from "../components/NavbartitleAddco";
+import SidenavbarAnalyst from "../components/SidenavbarAnalyst";
 
 export default function AwaitingSamples() {
   const navigate = useNavigate();
@@ -13,7 +14,7 @@ export default function AwaitingSamples() {
       <NavbartitleAddco />
 
       <div className="d-flex">
-        <Sidenavbar />
+        <SidenavbarAnalyst />
 
         <div className="main">
           <div className="mainitem">

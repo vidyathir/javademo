@@ -1,5 +1,5 @@
 import React from "react";
-import Sidenavbar from "../components/Sidenavbar";
+// import Sidenavbar from "../components/Sidenavbar";
 
 import {
   Table,
@@ -15,6 +15,7 @@ import { FaRegListAlt } from "react-icons/fa";
 import { FiEdit } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
 import NavbartitleAddco from "../components/NavbartitleAddco";
+import SidenavbarReviewer from "../components/SidenavbarReviewer";
 
 export default function ReviewDashboard() {
   const navigate = useNavigate();
@@ -23,7 +24,7 @@ export default function ReviewDashboard() {
       <NavbartitleAddco />
 
       <div className="d-flex">
-        <Sidenavbar />
+        <SidenavbarReviewer />
         <div className="main">
           <div className="mainitem">
             {/* -----------------------------------------Top Card Start---------------------------------- */}
