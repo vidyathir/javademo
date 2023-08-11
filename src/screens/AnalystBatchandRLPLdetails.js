@@ -1,6 +1,6 @@
 import React from "react";
 import "./Styles.css";
-import Sidenavbar from "../components/Sidenavbar";
+// import Sidenavbar from "../components/Sidenavbar";
 // import Navbartitle from "../components/Navbartitle";
 import {
   //  Col, Row,
@@ -16,6 +16,7 @@ import { PiFileArrowUp } from "react-icons/pi";
 // import { CgCloseR } from "react-icons/cg";
 import { BiRightArrowAlt } from "react-icons/bi";
 import NavbartitleAddco from "../components/NavbartitleAddco";
+import SidenavbarAnalyst from "../components/SidenavbarAnalyst";
 
 export default function AnalystBatchandRLPLdetails() {
   const navigate = useNavigate();
@@ -25,7 +26,7 @@ export default function AnalystBatchandRLPLdetails() {
       <NavbartitleAddco />
 
       <div className="d-flex">
-        <Sidenavbar />
+        <SidenavbarAnalyst />
 
         <div className="main">
           <div className="mainitem">

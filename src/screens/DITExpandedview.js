@@ -1,6 +1,6 @@
 import React from "react";
 import "./Styles.css";
-import Sidenavbar from "../components/Sidenavbar";
+// import Sidenavbar from "../components/Sidenavbar";
 // import Navbartitle from '../components/Navbartitle';
 import { Col, Row, Table } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
@@ -14,6 +14,7 @@ import {
 import { PiFilePdfFill } from "react-icons/pi";
 import { BiRightArrowAlt } from "react-icons/bi";
 import NavbartitleAddco from "../components/NavbartitleAddco";
+import SidenavbarDIT from "../components/SidenavbarDIT";
 
 export default function ReviewerDetails() {
   const navigate = useNavigate();
@@ -23,7 +24,7 @@ export default function ReviewerDetails() {
       <NavbartitleAddco />
 
       <div className="d-flex">
-        <Sidenavbar />
+        <SidenavbarDIT />
 
         <div className="main">
           <div className="mainitem">
