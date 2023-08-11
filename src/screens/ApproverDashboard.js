@@ -1,10 +1,11 @@
 import React from "react";
-import Sidenavbar from "../components/Sidenavbar";
+// import Sidenavbar from "../components/Sidenavbar";
 import { Table, Row, Col, Card } from "react-bootstrap";
 import { BsBoxSeam, BsClipboardCheck } from "react-icons/bs";
 import { LuClipboardEdit } from "react-icons/lu";
 import { useNavigate } from "react-router-dom";
 import NavbartitleAddco from "../components/NavbartitleAddco";
+import SidenavbarApprover from "../components/SidenavbarApprover";
 
 export default function ApproverDashboard() {
   const navigate = useNavigate();
@@ -14,7 +15,7 @@ export default function ApproverDashboard() {
       <NavbartitleAddco />
 
       <div className="d-flex">
-        <Sidenavbar />
+        <SidenavbarApprover />
 
         <div className="main">
           <div className="mainitem">

@@ -1,5 +1,5 @@
 import React from "react";
-import Sidenavbar from "../components/Sidenavbar";
+// import Sidenavbar from "../components/Sidenavbar";
 // import Navbartitle from "../components/Navbartitle";
 import {
   Table,
@@ -14,6 +14,7 @@ import { BsBoxSeam, BsClipboardCheck } from "react-icons/bs";
 import { LuClipboardEdit } from "react-icons/lu";
 import { useNavigate } from "react-router-dom";
 import NavbartitleAddco from "../components/NavbartitleAddco";
+import SidenavbarAnalyst from "../components/SidenavbarAnalyst";
 
 export default function AnalystDashboaed() {
   const navigate = useNavigate();
@@ -22,7 +23,7 @@ export default function AnalystDashboaed() {
       <NavbartitleAddco />
 
       <div className="d-flex">
-        <Sidenavbar />
+        <SidenavbarAnalyst />
         <div className="main">
           <div className="mainitem">
             {/* -----------------------------------------Top Card Start---------------------------------- */}
