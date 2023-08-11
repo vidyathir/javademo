@@ -1437,6 +1437,7 @@ input{
   color: #fff !important;
   outline: none !important;
   border: none !important;
+  transition: transform 0.3s ease-in-out;
   
 
 }
@@ -1454,6 +1455,12 @@ input{
   font-size: 24px;
   font-weight: 700;
  
+}
+
+.CardName{
+  font-size: 15px;
+  font-weight: 600;
+  display: inline-block;
 }
 .cardArrangement{
   display: flex;
