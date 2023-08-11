@@ -20,6 +20,8 @@ import ApproverDetails from './screens/ApproverDetails';
 import SearchCustomer from './screens/SearchCustomer';
 import DITExpandedview from './screens/DITExpandedview';
 import DITSuccess from './screens/DITSuccess';
+import SroDashboard from './screens/SroDashboard';
+import AddNewCompany from './screens/AddNewCompany';
 
 
 export default function App() {
@@ -31,6 +33,8 @@ export default function App() {
   
      <Route exact path='/' element={<Login/>} />
      <Route exact path='/DITExpandedview' element={<DITExpandedview/>}/>
+     <Route exact path ='/SroDashboard' element={<SroDashboard />} />
+     <Route exact path ='/AddNewCompany' element={<AddNewCompany/>} />
      <Route exact path='/DITSuccess' element={<DITSuccess/>}/>
      <Route exact path='/SearchCustomer' element={<SearchCustomer/>}/>    
      <Route exact path='/Progress' element={<Progress/>}/>  
