@@ -21,6 +21,7 @@ const MultiStepProgressBar = ({ page, onPageNumberClick }) => {
   }
 
   return (
+   
     <ProgressBar percent={stepPercentage}>
     
       <Step>
@@ -121,6 +122,7 @@ const MultiStepProgressBar = ({ page, onPageNumberClick }) => {
       
       
     </ProgressBar>
+  
   );
 };
 

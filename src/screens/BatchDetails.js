@@ -287,8 +287,8 @@ const handleDispatch=()=>{
                     <div>
                     <label className="cardcolhed">
                     Analytical Test Parameter
-                   <text style={{fontSize:10.5,fontWeight:300}}>(If require attach Annexure
-                          along with this filled TRF)</text> 
+                   {/* <text style={{fontSize:10.5,fontWeight:300}}>(If require attach Annexure
+                          along with this filled TRF)</text>  */}
                           {/* <text className="cardcolhedstar">*</text> */}
                         </label>
                         </div>
