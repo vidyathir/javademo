@@ -104,7 +104,7 @@ address2:values.address2
       >
          {({ handleSubmit, handleChange, values, touched, errors }) => (
         <Form noValidate onSubmit={handleSubmit}>
-                <Row className="mb-3 ">
+                <Row className="mb-3 rowtabview">
                                    <Form.Group as={Col} controlId="validationFormik01">
                     <Form.Label className="cardcolhed">
                       Company Name<text className="cardcolhedstar">*</text>{" "}
@@ -178,7 +178,7 @@ address2:values.address2
 
                 {/* ---------------------------------   card column start  -------------------------------------------- */}
 
-                <Row className="mb-3 ">
+                <Row className="mb-3 rowtabview">
                   <Form.Group as={Col} controlId="validationFormik03">
                     <Form.Label className="cardcolhed">
                       Phone Number
@@ -239,7 +239,7 @@ address2:values.address2
 
                 {/* ---------------------------------   card column start  -------------------------------------------- */}
 
-                <Row className="mb-3 ">
+                <Row className="mb-3 rowtabview ">
                   <Form.Group as={Col} controlId="validationFormik05">
                     <Form.Label className="cardcolhed">
                       Address Line1<text className="cardcolhedstar">*</text>{" "}
@@ -289,7 +289,7 @@ address2:values.address2
 
                 {/* ---------------------------------   card column start  -------------------------------------------- */}
 
-                <Row className="mb-3 ">
+                <Row className="mb-3 rowtabview">
                   <Form.Group as={Col} controlId="validationFormik07">
                     <Form.Label className="cardcolhed">
                       State<text className="cardcolhedstar">*</text>{" "}
@@ -333,7 +333,7 @@ address2:values.address2
                     <button className="cardbutton" type="submit"
                       
                       >
-                      <AiOutlineCheck /> Next
+                      <AiOutlineCheck size={19} /> Next
                     </button>
                   </Form.Group>
                 </Row>

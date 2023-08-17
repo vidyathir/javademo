@@ -314,7 +314,7 @@ const handleDispatch=()=>{
                           className="cardbutton"
                         
                         >
-                          <AiOutlineClose size={24} /> Clear
+                          <AiOutlineClose size={18} /> Clear
                         </button>
                         
                         <button type="submit"
@@ -322,7 +322,7 @@ const handleDispatch=()=>{
                           //  onClick={() => navigate("batchdetails")}
                         >
                              {editClick ? "update" : "Add"}
-                          <MdOutlineAdd size={24} />
+                          <MdOutlineAdd size={20} />
                         </button>
                          
                       </div>
