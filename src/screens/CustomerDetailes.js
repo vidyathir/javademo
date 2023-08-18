@@ -196,6 +196,7 @@ export default function CustomerDetailes({ onButtonClick }) {
                           </label>
                         </div>
 
+<<<<<<< HEAD
                         <div>
                           <Controller
                             name="data3"
@@ -212,6 +213,83 @@ export default function CustomerDetailes({ onButtonClick }) {
                         </div>
                       </Col>
                     </Row>
+=======
+          <div>
+            <Card className="maincards">
+              <div className="cardtitle">
+                <text className="cardtitlehed">Customer Details</text>
+              </div>
+              <div className="cardcolumnpadding">
+                {/* ---------------------------------   card column start  -------------------------------------------- */}
+                <Formik
+      validationSchema={schema}
+      onSubmit={handleSubmit}
+      initialValues={{
+        companyName: '',
+        contactPersonName: '',
+        licenceNo: '',
+        phoneNo: '',
+        phoneNo1:'',
+        emailId: '',
+        address1: '',
+        address2:'',
+        city: '',
+        state: '',
+        pincode: '',
+       
+      }}
+      >
+         {({ handleSubmit, handleChange, values, touched, errors }) => (
+        <Form noValidate onSubmit={handleSubmit}>
+                <Row className="mb-3 rowtabview">
+                                   <Form.Group as={Col} controlId="validationFormik01">
+                    <Form.Label className="cardcolhed">
+                      Company Name<text className="cardcolhedstar">*</text>{" "}
+                    </Form.Label>
+                    {/* <Form.Select  className='cardcolhedinput' aria-label="Default select example">
+      <option>Select companyName</option>
+      <option value="1">Ranbaxy</option>
+      <option value="2">Mankindpharma</option>
+      <option value="3">aboot</option>
+      <option value="3">Dr Reddys</option>
+    </Form.Select> */}
+     {/* <Form.Select defaultValue="Ranbaxy" name='companyName' value={values.companyName}
+     isInvalid={!!errors.companyName}>
+          
+            <option >Ranbaxy</option>
+      <option>Mankindpharma</option>
+      <option >aboot</option>
+      <option>Dr Reddys</option>
+           </Form.Select> */}
+                       <Form.Control className="cardcolhedinput"
+                     type="text"
+                     name="companyName"
+                     value={values.companyName}
+                     onChange={handleChange}
+                     isInvalid={!!errors.companyName}
+                    />  
+                     <Form.Control.Feedback type="invalid">
+                  {errors.companyName}
+                </Form.Control.Feedback> 
+            
+                  </Form.Group> 
+                   <Form.Group as={Col} controlId="validationFormik02">
+                    <Form.Label className="cardcolhed">
+                      Contact Person Name
+                       <text className="cardcolhedstar">*</text>{" "} 
+                    </Form.Label>
+                    <Form.Control className="cardcolhedinput"
+                    type="text"
+                    name="contactPersonName"
+                    value={values.contactPersonName}
+                    onChange={handleChange}
+                    isInvalid={!!errors.contactPersonName}
+                    />
+                     <Form.Control.Feedback type="invalid">
+                  {errors.contactPersonName}
+                </Form.Control.Feedback> 
+                  </Form.Group>
+>>>>>>> 35447469b7f57166ff5588e47e1b9a6f857555f9
 
                     {/* ---------------------------------   card column start  -------------------------------------------- */}
 
@@ -238,6 +316,7 @@ export default function CustomerDetailes({ onButtonClick }) {
                         </div>
                       </Col>
 
+<<<<<<< HEAD
                       <Col>
                         <div>
                           <label className="cardcolhed">
@@ -262,6 +341,31 @@ export default function CustomerDetailes({ onButtonClick }) {
                           </div>
                         </div>
                       </Col>
+=======
+                <Row className="mb-3 rowtabview">
+                  <Form.Group as={Col} controlId="validationFormik03">
+                    <Form.Label className="cardcolhed">
+                      Phone Number
+                      <text className="cardcolhedstar">*</text>{" "} 
+                    </Form.Label>
+                    <Form.Control className="cardcolhedinput" 
+                     type="number"
+                     
+                minLength={10}
+                maxLength={10}
+                datatype="integer"
+                
+                    //  placeholder="City"
+                     name="phoneNo"
+                     value={values.phoneNo}
+                     onChange={handleChange}
+                     isInvalid={!!errors.phoneNo}
+                    />
+                      <Form.Control.Feedback type="invalid">
+                {errors.phoneNo}
+              </Form.Control.Feedback> 
+                  </Form.Group>
+>>>>>>> 35447469b7f57166ff5588e47e1b9a6f857555f9
 
                       <Col>
                         <div>
@@ -311,6 +415,7 @@ export default function CustomerDetailes({ onButtonClick }) {
                         </div>
                       </Col>
 
+<<<<<<< HEAD
                       <Col>
                         <div>
                           <label className="cardcolhed">
@@ -335,6 +440,25 @@ export default function CustomerDetailes({ onButtonClick }) {
                           </div>
                         </div>
                       </Col>
+=======
+                <Row className="mb-3 rowtabview ">
+                  <Form.Group as={Col} controlId="validationFormik05">
+                    <Form.Label className="cardcolhed">
+                      Address Line1<text className="cardcolhedstar">*</text>{" "}
+                    </Form.Label>
+                    <Form.Control className="cardcolhedinput"
+                     type="text"
+                    //  placeholder="Zip"
+                     name="address1"
+                     value={values.address1}
+                     onChange={handleChange}
+                     isInvalid={!!errors.address1}
+                    />
+                     <Form.Control.Feedback type="invalid">
+                {errors.address1}
+              </Form.Control.Feedback>
+                  </Form.Group>
+>>>>>>> 35447469b7f57166ff5588e47e1b9a6f857555f9
 
                       <Col>
                         <div>
@@ -384,6 +508,7 @@ export default function CustomerDetailes({ onButtonClick }) {
                         </div>
                       </Col>
 
+<<<<<<< HEAD
                       <Col>
                         <div>
                           <label className="cardcolhed">Pincode</label>
@@ -405,6 +530,25 @@ export default function CustomerDetailes({ onButtonClick }) {
                           </div>
                         </div>
                       </Col>
+=======
+                <Row className="mb-3 rowtabview">
+                  <Form.Group as={Col} controlId="validationFormik07">
+                    <Form.Label className="cardcolhed">
+                      State<text className="cardcolhedstar">*</text>{" "}
+                    </Form.Label>
+                    <Form.Control className="cardcolhedinput" 
+                     type="text"
+                    //  placeholder="State"
+                     name="state"
+                     value={values.state}
+                     onChange={handleChange}
+                     isInvalid={!!errors.state}
+                    />
+                     <Form.Control.Feedback type="invalid">
+                {errors.state}
+              </Form.Control.Feedback>
+                  </Form.Group>
+>>>>>>> 35447469b7f57166ff5588e47e1b9a6f857555f9
 
                       <Col>
                         <div>
@@ -420,11 +564,30 @@ export default function CustomerDetailes({ onButtonClick }) {
                       </Col>
                     </Row>
 
+<<<<<<< HEAD
                     {/* ---------------------------------   card column end  -------------------------------------------- */}
                   </div>
                 </form>
               </Card>
             </div>
+=======
+                  <Form.Group as={Col} className="cardbuttonwid">
+                    <Form.Label></Form.Label>
+                    <button className="cardbutton" type="submit"
+                      
+                      >
+                      <AiOutlineCheck size={19} /> Next
+                    </button>
+                  </Form.Group>
+                </Row>
+                </Form>
+          )}
+                </Formik>
+
+       {/* ---------------------------------   card column end  -------------------------------------------- */}
+              </div>
+            </Card>
+>>>>>>> 35447469b7f57166ff5588e47e1b9a6f857555f9
           </div>
         </div>
       </div>

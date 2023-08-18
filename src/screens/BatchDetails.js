@@ -303,7 +303,12 @@ const handleDispatch=()=>{
                     <div>
                     <label className="cardcolhed">
                     Analytical Test Parameter
+<<<<<<< HEAD
                  
+=======
+                   {/* <text style={{fontSize:10.5,fontWeight:300}}>(If require attach Annexure
+                          along with this filled TRF)</text>  */}
+>>>>>>> 35447469b7f57166ff5588e47e1b9a6f857555f9
                           {/* <text className="cardcolhedstar">*</text> */}
                         </label>
                         </div>
@@ -329,15 +334,20 @@ const handleDispatch=()=>{
                           className="cardbutton"
                         
                         >
-                          <AiOutlineClose size={24} /> Clear
+                          <AiOutlineClose size={18} /> Clear
                         </button>
                         
                         <button type="submit"
                           className="cardbutton"
                           //  onClick={() => navigate("batchdetails")}
                         >
+<<<<<<< HEAD
                              {editClick ? "update" : "Add" }
                           <MdOutlineAdd size={24} />
+=======
+                             {editClick ? "update" : "Add"}
+                          <MdOutlineAdd size={20} />
+>>>>>>> 35447469b7f57166ff5588e47e1b9a6f857555f9
                         </button>
                          
                       </div>

@@ -1,5 +1,5 @@
 import React from "react";
-import "./MultiStepProgressBar.css";
+import "../screens/Styles.css";
 import { ProgressBar, Step } from 'react-step-progress-bar'
 
 const MultiStepProgressBar = ({ page, onPageNumberClick }) => {
@@ -21,6 +21,7 @@ const MultiStepProgressBar = ({ page, onPageNumberClick }) => {
   }
 
   return (
+   
     <ProgressBar percent={stepPercentage}>
     
       <Step>
@@ -34,7 +35,7 @@ const MultiStepProgressBar = ({ page, onPageNumberClick }) => {
         
             
           </div>
-          <div className="mt-1">
+          <div className="mt-1 progresstext">
             <label  className="progressbarfont">Customer Details</label> 
           </div>
           </div>
@@ -50,7 +51,7 @@ const MultiStepProgressBar = ({ page, onPageNumberClick }) => {
           >
             {index + 1}
           </div>
-          <div className="mt-1">
+          <div className="mt-1 progresstext">
           
             <label  className="progressbarfont">Sample Details</label>
           </div>
@@ -66,7 +67,7 @@ const MultiStepProgressBar = ({ page, onPageNumberClick }) => {
           >
             {index + 1}
           </div>
-          <div className="mt-1">
+          <div className="mt-1 progresstext">
             <label  className="progressbarfont">Batch Details</label> 
           </div>
           </div>
@@ -81,7 +82,7 @@ const MultiStepProgressBar = ({ page, onPageNumberClick }) => {
           >
             {index + 1}
           </div>
-          <div className="mt-1">
+          <div className="mt-1 progresstext">
             <label  className="progressbarfont">Type of Analysis</label> 
           </div>
           </div>
@@ -96,7 +97,7 @@ const MultiStepProgressBar = ({ page, onPageNumberClick }) => {
           >
             {index + 1}
           </div>
-          <div className="mt-1">
+          <div className="mt-1 progresstext">
             <label className="progressbarfont">Confirm Details</label> 
           </div>
           </div>
@@ -111,7 +112,7 @@ const MultiStepProgressBar = ({ page, onPageNumberClick }) => {
           >
             {index + 1}
           </div>
-          <div className="mt-1">
+          <div className="mt-1 progresstext">
             
             <label  className="progressbarfont">SampleVerificationChecklist</label>
           </div>
@@ -121,6 +122,7 @@ const MultiStepProgressBar = ({ page, onPageNumberClick }) => {
       
       
     </ProgressBar>
+  
   );
 };
 

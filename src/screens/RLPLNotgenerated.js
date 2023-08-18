@@ -178,7 +178,7 @@ export default function RLPLNotgenerated() {
 
                     
                         <Button
-                        onClick={()=>navigate("/")}
+                        onClick={()=>navigate("/Progress")}
                       style={{
                         height: "40px",
                         width: "122px",

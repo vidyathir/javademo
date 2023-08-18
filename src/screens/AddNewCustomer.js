@@ -80,7 +80,7 @@ export default function AddNewCustomer() {
       >
          {({ handleSubmit, handleChange, values, touched, errors }) => (
         <Form noValidate onSubmit={handleSubmit}>
-                <Row className="mb-3 ">
+                <Row className="mb-3 rowtabview ">
                   <Form.Group as={Col} controlId="validationFormik01">
                     <Form.Label className="cardcolhed">
                       Company Name<text className="cardcolhedstar">*</text>{" "}
@@ -140,7 +140,7 @@ export default function AddNewCustomer() {
 
                 {/* ---------------------------------   card column start  -------------------------------------------- */}
 
-                <Row className="mb-3 ">
+                <Row className="mb-3 rowtabview ">
                   <Form.Group as={Col} controlId="validationFormik03">
                     <Form.Label className="cardcolhed">
                       Phone Number<text className="cardcolhedstar">*</text>{" "}
@@ -185,7 +185,7 @@ export default function AddNewCustomer() {
 
                 {/* ---------------------------------   card column start  -------------------------------------------- */}
 
-                <Row className="mb-3 ">
+                <Row className="mb-3 rowtabview">
                   <Form.Group as={Col} controlId="validationFormik05">
                     <Form.Label className="cardcolhed">
                       Address Line1<text className="cardcolhedstar">*</text>{" "}
@@ -230,7 +230,7 @@ export default function AddNewCustomer() {
 
                 {/* ---------------------------------   card column start  -------------------------------------------- */}
 
-                <Row className="mb-3 ">
+                <Row className="mb-3 rowtabview ">
                   <Form.Group as={Col} controlId="validationFormik07">
                     <Form.Label className="cardcolhed">
                       State<text className="cardcolhedstar">*</text>{" "}
@@ -271,7 +271,7 @@ export default function AddNewCustomer() {
                     <button className="cardbutton" type="submit"
                     //  onClick={() => navigate("customerdetailes")}
                       >
-                      <AiOutlineCheck /> Save
+                      <AiOutlineCheck size={19}  /> Save
                     </button>
                   </Form.Group>
                 </Row>

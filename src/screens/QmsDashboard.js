@@ -1,37 +1,47 @@
 import React from "react";
-// import Sidenavbar from "../components/Sidenavbar";
-import { Table, Row, Col, Card } from "react-bootstrap";
-import { BsBoxSeam, BsClipboardCheck } from "react-icons/bs";
-import { LuClipboardEdit } from "react-icons/lu";
+import Sidenavbar from "../components/Sidenavbar";
+
+import {
+  Table,
+  Row,
+  Col,
+  // Button,
+  Card,
+} from "react-bootstrap";
+// import {BsBoxSeam,BsClipboardCheck} from 'react-icons/bs'
+// import {LuClipboardEdit} from 'react-icons/lu';
+import { TbClockEdit } from "react-icons/tb";
+import { FaRegListAlt } from "react-icons/fa";
+import { FiEdit } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
 import NavbartitleAddco from "../components/NavbartitleAddco";
-import SidenavbarApprover from "../components/SidenavbarApprover";
 
-export default function ApproverDashboard() {
+export default function ReviewDashboard() {
   const navigate = useNavigate();
-
   return (
     <div className="app">
       <NavbartitleAddco />
 
       <div className="d-flex">
-        <SidenavbarApprover />
-
+        <Sidenavbar />
         <div className="main">
           <div className="mainitem">
             {/* -----------------------------------------Top Card Start---------------------------------- */}
 
             <div className="mt-4 row wholeCardDiv">
+              <div>
+                <p className="overview">Overview</p>
+              </div>
               <Row>
                 <Col md={3}>
                   <Card className="mainCard1 p-2">
                     <div className="cardArrangement">
                       <div style={{ justifyContent: "space-evenly" }}>
-                        <p>Total TDS</p>
+                        <p>Total Reject</p>
                         <p className="cardNum">25</p>
                       </div>
                       <div>
-                        <BsBoxSeam size={50} color="#fff" />
+                        <FaRegListAlt size={50} color="#fff" />
                       </div>
                     </div>
                   </Card>
@@ -40,27 +50,44 @@ export default function ApproverDashboard() {
                   <Card className="mainCard2 p-2">
                     <div className="cardArrangement">
                       <div style={{ justifyContent: "space-evenly" }}>
-                        <p>Approved TDS</p>
+                        <p>Rejected by Reviewer</p>
                         <p className="cardNum">19</p>
                       </div>
                       <div>
-                        <BsClipboardCheck size={50} color="#fff" />
+                        <FiEdit size={50} color="#fff" />
                       </div>
                     </div>
                   </Card>
                 </Col>
-                <Col md={6}>
+                <Col md={3}>
                   <Card
                     className="mainCard2 p-2"
-                    onClick={() => navigate("AwaitingsamplesApprover")}
+                    onClick={() => navigate("AwaitingSamplesReview")}
                   >
                     <div className="cardArrangement">
                       <div>
-                        <p>Awaiting Approve</p>
+                        <p>Rejected by Approver</p>
                         <p className="cardNum">06</p>
                       </div>
                       <div>
-                        <LuClipboardEdit size={50} color="#fff" />
+                        <TbClockEdit size={50} color="#fff" />
+                      </div>
+                    </div>
+                  </Card>
+                </Col>
+
+                <Col md={3}>
+                  <Card
+                    className="mainCard2 p-2"
+                    onClick={() => navigate("AwaitingSamplesReview")}
+                  >
+                    <div className="cardArrangement">
+                      <div>
+                        <p> Retest Done</p>
+                        <p className="cardNum">06</p>
+                      </div>
+                      <div>
+                        <TbClockEdit size={50} color="#fff" />
                       </div>
                     </div>
                   </Card>
@@ -69,29 +96,19 @@ export default function ApproverDashboard() {
               {/* -----------------------------------------Top Card Ended---------------------------------- */}
 
               <div className="topforsamplewaitingandviewall">
-                <p
-                  onClick={() => navigate("AwaitingSamplesApprover")}
-                  className="tableTop mt-3"
-                >
-                  Awaiting Approve
-                </p>
-                <a
-                  href="./AwaitingSamplesApprover"
-                  className="viewAll"
-                  onClick={() => navigate("AwaitingSamplesApprover")}
-                >
-                  View all
-                </a>
+                <p className="tableTop mt-3">Samples awaiting Review</p>
+
+                <p className="viewAll">View all</p>
               </div>
               <div>
                 <Table className="table" border={1}>
                   <thead className="tbhed">
-                    <tr>
+                    <tr style={{ backgroundColor: "#3a4175" }}>
                       <th>S.No</th>
                       <th>TDS Number</th>
-                      <th>Test Parameter</th>
-                      <th>Analyst By</th>
-                      <th>Reviewd By</th>
+                      <th>Rejected Date</th>
+                      <th>Rejected By</th>
+
                       <th>View</th>
                     </tr>
                   </thead>
@@ -99,10 +116,9 @@ export default function ApproverDashboard() {
                     <tr>
                       <td>1</td>
                       <td>TDS/XRD/23/19923</td>
-                      <td>PXRD,DSC</td>
-                      <td>Ashok</td>
+                      <td>01/8/2023</td>
+                      <td>Jane Cooper(Reviewer)</td>
 
-                      <td>Robert Fox</td>
                       <td>
                         <button className="tbbutton ">View</button>
                       </td>
@@ -111,9 +127,9 @@ export default function ApproverDashboard() {
                     <tr>
                       <td>2</td>
                       <td>TDS/XRD/23/19923</td>
-                      <td>PXRD,DSC</td>
-                      <td>Ashok</td>
-                      <td>Robert Fox</td>
+                      <td>01/8/2023</td>
+                      <td>Jane Cooper(Reviewer)</td>
+
                       <td>
                         <button className="tbbutton ">View</button>
                       </td>
@@ -122,9 +138,9 @@ export default function ApproverDashboard() {
                     <tr>
                       <td>3</td>
                       <td>TDS/XRD/23/19923</td>
-                      <td>PXRD,DSC</td>
-                      <td>Ashok</td>
-                      <td>Robert Fox</td>
+                      <td>01/8/2023</td>
+                      <td>Jane Cooper(Reviewer)</td>
+
                       <td>
                         <button className="tbbutton ">View</button>
                       </td>
@@ -133,9 +149,9 @@ export default function ApproverDashboard() {
                     <tr>
                       <td>4</td>
                       <td>TDS/XRD/23/19923</td>
-                      <td>PXRD,DSC</td>
-                      <td>Ashok</td>
-                      <td>Robert Fox</td>
+                      <td>01/8/2023</td>
+                      <td>Jane Cooper(Reviewer)</td>
+
                       <td>
                         <button className="tbbutton ">View</button>
                       </td>
@@ -144,9 +160,9 @@ export default function ApproverDashboard() {
                     <tr>
                       <td>5</td>
                       <td>TDS/XRD/23/19923</td>
-                      <td>PXRD,DSC</td>
-                      <td>Ashok</td>
-                      <td>Robert Fox</td>
+                      <td>01/8/2023</td>
+                      <td>Jane Cooper(Reviewer)</td>
+
                       <td>
                         <button className="tbbutton ">View</button>
                       </td>
@@ -155,9 +171,9 @@ export default function ApproverDashboard() {
                     <tr>
                       <td>6</td>
                       <td>TDS/XRD/23/19923</td>
-                      <td>PXRD,DSC</td>
-                      <td>Ashok</td>
-                      <td>Robert Fox</td>
+                      <td>01/8/2023</td>
+                      <td>Jane Cooper(Reviewer)</td>
+
                       <td>
                         <button className="tbbutton ">View</button>
                       </td>
@@ -166,9 +182,9 @@ export default function ApproverDashboard() {
                     <tr>
                       <td>7</td>
                       <td>TDS/XRD/23/19923</td>
-                      <td>PXRD,DSC</td>
-                      <td>Ashok</td>
-                      <td>Robert Fox</td>
+                      <td>01/8/2023</td>
+                      <td>Jane Cooper(Reviewer)</td>
+
                       <td>
                         <button className="tbbutton ">View</button>
                       </td>
@@ -177,9 +193,9 @@ export default function ApproverDashboard() {
                     <tr>
                       <td>8</td>
                       <td>TDS/XRD/23/19923</td>
-                      <td>PXRD,DSC</td>
-                      <td>Ashok</td>
-                      <td>Robert Fox</td>
+                      <td>01/8/2023</td>
+                      <td>Jane Cooper(Reviewer)</td>
+
                       <td>
                         <button className="tbbutton ">View</button>
                       </td>
@@ -188,9 +204,9 @@ export default function ApproverDashboard() {
                     <tr>
                       <td>9</td>
                       <td>TDS/XRD/23/19923</td>
-                      <td>PXRD,DSC</td>
-                      <td>Ashok</td>
-                      <td>Robert Fox</td>
+                      <td>01/8/2023</td>
+                      <td>Jane Cooper(Reviewer)</td>
+
                       <td>
                         <button className="tbbutton ">View</button>
                       </td>
@@ -199,9 +215,9 @@ export default function ApproverDashboard() {
                     <tr>
                       <td>10</td>
                       <td>TDS/XRD/23/19923</td>
-                      <td>PXRD,DSC</td>
-                      <td>Ashok</td>
-                      <td>Robert Fox</td>
+                      <td>01/8/2023</td>
+                      <td>Jane Cooper(Reviewer)</td>
+
                       <td>
                         <button className="tbbutton ">View</button>
                       </td>
@@ -210,9 +226,9 @@ export default function ApproverDashboard() {
                     <tr>
                       <td>11</td>
                       <td>TDS/XRD/23/19923</td>
-                      <td>PXRD,DSC</td>
-                      <td>Ashok</td>
-                      <td>Robert Fox</td>
+                      <td>01/8/2023</td>
+                      <td>Jane Cooper(Reviewer)</td>
+
                       <td>
                         <button className="tbbutton ">View</button>
                       </td>

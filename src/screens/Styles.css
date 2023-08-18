@@ -4,7 +4,7 @@
   /* display: flex;
   flex-direction: column; */
   height:100vh;
-  font-family: montserrat;
+ 
 }
 
 .navbartop{
@@ -15,7 +15,7 @@
   /* position: sticky;
   top: 0px; */
   width: 10vw;
-  height: 93vh;
+  height: 92vh;
   background-color: #3A4175;
  
 }
@@ -66,7 +66,7 @@
 
 .main {
    width: 90vw;
-  height: 93vh; 
+  height: 92vh; 
   overflow-y: scroll;
   /* scroll-behavior: smooth; */
   scrollbar-width: none;
@@ -130,7 +130,7 @@
   border: none;
   border-color: none;
   outline-color: none;
-  outline: none;
+  /* outline: none; */
 }
 .titlebuttontext{
   font-size: 12px;
@@ -308,6 +308,7 @@ font-weight: 400;
   width: 122px;
   color: #ffffff;
   border-radius: 6px;
+  align-items: center;
   outline: none;
   border: none;
   font-size: 12px;
@@ -387,7 +388,7 @@ margin-left: 10px;
 
 .analyticalbutton{
   height: 25px !important;
-  width: 100px !important;
+  width: auto !important;
   background-color: #9AC037;
   border-radius: 5px;
   /* border: none;
@@ -396,12 +397,103 @@ margin-left: 10px;
   align-items: center;
   justify-content: center;
   display: flex;
+  padding: 3px;
   font-size: 12px;
   font-weight: 500;
 
 }
 
+.analyticalbutton-div{
+  display: flex;
+  flex-direction: row;
+}
 
+/* ----------------------------- MultistepProgressbar--------------------- */
+
+.indexedStep {
+  color: rgb(190, 190, 190);
+  width: 30px;
+  height: 30px;
+  font-size: 12px;
+  background-color: rgb(255, 255, 255);
+  border-radius: 50%;
+  border-style: solid;
+  border-width: 1px;
+  border-color: rgb(206, 206, 206);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 17px;
+  /* cursor: pointer; */
+}
+.progressbarfont{
+  font-size: 10px;
+  font-weight: 500;
+  color: #3A4175;
+  word-break:normal;
+}
+
+
+
+.indexedStep.accomplished {
+  background-color: #9AC037;
+  color: white;
+  border-style: none;
+}
+
+.RSPBprogressBar {
+  height: 2px;
+  width: 90%;
+  line-height: 1;
+  border-radius: 10px;
+  position: relative;
+  background-color: rgb(207, 207, 207);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 0;
+  /* margin: 20px auto; */
+  margin-left: 45px;
+}
+
+.RSPBprogressBar .RSPBstep {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 0;
+  position: absolute;
+  transform: translateX(-50%);
+  transition-property: all;
+  transition-timing-function: ease;
+}
+
+.RSPBprogressBar .RSPBprogressBarText {
+  color: white;
+  font-size: 10px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.RSPBprogressBar .RSPBprogression {
+  position: absolute;
+  transition: width 0.3s ease;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  border-radius: 10px;
+  background: #9AC037;
+  z-index: -1;
+}
+
+@media screen and (max-width: 100%) {
+  .indexedStep{
+      width: 15px;
+      height: 15px;
+      font-size: 6px;
+  }
+}
 
 
 /* ------------- Confirm Details -- */
@@ -427,6 +519,41 @@ color: #3A4175;
   /* text-overflow: ellipsis; */
   
 }
+
+
+/* -----------------------------------------DITSuccess------------------------------------ */
+
+.DITSuccess-card{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
+  height: 100%;
+}
+
+
+.DITSuccesstext{
+  font-size: 12px;
+  font-weight: 500;
+  color: #8F8F8F;
+}
+
+.DITSuccessButton{
+  width:80px;
+  height:40px;
+  border-radius:6;
+  background:'#9AC037';
+  border: none;
+}
+
+.DITSuccessButtontext{
+  font-size: 12px;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+
+
 
 /* --------------------------- analyst samples---------------- */
 
@@ -466,7 +593,7 @@ color: #3A4175;
   justify-content: center;
   padding: 20px;
   flex-direction: column;
-  display: flex;
+
  
 
 }
@@ -616,6 +743,10 @@ color: #3A4175;
     font-weight: 500;
     color: #3A4175;
   }
+  .RSPBprogressBar{
+    margin-left: 0px;
+  }
+
 }
 
 
@@ -662,7 +793,16 @@ margin-top: 10px;
   .sidebartext{
     display: none;
   }
-  
+  .progresstext{
+    display: none;
+  }
+  .indexedStep{
+    margin-top: 0px;
+
+  }
+  .RSPBprogressBar{
+    margin-left: 20px;
+  }
   
 }
 
@@ -1180,9 +1320,9 @@ input{
   border-radius: 17px;
 }
 
-.form-control1:focus {
+/* .form-control1:focus {
   border-color: #3A4175;
-}
+} */
 
 .space {
   margin-left: 5px;
@@ -1240,11 +1380,11 @@ input{
 }
 /* sampleVerificationCheckList CSS and  MediaQueries */
 
-.customRadio{
+/* .customRadio{
   height: 20px;
   width: 20px;
 
-}
+} */
 .customRadioMargin{
   height: 20px;
   width: 20px;
@@ -1360,17 +1500,17 @@ input{
   color: #3A4175;
 
 }
-.table  th{
+/* .table  th{
   background-color: #3A4175 !important;
   color: #fff;
-}
+} */
 
 @media (max-width:600px){
   .tablet{
     justify-content: center;
     width: 100vh;
     height: max-content;
-    width:max-content;
+    /* width:max-content; */
     align-items: center;
     margin-left: -100px;
 
@@ -1400,6 +1540,7 @@ input{
   color: #fff !important;
   outline: none !important;
   border: none !important;
+  transition: transform 0.3s ease-in-out;
   
 
 }
@@ -1417,6 +1558,12 @@ input{
   font-size: 24px;
   font-weight: 700;
  
+}
+
+.CardName{
+  font-size: 15px;
+  font-weight: 600;
+  display: inline-block;
 }
 .cardArrangement{
   display: flex;

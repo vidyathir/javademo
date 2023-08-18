@@ -18,7 +18,14 @@ import ApproverDashboard from './screens/ApproverDashboard';
 import AwaitingSamplesApprover from './screens/AwaitingSamplesApprover';
 import ApproverDetails from './screens/ApproverDetails';
 import SearchCustomer from './screens/SearchCustomer';
+<<<<<<< HEAD
 import Loginnew from './screens/Loginnew';
+=======
+import DITExpandedview from './screens/DITExpandedview';
+import DITSuccess from './screens/DITSuccess';
+import SroDashboard from './screens/SroDashboard';
+import AddNewCompany from './screens/AddNewCompany';
+>>>>>>> 35447469b7f57166ff5588e47e1b9a6f857555f9
 
 
 export default function App() {
@@ -29,6 +36,10 @@ export default function App() {
     <Routes>
   
      <Route exact path='/' element={<Login/>} />
+     <Route exact path='/DITExpandedview' element={<DITExpandedview/>}/>
+     <Route exact path ='/SroDashboard' element={<SroDashboard />} />
+     <Route exact path ='/AddNewCompany' element={<AddNewCompany/>} />
+     <Route exact path='/DITSuccess' element={<DITSuccess/>}/>
      <Route exact path='/SearchCustomer' element={<SearchCustomer/>}/>    
      <Route exact path='/Progress' element={<Progress/>}/>  
      <Route exact path='/AddNewCustomer' element={<AddNewCustomer/>}/>

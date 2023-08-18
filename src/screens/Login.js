@@ -81,7 +81,7 @@ const[data1,setData1] =useState({
  return (
      
 
- <div className="row">
+ <div className="row ">
  <div className="col-sm-6 xs-6 md-6" >
  {/* Image */}
  <img
