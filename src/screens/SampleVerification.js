@@ -6,8 +6,8 @@ import { useNavigate } from "react-router-dom";
 import {  BiLeftArrowAlt } from "react-icons/bi";
 import {MdDone} from 'react-icons/md'
 import{TbLogout2} from 'react-icons/tb';
-import Swal from 'sweetalert2'
-import withReactContent from 'sweetalert2-react-content'
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
 
 export default function SampleVerification({onButtonClick}) {
   const navigate = useNavigate();

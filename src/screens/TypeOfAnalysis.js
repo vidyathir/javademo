@@ -1,4 +1,4 @@
-import React from "react";
+import React , {useState} from "react";
 
 import { Form, Row, Col, Card} from "react-bootstrap";
 import { useDispatch } from 'react-redux';
@@ -13,6 +13,11 @@ export default function TypeOfAnalysis({onButtonClick}) {
  
   const dispatch = useDispatch();
   
+  const [selectedOption2, setSelectedOption2] = useState(false);
+  const handleOptionChange2 = (event) => {
+    setSelectedOption2(event.target.value === 'yes');
+  };
+
 
   // ---------------Start of --------------RadioButtons Functionalities using USESTATE-----------------------
 
@@ -350,6 +355,8 @@ export default function TypeOfAnalysis({onButtonClick}) {
                            {...register('methodvalidation', { required: false })}
                             type="radio"
                             value="no"
+                            checked={!selectedOption2}
+                            onChange={handleOptionChange2}
                             name="methodvalidation"
                            // checked={selectedOption2 === "option14"}
                             //onChange={handleOptionChange2}
@@ -368,6 +375,8 @@ export default function TypeOfAnalysis({onButtonClick}) {
                            {...register('methodvalidation', { required: false })}
                             type="radio"
                             value="yes"
+                            checked={selectedOption2}
+                            onChange={handleOptionChange2}
                             name="methodvalidation"
                             //checked={selectedOption2 === "option15"}
                             //onChange={handleOptionChange2}
@@ -375,11 +384,13 @@ export default function TypeOfAnalysis({onButtonClick}) {
                           />
                           <label className="space">yes</label>
                         </div>
+                        {selectedOption2 && (
                         <div>
                           <input type="text" className="methodValidation" 
                 
                       />
                         </div>
+                        )}
                       </div>
                     </div>
                   </Col>
