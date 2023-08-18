@@ -11,9 +11,8 @@ import Navbartitle from "../components/Navbartitle";
 import { useSelector } from "react-redux";
 export default function RLPLNotgenerated() {
   const navigate = useNavigate();
-   const form=useSelector(state =>state.form.customer);
+
   const sample=useSelector(state =>state.form.sampleDetails);
-  const analysis=useSelector(state =>state.form.data);
   const batch=useSelector(state =>state.form.newarray.batchDetails)
   return (
     <div className="app">

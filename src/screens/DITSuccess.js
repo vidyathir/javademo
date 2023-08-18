@@ -1,9 +1,6 @@
 import React from "react";
 import "./Styles.css";
-// import Sidenavbar from "../components/Sidenavbar";
-// import Navbartitle from '../components/Navbartitle';
 
-// import { useNavigate } from "react-router-dom";
 
 import { BsFileEarmarkCheck } from "react-icons/bs";
 import { Table } from "react-bootstrap";
@@ -11,7 +8,7 @@ import NavbartitleAddco from "../components/NavbartitleAddco";
 import SidenavbarDIT from "../components/SidenavbarDIT";
 
 export default function DITSuccess() {
-  // const navigate = useNavigate();
+
 
   return (
     <div className="app">

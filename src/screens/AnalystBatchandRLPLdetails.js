@@ -1,7 +1,5 @@
 import React from "react";
 import "./Styles.css";
-// import Sidenavbar from "../components/Sidenavbar";
-// import Navbartitle from "../components/Navbartitle";
 import {
   //  Col, Row,
   Table,
@@ -9,11 +7,8 @@ import {
 import { useNavigate } from "react-router-dom";
 
 import { AiOutlineLeft } from "react-icons/ai";
-// import { RiFileWord2Fill } from "react-icons/ri";
 import { BsArrowDownCircle } from "react-icons/bs";
 import { PiFileArrowUp } from "react-icons/pi";
-// import { PiUpload } from "react-icons/pi";
-// import { CgCloseR } from "react-icons/cg";
 import { BiRightArrowAlt } from "react-icons/bi";
 import NavbartitleAddco from "../components/NavbartitleAddco";
 import SidenavbarAnalyst from "../components/SidenavbarAnalyst";

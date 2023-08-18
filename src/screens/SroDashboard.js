@@ -8,10 +8,9 @@ import {
   // Button,
   Card,
 } from "react-bootstrap";
-// import {BsBoxSeam,BsClipboardCheck} from 'react-icons/bs'
-// import {LuClipboardEdit} from 'react-icons/lu';
+
 import { TbClockEdit,TbFileStar } from "react-icons/tb";
-// import { FaRegListAlt } from "react-icons/fa";
+
 import { FiEdit } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
 import {LuClipboardEdit} from 'react-icons/lu';

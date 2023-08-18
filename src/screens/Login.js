@@ -1,7 +1,6 @@
 import React,{useEffect, useState} from "react";
 import logo from "../assets/loginImage.png";
 import{useForm} from 'react-hook-form';
-import * as Yup from 'yup';
 import './Styles.css';
 import logo2 from  '../assets//LoginLogo.png';
 import {AiOutlineEyeInvisible,AiFillEye} from 'react-icons/ai'
@@ -19,13 +18,7 @@ const[data1,setData1] =useState({
     formState: { errors },
 } = useForm();
 
-  const validationSchema = Yup.object().shape({
-    email: Yup.string()
-    .email('Invalid email address')
-    .required('required'),
-    password: Yup.string()
-    .required('required')
-  });
+ 
   const navigate = useNavigate();
 
  

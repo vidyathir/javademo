@@ -1,7 +1,6 @@
 import React from "react";
 import "./Styles.css";
-// import Sidenavbar from "../components/Sidenavbar";
-// import Navbartitle from '../components/Navbartitle';
+
 import { Col, Row, Table } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 
@@ -9,8 +8,7 @@ import {
   AiOutlineLeft,
   // AiOutlineEye
 } from "react-icons/ai";
-// import {RiFileWord2Fill} from 'react-icons/ri';
-// import {BsArrowDownCircle} from 'react-icons/bs';
+
 import { PiFilePdfFill } from "react-icons/pi";
 import { BiRightArrowAlt } from "react-icons/bi";
 import NavbartitleAddco from "../components/NavbartitleAddco";

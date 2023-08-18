@@ -1,6 +1,5 @@
 import React from "react";
-// import Sidenavbar from "../components/Sidenavbar";
-// import Navbartitle from "../components/Navbartitle";
+
 import {
   Table,
   Row,

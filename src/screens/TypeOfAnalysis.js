@@ -1,4 +1,4 @@
-import React,{useState} from "react";
+import React from "react";
 
 import { Form, Row, Col, Card} from "react-bootstrap";
 import { useDispatch } from 'react-redux';
@@ -7,18 +7,10 @@ import { MdOutlineUploadFile } from "react-icons/md";
 import './Styles.css';
 import { useForm} from 'react-hook-form'
 import { changeTypeofAnalysis } from '../redux/FormSlice';
-import { array } from "yup";
+
 
 export default function TypeOfAnalysis({onButtonClick}) {
-  const [data,setData]=useState({
-    analyticalfeasibile:[],
-    choosefile:[],
-    formfilling:"",
-    methodologyfollowed:"",
-    methodvalidation:'',
-    specialinstruction:"",
-    test:[""]
-  })
+ 
   const dispatch = useDispatch();
   
 

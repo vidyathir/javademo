@@ -1,5 +1,4 @@
 import React from "react";
-// import Sidenavbar from "../components/Sidenavbar";
 import { Table, Row, Col, Card } from "react-bootstrap";
 import { BsBoxSeam, BsClipboardCheck } from "react-icons/bs";
 import { LuClipboardEdit } from "react-icons/lu";

@@ -3,8 +3,7 @@ import "./Styles.css";
 import { Col, Row, Table } from "react-bootstrap";
 import { PiFilePdfFill } from "react-icons/pi";
 import { BiLeftArrowAlt, BiRightArrowAlt } from "react-icons/bi";
-import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
+import { useSelector,useDispatch } from "react-redux";
 import { changeSubmitData} from "../redux/FormSlice";
 export default function ConfirmDetails({onButtonClick}) {
   const dispatch = useDispatch();
@@ -212,7 +211,8 @@ fetch("http://3.91.97.121:3000/api/sampleDetails/createSample", {
               </thead>
               <tbody className="tablebody-custom">
                 
-              {batch.map((item, i) => (
+              {batch.map((item, i) => {
+            return(
                       <tr key={i}>
                 
                   <td>{i+1}</td>
@@ -226,7 +226,8 @@ fetch("http://3.91.97.121:3000/api/sampleDetails/createSample", {
                     
                         </tr>
                 
-                          ))}
+                          );
+})}
               
               </tbody>
             </Table>

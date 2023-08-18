@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { BsClipboard2Data} from "react-icons/bs";
 import { MdOutlineDashboard } from "react-icons/md";
-// import { BiSearch } from "react-icons/bi";
+
 
 export default function SidenavbarAnalyst() {
 

@@ -1,6 +1,4 @@
 import React from "react";
-// import Sidenavbar from "../components/Sidenavbar";
-// import Navbartitle from '../components/Navbartitle';
 import { Table } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import NavbartitleAddco from "../components/NavbartitleAddco";

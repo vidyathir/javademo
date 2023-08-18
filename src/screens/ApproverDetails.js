@@ -1,6 +1,5 @@
 import React from "react";
 import "./Styles.css";
-// import Sidenavbar from "../components/Sidenavbar";
 import { Col, Row, Table } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 
@@ -9,10 +8,6 @@ import { RiFileWord2Fill } from "react-icons/ri";
 import { BsArrowDownCircle } from "react-icons/bs";
 import NavbartitleAddco from "../components/NavbartitleAddco";
 import SidenavbarApprover from "../components/SidenavbarApprover";
-// import {PiUpload} from 'react-icons/pi';
-// import {CgCloseR} from 'react-icons/cg';
-// import {BiRightArrowAlt} from 'react-icons/bi';
-// import {PiFilePdfFill} from "react-icons/pi"
 
 export default function ApproverDetails() {
   const navigate = useNavigate();

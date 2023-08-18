@@ -2,7 +2,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { LuClipboardSignature} from "react-icons/lu";
 import { MdOutlineDashboard } from "react-icons/md";
-// import { BiSearch } from "react-icons/bi";
 
 export default function SidenavbarReviewer() {
 

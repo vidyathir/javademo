@@ -1,6 +1,5 @@
 import React from "react";
 import "./Styles.css";
-// import Sidenavbar from "../components/Sidenavbar";
 import { Col, Row, Table } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 

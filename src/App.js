@@ -18,14 +18,10 @@ import ApproverDashboard from './screens/ApproverDashboard';
 import AwaitingSamplesApprover from './screens/AwaitingSamplesApprover';
 import ApproverDetails from './screens/ApproverDetails';
 import SearchCustomer from './screens/SearchCustomer';
-<<<<<<< HEAD
-import Loginnew from './screens/Loginnew';
-=======
 import DITExpandedview from './screens/DITExpandedview';
 import DITSuccess from './screens/DITSuccess';
 import SroDashboard from './screens/SroDashboard';
 import AddNewCompany from './screens/AddNewCompany';
->>>>>>> 35447469b7f57166ff5588e47e1b9a6f857555f9
 
 
 export default function App() {

@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { GiArchiveRegister} from "react-icons/gi";
 import { MdOutlineDashboard } from "react-icons/md";
-// import { BiSearch } from "react-icons/bi";
+
 
 export default function SidenavbarDIT() {
 

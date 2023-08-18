@@ -10,9 +10,9 @@ import Navbartitle from "../components/Navbartitle";
 import { useSelector } from "react-redux";
 export default function RlplGenerated() {
   const navigate = useNavigate();
-  const form=useSelector(state =>state.form.customer);
+  
   const sample=useSelector(state =>state.form.sampleDetails);
-  const analysis=useSelector(state =>state.form.data);
+  
   const batch=useSelector(state =>state.form.newarray.batchDetails)
   console.log("batch",batch)
   return (
@@ -269,7 +269,7 @@ export default function RlplGenerated() {
 
                     <Button
                       className="Rlplbutton"
-                      onClick={() => navigate("/")}
+                      onClick={() => navigate("/Progress")}
                       style={{
                         height: "40px",
                         width: "122px",

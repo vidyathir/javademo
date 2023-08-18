@@ -2,11 +2,9 @@ import React from "react";
 import "./Styles.css";
 import Sidenavbar from "../components/Sidenavbar";
 import Navbartitle from "../components/Navbartitle";
-// import profilepic from "../assets/avater2.jpg";
-// import {IoIosAddCircleOutline} from 'react-icons/io';
 import {BsCheck2} from 'react-icons/bs';
 import {AiOutlineLeft} from 'react-icons/ai';
-// import Titlebar from "../components/Titlebar";
+
 import { Card, Col, Row, 
   Form 
 } from "react-bootstrap";
