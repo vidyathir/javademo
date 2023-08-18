@@ -32,7 +32,6 @@ export default function TypeOfAnalysis({onButtonClick}) {
   const {
     register,
     handleSubmit,
-    formState: { errors },
   } = useForm()
   const onSubmit = (data) => {
   
@@ -90,7 +89,7 @@ export default function TypeOfAnalysis({onButtonClick}) {
                                   style={{ display: "flex", marginBottom: 20 }}
                                 >
                                   <input
-                                  {...register('formfilling', { required: true })}
+                                  {...register('formfilling')}
                                     type="radio"
                                     onClick={handleRadioClick}
                                     disabled={radioDisabled}
@@ -107,7 +106,7 @@ export default function TypeOfAnalysis({onButtonClick}) {
                               <div className="col">
                                 <div style={{ display: "flex" }}>
                                   <input
-                                  {...register('formfilling', { required: true })}
+                                  {...register('formfilling')}
                                     type="radio"
                                     onClick={handleRadioClick}
                                     disabled={radioDisabled}
@@ -124,7 +123,7 @@ export default function TypeOfAnalysis({onButtonClick}) {
                               <div className="col">
                                 <div style={{ display: "flex" }}>
                                   <input
-                                  {...register('formfilling', { required: true })}
+                                  {...register('formfilling')}
                                     type="radio"
                                     onClick={handleRadioClick}
                                     disabled={radioDisabled}
@@ -141,7 +140,7 @@ export default function TypeOfAnalysis({onButtonClick}) {
                               <div className="col">
                                 <div style={{ display: "flex" }}>
                                   <input
-                                  {...register('formfilling', { required: true })}
+                                  {...register('formfilling')}
                                     type="radio"
                                     onClick={handleRadioClick}
                                     disabled={radioDisabled}
@@ -158,7 +157,7 @@ export default function TypeOfAnalysis({onButtonClick}) {
                               <div className="col">
                                 <div style={{ display: "flex" }}>
                                   <input
-                                  {...register('formfilling', { required: true })}
+                                  {...register('formfilling')}
                                     type="radio"
                                     onClick={handleRadioClick}
                                     disabled={radioDisabled}
@@ -177,7 +176,7 @@ export default function TypeOfAnalysis({onButtonClick}) {
                               <div className="col">
                                 <div style={{ display: "flex" }}>
                                   <input
-                                  {...register('formfilling', { required: true })}
+                                  {...register('formfilling')}
                                     type="radio"
                                     onClick={handleRadioClick}
                                     disabled={radioDisabled}
@@ -194,7 +193,7 @@ export default function TypeOfAnalysis({onButtonClick}) {
                               <div className="col">
                                 <div style={{ display: "flex" }}>
                                   <input
-                                  {...register('formfilling', { required: true })}
+                                  {...register('formfilling')}
                                     type="radio"
                                     onClick={handleRadioClick}
                                     disabled={radioDisabled}
@@ -211,7 +210,7 @@ export default function TypeOfAnalysis({onButtonClick}) {
                               <div className="col">
                                 <div style={{ display: "flex" }}>
                                   <input
-                                  {...register('formfilling', { required: true })}
+                                  {...register('formfilling')}
                                     type="radio"
                                     onClick={handleRadioClick}
                                     disabled={radioDisabled}
@@ -230,7 +229,7 @@ export default function TypeOfAnalysis({onButtonClick}) {
                               <div className="col">
                                 <div style={{ display: "flex" }}>
                                   <input
-                                  {...register('formfilling', { required: true })}
+                                  {...register('formfilling')}
                                     type="radio"
                                     onClick={handleRadioClick}
                                     disabled={radioDisabled}
@@ -247,7 +246,7 @@ export default function TypeOfAnalysis({onButtonClick}) {
                               <div className="col">
                                 <div style={{ display: "flex" }}>
                                   <input
-                                  {...register('formfilling', { required: true })}
+                                  {...register('formfilling')}
                                     type="radio"
                                     onClick={handleRadioClick}
                                     disabled={radioDisabled}
@@ -266,10 +265,11 @@ export default function TypeOfAnalysis({onButtonClick}) {
                               </div>
                             </div>
                           </div>
-                          <div className="text-danger mt-3">
+                  
+                          {/* <div className="text-danger mt-3">
           {errors.formfilling?.type === 'required' &&
             'This field is required.'}
-            </div>
+            </div> */}
                         </Form.Label>
                       </Form.Group>
                     </Col>
@@ -280,7 +280,7 @@ export default function TypeOfAnalysis({onButtonClick}) {
                 </div>
 
                 <Row className="cardcolhed">
-                  <Col md={6} style={{}}
+                  <Col md={6}
                   >
                     {/* <div className="col-6 "> */}
                       <div className="mb-3">
@@ -291,7 +291,7 @@ export default function TypeOfAnalysis({onButtonClick}) {
                       <div style={{ display: "flex", marginBottom: 20 }}>
                         <div style={{ alignItems: "center", display: "flex" }}>
                           <input
-                           {...register('analyticalfeasibile', { required: true })}
+                           {...register('analyticalfeasibile')}
                            type="checkbox"
                            onClick={handleCheckboxClick}
                             disabled={checkboxDisabled}
@@ -315,7 +315,7 @@ export default function TypeOfAnalysis({onButtonClick}) {
                           }}
                         >
                           <input
-                           {...register('analyticalfeasibile', { required: true })}
+                           {...register('analyticalfeasibile')}
                             type="checkbox"
                             onClick={handleCheckboxClick}
                             disabled={checkboxDisabled}
@@ -333,7 +333,7 @@ export default function TypeOfAnalysis({onButtonClick}) {
                       <div style={{ display: "flex" }}>
                         <div style={{ alignItems: "center", display: "flex" }}>
                           <input
-                           {...register('analyticalfeasibile', { required: true })}
+                           {...register('analyticalfeasibile')}
                             type="checkbox"
                             onClick={handleCheckboxClick}
                             disabled={checkboxDisabled}
@@ -354,7 +354,7 @@ export default function TypeOfAnalysis({onButtonClick}) {
                           }}
                         >
                           <input
-                           {...register('analyticalfeasibile', { required: true })}
+                           {...register('analyticalfeasibile')}
                             type="checkbox"
                             onClick={handleCheckboxClick}
                             disabled={checkboxDisabled}
@@ -367,10 +367,10 @@ export default function TypeOfAnalysis({onButtonClick}) {
                           <label className="space">Batch Analysis</label>
                         </div>
                       </div>
-                      <div className="text-danger mt-3">
+                      {/* <div className="text-danger mt-3">
           {errors.analyticalfeasibile?.type === 'required' &&
             'This field is required.'}
-        </div>
+        </div> */}
                     {/* </div> */}
                     </Col>
 
