@@ -7,8 +7,14 @@ import { AiOutlineMail, AiOutlineCheck, AiFillPrinter } from "react-icons/ai";
 import Sidenavbar from "../components/Sidenavbar";
 import { LuFolderCheck } from "react-icons/lu";
 import Navbartitle from "../components/Navbartitle";
+import { useSelector } from "react-redux";
 export default function RlplGenerated() {
   const navigate = useNavigate();
+  const form=useSelector(state =>state.form.customer);
+  const sample=useSelector(state =>state.form.sampleDetails);
+  const analysis=useSelector(state =>state.form.data);
+  const batch=useSelector(state =>state.form.newarray.batchDetails)
+  console.log("batch",batch)
   return (
     <div className="app">
     <Navbartitle/>
@@ -98,10 +104,10 @@ export default function RlplGenerated() {
                         </td>
                       </tr>
                       <tr>
-                        <td style={{ color: "#3A4175" }}>xxxx xxxx</td>
-                        <td style={{ color: "#3A4175" }}>xxxx xxxx</td>
-                        <td style={{ color: "#3A4175" }}>xxxx xxxx</td>
-                        <td style={{ color: "#3A4175" }}>xxxx xxxx</td>
+                        <td style={{ color: "#3A4175" }}>{sample.samplename}</td>
+                        <td style={{ color: "#3A4175" }}>{sample.sampletype}</td>
+                        <td style={{ color: "#3A4175" }}>{sample.natureofsample}</td>
+                        <td style={{ color: "#3A4175" }}>{sample.storage}</td>
                       </tr>
                     </thead>
                   </Table>
@@ -164,16 +170,16 @@ export default function RlplGenerated() {
                           Test Parameter
                         </th>
                       </tr>
-
-                      <tr>
-                        <td
+                      {batch.map((item, i) => (
+                      <tr key={i}>
+                      <td
                           style={{
                             color: "#8F8F8F",
                             fontSize: 12,
                             fontWeight: 500,
                           }}
                         >
-                          1
+                          {i+1}
                         </td>
                         <td
                           style={{
@@ -182,7 +188,7 @@ export default function RlplGenerated() {
                             fontWeight: 500,
                           }}
                         >
-                          RLPLR2317026
+                          {item.rlplid}
                         </td>
                         <td
                           style={{
@@ -191,7 +197,7 @@ export default function RlplGenerated() {
                             fontWeight: 500,
                           }}
                         >
-                          xxxxxx
+                          {item.batchno}
                         </td>
                         <td
                           style={{
@@ -200,7 +206,7 @@ export default function RlplGenerated() {
                             fontWeight: 500,
                           }}
                         >
-                          xxxxxx
+                          {item.batchSize}
                         </td>
                         <td
                           style={{
@@ -209,7 +215,7 @@ export default function RlplGenerated() {
                             fontWeight: 500,
                           }}
                         >
-                          xxxxxx
+                          {item.sample}
                         </td>
                         <td
                           style={{
@@ -218,116 +224,9 @@ export default function RlplGenerated() {
                           }}
                         ></td>
                       </tr>
-                      <tr>
-                        <td
-                          style={{
-                            color: "#8F8F8F",
-                            fontSize: 12,
-                            fontWeight: 500,
-                          }}
-                        >
-                          2
-                        </td>
-                        <td
-                          style={{
-                            color: "#8F8F8F",
-                            fontSize: 12,
-                            fontWeight: 500,
-                          }}
-                        >
-                          RLPLR2317026
-                        </td>
-                        <td
-                          style={{
-                            color: "#8F8F8F",
-                            fontSize: 12,
-                            fontWeight: 500,
-                          }}
-                        >
-                          xxxxxx
-                        </td>
-                        <td
-                          style={{
-                            color: "#8F8F8F",
-                            fontSize: 12,
-                            fontWeight: 500,
-                          }}
-                        >
-                          xxxxxx
-                        </td>
-                        <td
-                          style={{
-                            color: "#8F8F8F",
-                            fontSize: 12,
-                            fontWeight: 500,
-                          }}
-                        >
-                          xxxxxx
-                        </td>
-                        <td
-                          style={{
-                            color: "#8F8F8F",
-                            fontSize: 12,
-                            fontWeight: 500,
-                            justifySelf: "center",
-                            outline: "none",
-                            border: "none",
-                            borderLeft: "1px solid #d1d1d1",
-                            textAlign:'center'
-                          }}
-                        >
-                          SOR
-                        </td>
-                      </tr>
-                      <tr>
-                        <td
-                          style={{
-                            color: "#8F8F8F",
-                            fontSize: 12,
-                            fontWeight: 500,
-                          }}
-                        >
-                          3
-                        </td>
-                        <td
-                          style={{
-                            color: "#8F8F8F",
-                            fontSize: 12,
-                            fontWeight: 500,
-                          }}
-                        >
-                          RLPLR2317026
-                        </td>
-                        <td
-                          style={{
-                            color: "#8F8F8F",
-                            fontSize: 12,
-                            fontWeight: 500,
-                          }}
-                        >
-                          xxxxxx
-                        </td>
-                        <td
-                          style={{
-                            color: "#8F8F8F",
-                            fontSize: 12,
-                            fontWeight: 500,
-                          }}
-                        >
-                          xxxxxx
-                        </td>
-                        <td
-                          style={{
-                            color: "#8F8F8F",
-                            fontSize: 12,
-                            fontWeight: 500,
-                          }}
-                        >
-                          xxxxxx
-                        </td>
-                        <td style={{ borderLeft: "1px solid #d1d1d1" }}></td>
-                      </tr>
+                       ))}
                     </thead>
+                     
                   </Table>
                   <div
                     style={{ justifyContent: "space-between", display: "flex" }}

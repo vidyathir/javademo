@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState} from "react";
 
 import { Form, Row, Col, Card} from "react-bootstrap";
 import { useDispatch } from 'react-redux';
@@ -7,9 +7,18 @@ import { MdOutlineUploadFile } from "react-icons/md";
 import './Styles.css';
 import { useForm} from 'react-hook-form'
 import { changeTypeofAnalysis } from '../redux/FormSlice';
+import { array } from "yup";
 
 export default function TypeOfAnalysis({onButtonClick}) {
-  
+  const [data,setData]=useState({
+    analyticalfeasibile:[],
+    choosefile:[],
+    formfilling:"",
+    methodologyfollowed:"",
+    methodvalidation:'',
+    specialinstruction:"",
+    test:[""]
+  })
   const dispatch = useDispatch();
   
 
@@ -21,6 +30,7 @@ export default function TypeOfAnalysis({onButtonClick}) {
     formState: { errors },
   } = useForm()
   const onSubmit = (data) => {
+  
     dispatch(changeTypeofAnalysis(
       {
         analyticalfeasibile:data.analyticalfeasibile,
@@ -29,11 +39,12 @@ export default function TypeOfAnalysis({onButtonClick}) {
         methodologyfollowed:data.methodologyfollowed,
         methodvalidation:data.methodvalidation,
         specialinstruction:data.specialinstruction,
-        //test:data.test,
-        //testparameters:data.testparameters
-      })
+        test:data.test
+      }
+    )
     )
     console.log("data",data)
+  
     onButtonClick("ConfirmDetails")
     
       }
@@ -590,6 +601,7 @@ export default function TypeOfAnalysis({onButtonClick}) {
                           <div>
                             <MdOutlineUploadFile size={24} color="#9AC037" />
                             <input type="file"
+                            name="choosefile"
                             className="customInput" {...register('choosefile')}/>
                           </div>
                         </Card>
@@ -603,6 +615,7 @@ export default function TypeOfAnalysis({onButtonClick}) {
                       </div>
                       <div>
                         <input
+                        name="specialinstruction"
                           type="textarea"
                         className="spclInstruction"{...register('specialinstruction')}
 
@@ -618,7 +631,7 @@ export default function TypeOfAnalysis({onButtonClick}) {
                           marginTop:50
                         }}
                       >
-                        <button className="previous" onClick={()=>onButtonClick("BatchDetails")}
+                        <button type="button" className="previous" onClick={()=>onButtonClick("BatchDetails")}
 
                         >
                           <BiLeftArrowAlt size={24} color="#9AC037" />

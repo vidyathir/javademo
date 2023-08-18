@@ -8,7 +8,7 @@ export default function Sidenavbar() {
 
 
   const menus = [
-    { name: "Dashboard", icon: MdOutlineDashboard },
+    { name: "Dashboard", link:"/" ,icon: MdOutlineDashboard },
     { name: "Registration", link: "/Progress", icon: GiArchiveRegister },
     { name: "SearchCustomer", link: "/SearchCustomer", icon: BiSearch },
   

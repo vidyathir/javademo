@@ -6,10 +6,12 @@ import { useNavigate } from "react-router-dom";
 import {  BiLeftArrowAlt } from "react-icons/bi";
 import {MdDone} from 'react-icons/md'
 import{TbLogout2} from 'react-icons/tb';
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
 
 export default function SampleVerification({onButtonClick}) {
   const navigate = useNavigate();
-
+  const MySwal = withReactContent(Swal)
   // ---------------------------------------Radiobuttons functionality starts---------------------------------------------
 
   const [selectedOption, setSelectedOption] = useState("");
@@ -60,6 +62,49 @@ export default function SampleVerification({onButtonClick}) {
   const handleOptionChange10 = (event) => {
     setSelectedOption10(event.target.value);
   };
+  const handleAccept=()=>{
+    MySwal.fire({
+      title: 'Are you sure?',
+      text: "You want to accept the sample!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        MySwal.fire(
+          'RLPL number is generated!',
+          'success'
+          
+        )
+        navigate("RLPLgenerated")
+      }
+
+    })
+
+  }
+  const handleReject=()=>{
+    MySwal.fire({
+      title: 'Are you sure?',
+      text: "You want to reject this sample!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        MySwal.fire(
+          'RLPL number is not generated!',
+          'success'
+        )
+        navigate("RLPLNotgenerated")
+      }
+
+    })
+    
+  }
   // ---------------------------------------Radiobuttons functionality ends---------------------------------------------
 
   return (
@@ -617,7 +662,7 @@ export default function SampleVerification({onButtonClick}) {
                             
                             <div>
                           <Button
-                          onClick={()=>navigate("RLPLNotgenerated")}
+                          onClick={handleReject}
                             style={{
                               height: "40px",
                               width: "122px",
@@ -634,7 +679,7 @@ export default function SampleVerification({onButtonClick}) {
                             Reject
                           </Button>
                           <Button
-                            onClick={() => navigate("RLPLgenerated")}
+                            onClick={handleAccept}
                             style={{
                               height: "40px",
                               width: "122px",

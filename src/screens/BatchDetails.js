@@ -14,27 +14,29 @@ import { MdOutlineAdd } from "react-icons/md";
 import { RiDeleteBinLine } from "react-icons/ri";
 import { useDispatch } from 'react-redux';
 import { changeBatchDetails } from "../redux/FormSlice";
-import Select from "react-dropdown-select";
+import Select from "react-select";
 
 export default function BatchDetails({onButtonClick}) {
   const dispatch = useDispatch();
   const testparameters=[
-    {value:"a", label:"a"},
-    {value:"b", label:"b"},
-    {value:"c",label:"c"},
-    {value:"d", label:"d"},
-    {value:"e",label:"e"},
-    {value:"f", label:"f"},
-    {value:"g",label:"g"},
-    {value:"h", label:"h"},
-    {value:"i",label:"i"},
-    {value:"j", label:"j"},
-    {value:"k",label:"k"},
-    {value:"l", label:"l"},
-    {value:"m",label:"m"},
+ {value:'1',label:"Test Parameter Name"},
+ {value:'2',label:'pH'},
+ {value:"3", label:"Conductivity "},
+ {value:"4", label:"Identification by IR with ATR"},
+ {value:"5",label:"Identification by IR with KBR"},
+ {value:"6", label:"Identification by UV"},
+ {value:"7",label:"Specific optical rotation"},
+ {value:"8", label:"Refractive index"},
+ {value:"9",label:"Sulphated Ash"},
+ {value:"10", label:"Residual on Ignition"},
+ {value:"11",label:"Turbidity"},
+ {value:"12", label:"TDS"},
+ {value:"13",label:"Loss on drying"},
+ {value:"14", label:"HPLC - Purity"},
+ {value:"15",label:"HPLC - RS"},
 
-  ]
-  const [inputs, setInputs] = useState({
+]
+const [inputs, setInputs] = useState({
     batchno: "",
     batchSize: "",
     packing:"",
@@ -42,7 +44,8 @@ export default function BatchDetails({onButtonClick}) {
     expdate:"",
     retestdate:"",
     sample:"",
-    testparameters:[]
+    testparameters:[],
+
   });
   const [formErrors, setFormErrors] = useState({});
   const [isSubmit, setIsSubmit] = useState(false);
@@ -53,14 +56,16 @@ export default function BatchDetails({onButtonClick}) {
 
   const handleSelectChange = (selectedOptions) => {
     setSelectedOptions(selectedOptions);
-  };
-  const handleChange = (e) => {
-    setInputs({
-      ...inputs,
-      [e.target.name]: e.target.value,
-    });
     
   };
+  const handleChange = (e) => {
+  
+  setInputs({
+       ...inputs,
+       [e.target.name]: e.target.value,
+     });
+    
+   };
   const handleSubmit = (e) => {
    e.preventDefault();
 
@@ -79,7 +84,7 @@ export default function BatchDetails({onButtonClick}) {
         expdate:"",
         retestdate:"",
         sample:"",
-        testparameters:[],
+        testparameters:selectedOptions,
       });
     } else {
       setTableData([...tableData, inputs]);
@@ -91,19 +96,30 @@ export default function BatchDetails({onButtonClick}) {
         expdate:"",
         retestdate:"",
         sample:"",
-        testparameters:[],
+        testparameters:selectedOptions,
       });
     }
-    
+    setSelectedOptions(null)
+    console.log("tabeldata", tableData)
     setIsSubmit(true)
   };
   useEffect(() => {
+    setInputs({
+       batchno: inputs.batchno,
+        batchSize:inputs.batchSize,
+        packing:inputs.packing,
+        mfgdate:inputs.mfgdate,
+        expdate:inputs.expdate,
+        retestdate:inputs.retestdate,
+        sample:inputs.sample,
+     testparameters:selectedOptions,
+   });
     
     console.log(formErrors);
     if (Object.keys(formErrors).length === 0 && isSubmit) {
-      console.log(inputs);
+    console.log(inputs);
     }
-  }, [formErrors, inputs, isSubmit]);
+  }, [formErrors, inputs, isSubmit,selectedOptions]);
 
 const handleDispatch=()=>{
   dispatch(changeBatchDetails(tableData))
@@ -287,15 +303,14 @@ const handleDispatch=()=>{
                     <div>
                     <label className="cardcolhed">
                     Analytical Test Parameter
-                   <text style={{fontSize:10.5,fontWeight:300}}>(If require attach Annexure
-                          along with this filled TRF)</text> 
+                 
                           {/* <text className="cardcolhedstar">*</text> */}
                         </label>
                         </div>
                     <div>
                       
-                    <Select name="testparameters"  value={selectedOptions}
-        onChange={handleSelectChange}style={{borderRadius:6}} options={testparameters} multi={true}   className="cardcolumninputtype" />
+                    <Select name="testparameters"  value={selectedOptions} 
+        onChange={handleSelectChange}style={{borderRadius:6}} options={testparameters} isClearable isMulti={true} />
             
                       </div>
                       <p style={{color:"red"}}>{formErrors.testparameters}</p>
@@ -321,7 +336,7 @@ const handleDispatch=()=>{
                           className="cardbutton"
                           //  onClick={() => navigate("batchdetails")}
                         >
-                             {editClick ? "update" : "Add"}
+                             {editClick ? "update" : "Add" }
                           <MdOutlineAdd size={24} />
                         </button>
                          
@@ -361,7 +376,9 @@ const handleDispatch=()=>{
                         <td>{item.expdate}</td>
                         <td>{item.retestdate}</td>
                         <td>{item.sample}</td>
-                        <td>{selectedOptions.map(option => option.label).join(', ')}</td>
+                        {}
+                        <td>{item.testparameters.map(option=>option.label).join(',')}</td>
+                        {/* <td>{selectedOptions.map(option => option.label).join(', ')}</td> */}
                         <td>
                           <div className="tablerowicon">
                             <BiEdit size={20} color={"#9AC037"} onClick={() => handleEdit(i)} />
@@ -385,7 +402,7 @@ const handleDispatch=()=>{
                     >
                       <BiLeftArrowAlt size={24} /> Previous
                     </button>
-                    <button
+                    <button type="submit"
                       className="cardbutton"
         
                       onClick={handleDispatch}

@@ -22,7 +22,8 @@ export default function SampleDetails({onButtonClick}) {
   } = useForm();
   
 
-  const onSubmit = (data) => {
+  const onSubmit = (data,e) => {  
+     e.preventDefault();
     dispatch(changeSampleDetails(
       {
 natureofsample:data.natureofsample,
@@ -348,19 +349,20 @@ onButtonClick("BatchDetails")
                             fontWeight: 400,
                           }}
                         >
-                          <div className="col">
+                         <div className="col">
                             <span style={{ display: "flex" }}>
                               <input
                                {...register('natureofsample', { required: true })}
                                 type="radio"
                                 value="others"
                                 //checked={selectedOption1 === "option10"}
-                                //onChange={handleChange}
+                            
                                 className="customRadio"
                               />
                               <label className="space">Others</label>
                             </span>
-                          </div>
+                          </div>  
+                           
                           <div className="col">
                             <span>
                               <input type="text" className="NatureOfSample" />
@@ -669,7 +671,7 @@ onButtonClick("BatchDetails")
                         margin: 10,
                       }}
                     >
-                      <button className="previous" onClick={()=>onButtonClick("CustomerDetailes")}
+                      <button  type="button" className="previous" onClick={()=>onButtonClick("CustomerDetailes")}
                        
                       >
                         <BiLeftArrowAlt size={24} color="#9AC037" />

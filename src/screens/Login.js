@@ -1,6 +1,6 @@
-import React,{useState} from "react";
+import React,{useEffect, useState} from "react";
 import logo from "../assets/loginImage.png";
-import { Formik, Form } from 'formik';
+import{useForm} from 'react-hook-form';
 import * as Yup from 'yup';
 import './Styles.css';
 import logo2 from  '../assets//LoginLogo.png';
@@ -8,11 +8,17 @@ import {AiOutlineEyeInvisible,AiFillEye} from 'react-icons/ai'
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+  const [userToken, setUserToken] = useState({});
+const[data1,setData1] =useState({
+})
+  const [passwordVisible, setPasswordVisible] = useState(false);
+  const togglePasswordVisibility = () => setPasswordVisible(!passwordVisible);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+} = useForm();
 
-  const initialValues = {
-    email: '',
-    password: '',
-  };
   const validationSchema = Yup.object().shape({
     email: Yup.string()
     .email('Invalid email address')
@@ -22,25 +28,54 @@ const Login = () => {
   });
   const navigate = useNavigate();
 
-  const handleSubmit = (values, { setSubmitting }) => {
-
+ 
+  useEffect(()=>{
+    let items = {
+      email:data1.email,
+      password:data1.password
+    };
   
-  if(values.email==="revinlabsro@gmail.com"&& values.password==="srorevinlab"){
-    navigate("/Progress")
-  }
-  if(values.email==="revinlabanalyst@gmail.com"&& values.password==="analystrevinlab"){
-    navigate("/AnalystDashboaed")
-  }
-  if(values.email==="revinlabreviewer@gmail.com"&& values.password==="reviewerrevinlab"){
-    navigate("/ReviewDashboard")
-  }
-  if(values.email==="revinlabapprover@gmail.com"&& values.password==="approverrevinlab"){
-    navigate("/approverDashboard")
-  }  
-  };
+    fetch("http://3.91.97.121:3000/api/revinlabsUsers/signIn", {
+         
+         method: "POST",
+         headers: {
+           "Content-Type": "application/json",
+           // add any other headers you need here
+           Accept: "application/json",
+         },
+         body: JSON.stringify(items),
+       })
+         .then((response) => response.json())
+         .then((responseData) => setUserToken(responseData))
+         console.log("usertoken", userToken)
+ }, [data1.email, data1.password, userToken],
 
-  const [passwordVisible, setPasswordVisible] = useState(false);
-  const togglePasswordVisibility = () => setPasswordVisible(!passwordVisible);
+  );
+  
+  function onSubmit(data1) {
+    setData1({...data1})
+    //const userData = JSON.parse(localStorage.getItem(data.email));
+    // getItem can return actual value or null
+   if(userToken!==null){
+    if (userToken.userType === "SRO") {
+      navigate("/Progress");
+    }
+    if (userToken.userType === "Analyst") {
+      navigate("/AnalystDashboaed");
+    }
+    if (userToken.userType === "Reviewer") {
+      navigate("/ReviewDashboard");
+    }
+    if (userToken.userType === "Approver") {
+      navigate("/approverDashboard");
+    }}
+    else{
+      alert("invalid login")
+    }
+  
+  }
+
+ 
 
 
  return (
@@ -69,19 +104,7 @@ const Login = () => {
           <p className="mb-3">Please enter your login details to sign in.</p>
         <br /> 
       
-        <Formik initialValues={initialValues}
-        validationSchema={validationSchema}
-        onSubmit={handleSubmit} > 
-         {({
-                    values,
-                    errors,
-                    touched,
-                    handleSubmit,
-                    handleChange,
-                    handleBlur,
-                }) => {
-                  return(
-           <Form onSubmit={handleSubmit}> 
+           <form onSubmit={handleSubmit(onSubmit)}> 
             <label style={{ color: "#818181",fontSize:12,fontWeight:500,marginBottom:10 }}>Email Address</label>
             <div>
               <div className="form-control " style={{outline:'none'}}>
@@ -89,15 +112,13 @@ const Login = () => {
               type="email"
               className="loginInputEmail"
               placeholder="example@gmail.com" 
-              value={values.email}
-              onChange={handleChange("email")}
-              onBlur={handleBlur("email")}
+              {...register("email", { required: true })} 
               style={{color:'#3A4175',outline:'none',border:"none",height:40,width:400,alignSelf:'center',fontSize:12,fontWeight:500}}
             />
- 
             </div>  
         
-             <div style={{color:"red"}}>{touched.email && errors.email}</div>           
+            {errors.email && <span style={{ color: "red" }}>
+                    *Email* is mandatory </span>}
             <br />
             <label style={{ color: "#818181",fontSize:12,fontWeight:500,marginBottom:10,marginTop:15 }}>Password</label>
 
@@ -107,9 +128,8 @@ const Login = () => {
               type={passwordVisible ? 'text' : 'password'}
               className="loginInputPass"
               placeholder="***********" color="#3A4175"
-              value={values.password}
-            onChange={handleChange("password")}
-            onBlur={handleBlur("password")}
+              {...register("password", { required: true })} 
+          
              />
              
               </div>
@@ -119,7 +139,8 @@ const Login = () => {
            
              </div>
               </div>  
-              <div style={{color:"red"}}>{touched.password && errors.password}</div>
+              {errors.email && <span style={{ color: "red" }}>
+                    *password* is mandatory </span>}
             <br /> 
             <div
               style={{
@@ -149,9 +170,7 @@ const Login = () => {
           >
             Log In
           </button>
-          </Form>);
-                }}
-          </Formik>
+          </form>
         </div>
 
 </div>

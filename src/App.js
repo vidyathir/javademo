@@ -18,6 +18,7 @@ import ApproverDashboard from './screens/ApproverDashboard';
 import AwaitingSamplesApprover from './screens/AwaitingSamplesApprover';
 import ApproverDetails from './screens/ApproverDetails';
 import SearchCustomer from './screens/SearchCustomer';
+import Loginnew from './screens/Loginnew';
 
 
 export default function App() {
@@ -42,7 +43,7 @@ export default function App() {
      <Route exact path='/ReviewDashboard/AwaitingSamplesReview/ReviewerDetails' element={<ReviewerDetails/>}/>  
      <Route exact path='/ApproverDashboard' element={<ApproverDashboard/>}/>  
      <Route exact path='/ApproverDashboard/AwaitingSamplesApprover' element={<AwaitingSamplesApprover/>}/>  
-     <Route exact path='/ApproverDashboard/AwaitingSamplesApprover/ApproverDetails' element={<ApproverDetails/>}/>
+     <Route exact path='/ApproverDashboard/AwaitingSamplesApprover/ApproverDetails' element={<ApproverDetails/>}/> 
      </Routes>
     </BrowserRouter>
     </Provider>

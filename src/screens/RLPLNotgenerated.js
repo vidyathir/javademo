@@ -2,17 +2,19 @@ import React from "react";
 import Sidenavbar from "../components/Sidenavbar";
 import Table from "react-bootstrap/Table";
 import { Button } from "react-bootstrap";
-// import { BiRightArrowAlt, BiLeftArrowAlt } from "react-icons/bi";
-// import { MdOutlineUploadFile } from "react-icons/md";
+
 import { AiOutlineMail, AiOutlineCheck, AiFillPrinter ,AiOutlineFileExcel} from "react-icons/ai";
 import'./Styles.css';
-// import { TbFileLike } from "react-icons/tb";
-// import {BsFileEarmarkCheck} from 'react-icons/bs';
+
 import { useNavigate } from "react-router-dom";
 import Navbartitle from "../components/Navbartitle";
-
+import { useSelector } from "react-redux";
 export default function RLPLNotgenerated() {
   const navigate = useNavigate();
+   const form=useSelector(state =>state.form.customer);
+  const sample=useSelector(state =>state.form.sampleDetails);
+  const analysis=useSelector(state =>state.form.data);
+  const batch=useSelector(state =>state.form.newarray.batchDetails)
   return (
     <div className="app">
 
@@ -51,13 +53,12 @@ export default function RLPLNotgenerated() {
                                 <td style={{color:'#8F8F8F',fontSize:12,fontWeight:500}}>Nature of Sample</td>
                                 <td style={{color:'#8F8F8F',fontSize:12,fontWeight:500}}>Storage Condition</td>
                             </tr>
-                            <tr >
-                                <td style={{color:'#3A4175',}}>xxxx xxxx</td>
-                                <td style={{color:'#3A4175',}}>xxxx xxxx</td>
-                                <td style={{color:'#3A4175',}}>xxxx xxxx</td>
-                                <td style={{color:'#3A4175',}}>xxxx xxxx</td>
-
-                            </tr>
+                           <tr>
+                        <td style={{ color: "#3A4175" }}>{sample.samplename}</td>
+                        <td style={{ color: "#3A4175" }}>{sample.sampletype}</td>
+                        <td style={{ color: "#3A4175" }}>{sample.natureofsample}</td>
+                        <td style={{ color: "#3A4175" }}>{sample.storage}</td>
+                      </tr>
                         </thead>
 
                         </Table>
@@ -73,37 +74,62 @@ export default function RLPLNotgenerated() {
 
                                     </tr>
                                     
-                                    <tr>
-                                        <td style={{color:'#8F8F8F',fontSize:12,fontWeight:500}} >1</td>
-                                        <td style={{color:'#8F8F8F',fontSize:12,fontWeight:500}}>NA</td>
-                                        <td style={{color:'#8F8F8F',fontSize:12,fontWeight:500}}>xxxxxx</td>
-                                        <td style={{color:'#8F8F8F',fontSize:12,fontWeight:500}}>xxxxxx</td>
-                                        <td style={{color:'#8F8F8F',fontSize:12,fontWeight:500}}>xxxxxx</td>
-                                        <td style={{borderLeft:'1px solid #d1d1d1',borderBottom:'none'}}></td>
-
-                                        
-
-                                    </tr>
-                                    <tr>
-                                        <td style={{color:'#8F8F8F',fontSize:12,fontWeight:500}}>2</td>
-                                        <td style={{color:'#8F8F8F',fontSize:12,fontWeight:500}}>NA</td>
-                                        <td style={{color:'#8F8F8F',fontSize:12,fontWeight:500}}>xxxxxx</td>
-                                        <td style={{color:'#8F8F8F',fontSize:12,fontWeight:500}}>xxxxxx</td>
-                                        <td  style={{color:'#8F8F8F',fontSize:12,fontWeight:500}}>xxxxxx</td>
-                                        <td   style={{color:'#8F8F8F',fontSize:12,fontWeight:500,justifySelf:'center',outline:'none',border:'none',borderLeft:'1px solid #d1d1d1'}}>SOR</td>
-
-                                    </tr>
-                                    <tr>
-                                        <td style={{color:'#8F8F8F',fontSize:12,fontWeight:500}}>3</td>
-                                        <td style={{color:'#8F8F8F',fontSize:12,fontWeight:500}}>NA</td>
-                                        <td style={{color:'#8F8F8F',fontSize:12,fontWeight:500}}>xxxxxx</td>
-                                        <td style={{color:'#8F8F8F',fontSize:12,fontWeight:500}}>xxxxxx</td>
-                                        <td  style={{color:'#8F8F8F',fontSize:12,fontWeight:500}}>xxxxxx</td>
-                                        <td style={{borderLeft:'1px solid #d1d1d1'}}></td>
-
-
-                                    </tr>
-                                    
+                                    {batch.map((item, i) => (
+                      <tr key={i}>
+                      <td
+                          style={{
+                            color: "#8F8F8F",
+                            fontSize: 12,
+                            fontWeight: 500,
+                          }}
+                        >
+                          {i+1}
+                        </td>
+                        <td
+                          style={{
+                            color: "#8F8F8F",
+                            fontSize: 12,
+                            fontWeight: 500,
+                          }}
+                        >
+                          {item.rlplid}
+                        </td>
+                        <td
+                          style={{
+                            color: "#8F8F8F",
+                            fontSize: 12,
+                            fontWeight: 500,
+                          }}
+                        >
+                          {item.batchno}
+                        </td>
+                        <td
+                          style={{
+                            color: "#8F8F8F",
+                            fontSize: 12,
+                            fontWeight: 500,
+                          }}
+                        >
+                          {item.batchSize}
+                        </td>
+                        <td
+                          style={{
+                            color: "#8F8F8F",
+                            fontSize: 12,
+                            fontWeight: 500,
+                          }}
+                        >
+                          {item.sample}
+                        </td>
+                        <td
+                          style={{
+                            borderLeft: "1px solid #d1d1d1",
+                            borderBottom: "none",
+                          }}
+                        ></td>
+                      </tr>
+                       ))}
+                                  
                                        
                                     
                                     </thead>

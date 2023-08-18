@@ -5,7 +5,7 @@ const FormSlice = createSlice({
   name: 'form',
   initialState: {
  customer:{
-    companyName: '',
+    companyName: {},
     contactPersonName: '',
     licenceNo: '',
     phoneNo: '',
@@ -26,39 +26,44 @@ sampleDetails:{
   storage: "",
   submissiontype: ""    
 },
-typeofanalysis:{
-  analyticalfeasibile:[""],
-choosefile:{},
-formfilling:"",
-methodologyfollowed:"",
-methodvalidation:"",
-specialinstruction:"",
-
+data:{
+  analyticalfeasibile:[''],
+  choosefile:[''],
+  formfilling:'',
+  methodologyfollowed:'',
+  methodvalidation:'',
+  specialinstruction:'',
+  test:['']
 },
-tabledata:[]
+tabledata:[],
+newarray:{}
   },
   reducers: { 
       changeCustomerDetails: (state,action)=> {
-        
+        console.log(action.payload)
           state.customer = action.payload   
         },
         changeSampleDetails: (state,action)=> {
               state.sampleDetails = action.payload   
             },
 changeTypeofAnalysis: (state,action)=>{
-state.typeofanalysis = action.payload 
+  console.log(action.payload)
+state.data = action.payload;
 },
 
 changeBatchDetails: (state,action)=>{
   console.log(action.payload)
 state.tabledata =action.payload;
 },
-
+changeSubmitData:(state,action)=>{
+  console.log(action.payload)
+state.newarray =action.payload;
+}
 
   },
 
 });
 
-export const { changeCustomerDetails,changeSampleDetails,changeTypeofAnalysis,changeBatchDetails} = FormSlice.actions;
+export const { changeCustomerDetails,changeSampleDetails,changeTypeofAnalysis,changeBatchDetails,changeSubmitData} = FormSlice.actions;
 
 export default FormSlice.reducer;

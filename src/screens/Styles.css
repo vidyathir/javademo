@@ -291,7 +291,11 @@ outline: none !important;
 font-weight: 500;
   color: #D64541;
 }
-
+.errormsg {
+  font-size: 12px;
+font-weight: 400;
+  color: #D64541;
+}
 .cardcolhedtextsm {
   font-size: 5px;
   font-weight: 400;

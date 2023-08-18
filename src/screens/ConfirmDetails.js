@@ -1,23 +1,83 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Styles.css";
 import { Col, Row, Table } from "react-bootstrap";
 import { PiFilePdfFill } from "react-icons/pi";
 import { BiLeftArrowAlt, BiRightArrowAlt } from "react-icons/bi";
 import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { changeSubmitData} from "../redux/FormSlice";
 export default function ConfirmDetails({onButtonClick}) {
+  const dispatch = useDispatch();
+  const [newArray,setNewArray]=useState({})
   const form=useSelector(state =>state.form.customer);
   const sample=useSelector(state =>state.form.sampleDetails);
-  const analysis=useSelector(state =>state.form.typeofanalysis);
+  const analysis=useSelector(state =>state.form.data);
   const batch=useSelector(state=>state.form.tabledata); 
-
+console.log("analysis",analysis)
 console.log("batch", batch)
+console.log("form",form)
+const item={
+  companyName:form.company,
+  manufacturingLicenseNumber:form.licenceNo,
+  contactPerson: form.contactPersonName,
+  mobileNumber: form.phoneNo,
+  additionalMobileNumber:form.phoneNo1,
+  email:form.emailId,
+  address1: form.address1,
+  address2:form.address2,
+  city:form.city,
+  state: form.state,
+  pincode:form.pincode,
+  sampleName:sample.sampleName,
+  reportRequiredaAsPerForm39:sample.report,
+  storageCondition: sample.storage,
+  natureOfSample:sample.natureOfSample,
+  sampleType:sample.sampleType,
+  sampleRetentionRequired:sample.sampleretension ,
+  typeOfSubmission:sample.submissiontype,
+  batchDetails:batch,
+  regulatory:analysis.formfilling,
+  otherThanRegulatory:analysis.analyticalfeasibile ,
+  vvtddRefNo:analysis.methodvalidation,
+  methodology: analysis.methodologyfollowed,
+  testToBeCarriedOut:analysis.test,
+  attachment:analysis.choosefile,
+  specialInstruction:analysis.specialInstruction 
+}
+fetch("http://3.91.97.121:3000/api/sampleDetails/createSample", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+    // add any other headers you need here
+  },
+
+  body: JSON.stringify(item),
+})
+  .then((response) => response.json())
+
+  .then((data) => {
+  setNewArray(data)
+    console.log("Success:", data);
+    console.log("newarray",newArray)
+     // handle the response data here
+  })
+
+  .catch((error) => {
+    // handle any errors here
+  });
+
+  const handleSubmit=()=>{
+    dispatch(changeSubmitData(newArray))
+
+    onButtonClick("SampleVerification")
+  }
   return (
     <div>
       
 
       <div>
         <div >
-          
+       
 
           <div className="mt-3">
             <text className="mainheadtitle">Please Confirm the details</text>
@@ -51,7 +111,7 @@ console.log("batch", batch)
               <div className="d-flex row ">
                 <text className="cardcolhed">Company Name & Address</text>
                 <text className="cardcolhedtext mt-1">
-                  {form.companyName},{form.address1}
+                  {form.company},{form.address1}
                 </text>
               </div>
             </Col>
@@ -146,12 +206,14 @@ console.log("batch", batch)
                   <th>Exp. Date</th>
                   <th>Retest Date</th>
                   <th>Sample Quantity</th>
+                  <th>testparameters</th>
                   {/* <th>Edit & Delete</th> */}
                 </tr>
               </thead>
               <tbody className="tablebody-custom">
+                
               {batch.map((item, i) => (
-                      <tr key={item.id}>
+                      <tr key={i}>
                 
                   <td>{i+1}</td>
                        <td>{item.batchno}</td>
@@ -161,10 +223,11 @@ console.log("batch", batch)
                         <td>{item.expdate}</td>
                         <td>{item.retestdate}</td>
                         <td>{item.sample}</td>
+                    
+                        </tr>
                 
-                </tr>
-              ))}
-               
+                          ))}
+              
               </tbody>
             </Table>
           {/* </Card> */}
@@ -186,7 +249,7 @@ console.log("batch", batch)
             <Col className="columnMb">
               <div className="d-flex row">
                 <text className="cardcolhed">Other than Regulatory </text>
-                <text className="cardcolhedtext mt-1"></text>
+                <text className="cardcolhedtext mt-1">{analysis.analyticalfeasibile}</text>
               </div>
             </Col>
           </Row>
@@ -197,7 +260,7 @@ console.log("batch", batch)
                 <text className="cardcolhed">
                   Test to be carried out as per{" "}
                 </text>
-                <text className="cardcolhedtext mt-1"></text>
+                <text className="cardcolhedtext mt-1">{analysis.test}</text>
               </div>
             </Col>
             <Col className="columnMb">
@@ -215,7 +278,7 @@ console.log("batch", batch)
               <div className="d-flex row">
                 <text className="cardcolhed">
                   If Method Validation/Verification/Transfer/Development are
-                  performed atRevin Labs please specify the Report Ref. No.{" "}
+                  performed atRevin Labs please specify the Report Ref.num.{" "}
                 </text>
                 <text className="cardcolhedtext mt-1">{analysis.methodvalidation}</text>
               </div>
@@ -223,8 +286,7 @@ console.log("batch", batch)
             <Col className="columnMb">
               <div className="d-flex row">
                 <text className="cardcolhed">
-                  Analytical Test Parameter; If require attach Annexure along
-                  with this filled TRF{" "}
+              
                 </text>
                 <text className="cardcolhedtext mt-1"></text>
               </div>
@@ -243,7 +305,10 @@ console.log("batch", batch)
                 <text className="cardcolhed">Attachments </text>
                 <span>
                   <PiFilePdfFill />
-                  <text className="cardcolhedtext mt-1">{analysis.choosefile}</text>
+                  <div>{Array.from(analysis.choosefile).map(f => (<text className="cardcolhedtext mt-1" key={f.name}> {f.name}</text>
+      ))}
+    </div>
+                  {/* <text className="cardcolhedtext mt-1">{}</text> */}
                 </span>
               </div>
             </Col>
@@ -261,7 +326,7 @@ console.log("batch", batch)
             <button
               className="cardbutton"
               type="submit"
-                onClick={() =>onButtonClick("SampleVerification")}
+                onClick={handleSubmit}
             >
               Confirm <BiRightArrowAlt size={24} />
             </button>
