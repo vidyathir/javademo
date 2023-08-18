@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState} from "react";
 
 import { Form, Row, Col, Card} from "react-bootstrap";
 import { useDispatch } from 'react-redux';
@@ -10,6 +10,19 @@ import { changeTypeofAnalysis } from '../redux/FormSlice';
 
 
 export default function TypeOfAnalysis({onButtonClick}) {
+
+ 
+    const [radioDisabled, setRadioDisabled] = useState(false);
+    const [checkboxDisabled, setCheckboxDisabled] = useState(false);
+  
+    const handleRadioClick = () => {
+      setCheckboxDisabled(true);
+    };
+  
+    const handleCheckboxClick = () => {
+      setRadioDisabled(true);
+    };
+  
  
   const dispatch = useDispatch();
   
@@ -79,6 +92,8 @@ export default function TypeOfAnalysis({onButtonClick}) {
                                   <input
                                   {...register('formfilling', { required: true })}
                                     type="radio"
+                                    onClick={handleRadioClick}
+                                    disabled={radioDisabled}
                                     value="validation"
                                     name="formfilling"
                                     //checked={selectedOption === "option1"}
@@ -94,6 +109,8 @@ export default function TypeOfAnalysis({onButtonClick}) {
                                   <input
                                   {...register('formfilling', { required: true })}
                                     type="radio"
+                                    onClick={handleRadioClick}
+                                    disabled={radioDisabled}
                                     value="verification"
                                     name="formfilling"
                                     //checked={selectedOption === "option2"}
@@ -109,6 +126,8 @@ export default function TypeOfAnalysis({onButtonClick}) {
                                   <input
                                   {...register('formfilling', { required: true })}
                                     type="radio"
+                                    onClick={handleRadioClick}
+                                    disabled={radioDisabled}
                                     value="transfer"
                                     name="formfilling"
                                    // checked={selectedOption === "option3"}
@@ -124,6 +143,8 @@ export default function TypeOfAnalysis({onButtonClick}) {
                                   <input
                                   {...register('formfilling', { required: true })}
                                     type="radio"
+                                    onClick={handleRadioClick}
+                                    disabled={radioDisabled}
                                     value="stability"
                                     name="formfilling"
                                     //checked={selectedOption === "option4"}
@@ -139,6 +160,8 @@ export default function TypeOfAnalysis({onButtonClick}) {
                                   <input
                                   {...register('formfilling', { required: true })}
                                     type="radio"
+                                    onClick={handleRadioClick}
+                                    disabled={radioDisabled}
                                     value="batchrelease"
                                     name="formfilling"
                                     //checked={selectedOption === "option5"}
@@ -156,6 +179,8 @@ export default function TypeOfAnalysis({onButtonClick}) {
                                   <input
                                   {...register('formfilling', { required: true })}
                                     type="radio"
+                                    onClick={handleRadioClick}
+                                    disabled={radioDisabled}
                                     value="usfda"
                                     name="formfilling"
                                     //checked={selectedOption === "option6"}
@@ -171,6 +196,8 @@ export default function TypeOfAnalysis({onButtonClick}) {
                                   <input
                                   {...register('formfilling', { required: true })}
                                     type="radio"
+                                    onClick={handleRadioClick}
+                                    disabled={radioDisabled}
                                     value="eugmp"
                                     name="formfilling"
                                     //checked={selectedOption === "option7"}
@@ -186,6 +213,8 @@ export default function TypeOfAnalysis({onButtonClick}) {
                                   <input
                                   {...register('formfilling', { required: true })}
                                     type="radio"
+                                    onClick={handleRadioClick}
+                                    disabled={radioDisabled}
                                     value="localfda"
                                     name="formfilling"
                                     //checked={selectedOption === "option8"}
@@ -203,6 +232,8 @@ export default function TypeOfAnalysis({onButtonClick}) {
                                   <input
                                   {...register('formfilling', { required: true })}
                                     type="radio"
+                                    onClick={handleRadioClick}
+                                    disabled={radioDisabled}
                                     value="nabl"
                                     name="formfilling"
                                     //checked={selectedOption === "option9"}
@@ -218,6 +249,8 @@ export default function TypeOfAnalysis({onButtonClick}) {
                                   <input
                                   {...register('formfilling', { required: true })}
                                     type="radio"
+                                    onClick={handleRadioClick}
+                                    disabled={radioDisabled}
                                     value="other"
                                     name="other"
                                     //checked={selectedOption === "option10"}
@@ -260,6 +293,8 @@ export default function TypeOfAnalysis({onButtonClick}) {
                           <input
                            {...register('analyticalfeasibile', { required: true })}
                            type="checkbox"
+                           onClick={handleCheckboxClick}
+                            disabled={checkboxDisabled}
                            value="r&dsample"
                            name="analytical"
                             
@@ -282,6 +317,8 @@ export default function TypeOfAnalysis({onButtonClick}) {
                           <input
                            {...register('analyticalfeasibile', { required: true })}
                             type="checkbox"
+                            onClick={handleCheckboxClick}
+                            disabled={checkboxDisabled}
                             value="r&dsample"
                             name="analyticalfeasibile"
                             // checked={selectedOption1 === "option12"}
@@ -298,6 +335,8 @@ export default function TypeOfAnalysis({onButtonClick}) {
                           <input
                            {...register('analyticalfeasibile', { required: true })}
                             type="checkbox"
+                            onClick={handleCheckboxClick}
+                            disabled={checkboxDisabled}
                             value="methoddevelopement"
                             name="analyticalfeasibile"
                             // checked={selectedOption1 === "option13"}
@@ -317,6 +356,8 @@ export default function TypeOfAnalysis({onButtonClick}) {
                           <input
                            {...register('analyticalfeasibile', { required: true })}
                             type="checkbox"
+                            onClick={handleCheckboxClick}
+                            disabled={checkboxDisabled}
                             value="batchanalysis"
                             name="analyticalfeasibile"
                             // checked={selectedOption1 === "option14"}
