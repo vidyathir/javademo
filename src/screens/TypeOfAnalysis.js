@@ -1,4 +1,6 @@
+
 import React, { useState } from "react";
+
 
 import { Form, Row, Col, Card } from "react-bootstrap";
 import { useDispatch } from "react-redux";
@@ -23,6 +25,7 @@ export default function TypeOfAnalysis({ onButtonClick }) {
   };
 
   const dispatch = useDispatch();
+
 
   // ---------------Start of --------------RadioButtons Functionalities using USESTATE-----------------------
 
@@ -469,6 +472,7 @@ export default function TypeOfAnalysis({ onButtonClick }) {
                       {/* </div> */}
                     </Col>
 
+<<<<<
                     <Col md={6} style={{ display: "block" }}>
                       <div className=" cardcolhedd">
                         <div className="mb-3">
@@ -521,6 +525,7 @@ export default function TypeOfAnalysis({ onButtonClick }) {
                             <input type="text" className="methodValidation" />
                           </div>
                         </div>
+                        )}
                       </div>
                     </Col>
                   </Row>
