@@ -12,7 +12,11 @@ import { changeTypeofAnalysis } from '../redux/FormSlice';
 
 export default function TypeOfAnalysis({onButtonClick}) {
 
- 
+  const [selectedOption, setSelectedOption] = useState(null);
+
+  const [selectedOptionmet, setSelectedOptionmet] = useState(null);
+
+
     const [radioDisabled, setRadioDisabled] = useState(false);
     const [checkboxDisabled, setCheckboxDisabled] = useState(false);
   
@@ -27,10 +31,7 @@ export default function TypeOfAnalysis({onButtonClick}) {
  
   const dispatch = useDispatch();
   
-  const [selectedOption2, setSelectedOption2] = useState(false);
-  const handleOptionChange2 = (event) => {
-    setSelectedOption2(event.target.value === 'yes');
-  };
+  
 
 
   // ---------------Start of --------------RadioButtons Functionalities using USESTATE-----------------------
@@ -396,9 +397,9 @@ export default function TypeOfAnalysis({onButtonClick}) {
                           <input
                            {...register('methodvalidation', { required: false })}
                             type="radio"
-                            value="no"
-                            checked={!selectedOption2}
-                            onChange={handleOptionChange2}
+                            value="option2"
+                            checked={selectedOption === 'option2'}
+                            onChange={() => setSelectedOption('option2')}
                             name="methodvalidation"
                            // checked={selectedOption2 === "option14"}
                             //onChange={handleOptionChange2}
@@ -416,9 +417,9 @@ export default function TypeOfAnalysis({onButtonClick}) {
                           <input
                            {...register('methodvalidation', { required: false })}
                             type="radio"
-                            value="yes"
-                            checked={selectedOption2}
-                            onChange={handleOptionChange2}
+                            value="option1"
+                            checked={selectedOption === 'option1'}
+                            onChange={() => setSelectedOption('option1')}
                             name="methodvalidation"
                             //checked={selectedOption2 === "option15"}
                             //onChange={handleOptionChange2}
@@ -426,13 +427,13 @@ export default function TypeOfAnalysis({onButtonClick}) {
                           />
                           <label className="space">yes</label>
                         </div>
-                        {selectedOption2 && (
+                       
                         <div>
-                          <input type="text" className="methodValidation" 
-                
-                      />
-                        </div>
-                        )}
+                        {selectedOption === 'option1' &&
+                          <input type="text" className="methodValidation"/>
+                        }
+                          </div>
+                       
                       </div>
                     </div>
                   </Col>
@@ -459,7 +460,9 @@ export default function TypeOfAnalysis({onButtonClick}) {
                           <input
                            {...register('methodologyfollowed')}
                             type="radio"
-                            value="stp"
+                            value="option3"
+                            checked={selectedOptionmet === 'option3'}
+                            onChange={() => setSelectedOptionmet('option3')}
                             name="methodologyfollowed"
                             //checked={selectedOption4 === "option22"}
                             //onChange={handleOptionChange4}
@@ -477,7 +480,9 @@ export default function TypeOfAnalysis({onButtonClick}) {
                           <input
                            {...register('methodologyfollowed')}
                             type="radio"
-                            value="gtp"
+                            value="option2"
+          checked={selectedOptionmet === 'option2'}
+          onChange={() => setSelectedOptionmet('option2')}
                             name="methodologyfollowed"
                             //checked={selectedOption4 === "option23"}
                             //onChange={handleOptionChange4}
@@ -495,7 +500,9 @@ export default function TypeOfAnalysis({onButtonClick}) {
                           <input
                           {...register('methodologyfollowed')}
                             type="radio"
-                            value="referenceno"
+                            value="option1"
+                            checked={selectedOptionmet === 'option1'}
+                            onChange={() => setSelectedOptionmet('option1')}
                             name="methodologyfollowed"
                             //checked={selectedOption4 === "option24"}
                             //onChange={handleOptionChange4}
@@ -504,7 +511,9 @@ export default function TypeOfAnalysis({onButtonClick}) {
                           <label className="space">Reference No</label>
                         </div>
                         <div style={{ alignItems: "center", display: "flex" }}>
+                        {selectedOptionmet === 'option1' &&
                           <input type="text" className="methodology"/>
+                        }
                         </div>
                       </div>
                     </Col>
