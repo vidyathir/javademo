@@ -12,19 +12,21 @@ import { changeTypeofAnalysis } from "../redux/FormSlice";
 
 export default function TypeOfAnalysis({ onButtonClick }) {
   
+  const [selectedOption, setSelectedOption] = useState(null);
 
-  const [radioDisabled, setRadioDisabled] = useState(false);
-  const [checkboxDisabled, setCheckboxDisabled] = useState(false);
-
-  const handleRadioClick = () => {
-    setCheckboxDisabled(true);
-  };
-
-  const handleCheckboxClick = () => {
-    setRadioDisabled(true);
-  };
-
+  const [selectedOptionmet, setSelectedOptionmet] = useState(null);
+ 
+    const handleRadioClick = () => {
+      setCheckboxDisabled(true);
+    };
+  
+    const handleCheckboxClick = () => {
+      setRadioDisabled(true);
+    };
+  
+ 
   const dispatch = useDispatch();
+ 
 
 
   // ---------------Start of --------------RadioButtons Functionalities using USESTATE-----------------------
@@ -472,7 +474,48 @@ export default function TypeOfAnalysis({ onButtonClick }) {
                       {/* </div> */}
                     </Col>
 
-<<<<<
+                      <div className="d-flex">
+                        <div style={{ alignItems: "center", display: "flex" }}>
+                          <input
+                           {...register('methodvalidation', { required: false })}
+                            type="radio"
+                            value="option2"
+                            checked={selectedOption === 'option2'}
+                            onChange={() => setSelectedOption('option2')}
+                            name="methodvalidation"
+                           // checked={selectedOption2 === "option14"}
+                            //onChange={handleOptionChange2}
+                            style={{ height: 20, width: 20 }}
+                          />
+                          <label className="space">No</label>
+                        </div>
+                        <div
+                          style={{
+                            alignItems: "center",
+                            display: "flex",
+                            marginLeft: 10,
+                          }}
+                        >
+                          <input
+                           {...register('methodvalidation', { required: false })}
+                            type="radio"
+                            value="option1"
+                            checked={selectedOption === 'option1'}
+                            onChange={() => setSelectedOption('option1')}
+                            name="methodvalidation"
+                            //checked={selectedOption2 === "option15"}
+                            //onChange={handleOptionChange2}
+                            style={{ height: 20, width: 20 }}
+                          />
+                          <label className="space">yes</label>
+                        </div>
+                       
+                        <div>
+                        {selectedOption === 'option1' &&
+                          <input type="text" className="methodValidation"/>
+                        }
+                          </div>
+                       
                     <Col md={6} style={{ display: "block" }}>
                       <div className=" cardcolhedd">
                         <div className="mb-3">
@@ -552,7 +595,9 @@ export default function TypeOfAnalysis({ onButtonClick }) {
                           <input
                             {...register("methodologyfollowed")}
                             type="radio"
-                            value="stp"
+                            value="option3"
+                            checked={selectedOptionmet === 'option3'}
+                            onChange={() => setSelectedOptionmet('option3')}
                             name="methodologyfollowed"
                             //checked={selectedOption4 === "option22"}
                             //onChange={handleOptionChange4}
@@ -570,7 +615,9 @@ export default function TypeOfAnalysis({ onButtonClick }) {
                           <input
                             {...register("methodologyfollowed")}
                             type="radio"
-                            value="gtp"
+                            value="option2"
+          checked={selectedOptionmet === 'option2'}
+          onChange={() => setSelectedOptionmet('option2')}
                             name="methodologyfollowed"
                             //checked={selectedOption4 === "option23"}
                             //onChange={handleOptionChange4}
@@ -588,7 +635,9 @@ export default function TypeOfAnalysis({ onButtonClick }) {
                           <input
                             {...register("methodologyfollowed")}
                             type="radio"
-                            value="referenceno"
+                            value="option1"
+                            checked={selectedOptionmet === 'option1'}
+                            onChange={() => setSelectedOptionmet('option1')}
                             name="methodologyfollowed"
                             //checked={selectedOption4 === "option24"}
                             //onChange={handleOptionChange4}
@@ -597,7 +646,10 @@ export default function TypeOfAnalysis({ onButtonClick }) {
                           <label className="space">Reference No</label>
                         </div>
                         <div style={{ alignItems: "center", display: "flex" }}>
-                          <input type="text" className="methodology" />
+
+                        {selectedOptionmet === 'option1' &&
+                          <input type="text" className="methodology"/>
+                      
                         </div>
                       </div>
                     </Col>

@@ -13,18 +13,10 @@ export default function SampleDetails({onButtonClick}) {
   
   // ---------------Start of --------------RadioButtons Functionalities using USESTATE-----------------------
 
-  const [showTextBox, setShowTextBox] = useState(false);
-
-  const handleRadioChange = (event) => {
-    setShowTextBox(event.target.value === 'yes');
-  };
-
-  const [selectedOption4, setSelectedOption4] = useState(false);
-  const handleOptionChange4 = (event) => {
-    setSelectedOption4(event.target.value === 'yes');
-  };
+  const [selectedOption, setSelectedOption] = useState(null);
 
 
+  const [selectedOptioncheck, setSelectedOptioncheck] = useState(null);
   
   //const schema = yup
   const {
@@ -254,9 +246,9 @@ onButtonClick("BatchDetails")
                               <input
                                {...register('natureofsample', { required: true })}
                                 type="radio"
-                                value="RM"
-                                //checked={selectedOption1 === "option4"}
-                                //onChange={handleChange}
+                                value="option7"
+                                checked={selectedOption === 'option7'}
+                                onChange={() => setSelectedOption('option7')}
                                 className="customRadio"
                               />
                               <label className="space">RM</label>
@@ -268,9 +260,9 @@ onButtonClick("BatchDetails")
                               <input {...register('natureofsample', { required: true })}
 
                                 type="radio"
-                                value="In-Progress"
-                                //checked={selectedOption1 === "In-Progress"}
-                                //onChange={handleChange}
+                                value="option6"
+                                checked={selectedOption === 'option6'}
+                                onChange={() => setSelectedOption('option6')}
                                 className="customRadio"
                               />
                               <label className="space">In-Progress</label>
@@ -281,9 +273,9 @@ onButtonClick("BatchDetails")
                               <input
                                {...register('natureofsample', { required: true })}
                                 type="radio"
-                                value="Intermediate"
-                                //checked={selectedOption1 === "option6"}
-                                //onChange={handleChange}
+                                value="option5"
+                                checked={selectedOption === 'option5'}
+                                onChange={() => setSelectedOption('option5')}
                                 className="customRadio"
                               />
                               <label className="space">Intermediate</label>
@@ -311,9 +303,9 @@ onButtonClick("BatchDetails")
                               <input
                                {...register('natureofsample', { required: true })}
                                 type="radio"
-                                value="API"
-                                //checked={selectedOption1 === "option7"}
-                                //onChange={handleChange}
+                                value="option4"
+                                checked={selectedOption === 'option4'}
+                                onChange={() => setSelectedOption('option4')}
                                 className="customRadio"
                               />
                               <label className="space">API</label>
@@ -324,9 +316,9 @@ onButtonClick("BatchDetails")
                               <input
                                {...register('natureofsample', { required: true })}
                                 type="radio"
-                                value="Excipient"
-                                //checked={selectedOption1 === "option8"}
-                               // onChange={handleChange}
+                                value="option3"
+                                checked={selectedOption === 'option3'}
+                                onChange={() => setSelectedOption('option3')}
                                 className="customRadio"
                               />
                               <label className="space">Excipient</label>
@@ -337,11 +329,10 @@ onButtonClick("BatchDetails")
                               <input
                                {...register('natureofsample', { required: true })}
                                 type="radio"
-                                value="no"
-                                //checked={selectedOption1 === "option9"}
-                                //onChange={handleChange}
-                                checked={!showTextBox}
-                                onChange={handleRadioChange}
+                                value="option2"
+                                checked={selectedOption === 'option2'}
+                                onChange={() => setSelectedOption('option2')}
+                               
                                 className="customRadio"
                               />
                               <label className="space">Drug Product</label>
@@ -368,10 +359,9 @@ onButtonClick("BatchDetails")
                               <input
                                {...register('natureofsample', { required: true })}
                                 type="radio"
-                                value="yes"
-                                //checked={selectedOption1 === "option10"}
-                                checked={showTextBox}
-                                onChange={handleRadioChange}
+                                value="option1"
+                                checked={selectedOption === 'option1'}
+                                onChange={() => setSelectedOption('option1')}
                                 className="customRadio"
                               />
                               <label className="space">Others</label>
@@ -379,11 +369,13 @@ onButtonClick("BatchDetails")
                           </div>  
                            
                           <div className="col">
-                          {showTextBox && (
+                         
                               <span>
-                                <input type="text" className="NatureOfSample" />
+                              {selectedOption === 'option1' &&   
+                                <input type="text" className="NatureOfSample" /> 
+                                 }
                               </span>
-                               )}
+                           
                           </div>
                         </div>
                       </Form.Label>
@@ -417,9 +409,9 @@ onButtonClick("BatchDetails")
                               <input
                                {...register('sampletype', { required: true })}
                                 type="checkbox"
-                                value="hygroscopic"
-                                // checked={selectedOption4 === "option16"}
-                                //onChange={handleChange}
+                                value="option6"
+                                checked={selectedOptioncheck === 'option6'}
+                                onChange={() => setSelectedOptioncheck('option6')}
                                 className="customRadio"
                               />
                               <label className="space">Hygroscopic</label>
@@ -430,9 +422,9 @@ onButtonClick("BatchDetails")
                               <input
                                {...register('sampletype', { required: true })}
                                 type="checkbox"
-                                value="lightsensitive"
-                                // checked={selectedOption4 === "option17"}
-                               // onChange={handleChange}
+                                value="option5"
+                                checked={selectedOptioncheck === 'option5'}
+                                onChange={() => setSelectedOptioncheck('option5')}
                                 className="customRadio"
                               />
                               <label className="space">Light Sensitive</label>
@@ -443,9 +435,9 @@ onButtonClick("BatchDetails")
                               <input
                                {...register('sampletype', { required: true })}
                                 type="checkbox"
-                                value="non-hazardous"
-                                // checked={selectedOption4 === "option18"}
-                                //onChange={handleOptionChange}
+                                value="option4"
+                                checked={selectedOptioncheck === 'option4'}
+                                onChange={() => setSelectedOptioncheck('option4')}
                                 className="customRadio"
                               />
                               <label className="space">Non-Hazardous</label>
@@ -473,9 +465,9 @@ onButtonClick("BatchDetails")
                               <input
                                {...register('sampletype', { required: true })}
                                 type="checkbox"
-                                value="hazardous"
-                                // checked={selectedOption4 === "option19"}
-                                //onChange={handleChange}
+                                value="option3"
+                                checked={selectedOptioncheck === 'option3'}
+                                onChange={() => setSelectedOptioncheck('option3')}
                                 className="customRadio"
                               />
                               <label className="space">Hazardous</label>
@@ -486,11 +478,9 @@ onButtonClick("BatchDetails")
                               <input
                                {...register('sampletype', { required: true })}
                                 type="checkbox"
-                                value="no"
-                                  checked={!selectedOption4}
-                                  onChange={handleOptionChange4}
-                                // checked={selectedOption4 === "option20"}
-                               //onChange={handleChange}
+                                value="option2"
+                                checked={selectedOptioncheck === 'option2'}
+                                onChange={() => setSelectedOptioncheck('option2')}
                                 className="customRadio"
                               />
                               <label className="space">MSDS Attached</label>
@@ -535,22 +525,22 @@ onButtonClick("BatchDetails")
                               <input
                                {...register('sampletype', { required: true })}
                                 type="checkbox"
-                                value="yes"
-                                checked={selectedOption4}
-                                onChange={handleOptionChange4}
-                                //checked={selectedOption4 === "option21"}
-                                //onChange={handleChange}
+                                value="option1"
+                                checked={selectedOptioncheck === 'option1'}
+                                onChange={() => setSelectedOptioncheck('option1')}
                                 className="customRadio"
                               />
                               <label className="space">Others</label>
                             </span>
                           </div>
                           <div className="col">
-                          {selectedOption4 && (
+                         
                             <span>
+                            {selectedOptioncheck === 'option1' &&
                               <input type="text" className="SampleType" />
+                        }
                             </span>
-                          )}
+                       
                           </div>
                         </div>
                       </Form.Label>
