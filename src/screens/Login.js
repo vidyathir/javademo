@@ -5,8 +5,10 @@ import './Styles.css';
 import logo2 from  '../assets//LoginLogo.png';
 import {AiOutlineEyeInvisible,AiFillEye} from 'react-icons/ai'
 import { useNavigate } from "react-router-dom";
-
+import { useDispatch } from "react-redux";
+import { changeUserToken } from "../redux/FormSlice";
 const Login = () => {
+  const dispatch = useDispatch();
   const [userToken, setUserToken] = useState({});
 const[data1,setData1] =useState({
 })
@@ -46,6 +48,11 @@ const[data1,setData1] =useState({
   );
   
   function onSubmit(data1) {
+    dispatch(
+      changeUserToken({
+        usertype:userToken.userType,
+        token:userToken.id
+      }))
     setData1({...data1})
     //const userData = JSON.parse(localStorage.getItem(data.email));
     // getItem can return actual value or null

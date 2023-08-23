@@ -61,9 +61,9 @@ export default function RLPLNotgenerated() {
                         </thead>
 
                         </Table>
-                        <Table border={1}>
-                            <thead className="table" >
-                                <tr   style={{backgroundColor:'#3A4175'}} >
+                        <Table  md={6} border={1}>
+                            <thead>
+                                <tr   className="table" >
                                     <th style={{color:'#d1d1d1',fontSize:12,fontWeight:600}} >S.No</th>
                                     <th style={{color:'#d1d1d1',fontSize:12,fontWeight:600}}>Registration No</th>
                                     <th style={{color:'#d1d1d1',fontSize:12,fontWeight:600}}>Batch No./Lot No(s)</th>
@@ -122,10 +122,14 @@ export default function RLPLNotgenerated() {
                         </td>
                         <td
                           style={{
+                             fontSize: 12,
+                            fontWeight: 500,
                             borderLeft: "1px solid #d1d1d1",
                             borderBottom: "none",
                           }}
-                        ></td>
+                        > {item.testparameters.map((value,index)=>(
+                         <li key={index}>{value.label}</li>
+                        ))}</td>
                       </tr>
                        ))}
                                   

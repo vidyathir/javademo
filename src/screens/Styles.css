@@ -1329,7 +1329,7 @@ input{
 }
 
 .table th {
-  background-color: #3A4175;
+  background-color: #3A4175 !important;
 }
 
 
@@ -1580,6 +1580,8 @@ input{
 }
 .table{
   text-align: center;
+  background-Color: #3A4175 !important ;
+
 }
 .tbhed{
   color: #fff;

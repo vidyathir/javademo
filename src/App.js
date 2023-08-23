@@ -41,7 +41,6 @@ export default function App() {
      <Route exact path='/AddNewCustomer' element={<AddNewCustomer/>}/>
      <Route exact path='/Progress/RLPLgenerated' element={<RLPLgenerated/>}/>  
      <Route exact path='/Progress/RLPLNotgenerated' element={<RLPLNotgenerated/>}/>
-     <Route exact path='/Progress/RLPLNotgenerated' element={<RLPLNotgenerated/>}/>
      <Route exact path='/AnalystDashboaed' element={<AnalystDashboaed/>}/>  
      <Route exact path='/AnalystDashboaed/AwaitingSamples' element={<AwaitingSamples/>}/>  
      <Route exact path='/AnalystDashboaed/AwaitingSamples/AnalystBatchandRLPLdetails' element={<AnalystBatchandRLPLdetails/>}/>  

@@ -219,10 +219,16 @@ export default function RlplGenerated() {
                         </td>
                         <td
                           style={{
+                            fontSize: 12,
+                            fontWeight: 500,
                             borderLeft: "1px solid #d1d1d1",
                             borderBottom: "none",
                           }}
-                        ></td>
+                        >{item.testparameters.map((value,index)=>(
+                          <li key={index}>{value.label}</li>
+                         ))}
+
+                        </td>
                       </tr>
                        ))}
                     </thead>
