@@ -9,6 +9,10 @@ import { LuFolderCheck } from "react-icons/lu";
 import Navbartitle from "../components/Navbartitle";
 import { useSelector } from "react-redux";
 export default function RlplGenerated() {
+
+  const handlePrint = () => {
+    window.print();
+  };
   const navigate = useNavigate();
   
   const sample=useSelector(state =>state.form.sampleDetails);
@@ -262,8 +266,8 @@ export default function RlplGenerated() {
                         }}
                         name="Next"
                       >
-                        <AiFillPrinter size={20} color="#fff" />
-                        &nbsp; Print
+                        <AiFillPrinter size={20} color="#fff" onClick={handlePrint} />
+                        &nbsp; Print 
                       </Button>
                     </div>
 
