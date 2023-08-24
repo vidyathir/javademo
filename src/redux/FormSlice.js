@@ -36,7 +36,11 @@ data:{
   test:['']
 },
 tabledata:[],
-newarray:{}
+newarray:{},
+usertoken:{
+  usertype:"",
+  token:"",
+}
   },
   reducers: { 
       changeCustomerDetails: (state,action)=> {
@@ -58,12 +62,15 @@ state.tabledata =action.payload;
 changeSubmitData:(state,action)=>{
   console.log(action.payload)
 state.newarray =action.payload;
+},changeUserToken:(state,action)=>{
+  
+  state.usertoken=action.payload;
 }
 
   },
 
 });
 
-export const { changeCustomerDetails,changeSampleDetails,changeTypeofAnalysis,changeBatchDetails,changeSubmitData} = FormSlice.actions;
+export const { changeCustomerDetails,changeSampleDetails,changeTypeofAnalysis,changeBatchDetails,changeSubmitData,changeUserToken} = FormSlice.actions;
 
 export default FormSlice.reducer;

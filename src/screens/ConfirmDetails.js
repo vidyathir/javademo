@@ -7,6 +7,7 @@ import { useSelector,useDispatch } from "react-redux";
 import { changeSubmitData} from "../redux/FormSlice";
 export default function ConfirmDetails({onButtonClick}) {
   const dispatch = useDispatch();
+  const token  = useSelector((state) => state.form.usertoken.token);
   const [newArray,setNewArray]=useState({})
   const form=useSelector(state =>state.form.customer);
   const sample=useSelector(state =>state.form.sampleDetails);
@@ -47,8 +48,9 @@ fetch("http://3.91.97.121:3000/api/sampleDetails/createSample", {
   method: "POST",
   headers: {
     "Content-Type": "application/json",
-    // add any other headers you need here
+    'Authorization': token
   },
+
 
   body: JSON.stringify(item),
 })
@@ -158,7 +160,7 @@ fetch("http://3.91.97.121:3000/api/sampleDetails/createSample", {
             <Col className="columnMb">
               <div className="d-flex row">
                 <text className="cardcolhed">Sample Type</text>
-                <text className="cardcolhedtext mt-1">{sample.sampletype}</text>
+                <text className="cardcolhedtext mt-1">{(sample.sampletype).join('    ,   ')}</text>
               </div>
             </Col>
           </Row>
@@ -211,11 +213,11 @@ fetch("http://3.91.97.121:3000/api/sampleDetails/createSample", {
               </thead>
               <tbody className="tablebody-custom">
                 
-              {batch.map((item, i) => {
-            return(
-                      <tr key={i}>
+              {batch.map(item => (
+    
+                      <tr key={item.id}>
                 
-                  <td>{i+1}</td>
+                  <td>{item.id}</td>
                        <td>{item.batchno}</td>
                         <td>{item.batchSize}</td>
                         <td>{item.packing}</td>
@@ -223,11 +225,15 @@ fetch("http://3.91.97.121:3000/api/sampleDetails/createSample", {
                         <td>{item.expdate}</td>
                         <td>{item.retestdate}</td>
                         <td>{item.sample}</td>
-                    
+                        <td>
+                        {item.testparameters.map((value,index)=>(
+                         <li key={index}>{value.label}</li>
+                        ))}
+                   </td>
                         </tr>
-                
-                          );
-})}
+              )           
+                          
+)}
               
               </tbody>
             </Table>
@@ -250,7 +256,7 @@ fetch("http://3.91.97.121:3000/api/sampleDetails/createSample", {
             <Col className="columnMb">
               <div className="d-flex row">
                 <text className="cardcolhed">Other than Regulatory </text>
-                <text className="cardcolhedtext mt-1">{analysis.analyticalfeasibile}</text>
+                <text className="cardcolhedtext mt-1">{(analysis.analyticalfeasibile).join('  ,  ')}</text>
               </div>
             </Col>
           </Row>
