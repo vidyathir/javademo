@@ -16,6 +16,20 @@ export default function SampleDetails({ onButtonClick }) {
 
   const [selectedOptioncheck, setSelectedOptioncheck] = useState(null);
 
+
+
+  const [isInputVisible, setInputVisible] = useState(false);
+
+  const handleCheckboxChange = () => {
+    setInputVisible(!isInputVisible);
+  };
+
+  const [isFileInputVisible, setFileInputVisible] = useState(false);
+
+  const handleCheckboxChangefile = () => {
+    setFileInputVisible(!isFileInputVisible);
+  };
+
   //const schema = yup
   const {
     register,
@@ -515,11 +529,9 @@ export default function SampleDetails({ onButtonClick }) {
                                     required: true,
                                   })}
                                   type="checkbox"
-                                  value="option2"
-                                  checked={selectedOptioncheck === "option2"}
-                                  onChange={() =>
-                                    setSelectedOptioncheck("option2")
-                                  }
+                                  id="toggleCheckbox"
+                                  onChange={handleCheckboxChangefile}
+                                  
                                   className="customRadio"
                                 />
                                 <label className="space">MSDS Attached</label>
@@ -528,11 +540,18 @@ export default function SampleDetails({ onButtonClick }) {
 
                             <div className="col">
                               <span style={{ display: "flex" }}>
+                              {isFileInputVisible && (
                                 <input
                                   type="file"
                                   style={{ width: 170 }}
                                   className="customInput"
+                                  id="fileInput"
+                                  onChange={(e) => {
+                                    const selectedFile = e.target.files[0];
+                                    console.log('Selected file:', selectedFile);
+                                  }}
                                 />
+                              )}
                               </span>
                             </div>
                           </div>
@@ -558,11 +577,9 @@ export default function SampleDetails({ onButtonClick }) {
                                     required: true,
                                   })}
                                   type="checkbox"
-                                  value="option1"
-                                  checked={selectedOptioncheck === "option1"}
-                                  onChange={() =>
-                                    setSelectedOptioncheck("option1")
-                                  }
+                                  id="toggleCheckbox"
+                                  onChange={handleCheckboxChange}
+                                  
                                   className="customRadio"
                                 />
                                 <label className="space">Others</label>
@@ -570,9 +587,9 @@ export default function SampleDetails({ onButtonClick }) {
                             </div>
                             <div className="col">
                               <span>
-                                {selectedOptioncheck === "option1" && (
+                              {isInputVisible && (
                                   <input type="text" className="SampleType" />
-                                )}
+                                  )}
                               </span>
                             </div>
                           </div>
