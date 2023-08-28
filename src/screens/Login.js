@@ -60,6 +60,9 @@ const[data1,setData1] =useState({
     if (userToken.userType === "SRO") {
       navigate("/Progress");
     }
+    if (userToken.userType === "DIT") {
+      navigate("/DitDashboard");
+    }
     if (userToken.userType === "Analyst") {
       navigate("/AnalystDashboaed");
     }

@@ -9,7 +9,7 @@ import ConfirmDetails from "./ConfirmDetails";
 import SampleVerification from "./SampleVerification";
 import './Styles.css';
 import Navbartitle from "../components/Navbartitle";
-
+import { AppProvider } from "../state";
 
 function Progress() {
     const [page, setPage] = useState("CustomerDetailes");
@@ -59,7 +59,7 @@ function Progress() {
         
         
       
-
+<AppProvider>
         <div style={{marginTop:50,marginBottom:70}}>
         <MultiStepProgressBar page={page} onPageNumberClick={nextPageNumber} />
         </div>
@@ -75,7 +75,7 @@ function Progress() {
       
           }[page]
         }
-       
+       </AppProvider>
        </div> 
       </div>
       </div>

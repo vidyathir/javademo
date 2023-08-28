@@ -7,7 +7,8 @@ import {
   //   Form,
   Table,
 } from "react-bootstrap";
-
+import { useForm } from "react-hook-form";
+import { useAppState } from "../state";
 import { BiRightArrowAlt, BiEdit, BiLeftArrowAlt } from "react-icons/bi";
 import { AiOutlineClose } from "react-icons/ai";
 import { MdOutlineAdd } from "react-icons/md";
@@ -15,9 +16,11 @@ import { RiDeleteBinLine } from "react-icons/ri";
 import { useDispatch } from 'react-redux';
 import { changeBatchDetails } from "../redux/FormSlice";
 import Select from "react-select";
+import { Form } from "../Forms";
 
 export default function BatchDetails({onButtonClick}) {
   const dispatch = useDispatch();
+ const [state, setState] = useAppState();
   const testparameters=[
  {value:'1',label:"Test Parameter Name"},
  {value:'2',label:'pH'},
@@ -36,17 +39,19 @@ export default function BatchDetails({onButtonClick}) {
  {value:"15",label:"HPLC - RS"},
 
 ]
+const { handleSubmit } = useForm({ defaultValues: state });
 const [inputs, setInputs] = useState({
-    batchno: "",
+    batchNo: "",
     batchSize: "",
-    packing:"",
-    mfgdate:"",
-    expdate:"",
-    retestdate:"",
-    sample:"",
+    natureOfPacking:"",
+    mfgDate:"",
+    expDate:"",
+    retestDate:"",
+    sampleQuantity:"",
     testparameters:[],
 
   });
+  const [disabletext,setDisabletext]=useState(false);
   const [formErrors, setFormErrors] = useState({});
   const [isSubmit, setIsSubmit] = useState(false);
   const [tableData, setTableData] = useState([]);
@@ -56,8 +61,20 @@ const [inputs, setInputs] = useState({
 
   const handleSelectChange = (selectedOptions) => {
     setSelectedOptions(selectedOptions);
+    setInputs({
+      batchNo: inputs.batchNo,
+       batchSize:inputs.batchSize,
+     natureOfPacking:inputs.natureOfPacking,
+       mfgDate:inputs.mfgDate,
+       expDate:inputs.expDate,
+       retestDate:inputs.retestDate,
+       sampleQuantity:inputs.sampleQuantity,
+    testparameters:selectedOptions,
+  });
+  
     
   };
+  console.log("input" ,inputs);
   const handleChange = (e) => {
   
   setInputs({
@@ -66,7 +83,8 @@ const [inputs, setInputs] = useState({
      });
     
    };
-  const handleSubmit = (e) => {
+   
+  const handleadd = (e) => {
    e.preventDefault();
 
     setFormErrors(validate(inputs))
@@ -77,56 +95,58 @@ const [inputs, setInputs] = useState({
       setTableData([...tempTableData]);
       setEditClick(false);
       setInputs({
-         batchno: "",
+         batchNo: "",
         batchSize: "",
-        packing:"",
-        mfgdate:"",
-        expdate:"",
-        retestdate:"",
-        sample:"",
-        testparameters:selectedOptions,
+        natureOfPacking:"",
+        mfgDate:"",
+        expDate:"",
+        retestDate:"",
+        sampleQuantity:"",
+        testparameters:[],
       });
     } else {
       setTableData([...tableData, inputs]);
       setInputs({
-        batchno: "",
+        batchNo: "",
         batchSize: "",
-        packing:"",
-        mfgdate:"",
-        expdate:"",
-        retestdate:"",
-        sample:"",
-        testparameters:selectedOptions,
+        natureOfPacking:"",
+        mfgDate:"",
+        expDate:"",
+        retestDate:"",
+        sampleQuantity:"",
+        testparameters:[],
       });
     }
     setSelectedOptions(null)
-    console.log("tabeldata", tableData)
+    console.log("inputs", inputs)
     setIsSubmit(true)
   };
+
   useEffect(() => {
-    setInputs({
-       batchno: inputs.batchno,
-        batchSize:inputs.batchSize,
-        packing:inputs.packing,
-        mfgdate:inputs.mfgdate,
-        expdate:inputs.expdate,
-        retestdate:inputs.retestdate,
-        sample:inputs.sample,
-     testparameters:selectedOptions,
-   });
-    
+   
     console.log(formErrors);
     if (Object.keys(formErrors).length === 0 && isSubmit) {
-    console.log(inputs);
+      console.log(inputs)
     }
-  }, [formErrors, inputs, isSubmit,selectedOptions]);
+  }, [formErrors, inputs, isSubmit]);
 
-const handleDispatch=()=>{
+const saveData=(inputs)=>{
   dispatch(changeBatchDetails(tableData))
-    
+  setState({ ...state, ...inputs})
+  console.log("tableData", tableData);
+  sessionStorage.setItem('tableData', JSON.stringify(tableData));
   onButtonClick("TypeOfAnalysis")
 }
+useEffect(()=>{
+  const storedTableData =sessionStorage.getItem("tableData");
+  if(storedTableData){
+    setTableData(JSON.parse(storedTableData));
+  }
+},[])
 
+const handleTextChange=()=>{
+  setDisabletext(!disabletext );
+}
 
   const handleDelete = (index) => {
     const filterData = tableData.filter((item, i) => i !== index);
@@ -135,24 +155,24 @@ const handleDispatch=()=>{
   const handleEdit = (index) => {
     const tempData = tableData[index];
 
-    setInputs({ batchno: tempData.batchno, batchSize: tempData.batchSize, packing: tempData.packing, 
-    mfgdate:tempData.mfgdate,expdate: tempData.expdate, retestdate:tempData.retestdate,sample: tempData.sample ,testparameters:tempData.testparameters});
+    setInputs({ batchNo: tempData.batchNo, batchSize: tempData.batchSize, natureOfPacking: tempData.natureOfPacking,
+    mfgDate:tempData.mfgDate,expDate: tempData.expDate, retestDate:tempData.retestDate,sampleQuantity: tempData.sampleQuantity ,testparameters:tempData.testparameters});
     setEditClick(true);
     setEditIndex(index);
   };
   const validate = (values) => {
     const errors = {};
-    if (!values.batchno) {
-      errors.batchno = "This field is required!";
+    if (!values.batchNo) {
+      errors.batchNo = "This field is required!";
     }
-    if (!values.mfgdate) {
-      errors.mfgdate = "This field is required!";
+    if (!values.mfgDate) {
+      errors.mfgDate = "This field is required!";
     }
-    if (!values.expdate) {
-      errors.expdate = "This field is required!";
+    if (!values.expDate) {
+      errors.expDate = "This field is required!";
     }
-    if (!values.retestdate) {
-      errors.retestdate = "This field is required!";
+    if (!values.retestDate) {
+      errors.retestDate = "This field is required!";
     }
     if (!values.testparameters) {
       errors.testparameters = "This field is required!";
@@ -168,7 +188,7 @@ const handleDispatch=()=>{
         <div>
           <div >
             <div>
-                <form onSubmit={handleSubmit}>
+    
             
               <Card className="maincards">
                 <div className="cardtitle">
@@ -176,7 +196,7 @@ const handleDispatch=()=>{
                 </div>
                 <div className="cardcolumnpadding">
                   {/* ---------------------------------   card column start  -------------------------------------------- */}
-
+                  <Form validate onSubmit={handleSubmit(saveData)}>
                   <Row className="mb-3 rowtabview">
                     <Col>
                       <div>
@@ -187,11 +207,11 @@ const handleDispatch=()=>{
                       </div>
                       <div>
                         <input type="text" className="cardcolumninputtype" 
-                        name="batchno"
-                         value={inputs.batchno}
+                        name="batchNo"
+                         value={inputs.batchNo}
                          onChange={handleChange}/>
                       </div>
-                      <p style={{color:"red"}}>{formErrors.batchno}</p>
+                      <p style={{color:"red"}}>{formErrors.batchNo}</p>
                     </Col>
 
                     <Col>
@@ -220,15 +240,20 @@ const handleDispatch=()=>{
                       </div>
                       <div>
                         <input type="text" className="cardcolumninputtype"
-                        name="packing"
-                        value={inputs.packing}
+                        name="natureOfPacking"
+                        value={inputs.natureOfPacking}
                         onChange={handleChange} />
                       </div>
                     </Col>
                   </Row>
 
-                  {/* ---------------------------------   card column start  -------------------------------------------- */}
-
+ <div>                {/* ---------------------------------   card column start  -------------------------------------------- */}
+<label>NA</label>
+  <input className="customRadio"
+type="checkbox"
+onChange={handleTextChange}
+checked={disabletext}/>
+</div>
                   <Row className="mb-3 rowtabview">
                     <Col>
                       <div>
@@ -239,11 +264,12 @@ const handleDispatch=()=>{
                       </div>
                       <div>
                         <input type="date" className="cardcolumninputtype"
-                        name="mfgdate"
-                        value={inputs.mfgdate}
-                        onChange={handleChange} />
+                        name="mfgDate"
+                        value={inputs.mfgDate}
+                        onChange={handleChange}
+                        disabled={disabletext} />
                       </div>
-                      <p style={{color:"red"}}>{formErrors.mfgdate}</p>
+                      <p style={{color:"red"}}>{formErrors.mfgDate}</p>
                     </Col>
 
                     <Col>
@@ -255,12 +281,13 @@ const handleDispatch=()=>{
                       </div>
                       <div>
                         <input type="date" className="cardcolumninputtype"
-                        name="expdate"
-                        value={inputs.expdate}
+                        name="expDate"
+                        value={inputs.expDate}
                         onChange={handleChange}
-                        min={inputs.mfgdate} />
+                        min={inputs.mfgDate}
+                        disabled={disabletext} />
                       </div>
-                      <p style={{color:"red"}}>{formErrors.expdate}</p>
+                      <p style={{color:"red"}}>{formErrors.expDate}</p>
                     </Col>
 
                     <Col>
@@ -272,12 +299,13 @@ const handleDispatch=()=>{
                       </div>
                       <div>
                         <input type="date" className="cardcolumninputtype" 
-                        name="retestdate"
-                        value={inputs.retestdate}
-                        min={inputs.expdate}
-                        onChange={handleChange}/>
+                        name="retestDate"
+                        value={inputs.retestDate}
+                        min={inputs.expDate}
+                        onChange={handleChange}
+                        disabled={disabletext}/>
                       </div>
-                      <p style={{color:"red"}}>{formErrors.retestdate}</p>
+                      <p style={{color:"red"}}>{formErrors.retestDate}</p>
                     </Col>
                   </Row>
 
@@ -293,8 +321,8 @@ const handleDispatch=()=>{
                       </div>
                       <div>
                         <input type="text" className="cardcolumninputtype"
-                        name="sample"
-                        value={inputs.sample}
+                        name="sampleQuantity"
+                        value={inputs.sampleQuantity}
                         onChange={handleChange} />
                       </div>
                     </Col>
@@ -336,7 +364,7 @@ const handleDispatch=()=>{
                         
                         <button type="submit"
                           className="cardbutton"
-                          //  onClick={() => navigate("batchdetails")}
+                            onClick={handleadd}
                         >
                              {editClick ? "update" : "Add"}
                           <MdOutlineAdd size={20} />
@@ -349,7 +377,7 @@ const handleDispatch=()=>{
                   {/* ---------------------------------   card column start  -------------------------------------------- */}
 
                   <hr className="hrcolor" />
-
+                
                   {/* <Card className="cardtablesize"> */}
                   <Table responsive border={1}>
                     <thead className="table-custom">
@@ -371,14 +399,14 @@ const handleDispatch=()=>{
                     {tableData.map((item, i) => (
                       <tr key={item.id}>
                         <td>{i+1}</td>
-                                <td>{item.batchno}</td>
+                                <td>{item.batchNo}</td>
                         <td>{item.batchSize}</td>
-                        <td>{item.packing}</td>
-                        <td>{item.mfgdate}</td>
-                        <td>{item.expdate}</td>
-                        <td>{item.retestdate}</td>
-                        <td>{item.sample}</td>
-                        {}
+                        <td>{item.natureOfPacking}</td>
+                        <td>{item.mfgDate}</td>
+                        <td>{item.expDate}</td>
+                        <td>{item.retestDate}</td>
+                        <td>{item.sampleQuantity}</td>
+                  
                         <td>{item.testparameters.map(option=>option.label).join(',')}</td>
                         {/* <td>{selectedOptions.map(option => option.label).join(', ')}</td> */}
                         <td>
@@ -407,7 +435,7 @@ const handleDispatch=()=>{
                     <button type="submit"
                       className="cardbutton"
         
-                      onClick={handleDispatch}
+                    
                     >
                       Next <BiRightArrowAlt size={24} />
                     </button>
@@ -415,10 +443,11 @@ const handleDispatch=()=>{
                   </div>
 
                   {/* ---------------------------------   card column end  -------------------------------------------- */}
-               
+               </Form>
                 </div>
+                
               </Card>
-              </form>
+              
             </div>
           </div>
         </div>

@@ -1,28 +1,35 @@
+
+import { useNavigate } from "react-router-dom";
+import { useAppState } from "../state";
+import { Button, Field, Form, Input } from "../Forms";
 import React, { useState, useEffect } from "react";
 import "./Styles.css";
 
-import { BiRightArrowAlt } from "react-icons/bi";
+//import { BiRightArrowAlt } from "react-icons/bi";
 import { Card, Col, Row } from "react-bootstrap";
 import { useForm, Controller } from "react-hook-form";
 import { changeCustomerDetails } from "../redux/FormSlice";
 import Select from "react-select";
-import { useDispatch ,useSelector} from "react-redux";
-import axios from "axios";
-export default function CustomerDetailes({ onButtonClick }) {
-  const dispatch = useDispatch();
-  const token  = useSelector((state) => state.form.usertoken.token);
-  const { control, handleSubmit, setValue} = useForm();
+import { useDispatch } from "react-redux";
+import axios from "axios"
+export default function CustomerDetailes({onButtonClick}){
+  const [state, setState] = useAppState();
+const dispatch = useDispatch();
   const [companyOptions, setCompanyOptions] = useState([]);
-  console.log("token",token)
+  const {
+    control,
+    handleSubmit,
+    register,
+    setValue,
+    watch,
+    formState: { errors },
+  } = useForm({ defaultValues: state, mode: "onSubmit" });
+
+  const navigate = useNavigate();
   useEffect(() => {
     // Fetch company options from API
     axios
-      .get("http://3.91.97.121:3000/api/companyDetails",{
-        headers: {
-          'Authorization': token
-            
-                    },
-      })
+      .get("http://3.91.97.121:3000/api/companyDetails")
       .then((response) => setCompanyOptions(response.data))
       .catch((error) => console.error("Error fetching company data:", error));
   }, []);
@@ -60,9 +67,8 @@ export default function CustomerDetailes({ onButtonClick }) {
         setValue("data11", "");
       });
   };
-
-  const onSubmit = (data, selectedCompany) => {
-    console.log("data", data);
+  const saveData = (data) => {
+    setState({ ...state, ...data });
     dispatch(
       changeCustomerDetails({
         company: data.company.companyName,
@@ -86,30 +92,27 @@ export default function CustomerDetailes({ onButtonClick }) {
       companyName: company.companyName,
     };
   });
-  console.log(choice);
   return (
     <div>
-      <div>
-        <div className="main">
-          <div className="mainitem">
-            <div>
-              <Card className="maincards">
-                <div className="cardtitle">
-                  <text className="cardtitlehed">Customer Details</text>
-                </div>
-                <form onSubmit={handleSubmit(onSubmit)}>
-                  <div className="cardcolumnpadding">
+    <div>
+      <div className="main">
+        <div className="mainitem">
+          <div>
+            <Card className="maincards">
+              <div className="cardtitle">
+                <text className="cardtitlehed">Customer Details</text>
+              </div>
+    <Form onSubmit={handleSubmit(saveData)}>
+      
+      <fieldset>
+    
+        <div className="cardcolumnpadding">
                     {/* ---------------------------------   card column start  -------------------------------------------- */}
 
                     <Row className="mb-3 rowtabview">
                       <Col>
-                        <div>
-                          <label className="cardcolhed">
-                            Company Name
-                            <text className="cardcolhedstar">*</text>
-                          </label>
-                        </div>
-                        <Controller
+        <Field label="Company Name" >
+        <Controller
                           name="company"
                           control={control}
                           render={({ field }) => (
@@ -140,20 +143,19 @@ export default function CustomerDetailes({ onButtonClick }) {
                             />
                           )}
                         />
-                      </Col>
-
-                      <Col>
-                        <div>
-                          <label className="cardcolhed">
-                            Contact Person Name
-                          </label>
-                        </div>
-                        <div>
-                          <Controller
+                        </Field>
+                        <div className="text-danger mt-3">
+                            {errors.companyName?.type === "required" &&
+                              "This field is required."}
+                          </div>
+                        </Col>
+                        <Col>
+        <Field label="Contact Person Name" error={errors?.contactpersonname}>
+        <Controller
                             name="data2"
                             control={control}
                             render={({ field }) => (
-                              <input
+                              <Input
                                 className="cardcolumninputtype"
                                 {...field}
                                 type="text"
@@ -161,23 +163,15 @@ export default function CustomerDetailes({ onButtonClick }) {
                               />
                             )}
                           />
-                          {/* <input type="text" className="cardcolumninputtype" name="data2" readOnly/> */}
-                        </div>
-                      </Col>
-
-                      <Col>
-                        <div>
-                          <label className="cardcolhed">
-                            Manufacturing Lic No.
-                          </label>
-                        </div>
-
-                        <div>
-                          <Controller
+        </Field>
+        </Col>
+        <Col>
+        <Field label="ManufacturingLicenceNumber" >
+        <Controller
                             name="data3"
                             control={control}
                             render={({ field }) => (
-                              <input
+                              <Input
                                 className="cardcolumninputtype"
                                 {...field}
                                 type="text"
@@ -185,24 +179,21 @@ export default function CustomerDetailes({ onButtonClick }) {
                               />
                             )}
                           />
-                        </div>
-                      </Col>
-                    </Row>
-
-                    {/* ---------------------------------   card column start  -------------------------------------------- */}
-
-                    <Row className="mb-3 rowtabview">
+        </Field>
+        </Col>
+        </Row>
+         <Row className="mb-3 rowtabview">
                       <Col>
                         <div>
-                          <label className="cardcolhed">Phone Number</label>
-                        </div>
+                          < Field label="Phone Number" className="cardcolhed">
+                        
                         <div>
                           <div>
                             <Controller
                               name="data4"
                               control={control}
                               render={({ field }) => (
-                                <input
+                                <Input
                                   className="cardcolumninputtype"
                                   {...field}
                                   type="text"
@@ -212,22 +203,24 @@ export default function CustomerDetailes({ onButtonClick }) {
                             />
                           </div>
                         </div>
+                        </Field>
+                        </div>
+                        
                       </Col>
 
                       <Col>
                         <div>
-                          <label className="cardcolhed">
-                            Additional Phone Number
+                          <Field label="Additional Phone Number" className="cardcolhed">
+                            
                             {/* <text className="cardcolhedstar">*</text> */}
-                          </label>
-                        </div>
+            
                         <div>
                           <div>
                             <Controller
                               name="data11"
                               control={control}
                               render={({ field }) => (
-                                <input
+                                <Input
                                   className="cardcolumninputtype"
                                   {...field}
                                   type="text"
@@ -237,19 +230,21 @@ export default function CustomerDetailes({ onButtonClick }) {
                             />
                           </div>
                         </div>
+                        </Field>
+                        </div>
                       </Col>
 
                       <Col>
                         <div>
-                          <label className="cardcolhed">Email Id</label>
-                        </div>
+                          <Field label ="Email Id" className="cardcolhed">
+                    
                         <div>
                           <div>
                             <Controller
                               name="data5"
                               control={control}
                               render={({ field }) => (
-                                <input
+                                <Input
                                   className="cardcolumninputtype"
                                   {...field}
                                   type="text"
@@ -259,6 +254,8 @@ export default function CustomerDetailes({ onButtonClick }) {
                             />
                           </div>
                         </div>
+                        </Field>
+                        </div>
                       </Col>
                     </Row>
 
@@ -267,15 +264,15 @@ export default function CustomerDetailes({ onButtonClick }) {
                     <Row className="mb-3 rowtabview">
                       <Col>
                         <div>
-                          <label className="cardcolhed">Address Line1</label>
-                        </div>
+                          <Field label="Address Line1" className="cardcolhed">
+                        
                         <div>
                           <div>
                             <Controller
                               name="data6"
                               control={control}
                               render={({ field }) => (
-                                <input
+                                <Input
                                   className="cardcolumninputtype"
                                   {...field}
                                   type="text"
@@ -285,22 +282,22 @@ export default function CustomerDetailes({ onButtonClick }) {
                             />
                           </div>
                         </div>
+                        </Field>
+                        </div>
                       </Col>
 
                       <Col>
                         <div>
-                          <label className="cardcolhed">
-                            Address Line2
+                          < Field label=" Address Line2" className="cardcolhed">
+                           
                             {/* <text className="cardcolhedstar">*</text> */}
-                          </label>
-                        </div>
                         <div>
                           <div>
                             <Controller
                               name="data7"
                               control={control}
                               render={({ field }) => (
-                                <input
+                                <Input
                                   className="cardcolumninputtype"
                                   {...field}
                                   type="text"
@@ -310,19 +307,20 @@ export default function CustomerDetailes({ onButtonClick }) {
                             />
                           </div>
                         </div>
+                        </Field>
+                        </div>
                       </Col>
 
                       <Col>
                         <div>
-                          <label className="cardcolhed">City</label>
-                        </div>
+                          < Field label="City" className="cardcolhed">
                         <div>
                           <div>
                             <Controller
                               name="data8"
                               control={control}
                               render={({ field }) => (
-                                <input
+                                <Input
                                   className="cardcolumninputtype"
                                   {...field}
                                   type="text"
@@ -331,6 +329,8 @@ export default function CustomerDetailes({ onButtonClick }) {
                               )}
                             />
                           </div>
+                        </div>
+                        </Field>
                         </div>
                       </Col>
                     </Row>
@@ -340,15 +340,14 @@ export default function CustomerDetailes({ onButtonClick }) {
                     <Row className="mb-3 rowtabview">
                       <Col>
                         <div>
-                          <label className="cardcolhed">State</label>
-                        </div>
+                          <Field label="State" className="cardcolhed">
                         <div>
                           <div>
                             <Controller
                               name="data9"
                               control={control}
                               render={({ field }) => (
-                                <input
+                                <Input
                                   className="cardcolumninputtype"
                                   {...field}
                                   type="text"
@@ -358,19 +357,20 @@ export default function CustomerDetailes({ onButtonClick }) {
                             />
                           </div>
                         </div>
+                        </Field>
+                        </div>
                       </Col>
 
                       <Col>
                         <div>
-                          <label className="cardcolhed">Pincode</label>
-                        </div>
+                          <Field label="Pincode" className="cardcolhed">
                         <div>
                           <div>
                             <Controller
                               name="data10"
                               control={control}
                               render={({ field }) => (
-                                <input
+                                <Input
                                   className="cardcolumninputtype"
                                   {...field}
                                   type="text"
@@ -380,30 +380,36 @@ export default function CustomerDetailes({ onButtonClick }) {
                             />
                           </div>
                         </div>
+                        </Field>
+                        </div>
                       </Col>
-
                       <Col>
                         <div>
-                          <label className="cardcolhed">
-                            {/* <text className="cardcolhedstar">*</text> */}
-                          </label>
+                          <Field className="cardcolhed">
+                        <div>
+                          <div>
+          
+            
+                          </div>
                         </div>
-                        <div className="cardbuttonwid">
-                          <button className="cardbutton" type="submit">
-                            Next <BiRightArrowAlt />
-                          </button>
+                        </Field>
                         </div>
                       </Col>
-                    </Row>
-
-                    {/* ---------------------------------   card column end  -------------------------------------------- */}
-                  </div>
-                </form>
-              </Card>
+                      <div className="cardbuttonwid">
+        <Button className="cardbutton">Next {">"}</Button>
+        </div>
+        </Row>
+        </div>
+      
+      </fieldset>
+      
+    </Form>
+    
+    </Card>
             </div>
           </div>
         </div>
       </div>
     </div>
   );
-}
+};
