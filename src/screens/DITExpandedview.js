@@ -14,7 +14,7 @@ import { BiRightArrowAlt } from "react-icons/bi";
 import NavbartitleAddco from "../components/NavbartitleAddco";
 import SidenavbarDIT from "../components/SidenavbarDIT";
 
-export default function ReviewerDetails() {
+export default function DITExpandedView() {
   const navigate = useNavigate();
 
   return (
@@ -28,11 +28,11 @@ export default function ReviewerDetails() {
           <div className="mainitem">
             <div
               className="analystbackbutton mt-3"
-              onClick={() => navigate("/ReviewDashboard/AwaitingSamplesReview")}
+              onClick={() => navigate("/DitDashboard")}
             >
               <AiOutlineLeft
                 onClick={() =>
-                  navigate("/ReviewDashboard/AwaitingSamplesReview")
+                  navigate("/DitDashboard")
                 }
               />{" "}
               <text>back</text>
@@ -73,31 +73,7 @@ export default function ReviewerDetails() {
                   <td>xxxxxx</td>
                 </tr>
 
-                <tr>
-                  <td>01</td>
-                  <td>0101</td>
-                  <td>xxxxx</td>
-                  <td>xxxxx</td>
-                  <td>xxxxx</td>
-                  <td>11/02/2023</td>
-                  <td>31/04/2023</td>
-                  <td>01/02/2023</td>
-                  <td>xxxxxx</td>
-                  <td>xxxxxx</td>
-                </tr>
-
-                <tr>
-                  <td>01</td>
-                  <td>0101</td>
-                  <td>xxxxx</td>
-                  <td>xxxxx</td>
-                  <td>xxxxx</td>
-                  <td>11/02/2023</td>
-                  <td>31/04/2023</td>
-                  <td>01/02/2023</td>
-                  <td>xxxxxx</td>
-                  <td>xxxxxx</td>
-                </tr>
+                
               </tbody>
             </Table>
             {/* </Card> */}
@@ -259,7 +235,7 @@ export default function ReviewerDetails() {
               <button
                 className="cardbutton"
                 type="submit"
-                onClick={() => navigate("AnalystDashboaed")}
+                onClick={() => navigate("DITSuccess")}
               >
                 Review <BiRightArrowAlt size={24} />
               </button>

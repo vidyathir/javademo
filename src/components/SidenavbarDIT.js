@@ -8,8 +8,8 @@ export default function SidenavbarDIT() {
 
 
   const menus = [
-    { name: "Dashboard", link: "/DITDashboard", icon: MdOutlineDashboard },
-    { name: "ExpandedView", link: "/DITExpandedview", icon: GiArchiveRegister },
+    { name: "Dashboard", link: "/DitDashboard", icon: MdOutlineDashboard },
+    { name: "ExpandedView", link: "DITExpandedview", icon: GiArchiveRegister },
     // { name: "SearchCustomer", link: "/SearchCustomer", icon: BiSearch },
   
   ];

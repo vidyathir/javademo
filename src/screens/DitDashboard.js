@@ -14,6 +14,7 @@ import { LuClipboardEdit } from "react-icons/lu";
 import { useNavigate } from "react-router-dom";
 import NavbartitleAddco from "../components/NavbartitleAddco";
 import SidenavbarAnalyst from "../components/SidenavbarAnalyst";
+import SidenavbarDIT from "../components/SidenavbarDIT";
 
 export default function AnalystDashboaed() {
   const navigate = useNavigate();
@@ -22,7 +23,7 @@ export default function AnalystDashboaed() {
       <NavbartitleAddco />
 
       <div className="d-flex">
-        <SidenavbarAnalyst />
+        <SidenavbarDIT />
         <div className="main">
           <div className="mainitem">
             {/* -----------------------------------------Top Card Start---------------------------------- */}
@@ -58,7 +59,7 @@ export default function AnalystDashboaed() {
                 <Col md={6}>
                   <Card
                     className="mainCard2 p-2"
-                    onClick={() => navigate("AwaitingSamples")}
+                    onClick={() => navigate("DITExpandedView")}
                   >
                     <div className="cardArrangement">
                       <div>
@@ -85,8 +86,8 @@ export default function AnalystDashboaed() {
                   <thead className="tbhed">
                     <tr>
                       <th>S.No</th>
-                      <th>Sample ID</th>
-                      <th>SRO Submitted By</th>
+                      <th>Registration No</th>
+                      <th>Test Parameters</th>
                       
                       <th>View</th>
                     </tr>

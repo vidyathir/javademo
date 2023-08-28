@@ -17,7 +17,7 @@ export default function RlplGenerated() {
   
   const sample=useSelector(state =>state.form.sampleDetails);
   
-  const batch=useSelector(state =>state.form.newarray.batchDetails)
+  const batch=useSelector(state =>state.form.newArray)
   console.log("batch",batch)
   return (
     <div className="app">
@@ -174,7 +174,7 @@ export default function RlplGenerated() {
                           Test Parameter
                         </th>
                       </tr>
-                      {batch.map((item, i) => (
+                      {batch.map((item,i)=> (
                       <tr key={i}>
                       <td
                           style={{
@@ -192,7 +192,7 @@ export default function RlplGenerated() {
                             fontWeight: 500,
                           }}
                         >
-                          {item.rlplid}
+                          {item.rlplNumber}
                         </td>
                         <td
                           style={{
@@ -201,7 +201,7 @@ export default function RlplGenerated() {
                             fontWeight: 500,
                           }}
                         >
-                          {item.batchno}
+                          {item.batchNo}
                         </td>
                         <td
                           style={{
@@ -219,7 +219,7 @@ export default function RlplGenerated() {
                             fontWeight: 500,
                           }}
                         >
-                          {item.sample}
+                          {item.sampleQuantity}
                         </td>
                         <td
                           style={{

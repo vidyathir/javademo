@@ -8,7 +8,7 @@ import { changeSubmitData} from "../redux/FormSlice";
 export default function ConfirmDetails({onButtonClick}) {
   const dispatch = useDispatch();
   const token  = useSelector((state) => state.form.usertoken.token);
-  const [newArray,setNewArray]=useState({})
+  const [newArray,setNewArray]=useState([])
   const form=useSelector(state =>state.form.customer);
   const sample=useSelector(state =>state.form.sampleDetails);
   const analysis=useSelector(state =>state.form.data);
@@ -44,7 +44,9 @@ const item={
   attachment:analysis.choosefile,
   specialInstruction:analysis.specialInstruction 
 }
-fetch("http://3.91.97.121:3000/api/sampleDetails/createSample", {
+console.log("item", item)
+const postapicall=()=>{
+fetch("http://3.80.98.199:3000/api/sampleDetails/createSample", {
   method: "POST",
   headers: {
     "Content-Type": "application/json",
@@ -57,17 +59,19 @@ fetch("http://3.91.97.121:3000/api/sampleDetails/createSample", {
   .then((response) => response.json())
 
   .then((data) => {
-  setNewArray(data)
+    dispatch(changeSubmitData(data))
     console.log("Success:", data);
-    console.log("newarray",newArray)
+    
      // handle the response data here
   })
 
   .catch((error) => {
     // handle any errors here
   });
-
+}
+console.log("newarray",newArray)
   const handleSubmit=()=>{
+    postapicall()
     dispatch(changeSubmitData(newArray))
 
     onButtonClick("SampleVerification")
@@ -213,18 +217,18 @@ fetch("http://3.91.97.121:3000/api/sampleDetails/createSample", {
               </thead>
               <tbody className="tablebody-custom">
                 
-              {batch.map(item => (
+              {batch.map((item, i)=> (
     
-                      <tr key={item.id}>
+                      <tr key={i}>
                 
-                  <td>{item.id}</td>
-                       <td>{item.batchno}</td>
+                  <td>{i+1}</td>
+                       <td>{item.batchNo}</td>
                         <td>{item.batchSize}</td>
-                        <td>{item.packing}</td>
-                        <td>{item.mfgdate}</td>
-                        <td>{item.expdate}</td>
-                        <td>{item.retestdate}</td>
-                        <td>{item.sample}</td>
+                        <td>{item.natureOfPacking}</td>
+                        <td>{item.mfgDate}</td>
+                        <td>{item.expDate}</td>
+                        <td>{item.retestDate}</td>
+                        <td>{item.sampleQuantity}</td>
                         <td>
                         {item.testparameters.map((value,index)=>(
                          <li key={index}>{value.label}</li>
@@ -256,7 +260,7 @@ fetch("http://3.91.97.121:3000/api/sampleDetails/createSample", {
             <Col className="columnMb">
               <div className="d-flex row">
                 <text className="cardcolhed">Other than Regulatory </text>
-                <text className="cardcolhedtext mt-1">{(analysis.analyticalfeasibile).join('  ,  ')}</text>
+                <text className="cardcolhedtext mt-1"><ul>{(analysis.analyticalfeasibile)}</ul></text>
               </div>
             </Col>
           </Row>

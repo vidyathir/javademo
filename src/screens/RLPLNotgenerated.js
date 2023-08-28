@@ -13,7 +13,7 @@ export default function RLPLNotgenerated() {
   const navigate = useNavigate();
 
   const sample=useSelector(state =>state.form.sampleDetails);
-  const batch=useSelector(state =>state.form.newarray.batchDetails)
+  const batch=useSelector(state =>state.form.newArray)
   return (
     <div className="app">
 
@@ -91,7 +91,7 @@ export default function RLPLNotgenerated() {
                             fontWeight: 500,
                           }}
                         >
-                          {item.rlplid}
+                          NA
                         </td>
                         <td
                           style={{
@@ -100,7 +100,7 @@ export default function RLPLNotgenerated() {
                             fontWeight: 500,
                           }}
                         >
-                          {item.batchno}
+                          {item.batchNo}
                         </td>
                         <td
                           style={{
@@ -118,7 +118,7 @@ export default function RLPLNotgenerated() {
                             fontWeight: 500,
                           }}
                         >
-                          {item.sample}
+                          {item.sampleQuantity}
                         </td>
                         <td
                           style={{

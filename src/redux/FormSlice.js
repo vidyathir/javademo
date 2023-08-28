@@ -36,7 +36,19 @@ data:{
   test:['']
 },
 tabledata:[],
-newarray:{},
+newArray:[
+  {
+    batchNo: "",
+batchSize: "",
+expDate: "",
+mfgDate: "",
+natureOfPacking: "",
+retestDate: "",
+rlplNumber:"",
+sampleQuantity:"",
+testparameters:['']
+  }
+],
 usertoken:{
   usertype:"",
   token:"",
@@ -61,7 +73,7 @@ state.tabledata =action.payload;
 },
 changeSubmitData:(state,action)=>{
   console.log(action.payload)
-state.newarray =action.payload;
+state.newArray =action.payload;
 },changeUserToken:(state,action)=>{
   
   state.usertoken=action.payload;
