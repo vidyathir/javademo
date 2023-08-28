@@ -19,17 +19,14 @@ const dispatch = useDispatch();
   const {
     control,
     handleSubmit,
-    register,
     setValue,
-    watch,
+  
     formState: { errors },
   } = useForm({ defaultValues: state, mode: "onSubmit" });
-
-  const navigate = useNavigate();
   useEffect(() => {
     // Fetch company options from API
     axios
-      .get("http://3.91.97.121:3000/api/companyDetails")
+      .get("http://3.80.98.199:3000/api/companyDetails")
       .then((response) => setCompanyOptions(response.data))
       .catch((error) => console.error("Error fetching company data:", error));
   }, []);
@@ -38,7 +35,7 @@ const dispatch = useDispatch();
     // Fetch other data based on selected company
     axios
       .get(
-        `http://3.91.97.121:3000/api/companyDetails/${selectedCompany.companyId}`
+        `http://3.80.98.199:3000/api/companyDetails/${selectedCompany.companyId}`
       )
       .then((response) => {
         const data1 = response.data;
@@ -115,6 +112,7 @@ const dispatch = useDispatch();
         <Controller
                           name="company"
                           control={control}
+                          rules={{ required: 'Please select a company' }}
                           render={({ field }) => (
                             <Select
                               {...field}
@@ -145,8 +143,7 @@ const dispatch = useDispatch();
                         />
                         </Field>
                         <div className="text-danger mt-3">
-                            {errors.companyName?.type === "required" &&
-                              "This field is required."}
+                            {errors.company && <p style={{ color: 'red', marginTop: '5px' }}>{errors.company.message}</p>}
                           </div>
                         </Col>
                         <Col>

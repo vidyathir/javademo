@@ -46,7 +46,7 @@ const item={
 }
 console.log("item", item)
 const postapicall=()=>{
-fetch("http://3.91.97.121:3000/api/sampleDetails/createSample", {
+fetch("http://3.80.98.199:3000/api/sampleDetails/createSample", {
   method: "POST",
   headers: {
     "Content-Type": "application/json",
