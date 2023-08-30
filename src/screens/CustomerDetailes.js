@@ -1,11 +1,11 @@
 
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import { useAppState } from "../state";
 import { Button, Field, Form, Input } from "../Forms";
 import React, { useState, useEffect } from "react";
 import "./Styles.css";
 
-//import { BiRightArrowAlt } from "react-icons/bi";
+import { BiRightArrowAlt } from "react-icons/bi";
 import { Card, Col, Row } from "react-bootstrap";
 import { useForm, Controller } from "react-hook-form";
 import { changeCustomerDetails } from "../redux/FormSlice";
@@ -92,9 +92,9 @@ const dispatch = useDispatch();
   return (
     <div>
     <div>
-      <div className="main">
-        <div className="mainitem">
-          <div>
+      
+       
+        
             <Card className="maincards">
               <div className="cardtitle">
                 <text className="cardtitlehed">Customer Details</text>
@@ -108,13 +108,16 @@ const dispatch = useDispatch();
 
                     <Row className="mb-3 rowtabview">
                       <Col>
-        <Field label="Company Name" >
-        <Controller
+                      <label className="cardcolhed mb-2">Company Name</label>
+        
+                      <Controller 
+                     
                           name="company"
                           control={control}
                           rules={{ required: 'Please select a company' }}
                           render={({ field }) => (
                             <Select
+                            
                               {...field}
                               options={choice}
                               isClearable
@@ -141,14 +144,17 @@ const dispatch = useDispatch();
                             />
                           )}
                         />
-                        </Field>
+                       
                         <div className="text-danger mt-3">
                             {errors.company && <p style={{ color: 'red', marginTop: '5px' }}>{errors.company.message}</p>}
                           </div>
                         </Col>
                         <Col>
-        <Field label="Contact Person Name" error={errors?.contactpersonname}>
-        <Controller
+
+                        <label className="cardcolhed mb-2" error={errors?.contactpersonname}>Contact Person Name</label>
+
+        
+                      <Controller
                             name="data2"
                             control={control}
                             render={({ field }) => (
@@ -160,10 +166,12 @@ const dispatch = useDispatch();
                               />
                             )}
                           />
-        </Field>
+       
         </Col>
         <Col>
-        <Field label="ManufacturingLicenceNumber" >
+        <label className="cardcolhed mb-2">ManufacturingLicenceNumber</label>
+
+        
         <Controller
                             name="data3"
                             control={control}
@@ -176,13 +184,13 @@ const dispatch = useDispatch();
                               />
                             )}
                           />
-        </Field>
+     
         </Col>
         </Row>
          <Row className="mb-3 rowtabview">
                       <Col>
                         <div>
-                          < Field label="Phone Number" className="cardcolhed">
+                        <label className="cardcolhed mb-2">Phone Number</label>  
                         
                         <div>
                           <div>
@@ -200,14 +208,16 @@ const dispatch = useDispatch();
                             />
                           </div>
                         </div>
-                        </Field>
+                     
                         </div>
                         
                       </Col>
 
                       <Col>
                         <div>
-                          <Field label="Additional Phone Number" className="cardcolhed">
+                        <label className="cardcolhed mb-2">Additional Phone Number</label>  
+
+                         
                             
                             {/* <text className="cardcolhedstar">*</text> */}
             
@@ -227,13 +237,15 @@ const dispatch = useDispatch();
                             />
                           </div>
                         </div>
-                        </Field>
+                      
                         </div>
                       </Col>
 
                       <Col>
                         <div>
-                          <Field label ="Email Id" className="cardcolhed">
+                        <label className="cardcolhed mb-2">Email Id</label>  
+
+                          
                     
                         <div>
                           <div>
@@ -251,7 +263,7 @@ const dispatch = useDispatch();
                             />
                           </div>
                         </div>
-                        </Field>
+                       
                         </div>
                       </Col>
                     </Row>
@@ -261,7 +273,7 @@ const dispatch = useDispatch();
                     <Row className="mb-3 rowtabview">
                       <Col>
                         <div>
-                          <Field label="Address Line1" className="cardcolhed">
+                          <label className="cardcolhed mb-2">Address Line1 </label>
                         
                         <div>
                           <div>
@@ -279,13 +291,15 @@ const dispatch = useDispatch();
                             />
                           </div>
                         </div>
-                        </Field>
+                        
                         </div>
                       </Col>
 
                       <Col>
                         <div>
-                          < Field label=" Address Line2" className="cardcolhed">
+                        <label className="cardcolhed mb-2"> Address Line2 </label>
+
+                         
                            
                             {/* <text className="cardcolhedstar">*</text> */}
                         <div>
@@ -304,13 +318,15 @@ const dispatch = useDispatch();
                             />
                           </div>
                         </div>
-                        </Field>
+                       
                         </div>
                       </Col>
 
                       <Col>
                         <div>
-                          < Field label="City" className="cardcolhed">
+                        <label className="cardcolhed mb-2"> City </label>
+
+                        
                         <div>
                           <div>
                             <Controller
@@ -327,7 +343,7 @@ const dispatch = useDispatch();
                             />
                           </div>
                         </div>
-                        </Field>
+                      
                         </div>
                       </Col>
                     </Row>
@@ -337,7 +353,8 @@ const dispatch = useDispatch();
                     <Row className="mb-3 rowtabview">
                       <Col>
                         <div>
-                          <Field label="State" className="cardcolhed">
+                        <label className="cardcolhed mb-2"> State </label>
+                      
                         <div>
                           <div>
                             <Controller
@@ -354,13 +371,15 @@ const dispatch = useDispatch();
                             />
                           </div>
                         </div>
-                        </Field>
+                       
                         </div>
                       </Col>
 
                       <Col>
                         <div>
-                          <Field label="Pincode" className="cardcolhed">
+                        <label className="cardcolhed mb-2"> Pincode </label>
+
+                          
                         <div>
                           <div>
                             <Controller
@@ -377,24 +396,23 @@ const dispatch = useDispatch();
                             />
                           </div>
                         </div>
-                        </Field>
+                       
                         </div>
                       </Col>
                       <Col>
                         <div>
-                          <Field className="cardcolhed">
-                        <div>
-                          <div>
-          
-            
-                          </div>
-                        </div>
-                        </Field>
+                        <label className="cardcolhed mb-2"> </label>
+
+               
+                          <div className="cardbuttonwid">
+        <Button className="cardbutton">Next
+        <BiRightArrowAlt size={24} color="#fff" />
+        </Button>
+        </div>
+                      
                         </div>
                       </Col>
-                      <div className="cardbuttonwid">
-        <Button className="cardbutton">Next {">"}</Button>
-        </div>
+                     
         </Row>
         </div>
       
@@ -403,9 +421,9 @@ const dispatch = useDispatch();
     </Form>
     
     </Card>
-            </div>
-          </div>
-        </div>
+           
+        
+       
       </div>
     </div>
   );

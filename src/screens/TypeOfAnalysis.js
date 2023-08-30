@@ -62,7 +62,7 @@ export default function TypeOfAnalysis({ onButtonClick }) {
                     marginBottom: 20,
                   }}
                 >
-                  <div>
+                  <div >
                   <Field>
                   <Input
                     {...register("formfilling")}
@@ -825,11 +825,11 @@ export default function TypeOfAnalysis({ onButtonClick }) {
                       </div>
                       
                       <div style={{ display: "flex"}}>
-                        <div
+                        <div className="col"
                           style={{
                             alignItems: "center",
                             display: "flex",
-                            marginRight: 40,
+                            // marginRight: 40,
                           }}
                         >
                           <div>
@@ -848,11 +848,11 @@ export default function TypeOfAnalysis({ onButtonClick }) {
                           <label className="space" >USP</label>
                           </div>
                         </div>
-                        <div
+                        <div  className="col"
                           style={{
                             alignItems: "center",
                             display: "flex",
-                            marginRight: 40,
+                            // marginRight: 40,
                           }}
                         >
                           <div>
@@ -872,7 +872,8 @@ export default function TypeOfAnalysis({ onButtonClick }) {
                           <label className="space">BP</label>
                           </div>
                         </div>
-                        <div style={{ alignItems: "center", display: "flex" }}>
+                        <div  className="col"
+                         style={{ alignItems: "center", display: "flex" }}>
                         <div>
                         <Field>
                           <Input
@@ -897,12 +898,13 @@ export default function TypeOfAnalysis({ onButtonClick }) {
 
 
                       
-                      <div style={{ display: "flex", marginTop: 20 }}>
-                        <div
+                      <div  
+                      style={{ display: "flex", marginTop: 20 }}>
+                        <div  className="col"
                           style={{
                             alignItems: "center",
                             display: "flex",
-                            marginRight: 52,
+                            // marginRight: 52,
                           }}
                         >
                           <div>
@@ -921,11 +923,11 @@ export default function TypeOfAnalysis({ onButtonClick }) {
                           <label className="space">IP</label>
                           </div>
                         </div>
-                        <div
+                        <div  className="col"
                           style={{
                             alignItems: "center",
                             display: "flex",
-                            marginRight: 45,
+                            // marginRight: 45,
                           }}
                         >
                           <div>
@@ -944,7 +946,8 @@ export default function TypeOfAnalysis({ onButtonClick }) {
                           <label className="space">IS</label>
                           </div>
                         </div>
-                        <div style={{ alignItems: "center", display: "flex" }}>
+                        <div  className="col"
+                         style={{ alignItems: "center", display: "flex" }}>
                         <div>
                         <Field>
                           <Input
