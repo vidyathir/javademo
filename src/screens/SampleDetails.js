@@ -1,37 +1,33 @@
-import { useForm } from "react-hook-form";
-import { useAppState } from "../state";
-import { Button, Field, Form, Input } from "../Forms";
-import React, { useEffect, useState } from "react";
+import React , { useState } from "react";
 
-import { Row, Col, Card } from "react-bootstrap";
-import "./Styles.css";
+import { Form, Row, Col, Card} from "react-bootstrap";
+import './Styles.css';
 
 import { BiRightArrowAlt, BiLeftArrowAlt } from "react-icons/bi";
+import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import { changeSampleDetails } from '../redux/FormSlice';
-export default function SampleDetails({ onButtonClick }) {
-  const [selectedOption, setSelectedOption] = useState(null);
-
-  const [selectedOptioncheck, setSelectedOptioncheck] = useState(false);
+export default function SampleDetails({onButtonClick}) {
 
   const dispatch = useDispatch();
-  const [state, setState] = useAppState();
+  
+  // ---------------Start of --------------RadioButtons Functionalities using USESTATE-----------------------
+
+  const [selectedOption, setSelectedOption] = useState(null);
+
+
+  
+  
+  //const schema = yup
   const {
     handleSubmit,
     register,
     formState: { errors },
-  } = useForm({ defaultValues: state });
+  } = useForm();
+  
 
-  // const handleRadioChange = (event) => {
-  //   setShowTextBox(event.target.value === 'yes');
-  // };
-
-  // const [selectedOption4, setSelectedOption4] = useState(false);
-   const handlecheckboxchange = () => {
-   setSelectedOptioncheck(!selectedOptioncheck);;
-   };
-  const saveData = (data) => {
-    setState({ ...state, ...data });
+  const onSubmit = (data,e) => {  
+     e.preventDefault();
     dispatch(changeSampleDetails(
       {
 natureofsample:data.natureofsample,
@@ -44,928 +40,642 @@ submissiontype:data.submissiontype,
 
       })
     )
-    onButtonClick("BatchDetails");
-  };
-useEffect(()=>{
-  window.sessionStorage.removeItem('tableData')
-},[])
+    console.log("useForm",data)
+onButtonClick("BatchDetails")
+
+  }
+ 
+
+  // ---------------End  of --------------RadioButtons Functionalities using USESTATE-----------------------
+
   return (
     <div>
       <div>
-        <div>
+        <div >
+        
+         
+        
+
           <div>
+            
             <Card className="maincards">
               <div className="cardtitle">
                 <text className="cardtitlehed">Sample Details</text>
               </div>
-              <Form onSubmit={handleSubmit(saveData)}>
-                <fieldset>
-                <div className="cardcolumnpadding">
-                  <Field label="Name of the Sample" className="defaultStyles">
-                    <Input {...register("samplename")} id="samplename"  className="form-control1" />
-                  </Field>
-                  <hr />
-                  <div className="">
-                    <Row>
-                      <Col>
+              <form onSubmit={handleSubmit(onSubmit)}>
+              <div className="cardcolumnpadding">
+                <label className="defaultStyles"> Name of the Sample</label>
+                <input className="form-control1"  type="text" name="samplename" {...register("samplename")}   ></input>
+
+                <hr />
+               
+                <div className="row d-flex">
+                  <Row>
+                    <Col md={6}>
+                    <div
+                        className="cardcolhed mb-4"
+                        style={{ display: "block" }}
+                      >
+                         Report required as per Form-39{" "}
+                        <text className="cardcolhedstar">*</text>{" "}
                         <div
-                          className="cardcolhed mb-4"
-                          style={{ }}
+                          style={{
+                            flexDirection: "row",
+                            justifyContent: "space-between",
+                            display: "flex",
+                            alignItems: "center",
+                            marginTop: "5px",
+
+                            fontSize: "12px",
+                            fontWeight: 400,
+                          }}
                         >
-                          <Field label=" Report required as per Form-39">
-                            <text className="cardcolhedstar">*</text>
-                          </Field>
-                          <div
-                            style={{
-                              //flexDirection: "row",
-                              justifyContent: "space-between",
-                              display: "flex",
-                              //alignItems: "center",
-                              //marginTop: "5px",
-
-                              fontSize: "12px",
-                              fontWeight: 400,
-                            }}
-                          >
-                            <div className="col">
-                              <span
-                                style={{
-                                  alignItems: "center",
-                                  display: "flex",
-                                }}
-                              ><div>
-                                <Field>
-                                  <Input
-                                    {...register("report", { required: true })}
-                                    type="radio"
-                                    id="yes"
-                                    value="yes"
-                                    name="report"
-                                    // checked={selectedOption === "option1"}
-                                    //onChange={handleChange}
-                                    className="customRadio"
-                                  />
-                                </Field>
-                                </div>
-                                <div>
-                                <label className="space">Yes</label>
-                                </div>
-                              </span>
-                              </div>
-                              <div className="col">
-                              <span  style={{
-                                flexDirection:'row',
-                                display:'flex',}}>
-                                  <div>
-                                <Field>
-                                  <Input
-                                    {...register("report", { required: true })}
-                                    type="radio"
-                                    id="no"
-                                    value="no"
-                                    name="report"
-                                    // checked={selectedOption === "option2"}
-                                    //onChange={handleChange}
-                                    className="customRadio"
-                                  />
-                                </Field>
-                                </div>
-                                <div>
-                                <label className="space">No</label>
-                                </div>
-                              </span>
-                              </div>
-                              <div className="col">
-                              <span  style={{
-                                flexDirection:'row',
-                                display:'flex'}}>
-                                  <div>
-                                <Field>
-                                  <Input
-                                    {...register("report", { required: true })}
-                                    type="radio"
-                                    id="local"
-                                    value="local"
-                                    name="report"
-                                    // checked={selectedOption === "option2"}
-                                    //onChange={handleChange}
-                                    className="customRadio"
-                                  />
-                                </Field>
-                                </div>
-                                <div>
-                                <label className="space">Local FDA(DCA)</label>
-                                </div>
-                              </span>
-                              </div>
-                            </div>
-                          
-
-                          <div className="text-danger mt-3">
-                            {errors.report?.type === "required" &&
-                              "This field is required."}
+                          <div className="col">                            <span
+                              style={{ alignItems: "center", display: "flex" }}
+                            >
+                              <input
+                               {...register('report', { required: true })}
+                                type="radio"
+                                value="yes"
+                                id="yes"
+                                name="report"
+                                // checked={selectedOption === "option1"}
+                               //onChange={handleChange}
+                                className="customRadio"
+                              />
+                              <label className="space">Yes</label>
+                            </span>
                           </div>
-                        </div>
-                      </Col>
-                      <Col md={6}>
-                        <div
-                          className="cardcolhed mb-4"
-                          style={{ }}
-                        >
-                          <Field label="Storage Condition">
-                            <text className="cardcolhedstar">*</text>
-                          </Field>
-                          <div
-                            style={{
-                             // flexDirection: "row",
-                              justifyContent: "space-between",
-                              display: "flex",
-                              marginTop: "5px",
-                              fontSize: "12px",
-                              fontWeight: 400,
-                            }}
-                          >
-                            <div className="col">
-                              <span  style={{
-                                flexDirection:'row',
-                                display:'flex'}}>
-                                  <div>
-                                <Field>
-                                  <Input
-                                    {...register("storage", { required: true })}
-                                    type="radio"
-                                    name="storage"
-                                    value="Ambient/RT"
-                                    // checked={selectedOption3 === "option13"}
-                                    //onChange={handleChange}
-                                    className="customRadio"
-                                    id="Ambient/RT"
-                                  />
-                                </Field>
-                                </div>
-                                <div>
-                                <label className="space">Ambient/RT</label>
-                                </div>
-                              </span>
-                            </div>
-                            <div className="col">
-                              <span  style={{
-                                flexDirection:'row',
-                                display:'flex' }}>
-                                  <div>
-                                <Field>
-                                  <Input
-                                    {...register("storage", { required: true })}
-                                    type="radio"
-                                    name="storage"
-                                    id="Freezer"
-                                    value="Freezer"
-                                    // checked={selectedOption3 === "option14"}
-                                    //onChange={handleChange}
-                                    className="customRadio"
-                                  />
-                                </Field>
-                                </div>
-                                <div>
-                                <label className="space">Freezer (-20°C)</label>
-                                </div>
-                              </span>
-                            </div>
-                            <div className="">
-                              <span  style={{
-                                flexDirection:'row',
-                                display:'flex' }}>
-                                  <div>
-                                <Field>
-                                  <Input
-                                    {...register("storage", { required: true })}
-                                    type="radio"
-                                    id="Refrigerator"
-                                    value="Refrigerator"
-                                    name="storage"
-                                    // checked={selectedOption3 === "option15"}
-                                    // onChange={handleChange}
-                                    className="customRadio"
-                                  />
-                                </Field>
-                                </div>
-                                <div>
-                                <label className="space">
-                                Refrigerator (2-8°C)
-                              </label>
-                              </div>
-                              </span>
-                            </div>
+
+                          <div className="col">
+                            <span style={{ display: "flex" }}>
+                              <input
+                               {...register('report', { required: true })}
+                                type="radio"
+                                value="no"
+                                id="no"
+                                name="report"
+                                // checked={selectedOption === "option2"}
+                                 //onChange={handleChange}
+                                className="customRadio"
+                              />
+                              <label className="space">No</label>
+                            </span>
                           </div>
-                          <div className="text-danger mt-3">
-                            {errors.storage?.type === "required" &&
-                              "This field is required."}
+                          <div className="col">
+                            <span style={{ display: "flex" }}>
+                              <input
+                               {...register('report', { required: true })}
+                                type="radio"
+                                value="local"
+                                id="local"
+                                name="report"
+                                // checked={selectedOption === "option3"}
+                                //onChange={handleChange}
+                                className="customRadio"
+                              />
+                              <label className="space">Local FDA(DCA)</label>
+                            </span>
                           </div>
-                        </div>
-                      </Col>
-                    </Row>
-                    <hr />
-                    <Row>
-                      <Col md={6}>
-                        <div>
-                        <div
-                          className="cardcolhed mb-4"
-                          style={{ }}
-                        >
-                          <Field label="Nature of Sample">
-                            <text className="cardcolhedstar">*</text>
-                          </Field>
-                          <div>
-                          <div
-                            style={{
-                              //flexDirection: "row",
-                              justifyContent: "space-between",
-                              display: "flex",
-                              //alignItems: "center",
-                              marginTop: "5px",
-
-                              fontSize: "12px",
-                              fontWeight: 400,
-                            }}
-                          >
-                            <div className="col">
-                              <span
-                                style={{
-                                  //alignItems: "center",
-                                  display: "flex",
-                                }}
-                              >
-                                <div>
-                                <Field>
-                                  <Input
-                                    {...register("natureofsample", {
-                                      required: true,
-                                    })}
-                                    type="radio"
-                                    id="RM"
-                                    name="natureofsample"
-                                    value="RM"
-                                    checked={selectedOption === "RM"}
-                                    onChange={() =>
-                                      setSelectedOption("RM")
-                                    }
-                                    //checked={selectedOption1 === "option4"}
-                                    //onChange={handleChange}
-                                    className="customRadio"
-                                  />
-                                </Field>
-                                </div>
-                                <div>
-                                <label className="space">RM</label>
-                                </div>
-                              </span>
-                            </div>
-
-                            <div className="col">
-                              <span style={{ display: "flex" }}>
-                                <div>
-                                <Field>
-                                  <Input
-                                    {...register("natureofsample", {
-                                      required: true,
-                                    })}
-                                    type="radio"
-                                    id="In-Progress"
-                                    name="natureofsample"
-                                    value="In-Progress"
-                                    checked={selectedOption === "In-Progress"}
-                                    onChange={() =>
-                                      setSelectedOption("In-Progress")
-                                    }
-                                    //checked={selectedOption1 === "In-Progress"}
-                                    //onChange={handleChange}
-                                    className="customRadio"
-                                  />
-                                </Field>
-                                </div>
-                                <div>
-                                <label className="space">In-Progress</label>
-                                </div>
-                              </span>
-                            </div>
-                            <div className="col">
-                              <span style={{ display: "flex" }}>
-                                <div>
-                                <Field>
-                                  <Input
-                                    {...register("natureofsample", {
-                                      required: true,
-                                    })}
-                                    type="radio"
-                                    id="Intermediate"
-                                    name="natureofsample"
-                                    value="intermediate"
-                                    checked={selectedOption === "intermediate"}
-                                    onChange={() =>
-                                      setSelectedOption("intermediate")
-                                    }
-                                    //checked={selectedOption1 === "option6"}
-                                    //onChange={handleChange}
-                                    className="customRadio"
-                                  />
-                                </Field>
-                                </div>
-                                <div>
-                                <label className="space">Intermediate</label>
-                                </div>
-                              </span>
-                            </div>
-                          </div>
-                      
-
-                        <div
-                          className="cardcolhed mb-4"
-                          style={{ display: "block" }}
-                        >
-                          <div
-                            style={{
-                              flexDirection: "row",
-                              justifyContent: "space-between",
-                              display: "flex",
-
-                              fontSize: "12px",
-                              fontWeight: 400,
-                            }}
-                          >
-                            <div className="col">
-                              <span style={{ display: "flex" }}>
-                                <div>
-                                <Field>
-                                  <Input
-                                    {...register("natureofsample", {
-                                      required: true,
-                                    })}
-                                    type="radio"
-                                    id="API"
-                                    name="natureofsample"
-                                    value="API"
-                                    checked={selectedOption === "API"}
-                                    onChange={() =>
-                                      setSelectedOption("API")
-                                    }
-                                    //checked={selectedOption1 === "option7"}
-                                    //onChange={handleChange}
-                                    className="customRadio"
-                                  />
-                                </Field>
-                                </div>
-                                <div>
-                                <label className="space">API</label>
-                                </div>
-                              </span>
-                            </div>
-                            <div className="col">
-                              <span style={{ display: "flex" }}>
-                                <div>
-                                <Field>
-                                  <Input
-                                    {...register("natureofsample", {
-                                      required: true,
-                                    })}
-                                    type="radio"
-                                    id="Excipient"
-                                    name="natureofsample"
-                                    value="Excipient"
-                                    checked={selectedOption === "Excipient"}
-                                    onChange={() =>
-                                      setSelectedOption("Excipient")
-                                    }
-                                    //checked={selectedOption1 === "option8"}
-                                    // onChange={handleChange}
-                                    className="customRadio"
-                                  />
-                                </Field>
-                                </div>
-                                <div>
-                                <label className="space">Excipient</label>
-                                </div>
-                              </span>
-                            </div>
-                            <div className="col">
-                              <span style={{ display: "flex" }}>
-                                <div>
-                                <Field>
-                                  <Input
-                                    {...register("natureofsample", {
-                                      required: true,
-                                    })}
-                                    type="radio"
-                                    id="drugproduct"
-                                    name="natureofsample"
-                                    value="drugproduct"
-                                    checked={selectedOption === "drugproduct"}
-                                    onChange={() =>
-                                      setSelectedOption("drugproduct")
-                                    }
-                                    //checked={selectedOption1 === "option9"}
-                                    //onChange={handleChange}
-                                    //checked={!showTextBox}
-                                    //onChange={handleRadioChange}
-                                    className="customRadio"
-                                  />
-                                </Field>
-                                </div>
-                                <div>
-                                <label className="space">Drug Product</label>
-                                </div>
-                              </span>
-                            </div>
-                          </div>
-                        </div>
-
-                        <div
-                          className="cardcolhed mb-4"
-                          style={{ display: "block" }}
-                        >
-                          <div
-                            style={{
-                              flexDirection: "row",
-                              justifyContent: "space-between",
-                              display: "flex",
-                              fontSize: "12px",
-                              fontWeight: 400,
-                            }}
-                          >
-                            <div className="col">
-                              <span style={{ display: "flex" }}>
-                                <div>
-                                <Field>
-                                  <Input
-                                    {...register("natureofsample", {
-                                      required: true,
-                                    })}
-                                    type="radio"
-                                    id="others"
-                                    name="natureofsample"
-                                    value="others"
-                                    checked={selectedOption === "others"}
-                                    onChange={() =>
-                                      setSelectedOption("others")
-                                    }
-                                    //checked={selectedOption1 === "option10"}
-                                    //checked={showTextBox}
-                                    //onChange={handleRadioChange}
-                                    className="customRadio"
-                                  />
-                                </Field>
-                                </div>
-                                <div>
-                                <label className="space">Others</label>
-                                </div>
-                              </span>
-                            </div>
-
-                            <div className="col">
-                              <span>
-                                {selectedOption === "others" && (
-                                  <Input
-                                    type="text"
-                                    className="NatureOfSample"
-                                  />
-                                )}
-                              </span>
-                            </div>
-                          </div>
-                        </div>
                         </div>
                         <div className="text-danger mt-3">
-                            {errors.natureofsample?.type === "required" &&
-                              "This field is required."}
-                          </div>
-                        </div>
-                        </div>
+          {errors.report?.type === 'required' &&
+            'This field is required.'}
+        </div>
+                      </div>
                       </Col>
                       <Col md={6}>
-                        <div>
+                      <div
+                        className="cardcolhed mb-4"
+                        style={{ display: "block" }}
+                      >
+                        Storage Condition{" "}
+                        <text className="cardcolhedstar">*</text>
                         <div
-                          className="cardcolhed mb-4"
-                          style={{ display: "block" }}
+                          style={{
+                            flexDirection: "row",
+                            justifyContent: "space-between",
+                            display: "flex",
+                            marginTop: "5px",
+                            fontSize: "12px",
+                            fontWeight: 400,
+                          }}
                         >
-                          <Field label="Sample Type">
-                            <text className="cardcolhedstar">*</text>
-                          </Field>
-                          <div
-                            style={{
-                              //flexDirection: "row",
-                              justifyContent: "space-between",
-                              display: "flex",
-                              alignItems: "center",
-                              marginTop: "5px",
-                              fontSize: "12px",
-                              fontWeight: 400,
-                            }}
-                          >
-                            <div className="col">
-                              <span
-                                style={{
-                                //  alignItems: "center",
-                                  display: "flex",
-                                }}
-                              >
-                                <div>
-                                <Field>
-                                  <Input
-                                    {...register("sampletype", {
-                                      required: true,
-                                    })}
-                                    type="checkbox"
-                                
-                                    name="sampletype"
-                                    value="hygroscopic"
-                                   // id="hygroscopic"
-                                    // checked={selectedOptioncheck === "hygroscopic"}
-                                    // onChange={() =>
-                                    //   setSelectedOptioncheck("hygroscopic")
-                                    // }
-                                   
-                                    className="customRadio"
-                                  />
-                                </Field>
-                                </div>
-                                <div>
-                                <label className="space">Hygroscopic</label>
-                                </div>
-                              </span>
-                            </div>
-                            <div className="col">
-                              <span style={{ display: "flex" }}>
-                                <div>
-                                <Field>
-                                  <Input
-                                    {...register("sampletype", {
-                                      required: true,
-                                    })}
-                                    type="checkbox"
-                                     value="lightsensitive"
-                                    name="sampletype"
-                                  
-                                   // id="lightsensitive"
-                                    // checked={selectedOptioncheck === "lightsensitive"}
-                                    // onChange={() =>
-                                    //   setSelectedOptioncheck("lightsensitive")
-                                    // }
-                                  
-                                    className="customRadio"
-                                  />
-                                </Field>
-                                </div>
-                                <div>
-                                <label className="space">Light Sensitive</label>
-                                </div>
-                              </span>
-                            </div>
-                            <div className="col">
-                              <span style={{ display: "flex" }}>
-                                <div>
-                                <Field>
-                                  <Input
-                                    {...register("sampletype", {
-                                      required: true,
-                                    })}
-                                    type="checkbox"
-                  
-                                    name="sampletype"
-                                    value="non-hazardous"
-                                    //id="non-hazardous"
-                                   // checked={selectedOptioncheck === "non-hazardous"}
-                                    // onChange={() =>
-                                    //   setSelectedOptioncheck("non-hazardous")
-                                    // }
-                                   
-                                    className="customRadio"
-                                  />
-                                </Field>
-                                </div>
-                                <div>
-                                <label className="space">Non-Hazardous</label>
-                                </div>
-                              </span>
-                            </div>
+                          <div className="col">
+                            <span style={{ display: "flex" }}>
+                              <input
+                               {...register('storage', { required: true })}
+                                type="radio"
+                                name="storage"
+                                value="Ambient/RT"
+                                // checked={selectedOption3 === "option13"}
+                                 //onChange={handleChange}
+                                className="customRadio"
+                                id="Ambient/RT"
+                              />
+                              <label className="space">Ambient/RT</label>
+                            </span>
                           </div>
-</div>
-                          <div
-                            className="cardcolhed mb-4"
-                            style={{ display: "block" }}
-                          >
-                            <div
-                              style={{
-                                flexDirection: "row",
-                                justifyContent: "space-between",
-                                display: "flex",
-
-                                fontSize: "12px",
-                                fontWeight: 400,
-                              }}
-                            >
-                              <div className="col">
-                                <span style={{ display: "flex" }}>
-                                  <div>
-                                  <Field>
-                                    <input
-                                      {...register("sampletype", {
-                                        required: true,
-                                      })}
-                                      type="checkbox"
-                                      name="sampletype"
-                                      value="hazardous"
-                                      //id="hazardous"
-                                      // checked={
-                                      //   selectedOptioncheck === "hazardous"
-                                      // }
-                                      // onChange={() =>
-                                      //   setSelectedOptioncheck("hazardous")
-                                      // }
-                                     
-                                      className="customRadio"
-                                    />
-                                  </Field>
-                                  </div>
-                                  <div>
-                                  <label className="space">Hazardous</label>
-                                  </div>
-                                </span>
-                              </div>
-                              <div className="col">
-                                <span style={{ display: "flex" }}>
-                                  <div>
-                                  <Field>
-                                    <Input
-                                      {...register("sampletype", {
-                                        required: true,
-                                      })}
-                                      type="checkbox"
-                                      //id="msds"
-                                      name="msds"
-                                      value="msds"
-                                     // checked={
-                                      //  selectedOptioncheck === "msds"
-                                    //  }
-                                     // onChange={() =>
-                                     //   setSelectedOptioncheck("msds")
-                                     // }
-                                   
-                                      className="customRadio"
-                                    />
-                                  </Field>
-                                  </div>
-                                  <div>
-                                  <label className="space">MSDS Attached</label>
-                                  </div>
-                                </span>
-                              </div>
-
-                              <div className="col">
-                                <span style={{ display: "flex" }}>
-                                  <div>
-                                  <Field>
-                                    <Input
-                                      type="file"
-                                      style={{ width: 170 }}
-                                      className="customInput"
-                                    />
-                                  </Field>
-                                  </div>
-                                </span>
-                              </div>
-                            </div>
+                          <div className="col">
+                            <span style={{ display: "flex" }}>
+                              <input
+                               {...register('storage', { required: true })}
+                                type="radio"
+                                name="storage"
+                                value="Freezer"
+                                id="Freezer"
+                                // checked={selectedOption3 === "option14"}
+                                //onChange={handleChange}
+                                className="customRadio"
+                              />
+                              <label className="space">Freezer (-20°C)</label>
+                            </span>
                           </div>
-
-                          <div
-                            className="cardcolhed mb-4"
-                            style={{ display: "block" }}
-                          >
-                            <div
-                              style={{
-                                flexDirection: "row",
-                                justifyContent: "space-between",
-                                display: "flex",
-                                fontSize: "12px",
-                                fontWeight: 400,
-                              }}
-                            >
-                              <div className="col">
-                                <span style={{ display: "flex" }}>
-                                  <div>
-                                  <Field>
-                                    <Input
-                                      {...register("sampletype", {
-                                        required: true,
-                                      })}
-                                      type="checkbox"
-                                    
-                                      name="sampletype"
-                                      value="others"
-                                      //id="others"
-                                      checked={selectedOptioncheck}
-                                      onChange={handlecheckboxchange}
-                                      
-                                      className="customRadio"
-                                    />
-                                  </Field>
-                                  </div>
-                                  <div>
-                                  <label className="space">Others</label>
-                                  </div>
-                                </span>
-                              </div>
-                              <div className="col">
-                                <span>
-                                  {selectedOptioncheck  && (
-                                    <Input
-                                      className="cardcolumninputtype"
-                                      value="sampletype"
-                                      id="sampletype"
-                                    />
-                                  )}
-                                </span>
-                              </div>
-                            </div>
-                          </div>
-                          <div className="text-danger mt-3">
-                            {errors.sampletype?.type === "required" &&
-                              "This field is required."}
+                          <div className="col">
+                            <span style={{ display: "flex" }}>
+                              <input
+                               {...register('storage', { required: true })}
+                                type="radio"
+                                value="Refrigerator"
+                                id="Refrigerator"
+                                name="storage"
+                                // checked={selectedOption3 === "option15"}
+                               // onChange={handleChange}
+                                className="customRadio"
+                              />
+                              <label className="space">
+                                Refrigerator (2-8°C)
+                              </label>
+                            </span>
                           </div>
                         </div>
+                        <div className="text-danger mt-3">
+          {errors.storage?.type === 'required' &&
+            'This field is required.'}
+        </div>
+                    </div>
+                      </Col>
+                      </Row>
+                      <hr />
+                    
+                     
+                          <Row>
+                            <Col md={6}>
+                      <Form.Label
+                        className="cardcolhed mb-4"
+                        style={{ display: "block" }}
+                      >
+                        Nature of Sample{" "}
+                        <text className="cardcolhedstar">*</text>{" "}
+                        <div
+                          style={{
+                            flexDirection: "row",
+                            justifyContent: "space-between",
+                            display: "flex",
+                            alignItems: "center",
+                            marginTop: "5px",
+
+                            fontSize: "12px",
+                            fontWeight: 400,
+                          }}
+                        >
+                          <div className="col">                            <span
+                              style={{ alignItems: "center", display: "flex" }}
+                            >
+                              <input
+                               {...register('natureofsample', { required: true })}
+                                type="radio"
+                                value="option7"
+                                checked={selectedOption === 'option7'}
+                                onChange={() => setSelectedOption('option7')}
+                                className="customRadio"
+                              />
+                              <label className="space">RM</label>
+                            </span>
+                          </div>
+
+                          <div className="col">
+                            <span style={{ display: "flex" }}>
+                              <input {...register('natureofsample', { required: true })}
+
+                                type="radio"
+                                value="option6"
+                                checked={selectedOption === 'option6'}
+                                onChange={() => setSelectedOption('option6')}
+                                className="customRadio"
+                              />
+                              <label className="space">In-Progress</label>
+                            </span>
+                          </div>
+                          <div className="col">
+                            <span style={{ display: "flex" }}>
+                              <input
+                               {...register('natureofsample', { required: true })}
+                                type="radio"
+                                value="option5"
+                                checked={selectedOption === 'option5'}
+                                onChange={() => setSelectedOption('option5')}
+                                className="customRadio"
+                              />
+                              <label className="space">Intermediate</label>
+                            </span>
+                          </div>
+                        </div>
+                      </Form.Label>
+
+                      <Form.Label
+                        className="cardcolhed mb-4"
+                        style={{ display: "block" }}
+                      >
+                        <div
+                          style={{
+                            flexDirection: "row",
+                            justifyContent: "space-between",
+                            display: "flex",
+
+                            fontSize: "12px",
+                            fontWeight: 400,
+                          }}
+                        >
+                          <div className="col">
+                            <span style={{ display: "flex" }}>
+                              <input
+                               {...register('natureofsample', { required: true })}
+                                type="radio"
+                                value="option4"
+                                checked={selectedOption === 'option4'}
+                                onChange={() => setSelectedOption('option4')}
+                                className="customRadio"
+                              />
+                              <label className="space">API</label>
+                            </span>
+                          </div>
+                          <div className="col">
+                            <span style={{ display: "flex" }}>
+                              <input
+                               {...register('natureofsample', { required: true })}
+                                type="radio"
+                                value="option3"
+                                checked={selectedOption === 'option3'}
+                                onChange={() => setSelectedOption('option3')}
+                                className="customRadio"
+                              />
+                              <label className="space">Excipient</label>
+                            </span>
+                          </div>
+                          <div className="col">
+                            <span style={{ display: "flex" }}>
+                              <input
+                               {...register('natureofsample', { required: true })}
+                                type="radio"
+                                value="option2"
+                                checked={selectedOption === 'option2'}
+                                onChange={() => setSelectedOption('option2')}
+                               
+                                className="customRadio"
+                              />
+                              <label className="space">Drug Product</label>
+                            </span>
+                          </div>
+                        </div>
+                      </Form.Label>
+
+                      <Form.Label
+                        className="cardcolhed mb-4"
+                        style={{ display: "block" }}
+                      >
+                        <div
+                          style={{
+                            flexDirection: "row",
+                            justifyContent: "space-between",
+                            display: "flex",
+                            fontSize: "12px",
+                            fontWeight: 400,
+                          }}
+                        >
+                         <div className="col">
+                            <span style={{ display: "flex" }}>
+                              <input
+                               {...register('natureofsample', { required: true })}
+                                type="radio"
+                                value="option1"
+                                checked={selectedOption === 'option1'}
+                                onChange={() => setSelectedOption('option1')}
+                                className="customRadio"
+                              />
+                              <label className="space">Others</label>
+                            </span>
+                          </div>  
+                           
+                          <div className="col">
+                         
+                              <span>
+                              {selectedOption === 'option1' &&   
+                                <input type="text" className="NatureOfSample" /> 
+                                 }
+                              </span>
+                           
+                          </div>
+                        </div>
+                      </Form.Label>
+                       <div className="text-danger mt-1 mb-4">
+          {errors.storage?.type === 'required' &&
+            'This field is required.'}
+        </div>
+                      </Col>
+                      <Col md={6}>
+                      <Form.Label
+                        className="cardcolhed mb-4"
+                        style={{ display: "block" }}
+                      >
+                        Sample Type <text className="cardcolhedstar">*</text>{" "}
+                        <div
+                          style={{
+                            flexDirection: "row",
+                            justifyContent: "space-between",
+                            display: "flex",
+                            alignItems: "center",
+                            marginTop: "5px",
+                            fontSize: "12px",
+                            fontWeight: 400,
+                          }}
+                        >
+                          <div className="col">
+                            <span
+                              style={{ alignItems: "center", display: "flex" }}
+                            >
+                              <input
+                               {...register('sampletype', { required: true })}
+                                type="checkbox"
+                                value="hygroscopic"
+                                //checked={selectedOptioncheck === 'option6'}
+                                //onChange={() => setSelectedOptioncheck('option6')}
+                                className="customRadio"
+                              />
+                              <label className="space">Hygroscopic</label>
+                            </span>
+                          </div>
+                          <div className="col">
+                            <span style={{ display: "flex" }}>
+                              <input
+                               {...register('sampletype', { required: true })}
+                                type="checkbox"
+                                value="lightsensitive"
+                                //checked={selectedOptioncheck === 'option5'}
+                                //onChange={() => setSelectedOptioncheck('option5')}
+                                className="customRadio"
+                              />
+                              <label className="space">Light Sensitive</label>
+                            </span>
+                          </div>
+                          <div className="col">
+                            <span style={{ display: "flex" }}>
+                              <input
+                               {...register('sampletype', { required: true })}
+                                type="checkbox"
+                                value="nonhazardous"
+                                //checked={selectedOptioncheck === 'option4'}
+                                //onChange={() => setSelectedOptioncheck('option4')}
+                                className="customRadio"
+                              />
+                              <label className="space">Non-Hazardous</label>
+                            </span>
+                          </div>
+                        </div>
+                      </Form.Label>
+
+                      <Form.Label
+                        className="cardcolhed mb-4"
+                        style={{ display: "block" }}
+                      >
+                        <div
+                          style={{
+                            flexDirection: "row",
+                            justifyContent: "space-between",
+                            display: "flex",
+
+                            fontSize: "12px",
+                            fontWeight: 400,
+                          }}
+                        >
+                          <div className="col">
+                            <span style={{ display: "flex" }}>
+                              <input
+                               {...register('sampletype', { required: true })}
+                                type="checkbox"
+                                value="hazardous"
+                               // checked={selectedOptioncheck === 'option3'}
+                                //onChange={() => setSelectedOptioncheck('option3')}
+                                className="customRadio"
+                              />
+                              <label className="space">Hazardous</label>
+                            </span>
+                          </div>
+                          <div className="col">
+                            <span style={{ display: "flex" }}>
+                              <input
+                               {...register('sampletype', { required: true })}
+                                type="checkbox"
+                                value="msds"
+                                //checked={selectedOptioncheck === 'option2'}
+                                //onChange={() => setSelectedOptioncheck('option2')}
+                                className="customRadio"
+                              />
+                              <label className="space">MSDS Attached</label>
+                            </span>
+                          </div>
+
+                          <div className="col">
+                         
+                            <span style={{ display: "flex" }}>
+                              <input
+                                type="file"
+                                style={{width:170}}
+                              
+                                className="customInput"
+                              />
+                            </span>
+                       
+                          </div>
+
+                         
+                          
+                            
+                          
+                        </div>
+                      </Form.Label>
+
+                      <Form.Label
+                        className="cardcolhed mb-4"
+                        style={{ display: "block" }}
+                      >
+                        <div
+                          style={{
+                            flexDirection: "row",
+                            justifyContent: "space-between",
+                            display: "flex",
+                            fontSize: "12px",
+                            fontWeight: 400,
+                          }}
+                        >
+                          <div className="col">
+                            <span style={{ display: "flex" }}>
+                              <input
+                               {...register('sampletype', { required: true })}
+                                type="checkbox"
+                                value="others"
+                                name="sampletype"
+                               // checked={selectedOptioncheck === 'others'}
+                                //onChange={() => setSelectedOptioncheck('others')}
+                                className="customRadio"
+                              />
+                              <label className="space">Others</label>
+                            </span>
+                          </div>
+                          <div className="col">
+                         
+                            <span>
+                            {/* {selectedOptioncheck === 'option1' && */}
+                              <input type="text" className="SampleType" />
+                        {/* } */}
+                            </span>
+                       
+                          </div>
+                        </div>
+                      </Form.Label>
+                      <div className="text-danger mt-3">
+          {errors.sampletype?.type === 'required' &&
+            'This field is required.'}
+        </div>
                       </Col>
                     </Row>
                     <hr />
 
-                    <Row>
-                      <Col md={6}>
+                      <Row>
+                        <Col md={6}>
+                      <Form.Label
+                        className="cardcolhed mb-4"
+                        style={{ display: "block" }}
+                      >
+                        Sample Retention required(Drug Product/Substance){" "}
+                        <text className="cardcolhedstar">*</text>{" "}
                         <div
-                          className="cardcolhed mb-4"
-                          style={{ display: "block" }}
+                          style={{
+                            flexDirection: "row",
+                            justifyContent: "space-between",
+                            display: "flex",
+                            
+                            marginTop: "5px",
+                            fontSize: "12px",
+                            fontWeight: 400,
+                          }}
                         >
-                          <Field label="Sample Retention required(Drug Product/Substance)">
-                            <text className="cardcolhedstar">*</text>
-                          </Field>
-                          <div
-                            style={{
-                              flexDirection: "row",
-                              justifyContent: "space-between",
-                              display: "flex",
-
-                              marginTop: "5px",
-                              fontSize: "12px",
-                              fontWeight: 400,
-                            }}
-                          >
-                            <div className="col">
-                              <span style={{ display: "flex" }}>
-                                <div>
-                                <Field>
-                                  <Input
-                                    {...register("sampleretension", {
-                                      required: true,
-                                    })}
-                                    type="radio"
-                                    id="yes"
-                                    value="yes"
-                                    //checked={selectedOption2 === "option11"}
-                                    // onChange={handleChange}
-                                    className="customRadio"
-                                  />
-                                </Field>
-                                </div>
-                                <div>
-                                <label className="space">Yes</label>
-                                </div>
-                              </span>
-                            </div>
-                            <div className="col">
-                              <span style={{ display: "flex" }}>
-                                <div>
-                                <Field>
-                                  <Input
-                                    {...register("sampleretension", {
-                                      required: true,
-                                    })}
-                                    type="radio"
-                                    id="no"
-                                    value="no"
-                                    //checked={selectedOption2 === "option12"}
-                                    //onChange={handleChange}
-                                    className="customRadio"
-                                  />
-                                </Field>
-                                </div>
-                                <div>
-                                <label className="space">No</label>
-                                </div>
-                              </span>
-                            </div>
-                           <div className="col">
+                          <div className="col">
+                            <span style={{ display: "flex" }}>
+                              <input
+                              {...register('sampleretension', { required: true })}
+                                type="radio"
+                                value="yes"
+                                //checked={selectedOption2 === "option11"}
+                               // onChange={handleChange}
+                                className="customRadio"
+                              />
+                              <label className="space">Yes</label>
+                            </span>
+                          </div>
+                          <div className="col">
+                            <span style={{ display: "flex" }}>
+                              <input
+                              {...register('sampleretension', { required: true })}
+                                type="radio"
+                                value="no"
+                                //checked={selectedOption2 === "option12"}
+                                //onChange={handleChange}
+                                className="customRadio"
+                              />
+                              <label className="space">No</label>
+                            </span>
+                          </div>
+                          <div className="col">
                             <span style={{ display: "flex" }}>
                             
                               <label className="space"></label>
                             </span>
                           </div>
-                          </div>
-                          <div className="text-danger mt-3">
-                            {errors.sampleretension?.type === "required" &&
-                              "This field is required."}
-                          </div>
                         </div>
+                        <div className="text-danger mt-3">
+          {errors.sampleretension?.type === 'required' &&
+            'This field is required.'}
+        </div>
+                      </Form.Label>
                       </Col>
                       <Col md={6}>
+                      <Form.Label
+                        className="cardcolhed mb-4"
+                        style={{ display: "block" }}
+                      >
+                        Type of Submission{" "}
+                        <text className="cardcolhedstar">*</text>{" "}
                         <div
-                          className="cardcolhed mb-4"
-                          style={{ display: "block" }}
-                        >
-                          <Field label="Type of Submission">
-                            <text className="cardcolhedstar">*</text>
-                          </Field>
-                          <div
-                            style={{
-                              flexDirection: "row",
-                              justifyContent: "space-between",
-                              display: "flex",
+                          style={{
+                            flexDirection: "row",
+                            justifyContent: "space-between",
+                            display: "flex",
 
-                              marginTop: "5px",
-                              fontSize: "12px",
-                              fontWeight: 400,
-                            }}
-                          >
-                            <div className="col">
-                              <span style={{ display: "flex" }}>
-                                <div>
-                                <Field>
-                                  <Input
-                                    {...register("submissiontype", {
-                                      required: true,
-                                    })}
-                                    type="radio"
-                                    id="person"
-                                    value="person"
-                                    //checked={selectedOption5 === "option22"}
-                                    //onChange={handleChange}
-                                    className="customRadio"
-                                  />
-                                </Field>
-                                </div>
-                                <div>
-                                <label className="space">Person</label>
-                                </div>
-                              </span>
-                            </div>
-                            <div className="col">
-                              <span style={{ display: "flex" }}>
-                                <div>
-                                <Field>
-                                  <Input
-                                    {...register("submissiontype", {
-                                      required: true,
-                                    })}
-                                    type="radio"
-                                    id="courier"
-                                    value="courier"
-                                    // checked={selectedOption5 === "option23"}
-                                    // onChange={handleChange}
-                                    className="customRadio"
-                                  />
-                                </Field>
-                                </div>
-                                <div>
-                                <label className="space">Courier</label>
-                                </div>
-                              </span>
-                            </div>
-                            <div className="col">
-                              <span style={{ display: "flex" }}>
-                                <div>
-                                <Field>
-                                  <Input
-                                    {...register("submissiontype", {
-                                      required: true,
-                                    })}
-                                    type="radio"
-                                    id="Bypost"
-                                    value="Bypost"
-                                    //checked={selectedOption5 === "option24"}
-                                    // onChange={handleChange}
-                                    className="customRadio"
-                                  />
-                                </Field>
-                                </div>
-                                <div>
-                                <label className="space">By Post</label>
-                                </div>
-                              </span>
-                            </div>
+                            marginTop: "5px",
+                            fontSize: "12px",
+                            fontWeight: 400,
+                          }}
+                        >
+                          <div className="col">
+                            <span style={{ display: "flex" }}>
+                              <input
+                              {...register('submissiontype', { required: true })}
+                                type="radio"
+                                value="person"
+                                //checked={selectedOption5 === "option22"}
+                                //onChange={handleChange}
+                                className="customRadio"
+                              />
+                              <label className="space">Person</label>
+                            </span>
                           </div>
-                          <div className="text-danger mt-3">
-                            {errors.submissiontype?.type === "required" &&
-                              "This field is required."}
+                          <div className="col">
+                            <span style={{ display: "flex" }}>
+                              <input
+                              {...register('submissiontype', { required: true })}
+                                type="radio"
+                                value="courier"
+                               // checked={selectedOption5 === "option23"}
+                              // onChange={handleChange}
+                                className="customRadio"
+                              />
+                              <label className="space">Courier</label>
+                            </span>
+                          </div>
+                          <div className="col">
+                            <span style={{ display: "flex" }}>
+                              <input
+                              {...register('submissiontype', { required: true })}
+                                type="radio"
+                                value="Bypost"
+                                //checked={selectedOption5 === "option24"}
+                               // onChange={handleChange}
+                                className="customRadio"
+                              />
+                              <label className="space">By Post</label>
+                            </span>
                           </div>
                         </div>
-                      </Col>
+                        <div className="text-danger mt-3">
+          {errors.submissiontype?.type === 'required' &&
+            'This field is required.'}
+        </div>
+                      </Form.Label>
+                    </Col>
+                     
                     
-
+                    
                     <hr />
                     <div
                       style={{
@@ -975,25 +685,25 @@ useEffect(()=>{
                         margin: 10,
                       }}
                     >
-                      <Button
-                        type="button"
-                        className="previous"
-                        onClick={() => onButtonClick("CustomerDetailes")}
+                      <button  type="button" className="previous" onClick={()=>onButtonClick("CustomerDetailes")}
+                       
                       >
                         <BiLeftArrowAlt size={24} color="#9AC037" />
                         Previous
-                      </Button>
-
-                      <Button type="submit" className="next">
+                      </button>
+                      
+                      <button type="submit"
+                       //onClick={() => onButtonClick("BatchDetail")}
+                        className="next"
+                        name="Next"
+                      >
                         Next <BiRightArrowAlt size={24} color="#fff" />
-                      </Button>
+                      </button>
                     </div>
-                    </Row>
-                  </div>
-                  </div>
-                </fieldset>
-              
-              </Form>
+                  </Row>
+                </div>
+              </div>
+              </form>
             </Card>
           </div>
         </div>

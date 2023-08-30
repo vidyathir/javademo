@@ -247,12 +247,16 @@ const handleTextChange=()=>{
                     </Col>
                   </Row>
 
- <div>                {/* ---------------------------------   card column start  -------------------------------------------- */}
-<label>NA</label>
+ <div style={{alignItems:'center',display:'flex'}} className="mb-3"> 
+ <div>               {/* ---------------------------------   card column start  -------------------------------------------- */}
+<label className="cardcolhed me-2" >NA</label>
+</div>
+<div>
   <input className="customRadio"
 type="checkbox"
 onChange={handleTextChange}
 checked={disabletext}/>
+</div>
 </div>
                   <Row className="mb-3 rowtabview">
                     <Col>
