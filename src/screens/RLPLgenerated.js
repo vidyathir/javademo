@@ -10,9 +10,9 @@ import Navbartitle from "../components/Navbartitle";
 import { useSelector } from "react-redux";
 export default function RlplGenerated() {
 
-  const handlePrint = () => {
-    window.print();
-  };
+  // const handlePrint = () => {
+  //   window.print();
+  // };
   const navigate = useNavigate();
   
   const sample=useSelector(state =>state.form.sampleDetails);
@@ -273,7 +273,9 @@ export default function RlplGenerated() {
                         }}
                         name="Next"
                       >
-                        <AiFillPrinter size={20} color="#fff" onClick={handlePrint} />
+                        <AiFillPrinter size={20} color="#fff"
+                        //  onClick={handlePrint}
+                          />
                         &nbsp; Print 
                       </Button>
                     </div>

@@ -97,7 +97,7 @@ console.log("newarray",newArray)
       
 
       <div>
-        <div>
+        <div className="printmain">
 
             <div className="printlogo">
                 <img src={printlogo} alt="logo" />

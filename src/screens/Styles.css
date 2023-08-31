@@ -72,10 +72,25 @@ body{
 .main {
    width: 90vw;
   height: 92vh; 
-  overflow-y: scroll;
-  /* scroll-behavior: smooth; */
-  /* scrollbar-width: none; */
-  /* white-space: nowrap; */
+  overflow: auto;
+ 
+}
+
+.main::-webkit-scrollbar {
+  width: 0.2em;
+}
+
+.main::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.main::-webkit-scrollbar-thumb {
+  background-color: #888;
+  border-radius: 1em;
+}
+
+.main::-webkit-scrollbar-thumb:hover {
+  background-color: #555;
 }
 
 .mainitem {
@@ -510,6 +525,13 @@ margin-left: 10px;
   justify-content: center;
   padding: 10px;
 }
+
+
+.printmain{
+ 
+  margin: 10px;
+}
+
 
 
 
@@ -1275,6 +1297,7 @@ input{
   color: #8F8F8F;
   font-size: 12px;
   padding-left: 10px;
+  
 }
 .methodValidation:focus{
   border-color: #3A4175;
