@@ -528,10 +528,21 @@ margin-left: 10px;
 
 
 .printmain{
- 
   margin: 10px;
 }
 
+/* .peintmainborder{
+  border: #3A4175 solid 3px;
+} */
+
+
+.mainheadtitlesubprint{
+  font-size: 15px;
+  font-weight: 600;
+  color: #ffffff;
+  background-color: #3A4175;
+  display: flex;
+}
 
 
 
