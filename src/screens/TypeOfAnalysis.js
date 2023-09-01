@@ -54,12 +54,12 @@ export default function TypeOfAnalysis({ onButtonClick }) {
             </text></Field>
           </div>
           <div className="row">
-            <div className="col-12" style={{ display: "flex" }}>
+           
               <div className="col">
                 <div
                   style={{
                     display: "flex",
-                    marginBottom: 20,
+                   
                   }}
                 >
                   <div >
@@ -82,6 +82,31 @@ export default function TypeOfAnalysis({ onButtonClick }) {
                   <label className="space">Validation</label>
                   </div>
                 </div>
+
+                <div className="col">
+                <div style={{ display: "flex" }}>
+                <div>
+                  <Field>
+                  <Input
+                    {...register("formfilling")}
+                    type="radio"
+                    id="usfda"
+                    value="usfda"
+                    name="formfilling"
+                    
+                    checked={selectedOption === "usfda"}
+                    onChange={() =>
+                      setSelectedOption("usfda")}
+                    className="customRadio"                                  />
+                  </Field>
+                  </div>
+                  <div>
+                  <label className="space">USFDA</label>
+                  </div>
+                </div>
+              </div>
+
+
               </div>
 
               <div className="col">
@@ -107,6 +132,30 @@ export default function TypeOfAnalysis({ onButtonClick }) {
                   </div>
                  
                 </div>
+
+                <div className="col">
+                <div style={{ display: "flex" }}>
+                <div>
+                <Field>
+                  <Input
+                    {...register("formfilling")}
+                    type="radio"
+                    id="eugmp"
+                    value="eugmp"
+                    name="formfilling"
+                    
+                    checked={selectedOption === "eugmp"}
+                    onChange={() =>
+                      setSelectedOption("eugmp")}
+                    className="customRadio"                                  />
+                  </Field>
+                  </div>
+                  <div>
+                  <label className="space">EU GMP</label>
+                  </div>
+                </div>
+              </div>
+
               </div>
 
                <div className="col">
@@ -131,6 +180,32 @@ export default function TypeOfAnalysis({ onButtonClick }) {
                   </div>
                  
                 </div>
+
+                <div className="col">
+                <div style={{ display: "flex" }}>
+                <div>
+                <Field>
+                  <Input
+                    {...register("formfilling")}
+                    type="radio"
+                    id="localfda"
+                    value="localfda"
+                    name="formfilling"
+                  
+                    checked={selectedOption === "localfda"}
+                    onChange={() =>
+                      setSelectedOption("localfda")}
+                    className="customRadio"                                  />
+                  </Field>
+                  </div>
+                  <div>
+                  <label className="space">
+                    Local FDA(DCA)
+                  </label>
+                  </div>
+                  
+                </div>
+              </div>
               </div>
 
               <div className="col">
@@ -156,6 +231,30 @@ export default function TypeOfAnalysis({ onButtonClick }) {
                   </div>
                  
                 </div>
+
+                <div className="col">
+                <div style={{ display: "flex" }}>
+                <div>
+                <Field>
+                  <Input
+                    {...register("formfilling")}
+                    type="radio"
+                    id="nabl"
+                    value="nabl"
+                    name="formfilling"
+              
+                    checked={selectedOption === "nabl"}
+                     onChange={() =>
+                      setSelectedOption("nabl")}
+                    className="customRadio"                                  />
+                  </Field>
+                  </div>
+                  <div>
+                  <label className="space">NABL</label>
+                  </div>
+                 
+                </div>
+              </div>
               </div>
 
               <div className="col">
@@ -180,107 +279,8 @@ export default function TypeOfAnalysis({ onButtonClick }) {
                   </div>
 
                   </div>
-              </div>
-            </div>
 
-            <div className="col-12" style={{ display: "flex" }}>
-              <div className="col">
-                <div style={{ display: "flex" }}>
-                <div>
-                  <Field>
-                  <Input
-                    {...register("formfilling")}
-                    type="radio"
-                    id="usfda"
-                    value="usfda"
-                    name="formfilling"
-                    
-                    checked={selectedOption === "usfda"}
-                    onChange={() =>
-                      setSelectedOption("usfda")}
-                    className="customRadio"                                  />
-                  </Field>
-                  </div>
-                  <div>
-                  <label className="space">USFDA</label>
-                  </div>
-                </div>
-              </div>
-
-              <div className="col">
-                <div style={{ display: "flex" }}>
-                <div>
-                <Field>
-                  <Input
-                    {...register("formfilling")}
-                    type="radio"
-                    id="eugmp"
-                    value="eugmp"
-                    name="formfilling"
-                    
-                    checked={selectedOption === "eugmp"}
-                    onChange={() =>
-                      setSelectedOption("eugmp")}
-                    className="customRadio"                                  />
-                  </Field>
-                  </div>
-                  <div>
-                  <label className="space">EU GMP</label>
-                  </div>
-                </div>
-              </div>
-
-              <div className="col">
-                <div style={{ display: "flex" }}>
-                <div>
-                <Field>
-                  <Input
-                    {...register("formfilling")}
-                    type="radio"
-                    id="localfda"
-                    value="localfda"
-                    name="formfilling"
-                  
-                    checked={selectedOption === "localfda"}
-                    onChange={() =>
-                      setSelectedOption("localfda")}
-                    className="customRadio"                                  />
-                  </Field>
-                  </div>
-                  <div>
-                  <label className="space">
-                    Local FDA(DCA)
-                  </label>
-                  </div>
-                  
-                </div>
-              </div>
-
-              <div className="col">
-                <div style={{ display: "flex" }}>
-                <div>
-                <Field>
-                  <Input
-                    {...register("formfilling")}
-                    type="radio"
-                    id="nabl"
-                    value="nabl"
-                    name="formfilling"
-              
-                    checked={selectedOption === "nabl"}
-                     onChange={() =>
-                      setSelectedOption("nabl")}
-                    className="customRadio"                                  />
-                  </Field>
-                  </div>
-                  <div>
-                  <label className="space">NABL</label>
-                  </div>
-                 
-                </div>
-              </div>
-
-              <div className="col">
+                  <div className="col">
                 <div style={{ display: "flex" }}>
                 <div>
                 <Field>
@@ -302,6 +302,9 @@ export default function TypeOfAnalysis({ onButtonClick }) {
                   </div>
                 </div>
               </div> 
+              
+              </div>
+
               <div className="col">
               <span>
                 {selectedOption === "other" && (
@@ -313,8 +316,10 @@ export default function TypeOfAnalysis({ onButtonClick }) {
               </span>
             </div>
             </div>
+
+          
           </div>
-        </div>
+       
       </Row>
       );
     } else {
@@ -697,7 +702,7 @@ export default function TypeOfAnalysis({ onButtonClick }) {
                                 {selectedOption === "yes" && (
                                   <Input
                                     type="text"
-                                    className="methodvalidation"
+                                    className="methodValidation"
                                   />
                                 )}
                               </span>
@@ -833,7 +838,7 @@ export default function TypeOfAnalysis({ onButtonClick }) {
                           }}
                         >
                           <div>
-                          <Field>
+                         
                           <Input
                             {...register("test")}
                             type="checkbox"
@@ -842,7 +847,7 @@ export default function TypeOfAnalysis({ onButtonClick }) {
                             //checked={selectedOption3 === "option16"}
                             //onChange={handleOptionChange3}
                             className="customRadio"                          />
-                          </Field>
+                         
                           </div>
                           <div>
                           <label className="space" >USP</label>
@@ -856,7 +861,7 @@ export default function TypeOfAnalysis({ onButtonClick }) {
                           }}
                         >
                           <div>
-                          <Field>
+                         
                             
                           <Input
                             {...register("test")}
@@ -866,7 +871,7 @@ export default function TypeOfAnalysis({ onButtonClick }) {
                             //checked={selectedOption3 === "option17"}
                             //onChange={handleOptionChange3}
                             className="customRadio"                          />
-                          </Field>
+                          
                           </div>
                           <div>
                           <label className="space">BP</label>
@@ -875,7 +880,7 @@ export default function TypeOfAnalysis({ onButtonClick }) {
                         <div  className="col"
                          style={{ alignItems: "center", display: "flex" }}>
                         <div>
-                        <Field>
+                        
                           <Input
                             {...register("test")}
                             type="checkbox"
@@ -884,17 +889,13 @@ export default function TypeOfAnalysis({ onButtonClick }) {
                             // checked={selectedOption3 === "option18"}
                             //onChange={handleOptionChange3}
                             className="customRadio"                          />
-                          </Field>
+                          
                           </div>
                           <div>
                           <label className="space">EP</label>
                           </div>
                         </div>
                       </div>
-
-
-
-
 
 
                       
@@ -908,7 +909,7 @@ export default function TypeOfAnalysis({ onButtonClick }) {
                           }}
                         >
                           <div>
-                          <Field>
+                       
                           <Input
                             {...register("test")}
                             type="checkbox"
@@ -917,7 +918,7 @@ export default function TypeOfAnalysis({ onButtonClick }) {
                             //checked={selectedOption3 === "option19"}
                             //onChange={handleOptionChange3}
                             className="customRadio"                          />
-                          </Field>
+                       
                           </div>
                           <div>
                           <label className="space">IP</label>
@@ -931,7 +932,7 @@ export default function TypeOfAnalysis({ onButtonClick }) {
                           }}
                         >
                           <div>
-                          <Field>
+                        
                           <Input
                             {...register("test")}
                             type="checkbox"
@@ -940,7 +941,7 @@ export default function TypeOfAnalysis({ onButtonClick }) {
                             //checked={selectedOption3 === "option20"}
                             //onChange={handleOptionChange3}
                             className="customRadio"                          />
-                          </Field>
+                          
                           </div>
                           <div>
                           <label className="space">IS</label>
@@ -949,7 +950,7 @@ export default function TypeOfAnalysis({ onButtonClick }) {
                         <div  className="col"
                          style={{ alignItems: "center", display: "flex" }}>
                         <div>
-                        <Field>
+                     
                           <Input
                             {...register("test")}
                             type="checkbox"
@@ -958,7 +959,7 @@ export default function TypeOfAnalysis({ onButtonClick }) {
                             //checked={selectedOption3 === "option21"}
                             //onChange={handleOptionChange3}
                             className="customRadio"                          />
-                          </Field>
+                         
                           </div>
                           <div>
                           <label className="space">Method of Analysis</label>
