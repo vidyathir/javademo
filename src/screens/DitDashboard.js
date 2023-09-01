@@ -1,23 +1,42 @@
-import React from "react";
+import React ,{useState,useEffect}from "react";
 
 import {
   Table,
   Row,
   Col,
-  // Button,
+
   Card,
 } from "react-bootstrap";
-
+import axios from "axios";
 import "./Styles.css";
 import { BsBoxSeam, BsClipboardCheck } from "react-icons/bs";
 import { LuClipboardEdit } from "react-icons/lu";
 import { useNavigate } from "react-router-dom";
 import NavbartitleAddco from "../components/NavbartitleAddco";
-import SidenavbarAnalyst from "../components/SidenavbarAnalyst";
 import SidenavbarDIT from "../components/SidenavbarDIT";
-
+import { changeBatchId } from "../redux/FormSlice";
+import { useDispatch } from "react-redux";
 export default function AnalystDashboaed() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const[batchDetail,setBatchDetail]=useState([]);
+  useEffect(() => {
+    
+    axios
+      .get("http://3.80.98.199:3000/api/batchDetails/getBatchDetails?page=1")
+      .then((response) => setBatchDetail(response.data))
+      .catch((error) => console.error("Error fetching batch data:", error));
+  }, []);
+
+const handleSubmit=(item)=>{
+  console.log("item",item.id)
+  dispatch(changeBatchId(
+    {batchId:item.id})
+  ) 
+  navigate("DITExpandedview")
+};
+
+console.log("batchdetail", batchDetail)
   return (
     <div className="app">
       <NavbartitleAddco />
@@ -93,115 +112,23 @@ export default function AnalystDashboaed() {
                     </tr>
                   </thead>
                   <tbody className="trAlign">
-                    <tr>
-                      <td>1</td>
-                      <td>XXXXX</td>
-                      <td>XXXXX</td>
+                  {batchDetail.map((item, i) => (
+                      <tr key={item.id}>
+                
+                      <td>{i+1}</td>
+                      <td>{item.rlplNumber}</td>
+                      <td>
+  {item.testParameter
+    ? item.testParameter.map(option => option.testDataCode).join(' , ')
+    : 'N/A'}
+</td>
                      
                       <td>
-                        <button className="tbbutton ">View</button>
+                        <button className="tbbutton " onClick={() => handleSubmit(item)}>View</button>
                       </td>
                     </tr>
-
-                    <tr>
-                      <td>2</td>
-                      <td>XXXXX</td>
-                      <td>XXXXX</td>
-                     
-                      <td>
-                        <button className="tbbutton ">View</button>
-                      </td>
-                    </tr>
-
-                    <tr>
-                      <td>3</td>
-                      <td>XXXXX</td>
-                      <td>XXXXX</td>
-                     
-                      <td>
-                        <button className="tbbutton ">View</button>
-                      </td>
-                    </tr>
-
-                    <tr>
-                      <td>4</td>
-                      <td>XXXXX</td>
-                      <td>XXXXX</td>
-                      
-                      <td>
-                        <button className="tbbutton ">View</button>
-                      </td>
-                    </tr>
-
-                    <tr>
-                      <td>5</td>
-                      <td>XXXXX</td>
-                      <td>XXXXX</td>
-                      
-                      <td>
-                        <button className="tbbutton ">View</button>
-                      </td>
-                    </tr>
-
-                    <tr>
-                      <td>6</td>
-                      <td>XXXXX</td>
-                      <td>XXXXX</td>
-                      
-                      <td>
-                        <button className="tbbutton ">View</button>
-                      </td>
-                    </tr>
-
-                    <tr>
-                      <td>7</td>
-                      <td>XXXXX</td>
-                      <td>XXXXX</td>
-                     
-                      <td>
-                        <button className="tbbutton ">View</button>
-                      </td>
-                    </tr>
-
-                    <tr>
-                      <td>8</td>
-                      <td>XXXXX</td>
-                      <td>XXXXX</td>
-                     
-                      <td>
-                        <button className="tbbutton ">View</button>
-                      </td>
-                    </tr>
-
-                    <tr>
-                      <td>9</td>
-                      <td>XXXXX</td>
-                      <td>XXXXX</td>
-                    
-                      <td>
-                        <button className="tbbutton ">View</button>
-                      </td>
-                    </tr>
-
-                    <tr>
-                      <td>10</td>
-                      <td>XXXXX</td>
-                      <td>XXXXX</td>
-                    
-                      <td>
-                        <button className="tbbutton ">View</button>
-                      </td>
-                    </tr>
-
-                    <tr>
-                      <td>11</td>
-                      <td>XXXXX</td>
-                      <td>XXXXX</td>
-                      
-                      <td>
-                        <button className="tbbutton ">View</button>
-                      </td>
-                    </tr>
+                  ))}
+                   
                   </tbody>
                 </Table>
               </div>

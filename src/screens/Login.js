@@ -51,7 +51,8 @@ const[data1,setData1] =useState({
     dispatch(
       changeUserToken({
         usertype:userToken.userType,
-        token:userToken.id
+        token:userToken.id,
+        userid:userToken.userId
       }))
     setData1({...data1})
     //const userData = JSON.parse(localStorage.getItem(data.email));

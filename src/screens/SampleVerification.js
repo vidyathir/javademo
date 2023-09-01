@@ -1,89 +1,136 @@
 import React, { useState } from "react";
 import './Styles.css';
-import {  Card, Button } from "react-bootstrap";
+import { useForm } from "react-hook-form";
+import {  Card, } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-
+import { Button, Field, Form, Input } from "../Forms";
 import {  BiLeftArrowAlt } from "react-icons/bi";
 import {MdDone} from 'react-icons/md'
 import{TbLogout2} from 'react-icons/tb';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
+import { useSelector,useDispatch } from "react-redux";
+import { changeSubmitData} from "../redux/FormSlice";
 
 export default function SampleVerification({onButtonClick}) {
   const navigate = useNavigate();
   const MySwal = withReactContent(Swal)
+  const[result,setResult]=useState({});
   // ---------------------------------------Radiobuttons functionality starts---------------------------------------------
-
-  const [selectedOption, setSelectedOption] = useState("");
-
-  const handleOptionChange = (event) => {
-    setSelectedOption(event.target.value);
-  };
-
-  const [selectedOption1, setSelectedOption1] = useState("");
-  const handleOptionChange1 = (event) => {
-    setSelectedOption1(event.target.value);
-  };
-
-  const [selectedOption2, setSelectedOption2] = useState("");
-  const handleOptionChange2 = (event) => {
-    setSelectedOption2(event.target.value);
-  };
-
-  const [selectedOption3, setSelectedOption3] = useState("");
-  const handleOptionChange3 = (event) => {
-    setSelectedOption3(event.target.value);
-  };
-  const [selectedOption4, setSelectedOption4] = useState("");
-  const handleOptionChange4 = (event) => {
-    setSelectedOption4(event.target.value);
-  };
-  const [selectedOption5, setSelectedOption5] = useState("");
-  const handleOptionChange5 = (event) => {
-    setSelectedOption5(event.target.value);
-  };
-  const [selectedOption6, setSelectedOption6] = useState("");
-  const handleOptionChange6 = (event) => {
-    setSelectedOption6(event.target.value);
-  };
-  const [selectedOption7, setSelectedOption7] = useState("");
-  const handleOptionChange7 = (event) => {
-    setSelectedOption7(event.target.value);
-  };
-  const [selectedOption8, setSelectedOption8] = useState("");
-  const handleOptionChange8 = (event) => {
-    setSelectedOption8(event.target.value);
-  };
-  const [selectedOption9, setSelectedOption9] = useState("");
-  const handleOptionChange9 = (event) => {
-    setSelectedOption9(event.target.value);
-  };
-  const [selectedOption10, setSelectedOption10] = useState("");
-  const handleOptionChange10 = (event) => {
-    setSelectedOption10(event.target.value);
-  };
-  const handleAccept=()=>{
-    MySwal.fire({
-      title: 'Are you sure?',
-      text: "You want to accept the sample!",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes!'
-    }).then((result) => {
-      if (result.isConfirmed) {
-        MySwal.fire(
-          'RLPL number is generated!',
-          'success'
-          
-        )
-        navigate("RLPLgenerated")
+  const dispatch = useDispatch();
+  const token  = useSelector((state) => state.form.usertoken.token);
+  
+  const form=useSelector(state =>state.form.customer);
+  const sample=useSelector(state =>state.form.sampleDetails);
+  const analysis=useSelector(state =>state.form.data);
+  const batch=useSelector(state=>state.form.tabledata); 
+console.log("analysis",analysis)
+console.log("batch", batch)
+console.log("form",form)
+const item={
+  companyName:form.company,
+  manufacturingLicenseNumber:form.licenceNo,
+  contactPerson: form.contactPersonName,
+  mobileNumber: form.phoneNo,
+  additionalMobileNumber:form.phoneNo1,
+  email:form.emailId,
+  address1: form.address1,
+  address2:form.address2,
+  city:form.city,
+  state: form.state,
+  pincode:form.pincode,
+  sampleName:sample.samplename,
+  reportRequiredaAsPerForm39:sample.report,
+  storageCondition: sample.storage,
+  natureOfSample:sample.natureofsample,
+  sampleType:sample.sampletype,
+  sampleRetentionRequired:sample.sampleretension ,
+  typeOfSubmission:sample.submissiontype,
+  batchDetails:
+    batch.map((item,i)=>(
+      {
+        batchNo:item.batchNo,
+        batchSize:item.batchSize,
+        natureOfPacking:item.natureOfPacking,
+        mfgDate:item.mfgDate,
+        expDate:item.expDate,
+        retestDate:item.retestDate,
+        sampleQuantity:item.sampleQuantity,
+        testParameter:item.testParameter.map(option=>(
+          {
+            testDataName:option.label,
+            testDataCode:option.value
+          }))
       }
+    )),
+  regulatory:analysis.formfilling,
+  otherThanRegulatory:analysis.analyticalfeasibile ,
+  vvtddRefNo:analysis.methodvalidation,
+  methodology: analysis.methodologyfollowed,
+  testToBeCarriedOut:analysis.test,
+  attachment:analysis.choosefile,
+  specialInstruction:analysis.specialinstruction,
+sampleVerification:result
+}
+console.log("item", item)
+const postapicall=()=>{
+fetch("http://3.80.98.199:3000/api/sampleDetails/createSample", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+    'Authorization': token
+  },
 
-    })
 
-  }
+  body: JSON.stringify(item),
+})
+  .then((response) => response.json())
+
+  .then((data) => {
+    dispatch(changeSubmitData(data))
+    console.log("Success:", data);
+    
+     // handle the response data here
+  })
+
+  .catch((error) => {
+    // handle any errors here
+  });
+}
+
+  const {
+    handleSubmit,
+    register,
+    formState: { errors },
+  } = useForm();
+
+ 
+  
+  const saveData = (data1) => {
+    setResult(data1)
+  MySwal.fire({
+    title: 'Are you sure?',
+    text: "You want to accept the sample!",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Yes!'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      postapicall()
+      MySwal.fire(
+        'RLPL number is generated!',
+        'success'
+        
+      )
+      navigate("RLPLgenerated")
+    }
+
+  })
+  console.log("data",result)
+  };
+
   const handleReject=()=>{
     MySwal.fire({
       title: 'Are you sure?',
@@ -117,6 +164,7 @@ export default function SampleVerification({onButtonClick}) {
             <div className="cardtitle">
               <text className="cardtitlehed">Sample Verification List</text>
             </div>
+            <Form onSubmit={handleSubmit(saveData)}>
             <div className="cardcolumnpadding">
               <div className="row">
                 <div className="col-12 d-flex new">
@@ -130,42 +178,67 @@ export default function SampleVerification({onButtonClick}) {
                         </text>
                       </div>
                       <div className="d-flex">
-                        <span style={{ display: "flex" }}>
-                          <input
+                        <span style={{ display: "flex",alignItems:"center" }}>
+                          <div>
+                            <Field>
+                          <Input
+                              {...register("trf", { required: true })}
                             type="radio"
-                            value="option1"
-                            checked={selectedOption === "option1"}
-                            onChange={handleOptionChange}
+                            value="yes"
+                            id="yes"
+                            name="trf"
                             className="customRadio"
                             
-                          ></input>
+                          />
+                          </Field>
+                          </div>
+                          <div>
                           <label className="space">Yes</label>
+                          </div>
                         </span>
-                        <span style={{ display: "flex" }}>
-                          <input
+                        <span style={{ display: "flex",alignItems:"center" }}>
+                          <div>
+                            <Field>
+                          <Input
+                          {...register("trf", { required: true })}
                             type="radio"
-                            value="option2"
-                            checked={selectedOption === "option2"}
-                            onChange={handleOptionChange}
+                            value="no"
+                           id="no"
+                           name="trf"
                             className="customRadioMargin"
-                          ></input>
+                          />
+                          </Field>
+                          </div>
+                          <div>
                           <label className="space">No</label>
+                          </div>
                         </span>
-                        <span style={{ display: "flex" }}>
-                          <input
+                        <span style={{ display: "flex",alignItems:'center' }}>
+                          <div>
+                            <Field>
+                          <Input
+                          {...register("trf", { required: true })}
                             type="radio"
-                            value="option3"
-                            checked={selectedOption === "option3"}
-                            onChange={handleOptionChange}
+                            value="na"
+                           id="na"
+                           name="trf"
                             className="customRadioMargin"
-                          ></input>
+                          />
+                          </Field>
+                          </div>
+                          <div>
                           <label
                             className="space"
                            
                           >
                             NA
                           </label>
+                          </div>
                         </span>
+                        <div className="text-danger mt-3">
+                            {errors.trf?.type === "required" &&
+                              "This field is required."}
+                          </div>
                       </div>
 
                       <div className="mt-3 mb-3 new1">
@@ -175,41 +248,66 @@ export default function SampleVerification({onButtonClick}) {
                         </text>
                       </div>
                       <div className="d-flex">
-                        <span style={{ display: "flex" }}>
-                          <input
+                        <span style={{ display: "flex",alignItems:'center' }}>
+                          <div>
+                            <Field>
+                          <Input
+                          {...register("sampledetail", { required: true })}
                             type="radio"
-                            value="option4"
-                            checked={selectedOption1 === "option4"}
-                            onChange={handleOptionChange1}
+                            value="yes"
+                            id="yes"
+                          name="sampledetail"
                             className="customRadio"
-                          ></input>
+                          />
+                          </Field></div>
+                          <div>
                           <label className="space">Yes</label>
+                          </div>
                         </span>
-                        <span style={{ display: "flex" }}>
-                          <input
+                        <span style={{ display: "flex",alignItems:"center" }}>
+                          <div>
+                            <Field>
+                            <Input
+                          {...register("sampledetail", { required: true })}
                             type="radio"
-                            value="option5"
-                            checked={selectedOption1 === "option5"}
-                            onChange={handleOptionChange1}
+                            value="no"
+                            id="no"
+                            name="sampledetail"
                            className="customRadioMargin"
-                          ></input>
-                          <label className="space">No</label>
+                          />
+                            </Field>
+                          </div>
+                         <div>
+                         <label className="space">No</label>
+                         </div>
+                          
                         </span>
                         <span style={{ display: "flex" }}>
-                          <input
+                          <div>
+                            <Field>
+                            <Input
+                           {...register("sampledetail", { required: true })}
                             type="radio"
-                            value="option6"
-                            checked={selectedOption1 === "option6"}
-                            onChange={handleOptionChange1}
+                            value="na"
+                            id="na"
+                            name="sampledetail"
                             className="customRadioMargin"
-                          ></input>
+                          />
+                            </Field>
+                          </div>
+                         <div>
                           <label
                             className="space"
                           
                           >
                             NA
                           </label>
+                          </div>
                         </span>
+                        <div className="text-danger mt-3">
+                            {errors.sampledetail?.type === "required" &&
+                              "This field is required."}
+                          </div>
                       </div>
 
                       <div className="mt-3 mb-3 new1">
@@ -219,41 +317,64 @@ export default function SampleVerification({onButtonClick}) {
                         </text>
                       </div>
                       <div className="d-flex">
-                        <span style={{ display: "flex" }}>
-                          <input
+                        <span style={{ display: "flex",alignItems:"center" }}>
+                          <div>
+                            <Field>
+                          <Input
+                          {...register("regulatory", { required: true })}
                             type="radio"
-                            value="option7"
-                            checked={selectedOption2 === "option7"}
-                            onChange={handleOptionChange2}
+                            value="yes"
+                            name="regulatory"
+                            id="yes"
                             className="customRadio"
-                          ></input>
+                          />
+                          </Field>
+                          </div>
+                          <div>
                           <label className="space">Yes</label>
+                          </div>
                         </span>
-                        <span style={{ display: "flex" }}>
-                          <input
+                        <span style={{ display: "flex",alignItems:"center" }}>
+                          <div>
+                            <Field>
+                            <Input
+                          {...register("regulatory", { required: true })}
                             type="radio"
-                            value="option8"
-                            checked={selectedOption2 === "option8"}
-                            onChange={handleOptionChange2}
+                            value="no"
+                            id="no"
+                          name="regulatory"
                             className="customRadioMargin"
-                          ></input>
+                          />
+                            </Field>
+                          </div>
+                         <div>
                           <label className="space">No</label>
+                          </div>
                         </span>
-                        <span style={{ display: "flex" }}>
-                          <input
+                        <span style={{ display: "flex",alignItems:"center" }}>
+                          <div>
+                            <Field>
+                            <Input
+                          {...register("regulatory", { required: true })}
                             type="radio"
-                            value="option9"
-                            checked={selectedOption2 === "option9"}
-                            onChange={handleOptionChange2}
-                            style={{ height: 20, width: 20, marginLeft: 40 }}
-                          ></input>
+                            value="na"
+                            id="na"
+                          name="regulatory"
+                            className="customRadioMargin"
+                          />
+                            </Field>
+                          </div>
+                          <div>
                           <label
-                            className="space"
-                            
-                          >
+                            className="space">
                             NA
                           </label>
+                          </div>
                         </span>
+                        <div className="text-danger mt-3">
+                            {errors.regulatory?.type === "required" &&
+                              "This field is required."}
+                          </div>
                       </div>
 
                       <div className="mt-3 mb-3 new1">
@@ -263,40 +384,70 @@ export default function SampleVerification({onButtonClick}) {
                         </text>
                       </div>
                       <div className="d-flex">
-                        <span style={{ display: "flex" }}>
-                          <input
+                        <span style={{ display: "flex" ,alignItems:"center"}}>
+                          <div>
+                            <Field>
+                          <Input
+                           {...register("leakage", { required: true })}
                             type="radio"
-                            value="option10"
-                            checked={selectedOption3 === "option10"}
-                            onChange={handleOptionChange3}
+                            value="yes"
+                            id="yes"
+                            name="leakage"
+                            
                             className="customRadio"
-                          ></input>
+                          />
+                            </Field></div>
+                         
+                          <div>
                           <label className="space">Yes</label>
+                          </div>
+                          
                         </span>
-                        <span style={{ display: "flex" }}>
-                          <input
+                        <span style={{ display: "flex" ,alignItems:"center"}}>
+                          <div>
+                            <Field>
+                            <Input
+                           {...register("leakage", { required: true })}
                             type="radio"
-                            value="option11"
-                            checked={selectedOption3 === "option11"}
-                            onChange={handleOptionChange3}
+                            value="no"
+                            id="no"
+                            name="leakage"
                             className="customRadioMargin"
-                          ></input>
+                          />
+                            </Field>
+                          </div>
+                          
+                          <div>
                           <label className="space">No</label>
+                          </div>
+                          
                         </span>
-                        <span style={{ display: "flex" }}>
-                          <input
+                        <span style={{ display: "flex",alignItems:'center' }}>
+                          <div>
+                            <Field>
+                            <Input
+                           {...register("leakage", { required: true })}
                             type="radio"
-                            value="option12"
-                            checked={selectedOption3 === "option12"}
-                            onChange={handleOptionChange3}
+                            value="na"
+                            id="na"    
+                            name="leakage"
                             className="customRadioMargin"
-                          ></input>
+                          />
+                            </Field>
+                          </div>
+                          <div>
                           <label
                             className="space"
                           >
                             NA
                           </label>
+                          </div>
+                          
                         </span>
+                        <div className="text-danger mt-3">
+                            {errors.leakage?.type === "required" &&
+                              "This field is required."}
+                          </div>
                       </div>
 
                       <div className="mt-3 mb-3 new1">
@@ -305,41 +456,74 @@ export default function SampleVerification({onButtonClick}) {
                         </text>
                       </div>
                       <div className="d-flex">
-                        <span style={{ display: "flex" }}>
-                          <input
+                        <span style={{ display: "flex",alignItems:"center" }}>
+                          <div>
+                            <Field>
+                            <Input
+                           {...register("splinstruction", { required: true })}
                             type="radio"
-                            value="option13"
-                            checked={selectedOption4 === "option13"}
-                            onChange={handleOptionChange4}
+                            value="yes"
+                            id="yes"
+                            name="splinstruction"
+                            
                             className="customRadio"
-                          ></input>
-                          <label className="space">Yes</label>
+                          />
+                            </Field>
+                          </div>
+                      <div>
+                      <label className="space">Yes</label>
+                      </div>
+                          
                         </span>
-                        <span style={{ display: "flex" }}>
-                          <input
+                        <span style={{ display: "flex" ,alignItems:"center"}}>
+                          <div>
+                            <Field>
+                            <Input
+                           {...register("splinstruction", { required: true })}
                             type="radio"
-                            value="option14"
-                            checked={selectedOption4 === "option14"}
-                            onChange={handleOptionChange4}
+                            value="no"
+                            id="no"
+                            name="splinstruction"
+                           
                             className="customRadioMargin"
-                          ></input>
+                          />
+                            </Field>
+                          </div>
+                         
+                          <div>
                           <label className="space">No</label>
+                          </div>
+                          
                         </span>
-                        <span style={{ display: "flex" }}>
-                          <input
+                        <span style={{ display: "flex",alignItems:"center" }}>
+                          <div>
+                            <Field>
+                            <Input
+                           {...register("splinstruction", { required: true })}
                             type="radio"
-                            value="option15"
-                            checked={selectedOption4 === "option15"}
-                            onChange={handleOptionChange4}
+                            value="na"
+                            id="na"
+                            name="splinstruction"
+                            
                             className="customRadioMargin"
-                          ></input>
+                          />
+                            </Field>
+                          </div>
+                          
+                          <div>
                           <label
                             className="space"
                             style={{ height: 20, width: 20 }}
                           >
                             NA
                           </label>
+                          </div>
+                          
                         </span>
+                        <div className="text-danger mt-3">
+                            {errors.splinstruction?.type === "required" &&
+                              "This field is required."}
+                          </div>
                       </div>
 
                       <div className="mt-3 mb-3 new1">
@@ -350,41 +534,74 @@ export default function SampleVerification({onButtonClick}) {
                       </div>
                       <div className="d-flex">
                         <span style={{ display: "flex" }}>
-                          <input
+                          <div>
+                            <Field>
+                            <Input
+                           {...register("datalog", { required: true })}
                             type="radio"
-                            value="option16"
-                            checked={selectedOption5 === "option16"}
-                            onChange={handleOptionChange5}
+                            value="yes"
+                            id="yes"
+                            name="datalog"
+                           
                             className="customRadio"
+                        />
+                            </Field>
+                          </div>
+                         
+                        <div>
+                        <label className="space">Yes</label>
+                        </div>
                           
-                          ></input>
-                          <label className="space">Yes</label>
                         </span>
-                        <span style={{ display: "flex" }}>
-                          <input
+                        <span style={{ display: "flex",alignItems:"center" }}>
+                          <div>
+                            <Field>
+                            <Input
+                           {...register("datalog", { required: true })}
                             type="radio"
-                            value="option17"
-                            checked={selectedOption5 === "option17"}
-                            onChange={handleOptionChange5}
+                            value="no"
+                            id="no"
+                            name="datalog"
+                            
                             className="customRadioMargin"
-                          ></input>
-                          <label className="space">No</label>
+                        />
+                            </Field>
+                          </div>
+                       
+                        <div>
+                        <label className="space">No</label>
+                        </div>
+                         
                         </span>
-                        <span style={{ display: "flex" }}>
-                          <input
+                        <span style={{ display: "flex" ,alignItems:"center"}}>
+                          <div>
+                            <Field>
+                            <Input
+                           {...register("datalog", { required: true })}
                             type="radio"
-                            value="option18"
-                            checked={selectedOption5 === "option18"}
-                            onChange={handleOptionChange5}
+                            value="na"
+                            id="na"
+                            name="datalog"
+                            
                             className="customRadioMargin"
-                          ></input>
+                          />
+                            </Field>
+                          </div>
+                          
+                          <div>
                           <label
                             className="space"
                             
                           >
                             NA
                           </label>
+                          </div>
+                          
                         </span>
+                        <div className="text-danger mt-3">
+                            {errors.datalog?.type === "required" &&
+                              "This field is required."}
+                          </div>
                       </div>
                     </div>
                   </div>
@@ -399,41 +616,75 @@ export default function SampleVerification({onButtonClick}) {
                         </text>
                       </div>
                       <div className="d-flex">
-                        <span style={{ display: "flex" }}>
-                          <input
+                        <span style={{ display: "flex",alignItems:'center' }}>
+                          <div>
+                            <Field>
+                            <Input
+                           {...register("samplematch", { required: true })}
                             type="radio"
-                            value="option19"
-                            checked={selectedOption6 === "option19"}
-                            onChange={handleOptionChange6}
+                            value="yes"
+                            id="yes"
+                            name="samplematch"
+                           
                             className="customRadio"
-                          ></input>
+                          />
+                            </Field>
+                          </div>
+                          
+                          <div>
                           <label className="space">Yes</label>
+                          </div>
+                          
                         </span>
-                        <span style={{ display: "flex" }}>
-                          <input
+                        <span style={{ display: "flex",alignItems:"center" }}>
+                          <div>
+                            <Field>
+                            <Input
+                           {...register("samplematch", { required: true })}
                             type="radio"
-                            value="option20"
-                            checked={selectedOption6 === "option20"}
-                            onChange={handleOptionChange6}
+                            value="no"
+                            id="no"
+                            name="samplematch"
+                           
                             className="customRadioMargin"
-                          ></input>
-                          <label className="space">No</label>
+                        />
+                            </Field>
+                          </div>
+                        
+                        <div>
+                        <label className="space">No</label>
+                        </div>
+                          
                         </span>
-                        <span style={{ display: "flex" }}>
-                          <input
+                        <span style={{ display: "flex",alignItems:"center" }}>
+                          <div>
+                            <Field>
+                            <Input
+                           {...register("samplematch", { required: true })}
                             type="radio"
-                            value="option21"
-                            checked={selectedOption6 === "option21"}
-                            onChange={handleOptionChange6}
+                            value="na"
+                            id="na"
+                            name="samplematch"
+                            
                             className="customRadioMargin"
-                          ></input>
+                          />
+                            </Field>
+                          </div>
+                         
+                          <div>
                           <label
                             className="space"
                             
                           >
                             NA
                           </label>
+                          </div>
+                          
                         </span>
+                        <div className="text-danger mt-3">
+                            {errors.samplematch?.type === "required" &&
+                              "This field is required."}
+                          </div>
                       </div>
 
                       <div className="mt-3 mb-3 new1">
@@ -443,41 +694,75 @@ export default function SampleVerification({onButtonClick}) {
                         </text>
                       </div>
                       <div className="d-flex">
-                        <span style={{ display: "flex" }}>
-                          <input
+                        <span style={{ display: "flex",alignItems:'center' }}>
+                          <div>
+                            <Field>
+                            <Input
+                           {...register("method", { required: true })}
                             type="radio"
-                            value="option22"
-                            checked={selectedOption7 === "option22"}
-                            onChange={handleOptionChange7}
+                            value="yes"
+                            id="yes"
+                            name="method"
+                            
                            className="customRadio"
-                          ></input>
+                          />
+                            </Field>
+                          </div>
+                    
+                          <div>
                           <label className="space">Yes</label>
+                          </div>
+                          
                         </span>
-                        <span style={{ display: "flex" }}>
-                          <input
+                        <span style={{ display: "flex",alignItems:"center" }}>
+                          <div>
+                            <Field>
+                            <Input
+                           {...register("method", { required: true })}
                             type="radio"
-                            value="option23"
-                            checked={selectedOption7 === "option23"}
-                            onChange={handleOptionChange7}
+                            value="no"
+                            id="no"
+                            name="method"
+                            
                             className="customRadioMargin"
-                          ></input>
+                          />
+                            </Field>
+                          </div>
+                         
+                          <div>
                           <label className="space">No</label>
+                          </div>
+                          
                         </span>
-                        <span style={{ display: "flex" }}>
-                          <input
+                        <span style={{ display: "flex",alignItems:"center" }}>
+                          <div>
+                            <Field>
+                            <Input
+                           {...register("method", { required: true })}
                             type="radio"
-                            value="option24"
-                            checked={selectedOption7 === "option24"}
-                            onChange={handleOptionChange7}
+                            value="na"
+                            id="na"
+                            name="method"
+
                             className="customRadioMargin"
-                          ></input>
-                          <label
+                        />
+                            </Field>
+                          </div>
+                          
+                        <div>
+                        <label
                             className="space"
                            
                           >
                             NA
                           </label>
+                        </div>
+                          
                         </span>
+                        <div className="text-danger mt-3">
+                            {errors.method?.type === "required" &&
+                              "This field is required."}
+                          </div>
                       </div>
 
                       <div className="mt-3 mb-3 new1">
@@ -488,81 +773,149 @@ export default function SampleVerification({onButtonClick}) {
                         </text>
                       </div>
                       <div className="d-flex">
-                        <span style={{ display: "flex" }}>
-                          <input
+                        <span style={{ display: "flex" ,alignItems:"center"}}>
+                          <div>
+                            <Field>
+                            <Input
+                           {...register("specification", { required: true })}
                             type="radio"
-                            value="option25"
-                            checked={selectedOption8 === "option25"}
-                            onChange={handleOptionChange8}
+                            value="yes"
+                            id="yes"
+                            name="specification"
+                            
                             className="customRadio"
-                          ></input>
+                          />
+                            </Field>
+                          </div>
+                          
+                          <div>
                           <label className="space">Yes</label>
+                          </div>
+                          
                         </span>
-                        <span style={{ display: "flex" }}>
-                          <input
+                        <span style={{ display: "flex",alignItems:"center" }}>
+                          <div>
+                            <Field>
+                            <Input
+                           {...register("specification", { required: true })}
                             type="radio"
-                            value="option26"
-                            checked={selectedOption8 === "option26"}
-                            onChange={handleOptionChange8}
+                            value="no"
+                            id="no"
+                            name="specification"
+                            
                             className="customRadioMargin"
-                          ></input>
+                          />
+                            </Field>
+                          </div>
+                          
+                          <div>
                           <label className="space">No</label>
+                          </div>
+                          
                         </span>
-                        <span style={{ display: "flex" }}>
-                          <input
+                        <span style={{ display: "flex",alignItems:"center" }}>
+                          <div>
+                            <Field>
+                            <Input
+                           {...register("specification", { required: true })}
                             type="radio"
-                            value="option27"
-                            checked={selectedOption8 === "option27"}
-                            onChange={handleOptionChange8}
+                            value="na"
+                            id="na"
+                            name="specification"
+                            
                             className="customRadioMargin"
-                          ></input>
+                          />
+                            </Field>
+                          </div>
+                          
+                          <div>
                           <label
                             className="space"
                            
                           >
                             NA
                           </label>
+                          </div>
+                          
                         </span>
+                        <div className="text-danger mt-3">
+                            {errors.specification?.type === "required" &&
+                              "This field is required."}
+                          </div>
                       </div>
 
                       <div className="mt-3 mb-3 new1">
                         <text>Is the sample type marked on the TRF?</text>
                       </div>
                       <div className="d-flex">
-                        <span style={{ display: "flex" }}>
-                          <input
+                        <span style={{ display: "flex" ,alignContent:"center"}}>
+                          <div>
+                            <Field>
+                            <Input
+                           {...register("sampletype", { required: true })}
                             type="radio"
-                            value="option28"
-                            checked={selectedOption9 === "option28"}
-                            onChange={handleOptionChange9}
+                            value="yes"
+                            id="yes"
+                            name="sampletype"
+                            
                             className="customRadio"
-                          ></input>
+                          />
+                            </Field>
+                          </div>
+                      
+                          <div>
                           <label className="space">Yes</label>
+                          </div>
+                          
                         </span>
-                        <span style={{ display: "flex" }}>
-                          <input
+                        <span style={{ display: "flex" ,alignItems:"center"}}>
+                          <div>
+                            <Field>
+                            <Input
+                           {...register("sampletype", { required: true })}
                             type="radio"
-                            value="option29"
-                            checked={selectedOption9 === "option29"}
-                            onChange={handleOptionChange9}
+                            value="no"
+                            id="no"
+                            name="sampletype"
+                            
                             className="customRadioMargin"
-                          ></input>
+                          />
+                            </Field>
+                          </div>
+                        
+                          <div>
                           <label className="space">No</label>
+                          </div>
+                         
                         </span>
-                        <span style={{ display: "flex" }}>
-                          <input
+                        <span style={{ display: "flex",alignItems:"center" }}>
+                          <div>
+                            <Field>
+                            <Input
+                           {...register("sampletype", { required: true })}
                             type="radio"
-                            value="option30"
-                            checked={selectedOption9 === "option30"}
-                            onChange={handleOptionChange9}
+                            value="na"
+                            id="na"
+                            name="sampletype"
+                            
                             className="customRadioMargin"
-                          ></input>
+                          />
+                            </Field>
+                          </div>
+                        
+                          <div>
                           <label
                             className="space"
                           >
                             NA
                           </label>
+                          </div>
+                          
                         </span>
+                        <div className="text-danger mt-3">
+                            {errors.sampletype?.type === "required" &&
+                              "This field is required."}
+                          </div>
                       </div>
 
                       <div className="mt-3 mb-3 new1">
@@ -572,45 +925,82 @@ export default function SampleVerification({onButtonClick}) {
                         </text>
                       </div>
                       <div className="d-flex">
-                        <span style={{ display: "flex" }}>
-                          <input
+                        <span style={{ display: "flex",alignItems:'center' }}>
+                          <div>
+                            <Field>
+                            <Input
+                           {...register("testparam", { required: true })}
                             type="radio"
-                            value="option31"
-                            checked={selectedOption10 === "option31"}
-                            onChange={handleOptionChange10}
+                            value="yes"
+                            id="yes"
+                            name="testparam"
+                            
                          className="customRadio"
-                          ></input>
+                          />
+                            </Field>
+                          </div>
+                        
+                          <div>
                           <label className="space">Yes</label>
+                          </div>
+                          
                         </span>
-                        <span style={{ display: "flex" }}>
-                          <input
+                        <span style={{ display: "flex",alignItems:'center' }}>
+                          <div>
+                            <Field>
+                            <Input
+                           {...register("testparam", { required: true })}
                             type="radio"
-                            value="option32"
-                            checked={selectedOption10 === "option32"}
-                            onChange={handleOptionChange10}
+                            value="no"
+                            id="no"
+                            name="testparam"
+                            
                             className="customRadioMargin"
-                          ></input>
+                          />
+                            </Field>
+                          </div>
+                          
+                          <div>
                           <label className="space">No</label>
+                          </div>
+                          
                         </span>
-                        <span style={{ display: "flex" }}>
-                          <input
+                        <span style={{ display: "flex",alignItems:"center" }}>
+                          <div>
+                            <Field>
+                            <Input
+                           {...register("testparam", { required: true })}
                             type="radio"
+                            value="na"
+                            id='na'
+                            name="testparam"
                             className="customRadioMargin"
-                          ></input>
+                          />
+                            </Field>
+                          </div>
+                         
+                          <div>
                           <label
                             className="space"
                           
                           >
                             NA
                           </label>
+                          </div>
+                          
                         </span>
+                        <div className="text-danger mt-3">
+                            {errors.testparam?.type === "required" &&
+                              "This field is required."}
+                          </div>
                       </div>
 
                       <div className="mt-3 mb-3 new1">
                         <text>Comments</text>
                       </div>
                       <div className="d-flex">
-                        <input
+                        <Input
+                         {...register("comments", { required: true })}
                         className="commentsInput"
                           type="text"  />
                       </div>
@@ -679,7 +1069,7 @@ export default function SampleVerification({onButtonClick}) {
                             Reject
                           </Button>
                           <Button
-                            onClick={handleAccept}
+                            type="submit"
                             style={{
                               height: "40px",
                               width: "122px",
@@ -689,7 +1079,7 @@ export default function SampleVerification({onButtonClick}) {
                               fontSize: 12,
                               border:'none'
                             }}
-                            name="Next"
+                      
                           >
                              <MdDone size={24} color="#fff" />&nbsp;Accept
                           </Button>
@@ -703,6 +1093,7 @@ export default function SampleVerification({onButtonClick}) {
 
 
             </div>
+            </Form>
           </Card>
         </div>
       </div>

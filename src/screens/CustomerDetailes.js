@@ -1,11 +1,8 @@
 
-import { useNavigate } from "react-router-dom";
 import { useAppState } from "../state";
 import { Button, Field, Form, Input } from "../Forms";
 import React, { useState, useEffect } from "react";
 import "./Styles.css";
-
-//import { BiRightArrowAlt } from "react-icons/bi";
 import { Card, Col, Row } from "react-bootstrap";
 import { useForm, Controller } from "react-hook-form";
 import { changeCustomerDetails } from "../redux/FormSlice";

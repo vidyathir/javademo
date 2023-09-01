@@ -23,6 +23,7 @@ import DITSuccess from './screens/DITSuccess';
 import DitDashboard from './screens/DitDashboard';
 import SroDashboard from './screens/SroDashboard';
 import AddNewCompany from './screens/AddNewCompany';
+import Print from './screens/Print';
 
 
 export default function App() {
@@ -53,6 +54,7 @@ export default function App() {
      <Route exact path='/ApproverDashboard' element={<ApproverDashboard/>}/>  
      <Route exact path='/ApproverDashboard/AwaitingSamplesApprover' element={<AwaitingSamplesApprover/>}/>  
      <Route exact path='/ApproverDashboard/AwaitingSamplesApprover/ApproverDetails' element={<ApproverDetails/>}/> 
+     <Route exact path='/Print' element={<Print/>}/> 
      </Routes>
     </BrowserRouter>
     </Provider>

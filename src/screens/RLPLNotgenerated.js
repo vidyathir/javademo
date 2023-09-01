@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useEffect} from "react";
 import Sidenavbar from "../components/Sidenavbar";
 import Table from "react-bootstrap/Table";
 import { Button } from "react-bootstrap";
@@ -14,6 +14,9 @@ export default function RLPLNotgenerated() {
 
   const sample=useSelector(state =>state.form.sampleDetails);
   const batch=useSelector(state =>state.form.newArray)
+  useEffect(()=>{
+    window.sessionStorage.removeItem('tableData')
+  },[])
   return (
     <div className="app">
 

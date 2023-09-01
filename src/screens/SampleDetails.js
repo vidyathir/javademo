@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import { useAppState } from "../state";
 import { Button, Field, Form, Input } from "../Forms";
-import React, { useEffect, useState } from "react";
+import React, {useState } from "react";
 
 import { Row, Col, Card } from "react-bootstrap";
 import "./Styles.css";
@@ -13,6 +13,7 @@ export default function SampleDetails({ onButtonClick }) {
   const [selectedOption, setSelectedOption] = useState(null);
 
   const [selectedOptioncheck, setSelectedOptioncheck] = useState(false);
+  const [selectedOptioncheck1, setSelectedOptioncheck1] = useState(false);
 
   const dispatch = useDispatch();
   const [state, setState] = useAppState();
@@ -22,14 +23,14 @@ export default function SampleDetails({ onButtonClick }) {
     formState: { errors },
   } = useForm({ defaultValues: state });
 
-  // const handleRadioChange = (event) => {
-  //   setShowTextBox(event.target.value === 'yes');
-  // };
-
-  // const [selectedOption4, setSelectedOption4] = useState(false);
+ 
    const handlecheckboxchange = () => {
    setSelectedOptioncheck(!selectedOptioncheck);;
    };
+   
+   const handlemsdschange = () => {
+    setSelectedOptioncheck1(!selectedOptioncheck1);;
+    };
   const saveData = (data) => {
     setState({ ...state, ...data });
     dispatch(changeSampleDetails(
@@ -46,9 +47,7 @@ submissiontype:data.submissiontype,
     )
     onButtonClick("BatchDetails");
   };
-useEffect(()=>{
-  window.sessionStorage.removeItem('tableData')
-},[])
+
   return (
     <div>
       <div>
@@ -700,15 +699,10 @@ useEffect(()=>{
                                       })}
                                       type="checkbox"
                                       //id="msds"
-                                      name="msds"
+                                      name="sampleType"
                                       value="msds"
-                                     // checked={
-                                      //  selectedOptioncheck === "msds"
-                                    //  }
-                                     // onChange={() =>
-                                     //   setSelectedOptioncheck("msds")
-                                     // }
-                                   
+                                      checked={selectedOptioncheck1}
+                                      onChange={handlemsdschange}
                                       className="customRadio"
                                     />
                                   </Field>
@@ -722,13 +716,15 @@ useEffect(()=>{
                               <div className="col">
                                 <span style={{ display: "flex" }}>
                                   <div>
-                                  <Field>
+                                  <span>
+                                  {selectedOptioncheck1  && (
                                     <Input
                                       type="file"
+                                      
                                       style={{ width: 170 }}
                                       className="customInput"
-                                    />
-                                  </Field>
+                                    />)}
+                                  </span>
                                   </div>
                                 </span>
                               </div>
@@ -778,7 +774,7 @@ useEffect(()=>{
                                   {selectedOptioncheck  && (
                                     <Input
                                       className="cardcolumninputtype"
-                                      value="sampletype"
+                                      //value="sampletype"
                                       id="sampletype"
                                     />
                                   )}

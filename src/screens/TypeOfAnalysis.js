@@ -14,7 +14,8 @@ import { BiRightArrowAlt, BiLeftArrowAlt } from "react-icons/bi";
 export default function TypeOfAnalysis({ onButtonClick }) {
   const [selectedOption, setSelectedOption] = useState(null);
   const [selectedRadio, setSelectedRadio] = useState("regulatory");
- 
+  const [selectedOptionmet,setSelectedOptionmet]=useState(null);
+  const [selectedOption1, setSelectedOption1] = useState([]);
   const dispatch = useDispatch();
   const [state, setState] = useAppState();
   const {
@@ -42,392 +43,19 @@ export default function TypeOfAnalysis({ onButtonClick }) {
   };
   const handleOptionChange = (event) => {
     setSelectedRadio(event.target.value);
+    setSelectedOption(null);
+    setSelectedOption1([]);
   };
-   const renderRadioList = () => {
-    if (selectedRadio === 'regulatory') {
-      return (
-        <Row>
-        <div className="cardcolhed">
-          <div className="mb-3">
-           <Field label="Regulatory"><text>
-          (Form-39/DMF Filing/ANDA Filing/Any Query)*
-            </text></Field>
-          </div>
-          <div className="row">
-            <div className="col-12" style={{ display: "flex" }}>
-              <div className="col">
-                <div
-                  style={{
-                    display: "flex",
-                    marginBottom: 20,
-                  }}
-                >
-                  <div>
-                  <Field>
-                  <Input
-                    {...register("formfilling")}
-                    type="radio"
-                    id="validation"
-                    value="validation"
-                    name="formfilling"
-                    checked={selectedOption === "validation"}
-                    onChange={() =>
-                      setSelectedOption("validation")}
-                    className="customRadio"
-                  
-                  />
-                  </Field>
-                  </div>
-                  <div>
-                  <label className="space">Validation</label>
-                  </div>
-                </div>
-              </div>
-
-              <div className="col">
-                <div style={{ display: "flex" }}>
-                <div>
-                  <Field>
-                  <Input
-                    {...register("formfilling")}
-                    type="radio"
-                    id="verification"
-                    value="verification"
-                    name="formfilling"
-                    checked={selectedOption === "verification"}
-                    onChange={() =>
-                      setSelectedOption("verification")}
-                    className="customRadio"
-                    
-                                                     />
-                   </Field>
-                   </div>
-                   <div>
-                  <label className="space">Verification</label>
-                  </div>
-                 
-                </div>
-              </div>
-
-               <div className="col">
-                <div style={{ display: "flex" }}>
-                <div>
-                  <Field>
-                  <Input
-                    {...register("formfilling")}
-                    type="radio"
-                    id="transfer"
-                    value="transfer"
-                    name="formfilling"
-                
-                    checked={selectedOption === "transfer"}
-                    onChange={() =>
-                      setSelectedOption("transfer")}
-                    className="customRadio"                                  />
-                  </Field>
-                  </div>
-                  <div>
-                  <label className="space">Transfer</label>
-                  </div>
-                 
-                </div>
-              </div>
-
-              <div className="col">
-                <div style={{ display: "flex" }}>
-                <div>
-                  <Field>
-                  <Input
-                    {...register("formfilling")}
-                    type="radio"
-                    id="stability"
-                    value="stability"
-                    name="formfilling"
-                
-                    checked={selectedOption === "stability"}
-                    onChange={() =>
-                      setSelectedOption("stability")}
-                    className="customRadio"                                  />
-                   </Field>
-                   </div>
-                   <div>
-                 
-                  <label className="space">Stability</label>
-                  </div>
-                 
-                </div>
-              </div>
-
-              <div className="col">
-                <div style={{ display: "flex" }}>
-                <div>
-                  <Field>
-                  <Input
-                    {...register("formfilling")}
-                    type="radio"
-                    id="batchrelease"
-                    value="batchrelease"
-                    name="formfilling"
-                    
-                    checked={selectedOption === "batchrelease"}
-                    onChange={() =>
-                      setSelectedOption("batchrelease")}
-                    className="customRadio"                                  />
-                  </Field>
-                  </div>
-                  <div>
-                  <label className="space">Batch Release</label>
-                  </div>
-
-                  </div>
-              </div>
-            </div>
-
-            <div className="col-12" style={{ display: "flex" }}>
-              <div className="col">
-                <div style={{ display: "flex" }}>
-                <div>
-                  <Field>
-                  <Input
-                    {...register("formfilling")}
-                    type="radio"
-                    id="usfda"
-                    value="usfda"
-                    name="formfilling"
-                    
-                    checked={selectedOption === "usfda"}
-                    onChange={() =>
-                      setSelectedOption("usfda")}
-                    className="customRadio"                                  />
-                  </Field>
-                  </div>
-                  <div>
-                  <label className="space">USFDA</label>
-                  </div>
-                </div>
-              </div>
-
-              <div className="col">
-                <div style={{ display: "flex" }}>
-                <div>
-                <Field>
-                  <Input
-                    {...register("formfilling")}
-                    type="radio"
-                    id="eugmp"
-                    value="eugmp"
-                    name="formfilling"
-                    
-                    checked={selectedOption === "eugmp"}
-                    onChange={() =>
-                      setSelectedOption("eugmp")}
-                    className="customRadio"                                  />
-                  </Field>
-                  </div>
-                  <div>
-                  <label className="space">EU GMP</label>
-                  </div>
-                </div>
-              </div>
-
-              <div className="col">
-                <div style={{ display: "flex" }}>
-                <div>
-                <Field>
-                  <Input
-                    {...register("formfilling")}
-                    type="radio"
-                    id="localfda"
-                    value="localfda"
-                    name="formfilling"
-                  
-                    checked={selectedOption === "localfda"}
-                    onChange={() =>
-                      setSelectedOption("localfda")}
-                    className="customRadio"                                  />
-                  </Field>
-                  </div>
-                  <div>
-                  <label className="space">
-                    Local FDA(DCA)
-                  </label>
-                  </div>
-                  
-                </div>
-              </div>
-
-              <div className="col">
-                <div style={{ display: "flex" }}>
-                <div>
-                <Field>
-                  <Input
-                    {...register("formfilling")}
-                    type="radio"
-                    id="nabl"
-                    value="nabl"
-                    name="formfilling"
-              
-                    checked={selectedOption === "nabl"}
-                     onChange={() =>
-                      setSelectedOption("nabl")}
-                    className="customRadio"                                  />
-                  </Field>
-                  </div>
-                  <div>
-                  <label className="space">NABL</label>
-                  </div>
-                 
-                </div>
-              </div>
-
-              <div className="col">
-                <div style={{ display: "flex" }}>
-                <div>
-                <Field>
-                  <Input
-                    {...register("formfilling")}
-                    type="radio"
-                    id="other"
-                    value="other"
-                    name="other"
-
-                  checked={selectedOption === "other"}
-                    onChange={() =>
-                      setSelectedOption("other")}
-                    className="customRadio"                                  />
-                  </Field>
-                  </div>
-                  <div>
-                  <label className="space">Other</label>
-                  </div>
-                </div>
-              </div> 
-              <div className="col">
-              <span>
-                {selectedOption === "other" && (
-                  <Input
-                    type="text"
-                    className="NatureOfSample"
-                  />
-                )}
-              </span>
-            </div>
-            </div>
-          </div>
-        </div>
-      </Row>
-      );
+  const handleList1Change = (event) => {
+   setSelectedOption(event.target.value)
+   // setSelectedList1(event.target.value);
+  };
+  const handleList2Change = (event) => {
+    const value = event.target.value;
+    if (selectedOption1.includes(value)) {
+      setSelectedOption1(selectedOption1.filter((item) => item !== value));
     } else {
-      return (
-        
-        <Col md={6}>
-          <div className="mb-3">
-          <Field>
-            <text className="mb-3">Other than Regulatory</text>
-            </Field>
-          </div>
-          
-            <div style={{ display: "flex", marginBottom: 20, }}>
-
-            <div>
-                <Field>
-                <Input
-                  {...register("analyticalfeasibile")}
-                  type="checkbox"
-                  value="r&dsample"
-                  name="analytical"
-                
-                  // checked={selectedOption1 === "option11"}
-                  // onChange={handleOptionChange1}
-                  className="customRadio"                           />
-              </Field>
-              </div>
-              <div>
-              <label className="space">Analytical Feasibility</label>
-              </div>
-            
-              
-                <div
-                style={{
-                  marginLeft: 60,
-                  alignItems: "center",
-                  display: "flex",
-                }}
-              >
-                </div>
-                <div>
-                <Field>
-                <Input
-                  {...register("analyticalfeasibile")}
-                  type="checkbox"
-                  value="r&dsample"
-                  name="analyticalfeasibile"
-                  
-                  // checked={selectedOption1 === "option12"}
-                  // onChange={handleOptionChange1}
-                  className="customRadio"                          />
-              </Field>
-              </div>
-              <div>
-              <label className="space">R&D Sample</label>
-              </div>
-               </div>
-
-
-
-
-           
-          
-          <div style={{ display: "flex" }}>
-            
-            <div>
-              <Field>
-              <Input
-                {...register("analyticalfeasibile")}
-                type="checkbox"
-                value="methoddevelopement"
-                name="analyticalfeasibile"
-                
-                // checked={selectedOption1 === "option13"}
-                // onChange={handleOptionChange1}
-                className="customRadio"                          />
-              </Field>
-              </div>
-              <div>
-              <label className="space">Method Development</label>
-              </div>
-          
-              
-             <div
-              style={{
-                marginLeft: 50,
-                alignItems: "center",
-                display: "flex",
-              }}
-            >
-               </div>
-              <div>
-              <Field>
-              <Input
-                {...register("analyticalfeasibile")}
-                type="checkbox"
-                value="batchanalysis"
-                name="analyticalfeasibile"
-                
-                // checked={selectedOption1 === "option14"}
-                // onChange={handleOptionChange1}
-                className="customRadio"                          />
-              </Field>
-              </div>
-              <div>
-              <label className="space">Batch Analysis</label>
-              </div>
-            </div>
-         
-      </Col>
-
-       
-      );
+      setSelectedOption1([...selectedOption1, value]);
     }
   };
 
@@ -462,7 +90,7 @@ export default function TypeOfAnalysis({ onButtonClick }) {
                                 id="regulatory"
                                 value="regulatory"
                                 name="choice"
-                                checked={selectedRadio === 'regulatory'}
+                                checked={selectedRadio==='regulatory'}
           onChange={handleOptionChange}
                                 className="customRadio"
                               />
@@ -481,10 +109,10 @@ export default function TypeOfAnalysis({ onButtonClick }) {
                               <Input
                               {...register("choice")}
                               type="radio"
-                              id="otherregulatory"
-                              value="otherregulatory"
+                              id="nonregulatory"
+                              value="nonregulatory"
                               name="choice"
-                              checked={selectedRadio === 'otherregulatory'}
+                              checked={selectedRadio==='nonregulatory'}
           onChange={handleOptionChange}
                               className="customRadio"
                               />
@@ -503,7 +131,268 @@ export default function TypeOfAnalysis({ onButtonClick }) {
                      <Col md={12} style={{ display: "block" }} className="mb-3">
                        <Row>
                         <div className="cardcolhed">
-                        {renderRadioList()}
+                        <Row>
+        <div className="cardcolhed">
+          <div className="mb-3">
+           <Field label="Regulatory"><text>
+          (Form-39/DMF Filing/ANDA Filing/Any Query)*
+            </text></Field>
+          </div>
+          <div className="row">
+            <div className="col-12" style={{ display: "flex" }}>
+              <div className="col">
+                <div
+                  style={{
+                    display: "flex",
+                    marginBottom: 20,
+                  }}
+                >
+                  <div>
+                  <Field>
+                  <Input
+                    {...register("formfilling")}
+                    type="radio"
+                    id="validation"
+                    value="validation"
+                    name="formfilling"
+                    disabled={selectedRadio==='nonregulatory'}
+                    checked={selectedOption === "validation"}
+                    onChange={handleList1Change}
+                    className="customRadio"
+                  
+                  />
+                  </Field>
+                  </div>
+                  <div>
+                  <label className="space">Validation</label>
+                  </div>
+                </div>
+              </div>
+
+              <div className="col">
+                <div style={{ display: "flex" }}>
+                <div>
+                  <Field>
+                  <Input
+                    {...register("formfilling")}
+                    type="radio"
+                    id="verification"
+                    value="verification"
+                    name="formfilling"
+                    disabled={selectedRadio==='nonregulatory'}
+                    checked={selectedOption === "verification"}
+                    onChange={handleList1Change}
+                    className="customRadio"
+                    
+                                                     />
+                   </Field>
+                   </div>
+                   <div>
+                  <label className="space">Verification</label>
+                  </div>
+                 
+                </div>
+              </div>
+
+               <div className="col">
+                <div style={{ display: "flex" }}>
+                <div>
+                  <Field>
+                  <Input
+                    {...register("formfilling")}
+                    type="radio"
+                    id="transfer"
+                    value="transfer"
+                    name="formfilling"
+                    disabled={selectedRadio==='nonregulatory'}
+                    checked={selectedOption === "transfer"}
+                    onChange={handleList1Change}
+                    className="customRadio"                                  />
+                  </Field>
+                  </div>
+                  <div>
+                  <label className="space">Transfer</label>
+                  </div>
+                 
+                </div>
+              </div>
+
+              <div className="col">
+                <div style={{ display: "flex" }}>
+                <div>
+                  <Field>
+                  <Input
+                    {...register("formfilling")}
+                    type="radio"
+                    id="stability"
+                    value="stability"
+                    name="formfilling"
+                    disabled={selectedRadio==='nonregulatory'}
+                    checked={selectedOption === "stability"}
+                    onChange={handleList1Change}
+                    className="customRadio"                                  />
+                   </Field>
+                   </div>
+                   <div>
+                 
+                  <label className="space">Stability</label>
+                  </div>
+                 
+                </div>
+              </div>
+
+              <div className="col">
+                <div style={{ display: "flex" }}>
+                <div>
+                  <Field>
+                  <Input
+                    {...register("formfilling")}
+                    type="radio"
+                    id="batchrelease"
+                    value="batchrelease"
+                    name="formfilling"
+                    disabled={selectedRadio==='nonregulatory'}
+                    checked={selectedOption === "batchrelease"}
+                    onChange={handleList1Change}
+                    className="customRadio"                                  />
+                  </Field>
+                  </div>
+                  <div>
+                  <label className="space">Batch Release</label>
+                  </div>
+
+                  </div>
+              </div>
+            </div>
+
+            <div className="col-12" style={{ display: "flex" }}>
+              <div className="col">
+                <div style={{ display: "flex" }}>
+                <div>
+                  <Field>
+                  <Input
+                    {...register("formfilling")}
+                    type="radio"
+                    id="usfda"
+                    value="usfda"
+                    name="formfilling"
+                    disabled={selectedRadio==='nonregulatory'}
+                    checked={selectedOption === "usfda"}
+                    onChange={handleList1Change}
+                    className="customRadio"                                  />
+                  </Field>
+                  </div>
+                  <div>
+                  <label className="space">USFDA</label>
+                  </div>
+                </div>
+              </div>
+
+              <div className="col">
+                <div style={{ display: "flex" }}>
+                <div>
+                <Field>
+                  <Input
+                    {...register("formfilling")}
+                    type="radio"
+                    id="eugmp"
+                    value="eugmp"
+                    name="formfilling"
+                    disabled={selectedRadio==='nonregulatory'}
+                    checked={selectedOption === "eugmp"}
+                    onChange={handleList1Change}
+                    className="customRadio"                                  />
+                  </Field>
+                  </div>
+                  <div>
+                  <label className="space">EU GMP</label>
+                  </div>
+                </div>
+              </div>
+
+              <div className="col">
+                <div style={{ display: "flex" }}>
+                <div>
+                <Field>
+                  <Input
+                    {...register("formfilling")}
+                    type="radio"
+                    id="localfda"
+                    value="localfda"
+                    name="formfilling"
+                    disabled={selectedRadio==='nonregulatory'}
+                    checked={selectedOption === "localfda"}
+                    onChange={handleList1Change}
+                    className="customRadio"                                  />
+                  </Field>
+                  </div>
+                  <div>
+                  <label className="space">
+                    Local FDA(DCA)
+                  </label>
+                  </div>
+                  
+                </div>
+              </div>
+
+              <div className="col">
+                <div style={{ display: "flex" }}>
+                <div>
+                <Field>
+                  <Input
+                    {...register("formfilling")}
+                    type="radio"
+                    id="nabl"
+                    value="nabl"
+                    name="formfilling"
+                    disabled={selectedRadio==='nonregulatory'}
+                    checked={selectedOption === "nabl"}
+                     onChange={handleList1Change}
+                    className="customRadio"                                  />
+                  </Field>
+                  </div>
+                  <div>
+                  <label className="space">NABL</label>
+                  </div>
+                 
+                </div>
+              </div>
+
+              <div className="col">
+                <div style={{ display: "flex" }}>
+                <div>
+                <Field>
+                  <Input
+                    {...register("formfilling")}
+                    type="radio"
+                    id="other"
+                    value="other"
+                    name="other"
+                    disabled={selectedRadio==='nonregulatory'}
+                  checked={selectedOption === "other"}
+                    onChange={handleList1Change}
+                    className="customRadio"                                  />
+                  </Field>
+                  </div>
+                  <div>
+                  <label className="space">Other</label>
+                  </div>
+                </div>
+              </div> 
+              <div className="col">
+              <span>
+                {selectedOption === "other" && (
+                  <Input
+                    type="text"
+                    className="NatureOfSample"
+                  />
+                )}
+              </span>
+            </div>
+            </div>
+          </div>
+        </div>
+      </Row>
                          </div>
                       </Row> 
                       
@@ -514,111 +403,116 @@ export default function TypeOfAnalysis({ onButtonClick }) {
                   
 
                 <Row className="cardcolhed">
-                    {/* <Col md={6}>
-                      <div className="mb-3">
-                      <Field>
-                        <text className="mb-3">Other than Regulatory</text>
-                        </Field>
-                      </div>
-                      
-                        <div style={{ display: "flex", marginBottom: 20, }}>
+                <Col md={6}>
+          <div className="mb-3">
+          <Field>
+            <text className="mb-3">Other than Regulatory</text>
+            </Field>
+          </div>
+          
+            <div style={{ display: "flex", marginBottom: 20, }}>
 
-                        <div>
-                            <Field>
-                            <Input
-                              {...register("analyticalfeasibile")}
-                              type="checkbox"
-                              value="r&dsample"
-                              name="analytical"
-                              disabled={disableNonRegular}
-                              // checked={selectedOption1 === "option11"}
-                              // onChange={handleOptionChange1}
-                              className="customRadio"                           />
-                          </Field>
-                          </div>
-                          <div>
-                          <label className="space">Analytical Feasibility</label>
-                          </div>
-                        
-                          
-                            <div
-                            style={{
-                              marginLeft: 60,
-                              alignItems: "center",
-                              display: "flex",
-                            }}
-                          >
-                            </div>
-                            <div>
-                            <Field>
-                            <Input
-                              {...register("analyticalfeasibile")}
-                              type="checkbox"
-                              value="r&dsample"
-                              name="analyticalfeasibile"
-                              disabled={disableNonRegular}
-                              // checked={selectedOption1 === "option12"}
-                              // onChange={handleOptionChange1}
-                              className="customRadio"                          />
-                          </Field>
-                          </div>
-                          <div>
-                          <label className="space">R&D Sample</label>
-                          </div>
-                           </div>
+            <div>
+                <Field>
+                <Input
+                  {...register("analyticalfeasibile")}
+                  type="checkbox"
+                  value="analytical"
+                  id="analytical"
+                  name="analyticalfeasibile"
+                disabled={selectedRadio==='regulatory'}
+                  checked={selectedOption1.includes("analytical")}
+                   onChange={handleList2Change}
+                  className="customRadio"                           />
+              </Field>
+              </div>
+              <div>
+              <label className="space">Analytical Feasibility</label>
+              </div>
+            
+              
+                <div
+                style={{
+                  marginLeft: 60,
+                  alignItems: "center",
+                  display: "flex",
+                }}
+              >
+                </div>
+                <div>
+                <Field>
+                <Input
+                  {...register("analyticalfeasibile")}
+                  type="checkbox"
+                  value="r&dsample"
+                  id="r&dsample"
+                  name="analyticalfeasibile"
+                  disabled={selectedRadio==='regulatory'}
+                  checked={selectedOption1.includes("r&dsample")}
+                  onChange={handleList2Change}
+                  className="customRadio"                          />
+              </Field>
+              </div>
+              <div>
+              <label className="space">R&D Sample</label>
+              </div>
+               </div>
 
 
 
 
-                       
-                      
-                      <div style={{ display: "flex" }}>
-                        
-                        <div>
-                          <Field>
-                          <Input
-                            {...register("analyticalfeasibile")}
-                            type="checkbox"
-                            value="methoddevelopement"
-                            name="analyticalfeasibile"
-                            disabled={disableNonRegular}
-                            // checked={selectedOption1 === "option13"}
-                            // onChange={handleOptionChange1}
-                            className="customRadio"                          />
-                          </Field>
-                          </div>
-                          <div>
-                          <label className="space">Method Development</label>
-                          </div>
-                      
-                          
-                         <div
-                          style={{
-                            marginLeft: 50,
-                            alignItems: "center",
-                            display: "flex",
-                          }}
-                        >
-                           </div>
-                          <div>
-                          <Field>
-                          <Input
-                            {...register("analyticalfeasibile")}
-                            type="checkbox"
-                            value="batchanalysis"
-                            name="analyticalfeasibile"
-                            disabled={disableNonRegular}
-                            // checked={selectedOption1 === "option14"}
-                            // onChange={handleOptionChange1}
-                            className="customRadio"                          />
-                          </Field>
-                          </div>
-                          <div>
-                          <label className="space">Batch Analysis</label>
-                          </div>
-                        </div>
-                     
-                  </Col> */}
+           
+          
+          <div style={{ display: "flex" }}>
+            
+            <div>
+            <Field>
+              <Input
+                {...register("analyticalfeasibile")}
+                type="checkbox"
+                value="methoddevelopement"
+                id="methoddevelopement"
+                name="analyticalfeasibile"
+                disabled={selectedRadio==='regulatory'}
+                checked={selectedOption1.includes("methoddevelopement")}
+                onChange={handleList2Change}
+                className="customRadio"                          />
+              </Field>
+             
+              </div>
+              <div>
+              <label className="space">Method Development</label>
+              </div>
+              
+              
+             <div
+              style={{
+                marginLeft: 50,
+                alignItems: "center",
+                display: "flex",
+              }}
+            >
+               </div>
+              <div>
+              <Field>
+              <Input
+                {...register("analyticalfeasibile")}
+                type="checkbox"
+                value="batchanalysis"
+                id="batchanalysis"
+                name="analyticalfeasibile"
+                disabled={selectedRadio==='regulatory'}
+                checked={selectedOption1.includes("batchanalysis")}
+                onChange={handleList2Change}
+                className="customRadio"                          />
+              </Field>
+              </div>
+              <div>
+              <label className="space">Batch Analysis</label>
+              </div>
+            </div>
+         
+      </Col>
 
                     <Col md={6} style={{ display: "block" }}>
                       <div className=" cardcolhedd">
@@ -735,8 +629,8 @@ export default function TypeOfAnalysis({ onButtonClick }) {
                                      type="radio"
                                      id="stp"
                                      value="stp"
-                                     //checked={selectedOptionmet === "option3"}
-                                     //onChange={() => setSelectedOptionmet("option3")}
+                                     checked={selectedOptionmet === "stp"}
+                                     onChange={() => setSelectedOptionmet("stp")}
                                      name="methodologyfollowed"
                                      //checked={selectedOption4 === "option22"}
                                      //onChange={handleOptionChange4}
@@ -765,8 +659,8 @@ export default function TypeOfAnalysis({ onButtonClick }) {
                                    type="radio"
                                    id="gtp"
                                    value="gtp"
-                                   //checked={selectedOptionmet === "option2"}
-                                   //onChange={() => setSelectedOptionmet("option2")}
+                                   checked={selectedOptionmet === "gtp"}
+                                   onChange={() => setSelectedOptionmet("gtp")}
                                    name="methodologyfollowed"
                                    //checked={selectedOption4 === "option23"}
                                    //onChange={handleOptionChange4}
@@ -796,8 +690,8 @@ export default function TypeOfAnalysis({ onButtonClick }) {
                                     className='customRadio'
                                     id="referenceno"
                                     value="referenceno"
-                                    //checked={selectedOptionmet === "option1"}
-                                    //onChange={() => setSelectedOptionmet("option1")}
+                                    checked={selectedOptionmet === "referenceno"}
+                                    onChange={() => setSelectedOptionmet("referenceno")}
                                     name="methodologyfollowed"
                                     //checked={selectedOption4 === "option24"}
                                     //onChange={handleOptionChange4}
@@ -811,11 +705,11 @@ export default function TypeOfAnalysis({ onButtonClick }) {
                               </div>
                         
                         
-                        {/* <div style={{ alignItems: "center", display: "flex" }}>
-                          {selectedOptionmet === "option1" && (
+                        <div style={{ alignItems: "center", display: "flex" }}>
+                          {selectedOptionmet === "referenceno" && (
                             <Input type="text" className="methodology" />
                           )}
-                          </div> */}
+                          </div> 
                       </div>
                           </Col> 
 
@@ -890,12 +784,6 @@ export default function TypeOfAnalysis({ onButtonClick }) {
                           </div>
                         </div>
                       </div>
-
-
-
-
-
-
                       
                       <div style={{ display: "flex", marginTop: 20 }}>
                         <div

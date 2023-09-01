@@ -1,14 +1,14 @@
 import React from "react";
 import "./Styles.css";
 
-
+import { useNavigate } from "react-router-dom";
 import { BsFileEarmarkCheck } from "react-icons/bs";
 import { Table } from "react-bootstrap";
 import NavbartitleAddco from "../components/NavbartitleAddco";
 import SidenavbarDIT from "../components/SidenavbarDIT";
 
 export default function DITSuccess() {
-
+const navigate=useNavigate()
 
   return (
     <div className="app">
@@ -69,6 +69,7 @@ export default function DITSuccess() {
                   background: "#9AC037",
                 }}
                 className="DITSuccessButton"
+                onClick={()=>navigate("/DitDashboard")}
               >
                 <text className="DITSuccessButtontext">ok</text>
               </button>
