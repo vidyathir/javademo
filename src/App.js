@@ -2,6 +2,7 @@ import React, { Fragment } from 'react'
 import {BrowserRouter,Routes,Route} from 'react-router-dom';
 import Login from './screens/Login';
 
+
 import AddNewCustomer from './screens/AddNewCustomer';
 import Progress from './screens/Progress';
 import RLPLgenerated from './screens/RLPLgenerated';
@@ -34,6 +35,7 @@ export default function App() {
     <Routes>
   
      <Route exact path='/' element={<Login/>} />
+     <Route exact path='/Print' element={<Print/>} />
      <Route exact path='/DITExpandedview' element={<DITExpandedview/>}/>
      <Route exact path ='/SroDashboard' element={<SroDashboard />} />
      <Route exact path ='/AddNewCompany' element={<AddNewCompany/>} />
@@ -54,7 +56,7 @@ export default function App() {
      <Route exact path='/ApproverDashboard' element={<ApproverDashboard/>}/>  
      <Route exact path='/ApproverDashboard/AwaitingSamplesApprover' element={<AwaitingSamplesApprover/>}/>  
      <Route exact path='/ApproverDashboard/AwaitingSamplesApprover/ApproverDetails' element={<ApproverDetails/>}/> 
-     <Route exact path='/Print' element={<Print/>}/> 
+    
      </Routes>
     </BrowserRouter>
     </Provider>

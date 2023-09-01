@@ -259,6 +259,7 @@ export default function RlplGenerated() {
                         &nbsp; Send an email
                       </Button>
                       <Button
+                      onClick={() => navigate("/Print")}
                         className="Rlplbutton"
                         style={{
                           height: "40px",
