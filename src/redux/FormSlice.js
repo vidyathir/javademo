@@ -35,7 +35,24 @@ data:{
   specialinstruction:'',
   test:['']
 },
-tabledata:[],
+tabledata:[
+  {
+    batchNo:"",
+    batchSize:"",
+    natureOfPacking:'',
+    mfgDate:'',
+    expDate:'',
+    retestDate:'',
+    sampleQuantity:'',
+    testParameter:[
+      {
+        testDataCode:"",
+        testDataName:""
+      }
+    ]
+
+  }
+],
 newArray:[
   {
     batchNo: "",
@@ -46,13 +63,14 @@ natureOfPacking: "",
 retestDate: "",
 rlplNumber:"",
 sampleQuantity:"",
-testparameters:['']
+testParameter:['']
   }
 ],
 usertoken:{
   usertype:"",
   token:"",
-}
+},
+batchId:'',
   },
   reducers: { 
       changeCustomerDetails: (state,action)=> {
@@ -77,12 +95,16 @@ state.newArray =action.payload;
 },changeUserToken:(state,action)=>{
   
   state.usertoken=action.payload;
+},
+changeBatchId:(state,action)=>{
+  state.batchId=action.payload;
 }
 
   },
 
 });
 
-export const { changeCustomerDetails,changeSampleDetails,changeTypeofAnalysis,changeBatchDetails,changeSubmitData,changeUserToken} = FormSlice.actions;
+export const { changeCustomerDetails,changeSampleDetails,changeTypeofAnalysis,changeBatchDetails,changeSubmitData,changeUserToken,
+changeBatchId} = FormSlice.actions;
 
 export default FormSlice.reducer;

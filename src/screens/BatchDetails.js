@@ -17,28 +17,13 @@ import { useDispatch } from 'react-redux';
 import { changeBatchDetails } from "../redux/FormSlice";
 import Select from "react-select";
 import { Form } from "../Forms";
-
+import axios from "axios";
 export default function BatchDetails({onButtonClick}) {
   const dispatch = useDispatch();
  const [state, setState] = useAppState();
-  const testparameters=[
- {value:'1',label:"Test Parameter Name"},
- {value:'2',label:'pH'},
- {value:"3", label:"Conductivity "},
- {value:"4", label:"Identification by IR with ATR"},
- {value:"5",label:"Identification by IR with KBR"},
- {value:"6", label:"Identification by UV"},
- {value:"7",label:"Specific optical rotation"},
- {value:"8", label:"Refractive index"},
- {value:"9",label:"Sulphated Ash"},
- {value:"10", label:"Residual on Ignition"},
- {value:"11",label:"Turbidity"},
- {value:"12", label:"TDS"},
- {value:"13",label:"Loss on drying"},
- {value:"14", label:"HPLC - Purity"},
- {value:"15",label:"HPLC - RS"},
+  const [testData,setTestData]=useState([]);
 
-]
+
 const { handleSubmit } = useForm({ defaultValues: state });
 const [inputs, setInputs] = useState({
     batchNo: "",
@@ -48,11 +33,20 @@ const [inputs, setInputs] = useState({
     expDate:"",
     retestDate:"",
     sampleQuantity:"",
-    testparameters:[],
+    testParameter:[],
 
   });
   const [disabletext,setDisabletext]=useState(false);
-  const [formErrors, setFormErrors] = useState({});
+  const [formErrors, setFormErrors] = useState({
+    batchNo: "",
+    batchSize: "",
+    natureOfPacking:"",
+    mfgDate:"",
+    expDate:"",
+    retestDate:"",
+    sampleQuantity:"",
+    testParameter:"",
+  });
   const [isSubmit, setIsSubmit] = useState(false);
   const [tableData, setTableData] = useState([]);
   const [editClick, setEditClick] = useState(false);
@@ -69,9 +63,12 @@ const [inputs, setInputs] = useState({
        expDate:inputs.expDate,
        retestDate:inputs.retestDate,
        sampleQuantity:inputs.sampleQuantity,
-    testparameters:selectedOptions,
+    testParameter:selectedOptions,
   });
-  
+  setFormErrors({
+    ...formErrors,
+    selectedOptions: "",
+  });
     
   };
   console.log("input" ,inputs);
@@ -81,13 +78,18 @@ const [inputs, setInputs] = useState({
        ...inputs,
        [e.target.name]: e.target.value,
      });
-    
+     setFormErrors({
+      ...formErrors,
+      [e.target.name]: "",
+    });
    };
    
   const handleadd = (e) => {
    e.preventDefault();
-
-    setFormErrors(validate(inputs))
+   const newinputerror=validate(inputs);
+   setFormErrors(newinputerror);
+   const hasErrors = Object.values(newinputerror).some((error) => !!error);
+   if(!hasErrors){ 
     
     if (editClick) {
       const tempTableData = tableData;
@@ -102,7 +104,7 @@ const [inputs, setInputs] = useState({
         expDate:"",
         retestDate:"",
         sampleQuantity:"",
-        testparameters:[],
+        testParameter:[],
       });
     } else {
       setTableData([...tableData, inputs]);
@@ -114,14 +116,29 @@ const [inputs, setInputs] = useState({
         expDate:"",
         retestDate:"",
         sampleQuantity:"",
-        testparameters:[],
+        testParameter:[],
       });
     }
     setSelectedOptions(null)
     console.log("inputs", inputs)
     setIsSubmit(true)
   };
-
+  }
+  useEffect(() => {
+    
+    axios
+      .get("http://3.80.98.199:3000/api/testParameters?filter[fields][testDataName]=true&filter[fields][testDataCode]=true")
+      .then((response) => setTestData (response.data.map(item => ({
+        value: item.testDataCode,
+        label: item.testDataName
+      })))
+      
+      )
+      .catch((error) => console.error("Error fetching company data:", error));
+    
+        
+  }, []);
+console.log("testdata",testData)
   useEffect(() => {
    
     console.log(formErrors);
@@ -156,15 +173,23 @@ const handleTextChange=()=>{
     const tempData = tableData[index];
 
     setInputs({ batchNo: tempData.batchNo, batchSize: tempData.batchSize, natureOfPacking: tempData.natureOfPacking,
-    mfgDate:tempData.mfgDate,expDate: tempData.expDate, retestDate:tempData.retestDate,sampleQuantity: tempData.sampleQuantity ,testparameters:tempData.testparameters});
+    mfgDate:tempData.mfgDate,expDate: tempData.expDate, retestDate:tempData.retestDate,sampleQuantity: tempData.sampleQuantity ,testParameter:tempData.testParameter});
+    setSelectedOptions(tempData.testParameter);
     setEditClick(true);
     setEditIndex(index);
   };
+  function combineValues(...values) {
+    const nonEmptyValues = values.filter(value => value !== "" && value !== undefined);
+    return nonEmptyValues.length > 0 ? nonEmptyValues.join(", ") : "N/A";
+  }
+
   const validate = (values) => {
     const errors = {};
+    
     if (!values.batchNo) {
       errors.batchNo = "This field is required!";
     }
+    if(!disabletext){
     if (!values.mfgDate) {
       errors.mfgDate = "This field is required!";
     }
@@ -174,8 +199,9 @@ const handleTextChange=()=>{
     if (!values.retestDate) {
       errors.retestDate = "This field is required!";
     }
-    if (!values.testparameters) {
-      errors.testparameters = "This field is required!";
+  }
+    if (!values.testParameter || values.testParameter.length===0) {
+      errors.selectedOptions = "This field is required!";
     }
     return errors;
   };
@@ -343,11 +369,11 @@ checked={disabletext}/>
                         </div>
                     <div>
                       
-                    <Select name="testparameters"  value={selectedOptions} 
-        onChange={handleSelectChange}style={{borderRadius:6}} options={testparameters} isClearable isMulti={true} />
+                    <Select name="testParameter"  value={selectedOptions} 
+        onChange={handleSelectChange}style={{borderRadius:6}} options={testData} isClearable isMulti={true} />
             
                       </div>
-                      <p style={{color:"red"}}>{formErrors.testparameters}</p>
+                      <p style={{color:"red"}}>{formErrors.selectedOptions}</p>
                     </Col>
 
                     <Col>
@@ -401,18 +427,17 @@ checked={disabletext}/>
                    
                     <tbody className="tablebody-custom ">
                     {tableData.map((item, i) => (
-                      <tr key={item.id}>
-                        <td>{i+1}</td>
-                                <td>{item.batchNo}</td>
-                        <td>{item.batchSize}</td>
-                        <td>{item.natureOfPacking}</td>
-                        <td>{item.mfgDate}</td>
-                        <td>{item.expDate}</td>
-                        <td>{item.retestDate}</td>
-                        <td>{item.sampleQuantity}</td>
-                  
-                        <td>{item.testparameters.map(option=>option.label).join(',')}</td>
-                        {/* <td>{selectedOptions.map(option => option.label).join(', ')}</td> */}
+    <tr key={item.id}>
+      <td>{i + 1}</td>
+      <td>{item.batchNo}</td>
+      <td>{combineValues(item.batchSize)}</td>
+      <td>{combineValues(item.natureOfPacking)}</td>
+      <td>{combineValues(item.mfgDate)}</td>
+      <td>{combineValues(item.expDate)}</td>
+      <td>{combineValues(item.retestDate)}</td>
+      <td>{combineValues(item.sampleQuantity)}</td>
+      <td>{combineValues(item.testParameter?.map(option => option.label))}</td>
+                
                         <td>
                           <div className="tablerowicon">
                             <BiEdit size={20} color={"#9AC037"} onClick={() => handleEdit(i)} />

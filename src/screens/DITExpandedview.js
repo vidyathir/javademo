@@ -1,6 +1,5 @@
-import React from "react";
+import React,{useState,useEffect} from "react";
 import "./Styles.css";
-
 import { Col, Row, Table } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 
@@ -8,15 +7,28 @@ import {
   AiOutlineLeft,
   // AiOutlineEye
 } from "react-icons/ai";
-
+import { useSelector } from "react-redux";
 import { PiFilePdfFill } from "react-icons/pi";
 import { BiRightArrowAlt } from "react-icons/bi";
 import NavbartitleAddco from "../components/NavbartitleAddco";
 import SidenavbarDIT from "../components/SidenavbarDIT";
-
+import axios from "axios";
 export default function DITExpandedView() {
   const navigate = useNavigate();
+  const id=useSelector(state =>state.form.batchId.batchId);
+  const[detailedView,setDetailedView]=useState({})
+  const analysis=useSelector(state =>state.form.data);
+  console.log(id)
+ 
+  useEffect(() => {
 
+    axios
+      .get("http://3.80.98.199:3000/api/batchDetails/getBatchById?batchId="+id)
+      .then((response) => setDetailedView(response.data))
+      .catch((error) => console.error("Error fetching batch data:", error));
+  }, [id]);
+
+  console.log("details",detailedView)
   return (
     <div className="app">
       <NavbartitleAddco />
@@ -56,20 +68,29 @@ export default function DITExpandedView() {
                   <th>Exp. Date</th>
                   <th>Retest Date</th>
                   <th>Test Parameter</th>
-                  <th>Required DOcuments</th>
+                  <th>Required Documents</th>
                 </tr>
               </thead>
               <tbody className="tablebody-custom">
                 <tr>
                   <td>01</td>
-                  <td>0101</td>
-                  <td>xxxxx</td>
-                  <td>xxxxx</td>
-                  <td>xxxxx</td>
-                  <td>11/02/2023</td>
-                  <td>31/04/2023</td>
-                  <td>01/02/2023</td>
-                  <td>xxxxxx</td>
+                  <td>{detailedView.rlplNumber}</td>
+                  <td>{detailedView.batchNo}</td>
+                  <td>{detailedView.natureOfPacking}</td>
+                  <td>{detailedView.sampleQuantity}</td>
+                  <td>{detailedView.mfgDate}</td>
+                  <td>{detailedView.expDate}</td>
+                  <td>{detailedView.retestDate}</td>
+         <td>
+  {detailedView.testParameter && Array.isArray(detailedView.testParameter) ? (
+    detailedView.testParameter.map((item, index) => (
+      <li key={index}>{item.testDataCode}</li>
+    ))
+  ) : (
+    <span>No test parameters available</span>
+  )}
+</td>
+                
                   <td>xxxxxx</td>
                 </tr>
 
@@ -82,30 +103,32 @@ export default function DITExpandedView() {
               <text className="mainheadtitlesub">Sample details</text>
               <hr />
             </div>
-
+{Object.keys(detailedView).length > 0 ? (
+  <>
             <Row className="rowtabview">
               <Col className="">
                 <div className="d-flex row">
                   <text className="cardcolhed">Name of the Sample</text>
-                  <text className="cardcolhedtext mt-1">xxxxx</text>
+                  <text className="cardcolhedtext mt-1">{detailedView.sampleDetails.sampleName}</text>
                 </div>
               </Col>
               <Col className="columnMb">
                 <div className="d-flex row">
                   <text className="cardcolhed">Storage Condition</text>
-                  <text className="cardcolhedtext mt-1">xxxxxxx</text>
+                  <text className="cardcolhedtext mt-1">{detailedView.sampleDetails.storageCondition}</text>
                 </div>
               </Col>
               <Col className="columnMb">
                 <div className="d-flex row">
                   <text className="cardcolhed">Type of Submission</text>
-                  <text className="cardcolhedtext mt-1">xxxxxx xxx</text>
+                  <text className="cardcolhedtext mt-1">{detailedView.sampleDetails.typeOfSubmission}</text>
                 </div>
               </Col>
               <Col className="columnMb">
                 <div className="d-flex row">
                   <text className="cardcolhed">Sample Type</text>
-                  <text className="cardcolhedtext mt-1">xxxxx xxxxx </text>
+                  {detailedView.sampleDetails.sampleType?
+                  <text className="cardcolhedtext mt-1">{detailedView.sampleDetails.sampleType}</text>:'N/A'}
                 </div>
               </Col>
             </Row>
@@ -114,7 +137,7 @@ export default function DITExpandedView() {
               <Col className="columnMb col-3">
                 <div className="d-flex row">
                   <text className="cardcolhed">Nature of Sample</text>
-                  <text className="cardcolhedtext mt-1">xxxxxx</text>
+                  <text className="cardcolhedtext mt-1">{detailedView.sampleDetails.natureOfSample}</text>
                 </div>
               </Col>
               <Col className="columnMb col-3">
@@ -122,7 +145,7 @@ export default function DITExpandedView() {
                   <text className="cardcolhed">
                     Report required as per Form-39
                   </text>
-                  <text className="cardcolhedtext mt-1">xxxxxx</text>
+                  <text className="cardcolhedtext mt-1">{detailedView.sampleDetails.reportRequiredaAsPerForm39}</text>
                 </div>
               </Col>
               <Col className="columnMb col-6">
@@ -130,7 +153,7 @@ export default function DITExpandedView() {
                   <text className="cardcolhed">
                     Sample Retention required(Drug Product/Substance){" "}
                   </text>
-                  <text className="cardcolhedtext mt-1">xxxxxx</text>
+                  <text className="cardcolhedtext mt-1">{detailedView.sampleDetails.sampleRetentionRequired}</text>
                 </div>
               </Col>
             </Row>
@@ -146,13 +169,15 @@ export default function DITExpandedView() {
                   <text className="cardcolhed">
                     Regulatory(Form-39/DMF Filing/ANDA Filing/Any Query)
                   </text>
-                  <text className="cardcolhedtext mt-1">xxxxxx xxxxx</text>
+                  {detailedView.sampleDetails.regulatory?
+                  <text className="cardcolhedtext mt-1">{detailedView.sampleDetails.regulatory}</text>:'N/A'}
                 </div>
               </Col>
               <Col className="columnMb">
                 <div className="d-flex row">
                   <text className="cardcolhed">Other than Regulatory </text>
-                  <text className="cardcolhedtext mt-1">xxxxxx xxxxx</text>
+                  {detailedView.sampleDetails.otherThanRegulatory ?
+                  <text className="cardcolhedtext mt-1">{detailedView.sampleDetails.otherThanRegulatory.join('   ,  ')}</text>:'N/A'}
                 </div>
               </Col>
             </Row>
@@ -163,7 +188,8 @@ export default function DITExpandedView() {
                   <text className="cardcolhed">
                     Test to be carried out as per{" "}
                   </text>
-                  <text className="cardcolhedtext mt-1">xxxxxx xxxxx</text>
+                  {detailedView.sampleDetails.testToBeCarriedOut ?
+                  <text className="cardcolhedtext mt-1">{detailedView.sampleDetails.testToBeCarriedOut.join('  ,  ')}</text>:'N/A'}
                 </div>
               </Col>
               <Col className="columnMb">
@@ -171,7 +197,7 @@ export default function DITExpandedView() {
                   <text className="cardcolhed">
                     Special Instructions If any other{" "}
                   </text>
-                  <text className="cardcolhedtext mt-1">xxxxxx xxxxx</text>
+                  <text className="cardcolhedtext mt-1">{detailedView.sampleDetails.specialInstruction}</text>
                 </div>
               </Col>
             </Row>
@@ -183,7 +209,7 @@ export default function DITExpandedView() {
                     If Method Validation/Verification/Transfer/Development are
                     performed atRevin Labs please specify the Report Ref. No.{" "}
                   </text>
-                  <text className="cardcolhedtext mt-1">xxxxxx xxxxx</text>
+                  <text className="cardcolhedtext mt-1">{detailedView.sampleDetails.vvtddRefNo}</text>
                 </div>
               </Col>
               <Col className="columnMb">
@@ -198,8 +224,7 @@ export default function DITExpandedView() {
                   <div className="analyticalbutton-div">
                     <text className="analyticalbutton mt-1 ">SRO</text>
                     <text className="analyticalbutton mt-1 ms-1">SOR</text>
-                    <text className="analyticalbutton mt-1 ms-1">xxxxx</text>
-                    <text className="analyticalbutton mt-1 ms-1">xxxxx</text>
+
                   </div>
 
                   {/* <text className="cardcolhedtext mt-1">xxxxxx xxxxx</text> */}
@@ -211,7 +236,7 @@ export default function DITExpandedView() {
               <Col className="columnMb">
                 <div className="d-flex row">
                   <text className="cardcolhed">Methodology </text>
-                  <text className="cardcolhedtext mt-1">xxxxxx xxxxx</text>
+                  <text className="cardcolhedtext mt-1">{detailedView.sampleDetails.methodology}</text>
                 </div>
               </Col>
               <Col className="columnMb">
@@ -219,12 +244,17 @@ export default function DITExpandedView() {
                   <text className="cardcolhed">Attachments </text>
                   <span>
                     <PiFilePdfFill />
-                    <text className="cardcolhedtext mt-1">xyz.pdf</text>
+                    <text className="cardcolhedtext mt-1">{Array.from(analysis.choosefile).map(f => (<text className="cardcolhedtext mt-1" key={f.name}> {f.name}</text>
+      ))}</text>
                   </span>
                 </div>
               </Col>
             </Row>
-
+            </>
+):(
+            // Display a loading indicator if data is still loading
+            <div>Loading...</div>
+          )}
             <div className="cardbuttonboubleend mb-3">
               {/* <button
               className="cardbuttonoutline"
@@ -240,7 +270,9 @@ export default function DITExpandedView() {
                 Review <BiRightArrowAlt size={24} />
               </button>
             </div>
+
           </div>
+
         </div>
       </div>
     </div>

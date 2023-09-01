@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useEffect} from "react";
 import './Styles.css'
 import Table from "react-bootstrap/Table";
 import { Button } from "react-bootstrap";
@@ -10,9 +10,9 @@ import Navbartitle from "../components/Navbartitle";
 import { useSelector } from "react-redux";
 export default function RlplGenerated() {
 
-  // const handlePrint = () => {
-  //   window.print();
-  // };
+  useEffect(()=>{
+    window.sessionStorage.removeItem('tableData')
+  },[])
   const navigate = useNavigate();
   
   const sample=useSelector(state =>state.form.sampleDetails);
@@ -228,8 +228,8 @@ export default function RlplGenerated() {
                             borderLeft: "1px solid #d1d1d1",
                             borderBottom: "none",
                           }}
-                        >{item.testparameters.map((value,index)=>(
-                          <li key={index}>{value.label}</li>
+                        >{item.testParameter.map((value,index)=>(
+                          <li key={index}>{value.testDataName}</li>
                          ))}
 
                         </td>
@@ -273,9 +273,7 @@ export default function RlplGenerated() {
                         }}
                         name="Next"
                       >
-                        <AiFillPrinter size={20} color="#fff"
-                        //  onClick={handlePrint}
-                          />
+                        <AiFillPrinter size={20} color="#fff" onClick={()=>navigate("/Print")} />
                         &nbsp; Print 
                       </Button>
                     </div>
