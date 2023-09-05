@@ -99,7 +99,7 @@ export default function DITExpandedView() {
               <thead className="table-custom">
                 <tr>
                   <th>S.No</th>
-                  <th>Registration No</th>
+                  <th>RLPL ID</th>
                   <th>Batch No./Lot No(s)</th>
                   <th>Nature Of Packaging</th>
                   <th>Sample Quantity</th>
@@ -215,13 +215,24 @@ export default function DITExpandedView() {
                   <text className="cardcolhedtext mt-1">{detailedView.sampleDetails.regulatory}</text>:'N/A'}
                 </div>
               </Col>
-              <Col className="columnMb">
+              {/* <Col className="columnMb">
                 <div className="d-flex row">
                   <text className="cardcolhed">Other than Regulatory </text>
                   {detailedView.sampleDetails.otherThanRegulatory ?
                   <text className="cardcolhedtext mt-1">{detailedView.sampleDetails.otherThanRegulatory.join('   ,  ')}</text>:'N/A'}
                 </div>
+              </Col> */}
+
+<Col className="columnMb">
+                <div className="d-flex row">
+                  <text className="cardcolhed">
+                    If Method Validation/Verification/Transfer/Development are
+                    performed atRevin Labs please specify the Report Ref. No.{" "}
+                  </text>
+                  <text className="cardcolhedtext mt-1">{detailedView.sampleDetails.vvtddRefNo}</text>
+                </div>
               </Col>
+
             </Row>
 
             <Row className="mt-3 rowtabview">
@@ -234,17 +245,25 @@ export default function DITExpandedView() {
                   <text className="cardcolhedtext mt-1">{detailedView.sampleDetails.testToBeCarriedOut.join('  ,  ')}</text>:'N/A'}
                 </div>
               </Col>
-              <Col className="columnMb">
+              {/* <Col className="columnMb">
                 <div className="d-flex row">
                   <text className="cardcolhed">
                     Special Instructions If any other{" "}
                   </text>
                   <text className="cardcolhedtext mt-1">{detailedView.sampleDetails.specialInstruction}</text>
                 </div>
+              </Col> */}
+
+<Col className="columnMb">
+                <div className="d-flex row">
+                  <text className="cardcolhed">Methodology </text>
+                  <text className="cardcolhedtext mt-1">{detailedView.sampleDetails.methodology}</text>
+                </div>
               </Col>
+
             </Row>
 
-            <Row className="mt-3 rowtabview">
+      {/* <Row className="mt-3 rowtabview"> 
               <Col className="columnMb">
                 <div className="d-flex row">
                   <text className="cardcolhed">
@@ -275,18 +294,18 @@ export default function DITExpandedView() {
 
                   </div>
 
-                  {/* <text className="cardcolhedtext mt-1">xxxxxx xxxxx</text> */}
+                   <text className="cardcolhedtext mt-1">xxxxxx xxxxx</text> 
                 </div>
               </Col>
-            </Row>
+            </Row> */}
 
             <Row className="mt-3 rowtabview">
-              <Col className="columnMb">
+              {/* <Col className="columnMb">
                 <div className="d-flex row">
                   <text className="cardcolhed">Methodology </text>
                   <text className="cardcolhedtext mt-1">{detailedView.sampleDetails.methodology}</text>
                 </div>
-              </Col>
+              </Col> */}
               <Col className="columnMb">
                 <div className="d-flex row">
                   <text className="cardcolhed">Attachments </text>
@@ -297,6 +316,14 @@ export default function DITExpandedView() {
                   </span>
                 </div>
               </Col>
+
+               <Col className="columnMb">
+                <div className="d-flex row">
+                  <text className="cardcolhed">Special Instructions If any other </text>
+                  <text className="cardcolhedtext mt-1">{detailedView.sampleDetails.methodology}</text>
+                </div>
+              </Col>
+
             </Row>
             </>
 ):(
