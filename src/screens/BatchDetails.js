@@ -4,7 +4,6 @@ import {
   Card,
   Col,
   Row,
-  //   Form,
   Table,
 } from "react-bootstrap";
 import { useForm } from "react-hook-form";
@@ -186,38 +185,38 @@ const handleTextChange=()=>{
     return nonEmptyValues.length > 0 ? nonEmptyValues.join(", ") : "N/A";
   }
 
-  const validate = (values) => {
+  function validate(values) {
     const errors = {};
-    
+
     if (!values.batchNo) {
       errors.batchNo = "This field is required!";
     }
-    if(!disabletext){
-    if (!values.mfgDate) {
-      errors.mfgDate = "This field is required!";
-    }
-    if (!values.expDate) {
-      errors.expDate = "This field is required!";
-    }else {
-      // Check if Exp. Date is greater than or equal to Retest Date
-      if (new Date(values.mfgDate) >= new Date(values.expDate)) {
-        errors.expDate = "Exp Date must be after than Mfg Date!";
+    if (!disabletext) {
+      if (!values.mfgDate) {
+        errors.mfgDate = "This field is required!";
+      }
+      if (!values.expDate) {
+        errors.expDate = "This field is required!";
+      } else {
+        // Check if Exp. Date is greater than or equal to Retest Date
+        if (new Date(values.mfgDate) >= new Date(values.expDate)) {
+          errors.expDate = "Exp Date must be after than Mfg Date!";
+        }
+      }
+      if (!values.retestDate) {
+        errors.retestDate = "This field is required!";
+      } else {
+        // Check if Exp. Date is greater than or equal to Retest Date
+        if (new Date(values.expDate) >= new Date(values.retestDate)) {
+          errors.retestDate = "Retest Date must be after than Exp Date!";
+        }
       }
     }
-    if (!values.retestDate) {
-      errors.retestDate = "This field is required!";
-    }else {
-      // Check if Exp. Date is greater than or equal to Retest Date
-      if (new Date(values.expDate) >= new Date(values.retestDate)) {
-        errors.retestDate = "Retest Date must be after than Exp Date!";
-      }
-    }
-  }
-    if (!values.testParameter || values.testParameter.length===0) {
+    if (!values.testParameter || values.testParameter.length === 0) {
       errors.selectedOptions = "This field is required!";
     }
     return errors;
-  };
+  }
   return (
     <div>
     

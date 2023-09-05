@@ -87,19 +87,7 @@ fetch("http://3.80.98.199:3000/api/sampleDetails/createSample", {
   .then((response) => response.json())
 
   .then((data) => {
-    dispatch(changeSubmitData({
-      sampleId:data.sampleId,
-    batchNo:data.batchNo,
-batchSize:data.batchSize,
-expDate:data.expDate,
-mfgDate:data.mfgDate,
-natureOfPacking:data.natureOfPacking,
-retestDate:data.retestDate,
-rlplNumber:data.rlplNumber,
-sampleQuantity:data.sampleQuantity,
-testParameter:data.testParameter
-
-    }))
+    dispatch(changeSubmitData(data))
     console.log("Success:", data);
     
      // handle the response data here

@@ -55,7 +55,7 @@ tabledata:[
 ],
 newArray:[
   {
-    sampleId:'',
+    sampleId:0,
     batchNo: "",
 batchSize: "",
 expDate: "",
@@ -70,7 +70,7 @@ testParameter:['']
 ditresponse:[
   
     {
-      sampleId: "",
+      sampleId: 0,
       batchId: "",
       tdsNumber:"",
        id: "",

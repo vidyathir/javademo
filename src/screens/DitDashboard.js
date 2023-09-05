@@ -16,28 +16,45 @@ import NavbartitleAddco from "../components/NavbartitleAddco";
 import SidenavbarDIT from "../components/SidenavbarDIT";
 import { changeBatchId } from "../redux/FormSlice";
 import { useDispatch } from "react-redux";
-export default function AnalystDashboaed() {
+export default function DitDashboard() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const[batchDetail,setBatchDetail]=useState([]);
+  const[batchDetail,setBatchDetail]=useState({});
+  const [currentPage, setCurrentPage] = useState(1);
+const itemsPerPage = 10;
+const startIndex = (currentPage - 1) * itemsPerPage;
+const endIndex = startIndex + itemsPerPage;
+const currentData = batchDetail.samples ? batchDetail.samples.slice(startIndex, endIndex) : [];
+const [dataAvailable, setDataAvailable] = useState(false);
   useEffect(() => {
     
     axios
-      .get("http://3.80.98.199:3000/api/batchDetails/getBatchDetails?page=2")
-      .then((response) => setBatchDetail(response.data))
-      .catch((error) => console.error("Error fetching batch data:", error));
-  }, []);
+    .get(`http://3.80.98.199:3000/api/batchDetails/getBatchDetails?page=${currentPage}&perPage=${itemsPerPage}`)
+    .then((response) => {
+      const responseData = response.data;
+      setBatchDetail(responseData);
+      // Check if data is available and set dataAvailable accordingly
+      setDataAvailable(!!responseData.samples && responseData.samples.length > 0);
+    })
+    .catch((error) => {
+      console.error("Error fetching batch data:", error);
+      // Handle the error (e.g., display an error message to the user)
+    });
+}, [currentPage]);
+  console.log("batchdetail", batchDetail)
+  function handlePageChange(newPage) {
+    setCurrentPage(newPage);
+  }
+  
+  function handleSubmit(item) {
 
-const handleSubmit=(item)=>{
-  console.log("item",item.id)
-  dispatch(changeBatchId(
-    {batchId:item.id})
-  ) 
-  navigate("DITExpandedview")
-};
-
-console.log("batchdetail", batchDetail)
-  return (
+    console.log("item", item.id);
+    dispatch(changeBatchId(
+      { batchId: item.id })
+    );
+    navigate("DITExpandedview");
+  }
+return (
     <div className="app">
       <NavbartitleAddco />
 
@@ -112,7 +129,13 @@ console.log("batchdetail", batchDetail)
                     </tr>
                   </thead>
                   <tbody className="trAlign">
-                  {batchDetail.map((item, i) => (
+                  {!batchDetail.samples ? (
+  <tr>
+    <td colSpan="4">Loading...</td>
+  </tr>
+) : 
+                  (currentData.map((item, i) => (
+
                       <tr key={item.id}>
                 
                       <td>{i+1}</td>
@@ -127,10 +150,17 @@ console.log("batchdetail", batchDetail)
                         <button className="tbbutton " onClick={() => handleSubmit(item)}>View</button>
                       </td>
                     </tr>
-                  ))}
+                  )))}
                    
                   </tbody>
                 </Table>
+                {/* Pagination controls */}
+                {dataAvailable && (
+<div className="pagination">
+  <button onClick={() => handlePageChange(currentPage - 1)}>Previous</button>
+  <span>{currentPage}</span>
+  <button onClick={() => handlePageChange(currentPage + 1)}>Next</button>
+</div>)}
               </div>
             </div>
           </div>

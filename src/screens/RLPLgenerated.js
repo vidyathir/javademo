@@ -19,13 +19,14 @@ export default function RlplGenerated() {
   
   const batch=useSelector(state =>state.form.newArray)
   console.log("batch",batch)
-  const sid = batch.map((item,index)=>(
-
-   <div key={index}>{item.sampleId}
-    </div>
-  ));
-  const item={"sampleId":sid}
-  console.log("sid",sid)
+  let Id=0
+  Id = batch.map(item => item.sampleId);
+   
+    const [sid]=Id
+    console.log("id",sid)
+   const item={
+    "sampleId":sid
+   }
   const postapicall=()=>{
     fetch("http://3.80.98.199:3000/api/sampleDetails/sendMail", {
       method: "POST",
