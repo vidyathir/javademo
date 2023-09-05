@@ -6,10 +6,10 @@ import { BsFileEarmarkCheck } from "react-icons/bs";
 import { Table } from "react-bootstrap";
 import NavbartitleAddco from "../components/NavbartitleAddco";
 import SidenavbarDIT from "../components/SidenavbarDIT";
-
+import { useSelector } from "react-redux";
 export default function DITSuccess() {
 const navigate=useNavigate()
-
+const dit=useSelector(state=>state.form.ditresponse);
   return (
     <div className="app">
       <NavbartitleAddco />
@@ -39,23 +39,14 @@ const navigate=useNavigate()
                   </tr>
                 </thead>
                 <tbody className="tablebody-custom">
-                  <tr>
-                    <td>1</td>
-                    <td>TDS/SOR/23/1234</td>
-                    <td>SRO</td>
+                {dit.map((item,i)=>(
+                  <tr key={i}>
+                    <td>{i+1}</td>
+                    <td>{item.tdsNumber}</td>
+                    <td>{item.testDataCode}</td>
                   </tr>
 
-                  <tr>
-                    <td>2</td>
-                    <td>TDS/SOR/23/1234</td>
-                    <td>XRD</td>
-                  </tr>
-
-                  <tr>
-                    <td>3</td>
-                    <td>TDS/SOR/23/1234</td>
-                    <td>DSC</td>
-                  </tr>
+                ))}
                 </tbody>
               </Table>
             </div>

@@ -23,7 +23,7 @@ export default function AnalystDashboaed() {
   useEffect(() => {
     
     axios
-      .get("http://3.80.98.199:3000/api/batchDetails/getBatchDetails?page=1")
+      .get("http://3.80.98.199:3000/api/batchDetails/getBatchDetails?page=2")
       .then((response) => setBatchDetail(response.data))
       .catch((error) => console.error("Error fetching batch data:", error));
   }, []);

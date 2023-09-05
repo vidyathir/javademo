@@ -83,7 +83,10 @@ const [inputs, setInputs] = useState({
       [e.target.name]: "",
     });
    };
-   
+    const handleClear=()=>{
+      setInputs("")
+setSelectedOptions("")
+    }
   const handleadd = (e) => {
    e.preventDefault();
    const newinputerror=validate(inputs);
@@ -195,9 +198,19 @@ const handleTextChange=()=>{
     }
     if (!values.expDate) {
       errors.expDate = "This field is required!";
+    }else {
+      // Check if Exp. Date is greater than or equal to Retest Date
+      if (new Date(values.mfgDate) >= new Date(values.expDate)) {
+        errors.expDate = "Exp Date must be after than Mfg Date!";
+      }
     }
     if (!values.retestDate) {
       errors.retestDate = "This field is required!";
+    }else {
+      // Check if Exp. Date is greater than or equal to Retest Date
+      if (new Date(values.expDate) >= new Date(values.retestDate)) {
+        errors.retestDate = "Retest Date must be after than Exp Date!";
+      }
     }
   }
     if (!values.testParameter || values.testParameter.length===0) {
@@ -364,7 +377,7 @@ checked={disabletext}/>
                     </label>
                    {/* <text style={{fontSize:10.5,fontWeight:300}}>(If require attach Annexure
                           along with this filled TRF)</text>  */}
-                          {/* <text className="cardcolhedstar">*</text> */}
+                           <text className="cardcolhedstar">*</text> 
                        
                         </div>
                     <div>
@@ -387,7 +400,7 @@ checked={disabletext}/>
 
                         <button type="reset"
                           className="cardbutton"
-                        
+                        onClick={handleClear}
                         >
                           <AiOutlineClose size={18} /> Clear
                         </button>
@@ -439,8 +452,10 @@ checked={disabletext}/>
       <td>{combineValues(item.testParameter?.map(option => option.label))}</td>
                 
                         <td>
-                          <div className="tablerowicon">
+                          <div className="tablerowicon" style={{justifyContent:"space-between"}}>
                             <BiEdit size={20} color={"#9AC037"} onClick={() => handleEdit(i)} />
+
+                            
                             <RiDeleteBinLine size={20} color={"#9AC037"}  onClick={() => handleDelete(i)}/>
                           </div>
                         </td>

@@ -87,7 +87,19 @@ fetch("http://3.80.98.199:3000/api/sampleDetails/createSample", {
   .then((response) => response.json())
 
   .then((data) => {
-    dispatch(changeSubmitData(data))
+    dispatch(changeSubmitData({
+      sampleId:data.sampleId,
+    batchNo:data.batchNo,
+batchSize:data.batchSize,
+expDate:data.expDate,
+mfgDate:data.mfgDate,
+natureOfPacking:data.natureOfPacking,
+retestDate:data.retestDate,
+rlplNumber:data.rlplNumber,
+sampleQuantity:data.sampleQuantity,
+testParameter:data.testParameter
+
+    }))
     console.log("Success:", data);
     
      // handle the response data here
@@ -113,8 +125,8 @@ fetch("http://3.80.98.199:3000/api/sampleDetails/createSample", {
     text: "You want to accept the sample!",
     icon: 'warning',
     showCancelButton: true,
-    confirmButtonColor: '#3085d6',
-    cancelButtonColor: '#d33',
+    confirmButtonColor: '#9AC037',
+    cancelButtonColor: '#3A4175',
     confirmButtonText: 'Yes!'
   }).then((result) => {
     if (result.isConfirmed) {
@@ -137,8 +149,8 @@ fetch("http://3.80.98.199:3000/api/sampleDetails/createSample", {
       text: "You want to reject this sample!",
       icon: 'warning',
       showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
+      confirmButtonColor: '#9AC037',
+      cancelButtonColor: '#3A4175',
       confirmButtonText: 'Yes!'
     }).then((result) => {
       if (result.isConfirmed) {
@@ -1031,6 +1043,7 @@ fetch("http://3.80.98.199:3000/api/sampleDetails/createSample", {
                         >
                           <div>
                             <Button
+                            type="button"
                               style={{
                                 height: "40px",
                                 width: "122px",
@@ -1052,6 +1065,7 @@ fetch("http://3.80.98.199:3000/api/sampleDetails/createSample", {
                             
                             <div>
                           <Button
+                          type="button"
                           onClick={handleReject}
                             style={{
                               height: "40px",

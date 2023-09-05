@@ -60,7 +60,8 @@ submissiontype:data.submissiontype,
               <Form onSubmit={handleSubmit(saveData)}>
                 <fieldset>
                 <div className="cardcolumnpadding">
-                  <Field label="Name of the Sample" className="defaultStyles">
+                  <div  className="cardcolhed mb-4"> <label> Name of the Sample</label></div>
+                  <Field>
                     <Input {...register("samplename")} id="samplename"  className="form-control1" />
                   </Field>
                   <hr />
@@ -88,18 +89,17 @@ submissiontype:data.submissiontype,
                           >
                             <div className="col">
                               <span
-                                style={{
-                                 
-                                  display: "flex",
-                                }}
-                              >
-                                <div>
+
+                                  style={{
+                                    flexDirection:'row',
+                                    display:'flex',}}
+                              ><div>
                                 <Field>
                                   <Input
                                     {...register("report", { required: true })}
                                     type="radio"
-                                    id="yes"
-                                    value="yes"
+                                    id="Yes"
+                                    value="Yes"
                                     name="report"
                                     // checked={selectedOption === "option1"}
                                     //onChange={handleChange}
@@ -121,8 +121,8 @@ submissiontype:data.submissiontype,
                                   <Input
                                     {...register("report", { required: true })}
                                     type="radio"
-                                    id="no"
-                                    value="no"
+                                    id="No"
+                                    value="No"
                                     name="report"
                                     // checked={selectedOption === "option2"}
                                     //onChange={handleChange}
@@ -144,8 +144,8 @@ submissiontype:data.submissiontype,
                                   <Input
                                     {...register("report", { required: true })}
                                     type="radio"
-                                    id="local"
-                                    value="local"
+                                    id="Local FDA(DCA)"
+                                    value="Local FDA(DCA)"
                                     name="report"
                                     // checked={selectedOption === "option2"}
                                     //onChange={handleChange}
@@ -209,17 +209,18 @@ submissiontype:data.submissiontype,
                               </span>
                             </div>
                             <div className="col">
-                              <span  style={{
+                              <span style={{
                                 flexDirection:'row',
-                                display:'flex' }}>
+                                display:'flex' }}
+                                >
                                   <div>
                                 <Field>
                                   <Input
                                     {...register("storage", { required: true })}
                                     type="radio"
                                     name="storage"
-                                    id="Freezer"
-                                    value="Freezer"
+                                    id="Freezer (-20°C)"
+                                    value="Freezer (-20°C)"
                                     // checked={selectedOption3 === "option14"}
                                     //onChange={handleChange}
                                     className="customRadio"
@@ -240,8 +241,8 @@ submissiontype:data.submissiontype,
                                   <Input
                                     {...register("storage", { required: true })}
                                     type="radio"
-                                    id="Refrigerator"
-                                    value="Refrigerator"
+                                    id="Refrigerator (2-8°C)"
+                                    value="Refrigerator (2-8°C)"
                                     name="storage"
                                     // checked={selectedOption3 === "option15"}
                                     // onChange={handleChange}
@@ -359,10 +360,10 @@ submissiontype:data.submissiontype,
                                     type="radio"
                                     id="Intermediate"
                                     name="natureofsample"
-                                    value="intermediate"
-                                    checked={selectedOption === "intermediate"}
+                                    value="Intermediate"
+                                    checked={selectedOption === "Intermediate"}
                                     onChange={() =>
-                                      setSelectedOption("intermediate")
+                                      setSelectedOption("Intermediate")
                                     }
                                     //checked={selectedOption1 === "option6"}
                                     //onChange={handleChange}
@@ -455,12 +456,12 @@ submissiontype:data.submissiontype,
                                       required: true,
                                     })}
                                     type="radio"
-                                    id="drugproduct"
+                                    id="Drug Product"
                                     name="natureofsample"
-                                    value="drugproduct"
-                                    checked={selectedOption === "drugproduct"}
+                                    value="Drug Product"
+                                    checked={selectedOption === "Drug Product"}
                                     onChange={() =>
-                                      setSelectedOption("drugproduct")
+                                      setSelectedOption("Drug Product")
                                     }
                                     //checked={selectedOption1 === "option9"}
                                     //onChange={handleChange}
@@ -500,12 +501,12 @@ submissiontype:data.submissiontype,
                                       required: true,
                                     })}
                                     type="radio"
-                                    id="others"
+                                    id="Others"
                                     name="natureofsample"
-                                    value="others"
-                                    checked={selectedOption === "others"}
+                                    value="Others"
+                                    checked={selectedOption === "Others"}
                                     onChange={() =>
-                                      setSelectedOption("others")
+                                      setSelectedOption("Others")
                                     }
                                     //checked={selectedOption1 === "option10"}
                                     //checked={showTextBox}
@@ -522,7 +523,7 @@ submissiontype:data.submissiontype,
 
                             <div className="col">
                               <span>
-                                {selectedOption === "others" && (
+                                {selectedOption === "Others" && (
                                   <Input
                                     type="text"
                                     className="NatureOfSample"
@@ -576,7 +577,7 @@ submissiontype:data.submissiontype,
                                     type="checkbox"
                                 
                                     name="sampletype"
-                                    value="hygroscopic"
+                                    value="Hygroscopic"
                                    // id="hygroscopic"
                                     // checked={selectedOptioncheck === "hygroscopic"}
                                     // onChange={() =>
@@ -601,7 +602,7 @@ submissiontype:data.submissiontype,
                                       required: true,
                                     })}
                                     type="checkbox"
-                                     value="lightsensitive"
+                                     value="Lightsensitive"
                                     name="sampletype"
                                   
                                    // id="lightsensitive"
@@ -630,7 +631,7 @@ submissiontype:data.submissiontype,
                                     type="checkbox"
                   
                                     name="sampletype"
-                                    value="non-hazardous"
+                                    value="Non-Hazardous"
                                     //id="non-hazardous"
                                    // checked={selectedOptioncheck === "non-hazardous"}
                                     // onChange={() =>
@@ -672,7 +673,7 @@ submissiontype:data.submissiontype,
                                       })}
                                       type="checkbox"
                                       name="sampletype"
-                                      value="hazardous"
+                                      value="Hazardous"
                                       //id="hazardous"
                                       // checked={
                                       //   selectedOptioncheck === "hazardous"
@@ -701,7 +702,7 @@ submissiontype:data.submissiontype,
                                       type="checkbox"
                                       //id="msds"
                                       name="sampleType"
-                                      value="msds"
+                                      value="MSDS Attached"
                                       checked={selectedOptioncheck1}
                                       onChange={handlemsdschange}
                                       className="customRadio"
@@ -756,7 +757,7 @@ submissiontype:data.submissiontype,
                                       type="checkbox"
                                     
                                       name="sampletype"
-                                      value="others"
+                                      value="Others"
                                       //id="others"
                                       checked={selectedOptioncheck}
                                       onChange={handlecheckboxchange}
@@ -821,8 +822,8 @@ submissiontype:data.submissiontype,
                                       required: true,
                                     })}
                                     type="radio"
-                                    id="yes"
-                                    value="yes"
+                                    id="Yes"
+                                    value="Yes"
                                     //checked={selectedOption2 === "option11"}
                                     // onChange={handleChange}
                                     className="customRadio"
@@ -843,8 +844,8 @@ submissiontype:data.submissiontype,
                                       required: true,
                                     })}
                                     type="radio"
-                                    id="no"
-                                    value="no"
+                                    id="No"
+                                    value="No"
                                     //checked={selectedOption2 === "option12"}
                                     //onChange={handleChange}
                                     className="customRadio"
@@ -897,8 +898,8 @@ submissiontype:data.submissiontype,
                                       required: true,
                                     })}
                                     type="radio"
-                                    id="person"
-                                    value="person"
+                                    id="Person"
+                                    value="Person"
                                     //checked={selectedOption5 === "option22"}
                                     //onChange={handleChange}
                                     className="customRadio"
@@ -919,8 +920,8 @@ submissiontype:data.submissiontype,
                                       required: true,
                                     })}
                                     type="radio"
-                                    id="courier"
-                                    value="courier"
+                                    id="Courier"
+                                    value="Courier"
                                     // checked={selectedOption5 === "option23"}
                                     // onChange={handleChange}
                                     className="customRadio"
@@ -941,8 +942,8 @@ submissiontype:data.submissiontype,
                                       required: true,
                                     })}
                                     type="radio"
-                                    id="Bypost"
-                                    value="Bypost"
+                                    id="By Post"
+                                    value="By Post"
                                     //checked={selectedOption5 === "option24"}
                                     // onChange={handleChange}
                                     className="customRadio"

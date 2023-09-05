@@ -46,7 +46,7 @@ function Navbartitle() {
           <img className="profilepic" src={profilepic} alt="profile" />
           <select className="titleselect titleselectsize">
             <option className="titleselect">Jeyaprakash</option>
-            <option className="titleselect">Mahendra varma</option>
+            <option className="titleselect"><button onClick={()=>navigate('/')}>Logout</button></option>
           </select>
         </div>
            

@@ -19,6 +19,37 @@ export default function RlplGenerated() {
   
   const batch=useSelector(state =>state.form.newArray)
   console.log("batch",batch)
+  const sid = batch.map((item,index)=>(
+
+   <div key={index}>{item.sampleId}
+    </div>
+  ));
+  const item={"sampleId":sid}
+  console.log("sid",sid)
+  const postapicall=()=>{
+    fetch("http://3.80.98.199:3000/api/sampleDetails/sendMail", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        
+      },
+    
+    
+      body: JSON.stringify(item),
+    })
+      .then((response) => response.json())
+    
+      .then((data) => {
+        
+        console.log("result:", data);
+        
+         // handle the response data here
+      })
+    
+      .catch((error) => {
+        // handle any errors here
+      });
+    }
   return (
     <div className="app">
     <Navbartitle/>
@@ -229,7 +260,7 @@ export default function RlplGenerated() {
                             borderBottom: "none",
                           }}
                         >{item.testParameter.map((value,index)=>(
-                          <li key={index}>{value.testDataName}</li>
+                          <li key={index}>{value.testDataCode}</li>
                          ))}
 
                         </td>
@@ -243,6 +274,7 @@ export default function RlplGenerated() {
                   >
                     <div>
                       <Button
+                      onClick={postapicall}
                         className="Rlplbutton"
                         style={{
                           height: "40px",
