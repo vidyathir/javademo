@@ -89,10 +89,11 @@ submissiontype:data.submissiontype,
                             <div className="col">
                               <span
                                 style={{
-                                  alignItems: "center",
+                                 
                                   display: "flex",
                                 }}
-                              ><div>
+                              >
+                                <div>
                                 <Field>
                                   <Input
                                     {...register("report", { required: true })}
