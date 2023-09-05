@@ -1,5 +1,7 @@
 import React, { useState , useEffect} from "react";
 
+import printlogo from "../assets/logo 2.png";
+
 import { Col, Row, Table } from "react-bootstrap";
 import { PiFilePdfFill } from "react-icons/pi";
 import { useSelector} from "react-redux";
@@ -31,20 +33,23 @@ export default function Print() {
     <div>
       
 
-      <div>
-        <div >
+      <div className="peintmainborder">
+        <div className="printmain" >
        
+        <div className="printlogo">
+                <img src={printlogo} alt="logo" />
+            </div>
 
           <div className="mt-3">
             <text className="mainheadtitle">Please Confirm the details</text>
           </div>
 
           <div className="mt-2">
-            <text className="mainheadtitlesub">Company details</text>
+            <text className="mainheadtitlesubprint">Company details</text>
             <hr />
           </div>
 
-          <Row className="rowtabview">
+          <Row >
             <Col className="">
               <div className="d-flex row " >
                 <text className="cardcolhed" xs={8}>Contact Person Name</text>
@@ -73,7 +78,7 @@ export default function Print() {
             </Col>
           </Row>
 
-          <Row className="mt-3 rowtabview">
+          <Row className="mt-3 ">
             <Col className="columnMb col-3">
               <div className="d-flex row">
                 <text className="cardcolhed">Phone Number</text>
@@ -89,11 +94,11 @@ export default function Print() {
           </Row>
 
           <div className="mt-3">
-            <text className="mainheadtitlesub">Sample details</text>
+            <text className="mainheadtitlesubprint">Sample details</text>
             <hr />
           </div>
 
-          <Row className="rowtabview">
+          <Row >
             <Col className="">
               <div className="d-flex row">
                 <text className="cardcolhed">Name of the Sample</text>
@@ -120,7 +125,7 @@ export default function Print() {
             </Col>
           </Row>
 
-          <Row className="mt-3 rowtabview">
+          <Row className="mt-3 ">
             <Col className="columnMb col-3">
               <div className="d-flex row">
                 <text className="cardcolhed">Nature of Sample</text>
@@ -146,7 +151,7 @@ export default function Print() {
           </Row>
 
           <div className="mt-3">
-            <text className="mainheadtitlesub">Batch details</text>
+            <text className="mainheadtitlesubprint">Batch details</text>
             <hr />
           </div>
 
@@ -189,11 +194,11 @@ export default function Print() {
           {/* </Card> */}
 
           <div className="mt-3">
-            <text className="mainheadtitlesub">Type of Analysis</text>
+            <text className="mainheadtitlesubprint">Type of Analysis</text>
             <hr />
           </div>
 
-          <Row className="rowtabview">
+          <Row className="">
             <Col className="">
               <div className="d-flex row">
                 <text className="cardcolhed">
@@ -210,7 +215,7 @@ export default function Print() {
             </Col>
           </Row>
 
-          <Row className="mt-3 rowtabview">
+          <Row className="mt-3 ">
             <Col className="columnMb">
               <div className="d-flex row">
                 <text className="cardcolhed">
@@ -229,7 +234,7 @@ export default function Print() {
             </Col>
           </Row>
 
-          <Row className="mt-3 rowtabview">
+          <Row className="mt-3 ">
             <Col className="columnMb">
               <div className="d-flex row">
                 <text className="cardcolhed">
@@ -249,7 +254,7 @@ export default function Print() {
             </Col>
           </Row>
 
-          <Row className="mt-3 rowtabview">
+          <Row className="mt-3  ">
             <Col className="columnMb">
               <div className="d-flex row">
                 <text className="cardcolhed">Methodology </text>

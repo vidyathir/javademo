@@ -55,6 +55,7 @@ tabledata:[
 ],
 newArray:[
   {
+    sampleId:'',
     batchNo: "",
 batchSize: "",
 expDate: "",
@@ -66,9 +67,22 @@ sampleQuantity:"",
 testParameter:['']
   }
 ],
+ditresponse:[
+  
+    {
+      sampleId: "",
+      batchId: "",
+      tdsNumber:"",
+       id: "",
+      testDataName: "",
+      testDataCode:""
+  }
+  
+],
 usertoken:{
   usertype:"",
   token:"",
+  userid:""
 },
 batchId:'',
   },
@@ -98,6 +112,9 @@ state.newArray =action.payload;
 },
 changeBatchId:(state,action)=>{
   state.batchId=action.payload;
+},changeSubmitDit:(state,action)=>{
+  console.log(action.payload)
+state.ditresponse =action.payload;
 }
 
   },
@@ -105,6 +122,6 @@ changeBatchId:(state,action)=>{
 });
 
 export const { changeCustomerDetails,changeSampleDetails,changeTypeofAnalysis,changeBatchDetails,changeSubmitData,changeUserToken,
-changeBatchId} = FormSlice.actions;
+changeBatchId,changeSubmitDit} = FormSlice.actions;
 
 export default FormSlice.reducer;

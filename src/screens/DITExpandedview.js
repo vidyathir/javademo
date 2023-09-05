@@ -7,18 +7,24 @@ import {
   AiOutlineLeft,
   // AiOutlineEye
 } from "react-icons/ai";
-import { useSelector } from "react-redux";
+import { useSelector ,useDispatch} from "react-redux";
 import { PiFilePdfFill } from "react-icons/pi";
 import { BiRightArrowAlt } from "react-icons/bi";
 import NavbartitleAddco from "../components/NavbartitleAddco";
 import SidenavbarDIT from "../components/SidenavbarDIT";
 import axios from "axios";
+import { changeSubmitDit } from "../redux/FormSlice";
 export default function DITExpandedView() {
   const navigate = useNavigate();
   const id=useSelector(state =>state.form.batchId.batchId);
-  const[detailedView,setDetailedView]=useState({})
+  const[detailedView,setDetailedView]=useState({});
+  const[datasheet, setDatasheet]=useState([]);
   const analysis=useSelector(state =>state.form.data);
+  const dispatch = useDispatch();
+  const token  = useSelector((state) => state.form.usertoken.token);
+  
   console.log(id)
+ const item={"batchId" : id,"status" : "approved", "ditId" : token.userid}
  
   useEffect(() => {
 
@@ -27,8 +33,41 @@ export default function DITExpandedView() {
       .then((response) => setDetailedView(response.data))
       .catch((error) => console.error("Error fetching batch data:", error));
   }, [id]);
+  useEffect(() => {
 
-  console.log("details",detailedView)
+    axios
+      .get("http://3.80.98.199:3000/api/batchDetails/getDataSheets?batchId="+id)
+      .then((response) => setDatasheet(response.data))
+      .catch((error) => console.error("Error fetching batch data:", error));
+  }, [id]);
+  const postapicall=()=>{
+    const newLocal = "http://3.80.98.199:3000/api/batchDetails/ditApproval";
+    fetch(newLocal, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      
+      },
+    
+    
+      body: JSON.stringify(item),
+    })
+      .then((response) => response.json())
+    
+      .then((data) => {
+        dispatch(changeSubmitDit(data))
+        console.log("Success:", data);
+        
+         // handle the response data here
+      })
+    
+      .catch((error) => {
+        // handle any errors here
+      });
+      navigate("DITSuccess")
+    }
+
+  console.log("details",datasheet)
   return (
     <div className="app">
       <NavbartitleAddco />
@@ -91,11 +130,14 @@ export default function DITExpandedView() {
   )}
 </td>
                 
-                  <td>xxxxxx</td>
-                </tr>
-
-                
-              </tbody>
+                  <td> {datasheet.map((item, i)=> (
+   <ul key={i}><li><PiFilePdfFill /> <a href={item.url} target="_blank" rel="noopener noreferrer">
+   {item.testDataCode ? item.testDataCode : "No testdatacode available"}
+ </a></li>
+   </ul>))}
+    </td>
+        </tr>      
+</tbody>
             </Table>
             {/* </Card> */}
 
@@ -222,8 +264,14 @@ export default function DITExpandedView() {
                   </div>
 
                   <div className="analyticalbutton-div">
-                    <text className="analyticalbutton mt-1 ">SRO</text>
-                    <text className="analyticalbutton mt-1 ms-1">SOR</text>
+                  {detailedView.testParameter && Array.isArray(detailedView.testParameter) ? (
+    detailedView.testParameter.map((item, index) => (
+                    <text className="analyticalbutton mt-1 ">
+      <li key={index}>{item.testDataCode}</li>
+  </text>))): (
+    <span>No test parameters available</span>
+  )}
+                    
 
                   </div>
 
@@ -256,16 +304,11 @@ export default function DITExpandedView() {
             <div>Loading...</div>
           )}
             <div className="cardbuttonboubleend mb-3">
-              {/* <button
-              className="cardbuttonoutline"
-              onClick={() => onButtonClick("TypeOfAnalysis")}
-            >
-              <BiLeftArrowAlt size={24} /> Previous
-            </button> */}
+             
               <button
                 className="cardbutton"
                 type="submit"
-                onClick={() => navigate("DITSuccess")}
+                onClick={postapicall}
               >
                 Review <BiRightArrowAlt size={24} />
               </button>

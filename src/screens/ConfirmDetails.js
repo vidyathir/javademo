@@ -47,21 +47,21 @@ console.log("form",form)
               <div className="d-flex row " >
                 <text className="cardcolhed" xs={8}>Contact Person Name</text>
                 {form.contactPersonName?
-                <text className="cardcolhedtext mt-1">{form.contactPersonName}</text>:'N/A'}
+                <text className="cardcolhedtext mt-1">{form.contactPersonName}</text>:<text className="cardcolhedtext mt-1">N/A</text>}
               </div>
             </Col>
             <Col className="columnMb">
               <div className="d-flex row ">
                 <text className="cardcolhed">Manufacturing Lic No</text>
                 {form.licenceNo?
-                <text className="cardcolhedtext mt-1">{form.licenceNo}</text>:'N/A'}
+                <text className="cardcolhedtext mt-1">{form.licenceNo}</text>:<text className="cardcolhedtext mt-1">N/A</text>}
               </div>
             </Col>
             <Col  className="columnMb">
               <div className="d-flex row ">
                 <text className="cardcolhed ">Email Id</text>
                 {form.emailId?
-                <text className="cardcolhedtext mt-1 ">{form.emailId}</text>:'N/A'}
+                <text className="cardcolhedtext mt-1 ">{form.emailId}</text>:<text className="cardcolhedtext mt-1">N/A</text>}
               </div>
             </Col>
             <Col className="columnMb">
@@ -70,7 +70,7 @@ console.log("form",form)
                 {form.company || form.address1 ?
                 <text className="cardcolhedtext mt-1">
                   {form.company},{form.address1}
-                </text>:'N/A'}
+                </text>:<text className="cardcolhedtext mt-1">N/A</text>}
               </div>
             </Col>
           </Row>
@@ -80,14 +80,14 @@ console.log("form",form)
               <div className="d-flex row">
                 <text className="cardcolhed">Phone Number</text>
                 {form.phoneNo?
-                <text className="cardcolhedtext mt-1">{form.phoneNo}</text>:'N/A'}
+                <text className="cardcolhedtext mt-1">{form.phoneNo}</text>:<text className="cardcolhedtext mt-1">N/A</text>}
               </div>
             </Col>
             <Col className="columnMb col-4">
               <div className="d-flex row">
                 <text className="cardcolhed">Additional Phone Number</text>
                 {form.phoneNo1?
-                <text className="cardcolhedtext mt-1">{form.phoneNo1}</text>:'N/A'}
+                <text className="cardcolhedtext mt-1">{form.phoneNo1}</text>:<text className="cardcolhedtext mt-1">N/A</text>}
               </div>
             </Col>
           </Row>
@@ -102,28 +102,28 @@ console.log("form",form)
               <div className="d-flex row">
                 <text className="cardcolhed">Name of the Sample</text>
                 {sample.samplename?
-                <text className="cardcolhedtext mt-1">{sample.samplename}</text>:'N/A'}
+                <text className="cardcolhedtext mt-1">{sample.samplename}</text>:<text className="cardcolhedtext mt-1">N/A</text>}
               </div>
             </Col>
             <Col className="columnMb">
               <div className="d-flex row">
                 <text className="cardcolhed">Storage Condition</text>
                 {sample.storage ?
-                <text className="cardcolhedtext mt-1">{sample.storage}</text>:'N/A'}
+                <text className="cardcolhedtext mt-1">{sample.storage}</text>:<text className="cardcolhedtext mt-1">N/A</text>}
               </div>
             </Col>
             <Col className="columnMb">
               <div className="d-flex row">
                 <text className="cardcolhed">Type of Submission</text>
                 {sample.submissiontype?
-                <text className="cardcolhedtext mt-1">{sample.submissiontype}</text>:'N/A'}
+                <text className="cardcolhedtext mt-1">{sample.submissiontype}</text>:<text className="cardcolhedtext mt-1">N/A</text>}
               </div>
             </Col>
             <Col className="columnMb">
               <div className="d-flex row">
                 <text className="cardcolhed">Sample Type</text>
                 {sample.sampletype?
-                <text className="cardcolhedtext mt-1">{(sample.sampletype).join('    ,   ')}</text>:'N/A'}
+                <text className="cardcolhedtext mt-1">{(sample.sampletype).join('    ,   ')}</text>:<text className="cardcolhedtext mt-1">N/A</text>}
               </div>
             </Col>
           </Row>
@@ -209,14 +209,14 @@ console.log("form",form)
                   Regulatory(Form-39/DMF Filing/ANDA Filing/Any Query)
                 </text>
                 {analysis.formfilling ?
-                <text className="cardcolhedtext mt-1">{analysis.formfilling}</text>:'N/A'}
+                <text className="cardcolhedtext mt-1">{analysis.formfilling}</text>:<text className="cardcolhedtext mt-1">N/A</text>}
               </div>
             </Col>
             <Col className="columnMb">
               <div className="d-flex row">
                 <text className="cardcolhed">Other than Regulatory </text>
                 {analysis.analyticalfeasibile ?
-                <text className="cardcolhedtext mt-1"><ul>{analysis.analyticalfeasibile.join('  ,  ')}</ul></text>:'N/A'}
+                <text className="cardcolhedtext mt-1"><ul>{analysis.analyticalfeasibile.join('  ,  ')}</ul></text>:<text className="cardcolhedtext mt-1">N/A</text>}
               </div>
             </Col>
           </Row>
@@ -228,7 +228,7 @@ console.log("form",form)
                   Test to be carried out as per{" "}
                 </text>
                 {analysis.test ?
-                <text className="cardcolhedtext mt-1">{analysis.test.join("   ,  ")}</text>:'N/A'}
+                <text className="cardcolhedtext mt-1">{analysis.test.join("   ,  ")}</text>:<text className="cardcolhedtext mt-1">N/A</text>}
               </div>
             </Col>
             <Col className="columnMb">
@@ -237,7 +237,7 @@ console.log("form",form)
                   Special Instructions If any other{" "}
                 </text>
                 {analysis.specialinstruction ?
-                <text className="cardcolhedtext mt-1">{analysis.specialinstruction}</text>:'N/A'}
+                <text className="cardcolhedtext mt-1">{analysis.specialinstruction}</text>:<text className="cardcolhedtext mt-1">N/A</text>}
               </div>
             </Col>
           </Row>
@@ -250,7 +250,7 @@ console.log("form",form)
                   performed atRevin Labs please specify the Report Ref.num.{" "}
                 </text>
                 {analysis.methodvalidation ?
-                <text className="cardcolhedtext mt-1">{analysis.methodvalidation}</text>:'N/A'}
+                <text className="cardcolhedtext mt-1">{analysis.methodvalidation}</text>:<text className="cardcolhedtext mt-1">N/A</text>}
               </div>
             </Col>
             <Col className="columnMb">
@@ -268,7 +268,7 @@ console.log("form",form)
               <div className="d-flex row">
                 <text className="cardcolhed">Methodology </text>
                 {analysis.methodologyfollowed?
-                <text className="cardcolhedtext mt-1">{analysis.methodologyfollowed}</text>:'N/A'}
+                <text className="cardcolhedtext mt-1">{analysis.methodologyfollowed}</text>:<text className="cardcolhedtext mt-1">N/A</text>}
               </div>
             </Col>
             <Col className="columnMb">
@@ -279,7 +279,7 @@ console.log("form",form)
                   {analysis.choosefile?
                   <div>{Array.from(analysis.choosefile).map(f => (<text className="cardcolhedtext mt-1" key={f.name}> {f.name}</text>
       ))}
-    </div>:'N/A'}
+    </div>:<text className="cardcolhedtext mt-1">N/A</text>}
                   {/* <text className="cardcolhedtext mt-1">{}</text> */}
                 </span>
               </div>
