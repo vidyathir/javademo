@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<coverage generated="1693559638329" clover="3.2.0">
+  <project timestamp="1693559638329" name="All files">
+    <metrics statements="27" coveredstatements="19" conditionals="20" coveredconditionals="10" methods="6" coveredmethods="3" elements="53" coveredelements="32" complexity="0" loc="27" ncloc="27" packages="1" files="1" classes="1"/>
+    <file name="Login.js" path="C:\React js projects\revin-lab-main\revin-labs-react\src\screens\Login.js">
+      <metrics statements="27" coveredstatements="19" conditionals="20" coveredconditionals="10" methods="6" coveredmethods="3"/>
+      <line num="10" count="1" type="stmt"/>
+      <line num="12" count="3" type="stmt"/>
+      <line num="13" count="2" type="stmt"/>
+      <line num="15" count="2" type="stmt"/>
+      <line num="16" count="2" type="stmt"/>
+      <line num="21" count="2" type="stmt"/>
+      <line num="24" count="2" type="stmt"/>
+      <line num="27" count="2" type="stmt"/>
+      <line num="28" count="2" type="stmt"/>
+      <line num="33" count="2" type="stmt"/>
+      <line num="43" count="0" type="stmt"/>
+      <line num="44" count="0" type="stmt"/>
+      <line num="45" count="2" type="stmt"/>
+      <line num="56" count="1" type="stmt"/>
+      <line num="59" count="1" type="cond" truecount="1" falsecount="1"/>
+      <line num="60" count="1" type="cond" truecount="1" falsecount="1"/>
+      <line num="61" count="0" type="stmt"/>
+      <line num="63" count="1" type="cond" truecount="1" falsecount="1"/>
+      <line num="64" count="0" type="stmt"/>
+      <line num="66" count="1" type="cond" truecount="1" falsecount="1"/>
+      <line num="67" count="0" type="stmt"/>
+      <line num="69" count="1" type="cond" truecount="1" falsecount="1"/>
+      <line num="70" count="0" type="stmt"/>
+      <line num="72" count="1" type="cond" truecount="1" falsecount="1"/>
+      <line num="73" count="0" type="stmt"/>
+      <line num="76" count="0" type="stmt"/>
+      <line num="84" count="2" type="stmt"/>
+    </file>
+  </project>
+</coverage>

@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { GiArchiveRegister} from "react-icons/gi";
 import { MdOutlineDashboard } from "react-icons/md";
 import { BiSearch } from "react-icons/bi";
+import {BsBuildingAdd} from "react-icons/bs";
 
 export default function Sidenavbar() {
 
@@ -10,7 +11,8 @@ export default function Sidenavbar() {
   const menus = [
     { name: "Dashboard", link:"/SroDashboard" ,icon: MdOutlineDashboard },
     { name: "Registration", link: "/Progress", icon: GiArchiveRegister },
-    { name: "SearchCustomer", link: "/SearchCustomer", icon: BiSearch },
+    { name: "Add Company", link: "/AddNewCompany", icon: BsBuildingAdd },
+    { name: "Search Customer", link: "/SearchCustomer", icon: BiSearch },
   
   ];
 

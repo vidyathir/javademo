@@ -300,7 +300,7 @@ color: #8F8F8F !important;
   padding: 10px;
   font-size: 12px;
   font-weight: 500;
-  color: #3A4175;
+  /* color: #3A4175; */
 }
 
 .cardcolumninputtypeselect{
@@ -343,8 +343,18 @@ font-weight: 400;
   border: none;
   font-size: 12px;
   font-weight: 600;
-
 }
+
+.DITcardbutton{
+  background-color: #9AC037;
+  border-radius: 6px;
+  height: 40px;
+  width: 80px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+
 .cardbuttonoutline{
   background-color:#ffffff;
   border-radius: 6px;
@@ -530,10 +540,21 @@ margin-right: 10px;
 
 
 .printmain{
- 
   margin: 10px;
 }
 
+/* .peintmainborder{
+  border: #3A4175 solid 3px;
+} */
+
+
+.mainheadtitlesubprint{
+  font-size: 15px;
+  font-weight: 600;
+  color: #ffffff;
+  background-color: #3A4175;
+  display: flex;
+}
 
 
 
