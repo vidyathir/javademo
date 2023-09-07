@@ -1,15 +1,47 @@
-import React from 'react';
+import React,{useEffect,useState} from 'react';
 import Sidenavbar from '../components/Sidenavbar';
 import Navbartitle from '../components/Navbartitle';
 import{Table} from 'react-bootstrap';
 import { useNavigate } from "react-router-dom";
-
+import axios from 'axios';
 import {BsSearch} from 'react-icons/bs';
-
+import { changeCompanyId } from "../redux/FormSlice";
+import { useDispatch } from "react-redux";
 export default function SearchCustomer(){
-
+const[companyDetail,setCompanyDetail]=useState([]);
+const [searchQuery, setSearchQuery] = useState('');
     const navigate = useNavigate();
-
+    const dispatch = useDispatch();
+    useEffect(() => {
+        // Fetch company options from API
+        axios
+          .get("http://3.80.98.199:3000/api/companyDetails")
+          .then((response) => setCompanyDetail(response.data))
+          .catch((error) => console.error("Error fetching company data:", error));
+      }, []);
+      function handleSubmit(item) {
+        console.log("item", item.id);
+        dispatch(
+          changeCompanyId({
+            companyId: item.id,
+          })
+         );
+        navigate("ViewCustomer");
+      }
+      const handleSearchInputChange = (event) => {
+        setSearchQuery(event.target.value);
+      };
+    
+      // Function to make an API request with the search query
+      const searchCompanies = () => {
+        axios
+          .get(`http://3.80.98.199:3000/api/companyDetails/searchCompany?companyName=${searchQuery}`)
+          .then((response) => {
+            setCompanyDetail(response.data);
+          })
+          .catch((error) => console.error('Error searching companies:', error));
+      };
+    
     return(
         <div className='app'>
 <Navbartitle/>
@@ -23,10 +55,12 @@ export default function SearchCustomer(){
                   
                   <div className='SearchCustomerSearchbox'>
                 <div>
-                    <input type='text' placeholder='Search Company' className='SearchCustomerSearchbox-input' />
+                    <input type='text' placeholder='Search Company' className='SearchCustomerSearchbox-input'
+                     value={searchQuery}
+                     onChange={handleSearchInputChange} />
                 </div>
                 <div>
-                    <button className='SearchCustomer-searchbox-button'>
+                    <button className='SearchCustomer-searchbox-button' onClick={searchCompanies} >
                         <BsSearch className='SearchCustomer-searchbox-button-icon' /> <text className='SearchCustomer-searchbox-button-text'>Search</text>
                     </button>
                 </div>
@@ -48,121 +82,18 @@ export default function SearchCustomer(){
                     <th>View & Edit</th>
                     </tr>
                 </thead>
+
                 <tbody className="trAlign">
-                <tr >
-                    <td>1</td>
-                    <td>XXXXX</td>
-                    <td>XXXXX</td>
-                    <td>XXXXX</td>
-                    <td><button className="tbbutton ">View</button></td>
-                </tr>
+                {companyDetail.map((item, index) => (
+                <tr key={item.id} >
+                    <td>{index+1}</td>
+                    <td>{item.companyName}</td>
+                    <td>{item.manufacturingLicenseNumber}</td>
+                    <td>{item.state}</td>
+                    <td><button className="tbbutton " onClick={() => handleSubmit(item)}>View</button></td>
+                </tr>))}
 
-                <tr >
-                    <td>2</td>
-                    <td>XXXXX</td>
-                    <td>XXXXX</td>
-                    <td>XXXXX</td>
-                    <td><button className="tbbutton ">View</button></td>
-                </tr>
-
-                <tr >
-                    <td>3</td>
-                    <td>XXXXX</td>
-                    <td>XXXXX</td>
-                    <td>XXXXX</td>
-                    <td><button className="tbbutton ">View</button></td>
-                </tr>
-
-                <tr >
-                    <td>4</td>
-                    <td>XXXXX</td>
-                    <td>XXXXX</td>
-                    <td>XXXXX</td>
-                    <td><button className="tbbutton ">View</button></td>
-                </tr>
-
-                <tr >
-                    <td>5</td>
-                    <td>XXXXX</td>
-                    <td>XXXXX</td>
-                    <td>XXXXX</td>
-                    <td><button className="tbbutton ">View</button></td>
-                </tr>
-
-                <tr >
-                    <td>6</td>
-                    <td>XXXXX</td>
-                    <td>XXXXX</td>
-                    <td>XXXXX</td>
-                    <td><button className="tbbutton ">View</button></td>
-                </tr>
-
-                <tr >
-                    <td>7</td>
-                    <td>XXXXX</td>
-                    <td>XXXXX</td>
-                    <td>XXXXX</td>
-                    <td><button className="tbbutton ">View</button></td>
-                </tr>
-
-                <tr >
-                    <td>8</td>
-                    <td>XXXXX</td>
-                    <td>XXXXX</td>
-                    <td>XXXXX</td>
-                    <td><button className="tbbutton ">View</button></td>
-                </tr>
-
-                <tr >
-                    <td>9</td>
-                    <td>XXXXX</td>
-                    <td>XXXXX</td>
-                    <td>XXXXX</td>
-                    <td><button className="tbbutton ">View</button></td>
-                </tr>
-
-                <tr >
-                    <td>10</td>
-                    <td>XXXXX</td>
-                    <td>XXXXX</td>
-                    <td>XXXXX</td>
-                    <td><button className="tbbutton ">View</button></td>
-                </tr>
-
-                <tr >
-                    <td>11</td>
-                    <td>XXXXX</td>
-                    <td>XXXXX</td>
-                    <td>XXXXX</td>
-                    <td><button className="tbbutton ">View</button></td>
-                </tr>
-
-                
-                <tr >
-                    <td>12</td>
-                    <td>XXXXX</td>
-                    <td>XXXXX</td>
-                    <td>XXXXX</td>
-                    <td><button className="tbbutton ">View</button></td>
-                </tr>
-
-                
-                <tr >
-                    <td>13</td>
-                    <td>XXXXX</td>
-                    <td>XXXXX</td>
-                    <td>XXXXX</td>
-                    <td><button className="tbbutton ">View</button></td>
-                </tr>
-
-                
-                <tr >
-                    <td>14</td>
-                    <td>XXXXX</td>
-                    <td>XXXXX</td>
-                    <td>XXXXX</td>
-                    <td><button className="tbbutton ">View</button></td>
-                </tr>
+               
 
                 </tbody>
             </Table>

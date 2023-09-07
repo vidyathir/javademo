@@ -6,10 +6,21 @@ import { BsFileEarmarkCheck } from "react-icons/bs";
 import { Table } from "react-bootstrap";
 import NavbartitleAddco from "../components/NavbartitleAddco";
 import SidenavbarDIT from "../components/SidenavbarDIT";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { changeTDSId } from "../redux/FormSlice";
 export default function DITSuccess() {
 const navigate=useNavigate()
+const dispatch = useDispatch();
 const dit=useSelector(state=>state.form.ditresponse);
+function handleSubmit(item) {
+  console.log("item", item.id);
+  dispatch(
+    changeTDSId({
+      TdsId: item.id,
+    })
+   );
+  navigate("DITTDSExpandedview");
+}
   return (
     <div className="app">
       <NavbartitleAddco />
@@ -36,6 +47,7 @@ const dit=useSelector(state=>state.form.ditresponse);
                     <th>S.No</th>
                     <th>TDS Number</th>
                     <th>Test Parameter</th>
+                    <th>View</th>
                   </tr>
                 </thead>
                 <tbody className="tablebody-custom">
@@ -44,6 +56,14 @@ const dit=useSelector(state=>state.form.ditresponse);
                     <td>{i+1}</td>
                     <td>{item.tdsNumber}</td>
                     <td>{item.testDataCode}</td>
+                    <td>
+       <button
+         className="tbbutton"
+         onClick={() => handleSubmit(item)}
+       >
+         View
+       </button>
+     </td>
                   </tr>
 
                 ))}
@@ -60,7 +80,7 @@ const dit=useSelector(state=>state.form.ditresponse);
                   background: "#9AC037",
                 }}
                 className="DITSuccessButton"
-                onClick={()=>navigate("/DitDashboard")}
+                onClick={()=>navigate("DitDashboard")}
               >
                 <text className="DITSuccessButtontext">ok</text>
               </button>

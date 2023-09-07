@@ -23,8 +23,9 @@ import DITExpandedview from './screens/DITExpandedview';
 import DITSuccess from './screens/DITSuccess';
 import DitDashboard from './screens/DitDashboard';
 import SroDashboard from './screens/SroDashboard';
-import AddNewCompany from './screens/AddNewCompany';
-import Print from './screens/Print';
+import ViewCustomer from './screens/ViewCustomer';
+import Print from './screens/Print'; 
+import DITTDSExpandedview from './screens/DITTDSExpandedview';
 
 
 export default function App() {
@@ -38,10 +39,11 @@ export default function App() {
      <Route exact path='/Print' element={<Print/>} />
      <Route exact path='/DITExpandedview' element={<DITExpandedview/>}/>
      <Route exact path ='/SroDashboard' element={<SroDashboard />} />
-     <Route exact path ='/AddNewCompany' element={<AddNewCompany/>} />
+     <Route exact path ='/SearchCustomer/ViewCustomer' element={<ViewCustomer/>} />
      <Route exact path='/DitDashboard' element={<DitDashboard/>}/>  
      <Route exact path='/DitDashboard/DitExpandedView' element={<DITExpandedview/>}/>  
      <Route exact path='/DitDashboard/DitExpandedView/DITSuccess' element={<DITSuccess/>}/> 
+     <Route exact path='/DitDashboard/DitExpandedView/DITSuccess/DITTDSExpandedview' element={<DITTDSExpandedview/>}/> 
      <Route exact path='/SearchCustomer' element={<SearchCustomer/>}/>    
      <Route exact path='/Progress' element={<Progress/>}/>  
      <Route exact path='/AddNewCustomer' element={<AddNewCustomer/>}/>

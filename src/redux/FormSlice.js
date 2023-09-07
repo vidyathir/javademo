@@ -85,6 +85,8 @@ usertoken:{
   userid:""
 },
 batchId:'',
+companyId:'',
+TdsId:'',
   },
   reducers: { 
       changeCustomerDetails: (state,action)=> {
@@ -115,13 +117,18 @@ changeBatchId:(state,action)=>{
 },changeSubmitDit:(state,action)=>{
   console.log(action.payload)
 state.ditresponse =action.payload;
-}
-
+},
+changeCompanyId:(state,action)=>{
+  state.companyId=action.payload;
+},
+changeTDSId:(state,action)=>{
+  state.TdsId=action.payload;
+},
   },
 
 });
 
 export const { changeCustomerDetails,changeSampleDetails,changeTypeofAnalysis,changeBatchDetails,changeSubmitData,changeUserToken,
-changeBatchId,changeSubmitDit} = FormSlice.actions;
+changeBatchId,changeSubmitDit,changeCompanyId,changeTDSId} = FormSlice.actions;
 
 export default FormSlice.reducer;

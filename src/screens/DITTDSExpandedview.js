@@ -13,61 +13,37 @@ import { PiFilePdfFill } from "react-icons/pi";
 import NavbartitleAddco from "../components/NavbartitleAddco";
 import SidenavbarDIT from "../components/SidenavbarDIT";
 import axios from "axios";
-import { changeSubmitDit } from "../redux/FormSlice";
-export default function DITExpandedView() {
+export default function DITTDSExpandedView() {
   const navigate = useNavigate();
-  const id = useSelector((state) => state.form.batchId.batchId);
+  const id = useSelector((state) => state.form.TdsId.TdsId);
   const [detailedView, setDetailedView] = useState({});
   const [datasheet, setDatasheet] = useState([]);
+  const [tdsView,setTdsView]=useState({});
   const analysis = useSelector((state) => state.form.data);
-  const dispatch = useDispatch();
+
   const token = useSelector((state) => state.form.usertoken.token);
 
   console.log(id);
-  const item = { batchId: id, status: "approved", ditId: token.userid };
-
   useEffect(() => {
+
     axios
-      .get(
-        "http://3.80.98.199:3000/api/batchDetails/getBatchById?batchId=" + id
-      )
-      .then((response) => setDetailedView(response.data))
+      .get("http://3.80.98.199:3000/api/tdsDetails/getTdsById?tdsId="+id)
+      .then((response) => {
+        setDetailedView(response.data);
+        setTdsView(response.data.batchDetails);})
       .catch((error) => console.error("Error fetching batch data:", error));
   }, [id]);
-  useEffect(() => {
-    axios
-      .get(
-        "http://3.80.98.199:3000/api/batchDetails/getDataSheets?batchId=" + id
-      )
-      .then((response) => setDatasheet(response.data))
-      .catch((error) => console.error("Error fetching batch data:", error));
-  }, [id]);
-  const postapicall = () => {
-    const newLocal = "http://3.80.98.199:3000/api/batchDetails/ditApproval";
-    fetch(newLocal, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
 
-      body: JSON.stringify(item),
-    })
-      .then((response) => response.json())
+console.log("detail", tdsView)
+  // useEffect(() => {
+  //   axios
+  //     .get(
+  //       "http://3.80.98.199:3000/api/batchDetails/getDataSheets?batchId=" + id
+  //     )
+  //     .then((response) => setDatasheet(response.data))
+  //     .catch((error) => console.error("Error fetching batch data:", error));
+  // }, [id]);
 
-      .then((data) => {
-        dispatch(changeSubmitDit(data));
-        console.log("Success:", data);
-
-        // handle the response data here
-      })
-
-      .catch((error) => {
-        // handle any errors here
-      });
-    navigate("DITSuccess");
-  };
-
-  console.log("details", datasheet);
   return (
     <div className="app">
       <NavbartitleAddco />
@@ -79,7 +55,7 @@ export default function DITExpandedView() {
           <div className="mainitem">
             <div
               className="analystbackbutton mt-3"
-              onClick={() => navigate("/DitDashboard")}
+              onClick={() => navigate("/DitDashboard/DITExpandedview/DITSuccess")}
             >
               <AiOutlineLeft onClick={() => navigate("/DitDashboard")} />{" "}
               <text>back</text>
@@ -89,7 +65,7 @@ export default function DITExpandedView() {
               <div className="titlemainreference ">
                 <text className="mainheadtitlesub">Batch & RLPL details</text>
                 <text className="titlesubreference">
-                  TDS Number: TDS/XRD/23/19923
+                  TDS Number:{detailedView.tdsNumber}
                 </text>
               </div>
               <hr />
@@ -108,23 +84,23 @@ export default function DITExpandedView() {
                   <th>Exp. Date</th>
                   <th>Retest Date</th>
                   <th>Test Parameter</th>
-                  <th>Required Documents</th>
+                
                 </tr>
               </thead>
               <tbody className="tablebody-custom">
                 <tr>
                   <td>01</td>
-                  <td>{detailedView.rlplNumber}</td>
-                  <td>{detailedView.batchNo}</td>
-                  <td>{detailedView.natureOfPacking}</td>
-                  <td>{detailedView.sampleQuantity}</td>
-                  <td>{detailedView.mfgDate}</td>
-                  <td>{detailedView.expDate}</td>
-                  <td>{detailedView.retestDate}</td>
+                  <td>{tdsView.rlplNumber}</td>
+                  <td>{tdsView.batchNo}</td>
+                  <td>{tdsView.natureOfPacking}</td>
+                  <td>{tdsView.sampleQuantity}</td>
+                  <td>{tdsView.mfgDate}</td>
+                  <td>{tdsView.expDate}</td>
+                  <td>{tdsView.retestDate}</td>
                   <td>
-                    {detailedView.testParameter &&
-                    Array.isArray(detailedView.testParameter) ? (
-                      detailedView.testParameter.map((item, index) => (
+                    {tdsView.testParameter &&
+                    Array.isArray(tdsView.testParameter) ? (
+                      tdsView.testParameter.map((item, index) => (
                         <li key={index}>{item.testDataCode}</li>
                       ))
                     ) : (
@@ -132,7 +108,7 @@ export default function DITExpandedView() {
                     )}
                   </td>
 
-                  <td>
+                {/*  <td>
                     {" "}
                     {datasheet.map((item, i) => (
                       <ul key={i}>
@@ -150,7 +126,7 @@ export default function DITExpandedView() {
                         </li>
                       </ul>
                     ))}
-                  </td>
+                  </td> */}
                 </tr>
               </tbody>
             </Table>
@@ -320,9 +296,9 @@ export default function DITExpandedView() {
                       </div>
 
                       <div className="analyticalbutton-div">
-                        {detailedView.testParameter &&
-                        Array.isArray(detailedView.testParameter) ? (
-                          detailedView.testParameter.map((item, index) => (
+                        {tdsView.testParameter &&
+                        Array.isArray(tdsView.testParameter) ? (
+                          tdsView.testParameter.map((item, index) => (
                             <text className="analyticalbutton mt-1 ">
                               <li key={index}>{item.testDataCode}</li>
                             </text>
@@ -372,7 +348,7 @@ export default function DITExpandedView() {
               <button
                 className="DITcardbutton"
                 type="submit"
-                onClick={postapicall}
+                onClick={()=>{navigate("/DitDashboard")}}
               >
                 Done
               </button>

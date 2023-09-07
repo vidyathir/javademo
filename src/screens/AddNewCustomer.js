@@ -8,15 +8,58 @@ import Col from "react-bootstrap/Col";
 import InputGroup from 'react-bootstrap/InputGroup';
 import Sidenavbar from "../components/Sidenavbar";
 import {useNavigate} from 'react-router-dom';
-import * as formik from 'formik';
+import { useForm,Controller } from "react-hook-form";
 import * as yup from 'yup';
 import NavbartitleAddco from "../components/NavbartitleAddco";
 
 
 export default function AddNewCustomer() {
-
-  const { Formik } = formik;
-
+  const navigate = useNavigate();
+  const {
+    handleSubmit,
+    register,
+    control,
+    formState: { errors },
+  } = useForm();
+  
+  const saveData = (data) => {
+console.log("data" ,data)
+    const item={
+      companyName:data.companyName,
+      manufacturingLicenseNumber:data.licno,
+      contactPerson:data.contactPerson,
+      mobileNumber:data.phonenumber,
+      email:data.emailid,
+      address1:data.address1,
+      address2:data.address2,
+      city:data.city,
+      state:data.state,
+      pincode:data.pincode
+    }
+    fetch("http://3.80.98.199:3000/api/companyDetails/createCompany", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        
+      },
+    
+    
+      body: JSON.stringify(item),
+    })
+      .then((response) => response.json())
+    
+      .then((data) => {
+    
+        console.log("Success:", data);
+        
+         // handle the response data here
+      })
+    
+      .catch((error) => {
+        // handle any errors here
+      });
+    navigate('/Progress')
+  };
   const schema = yup.object().shape({
     CompanyName: yup.string().required(),
     ContactPersonName: yup.string().required(),
@@ -31,8 +74,9 @@ export default function AddNewCustomer() {
   });
   
 
-  const navigate = useNavigate();
+    
 
+ 
   return (
     <div className="app">
       
@@ -62,38 +106,29 @@ export default function AddNewCustomer() {
               <div className="cardcolumnpadding">
                 {/* ---------------------------------   card column start  -------------------------------------------- */}
 
-                <Formik
-      validationSchema={schema}
-      onSubmit={()=>navigate('/CustomerDetailes')}
-      initialValues={{
-        CompanyName: '',
-        ContactPersonName: '',
-        licno: '',
-        phonenumber: '',
-        emailid: '',
-        address: '',
-        City: '',
-        state: '',
-        pincode: '',
-       
-      }}
-      >
-         {({ handleSubmit, handleChange, values, touched, errors }) => (
-        <Form noValidate onSubmit={handleSubmit}>
+                <Form onSubmit={handleSubmit(saveData)}>
+         
+      
                 <Row className="mb-3 rowtabview ">
                   <Form.Group as={Col} controlId="validationFormik01">
                     <Form.Label className="cardcolhed">
                       Company Name<text className="cardcolhedstar">*</text>{" "}
                     </Form.Label>
+                    <Controller
+  name="companyName"
+  control={control}
+  defaultValue="" // Set your default value here if needed
+  render={({ field }) => (
                     <Form.Control className="cardcolhedinput"
+                    {...register("companyName", { required: true })}
                      type="text"
-                     name="CompanyName"
-                     value={values.CompanyName}
-                     onChange={handleChange}
-                     isInvalid={!!errors.CompanyName}
+                     {...field}
+                     isInvalid={!!errors.companyName}
+                    />)}
                     />
                     <Form.Control.Feedback type="invalid">
-                  {errors.CompanyName}
+                  {errors.companyName?.type ==="required" &&
+                  "This field is required."}
                 </Form.Control.Feedback>
             
                   </Form.Group>
@@ -103,15 +138,22 @@ export default function AddNewCustomer() {
                       Contact Person Name
                       <text className="cardcolhedstar">*</text>{" "}
                     </Form.Label>
+                    <Controller
+  name="contactPerson"
+  control={control}
+  defaultValue="" // Set your default value here if needed
+  render={({ field }) => (
                     <Form.Control className="cardcolhedinput"
+                    {...register("contactPerson", { required: true })}
                     type="text"
-                    name="ContactPersonName"
-                    value={values.ContactPersonName}
-                    onChange={handleChange}
-                    isInvalid={!!errors.ContactPersonName}
+                {...field}
+                    isInvalid={!!errors.contactPerson}
                     />
+  )}
+  />
                      <Form.Control.Feedback type="invalid">
-                  {errors.ContactPersonName}
+                  {errors.contactPerson?.type ==="required" &&
+                  "This field is required."}
                 </Form.Control.Feedback>
                   </Form.Group>
 
@@ -120,21 +162,24 @@ export default function AddNewCustomer() {
                       Manufacturing Lic No
                       <text className="cardcolhedstar">*</text>{" "}
                     </Form.Label>
-                    <InputGroup hasValidation>
-                    {/* <InputGroup.Text id="inputGroupPrepend">@</InputGroup.Text> */}
+                    <Controller
+  name="licno"
+  control={control}
+  defaultValue="" // Set your default value here if needed
+  render={({ field }) => (
                     <Form.Control className="cardcolhedinput" 
+                    {...register("licno", { required: true })}
                      type="text"
-                    //  placeholder="Username"
-                     aria-describedby="inputGroupPrepend"
-                     name="licno"
-                     value={values.licno}
-                     onChange={handleChange}
+                    {...field}
                      isInvalid={!!errors.licno}
                     />
+  )}
+  />
                     <Form.Control.Feedback type="invalid">
-                  {errors.licno}
+                  {errors.licno?.type ==="required" &&
+                  "This field is required."}
                 </Form.Control.Feedback>
-                    </InputGroup>
+                
                   </Form.Group>
                 </Row>
 
@@ -145,16 +190,22 @@ export default function AddNewCustomer() {
                     <Form.Label className="cardcolhed">
                       Phone Number<text className="cardcolhedstar">*</text>{" "}
                     </Form.Label>
-                    <Form.Control className="cardcolhedinput" 
-                     type="text"
-                    //  placeholder="City"
-                     name="phonenumber"
-                     value={values.phonenumber}
-                     onChange={handleChange}
+                    <Controller
+  name="phonenumber"
+  control={control}
+  defaultValue="" // Set your default value here if needed
+  render={({ field }) => (
+                    <Form.Control className="cardcolhedinput"
+                    {...register("phonenumber", { required: true })}
+                     type="number"
+                    {...field}
                      isInvalid={!!errors.phonenumber}
                     />
+  )}
+  />
                      <Form.Control.Feedback type="invalid">
-                {errors.phonenumber}
+                {errors.phonenumber?.type === "required" &&
+                              "This field is required."}
               </Form.Control.Feedback>
                   </Form.Group>
 
@@ -162,23 +213,39 @@ export default function AddNewCustomer() {
                     <Form.Label className="cardcolhed">
                       Additional Phone Number{" "}
                     </Form.Label>
-                    <Form.Control className="cardcolhedinput" />
+                    <Controller
+  name="phonenumber2"
+  control={control}
+  defaultValue="" // Set your default value here if needed
+  render={({ field }) => (
+                    <Form.Control className="cardcolhedinput"
+                  
+                    type="numeric"
+                    {...field}/>
+  )}
+  />
                   </Form.Group>
 
                   <Form.Group as={Col} controlId="validationFormik04">
                     <Form.Label className="cardcolhed">
                       Email Id<text className="cardcolhedstar">*</text>{" "}
                     </Form.Label>
+                    <Controller
+  name="emailid"
+  control={control}
+  defaultValue="" // Set your default value here if needed
+  render={({ field }) => (
                     <Form.Control className="cardcolhedinput" 
-                     type="text"
-                    //  placeholder="State"
-                     name="emailid"
-                     value={values.emailid}
-                     onChange={handleChange}
+                    {...register("emailid", { required: true })}
+                     type="email"
+                    {...field}
                      isInvalid={!!errors.emailid}
                     />
+  )}
+  />
                      <Form.Control.Feedback type="invalid">
-                {errors.emailid}
+                {errors.emailid?.type === "required" &&
+                              "This field is required."}
               </Form.Control.Feedback>
                   </Form.Group>
                 </Row>
@@ -190,16 +257,22 @@ export default function AddNewCustomer() {
                     <Form.Label className="cardcolhed">
                       Address Line1<text className="cardcolhedstar">*</text>{" "}
                     </Form.Label>
+                    <Controller
+  name="address1"
+  control={control}
+  defaultValue="" // Set your default value here if needed
+  render={({ field }) => (
                     <Form.Control className="cardcolhedinput"
+                    {...register("address1", { required: true })}
                      type="text"
-                    //  placeholder="Zip"
-                     name="address"
-                     value={values.address}
-                     onChange={handleChange}
-                     isInvalid={!!errors.address}
+                    {...field}
+                     isInvalid={!!errors.address1}
                     />
+  )}
+  />
                      <Form.Control.Feedback type="invalid">
-                {errors.address}
+                {errors.address1?.type === "required" &&
+                              "This field is required."}
               </Form.Control.Feedback>
                   </Form.Group>
 
@@ -207,23 +280,40 @@ export default function AddNewCustomer() {
                     <Form.Label className="cardcolhed">
                       Address Line2{" "}
                     </Form.Label>
-                    <Form.Control className="cardcolhedinput" />
+                    <Controller
+  name="address2"
+  control={control}
+  defaultValue="" // Set your default value here if needed
+  render={({ field }) => (
+                    <Form.Control className="cardcolhedinput" 
+                
+                    type="text"
+                    {...field}
+                    />
+  )}
+  />
                   </Form.Group>
 
                   <Form.Group as={Col} controlId="validationFormik06">
                     <Form.Label className="cardcolhed">
                       City<text className="cardcolhedstar">*</text>{" "}
                     </Form.Label>
+                    <Controller
+  name="city"
+  control={control}
+  defaultValue="" // Set your default value here if needed
+  render={({ field }) => (
                     <Form.Control className="cardcolhedinput" 
+                    {...register("city", { required: true })}
                     type="text"
-                    // placeholder="Zip"
-                    name="City"
-                    value={values.City}
-                    onChange={handleChange}
-                    isInvalid={!!errors.City}
+                    {...field}
+                    isInvalid={!!errors.city}
                     />
+  )}
+  />
                      <Form.Control.Feedback type="invalid">
-                {errors.City}
+                {errors.city?.type === "required" &&
+                              "This field is required."}
               </Form.Control.Feedback>
                   </Form.Group>
                 </Row>
@@ -235,16 +325,22 @@ export default function AddNewCustomer() {
                     <Form.Label className="cardcolhed">
                       State<text className="cardcolhedstar">*</text>{" "}
                     </Form.Label>
+                    <Controller
+  name="state"
+  control={control}
+  defaultValue="" // Set your default value here if needed
+  render={({ field }) => (
                     <Form.Control className="cardcolhedinput" 
+                    {...register("state", { required: true })}
                      type="text"
-                    //  placeholder="State"
-                     name="state"
-                     value={values.state}
-                     onChange={handleChange}
+                    {...field}
                      isInvalid={!!errors.state}
                     />
+  )}
+  />
                      <Form.Control.Feedback type="invalid">
-                {errors.state}
+                {errors.state?.type === "required" &&
+                              "This field is required."}
               </Form.Control.Feedback>
                   </Form.Group>
 
@@ -252,17 +348,22 @@ export default function AddNewCustomer() {
                     <Form.Label className="cardcolhed">
                       Pincode<text className="cardcolhedstar">*</text>{" "}
                     </Form.Label>
+                    <Controller
+  name="pincode"
+  control={control}
+  defaultValue="" // Set your default value here if needed
+  render={({ field }) => (
                     <Form.Control className="cardcolhedinput"
+                    {...register("pincode", { required: true })}
                      type="text"
-                    //  placeholder="Zip"
-                     name="pincode"
-                     value={values.pincode}
-                     onChange={handleChange}
+                     {...field}
                      isInvalid={!!errors.pincode}
                     />
-                    
+  )}
+                    />
               <Form.Control.Feedback type="invalid">
-                {errors.pincode}
+                {errors.pincode?.type === "required" &&
+                              "This field is required."}
               </Form.Control.Feedback>
                   </Form.Group>
 
@@ -276,11 +377,11 @@ export default function AddNewCustomer() {
                   </Form.Group>
                 </Row>
                 </Form>
-          )}
-                </Formik>
+        
+                </div>
 
                 {/* ---------------------------------   card column end  -------------------------------------------- */}
-              </div>
+              
             </Card>
           </div>
         </div>

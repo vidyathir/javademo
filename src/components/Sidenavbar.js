@@ -11,7 +11,7 @@ export default function Sidenavbar() {
   const menus = [
     { name: "Dashboard", link:"/SroDashboard" ,icon: MdOutlineDashboard },
     { name: "Registration", link: "/Progress", icon: GiArchiveRegister },
-    { name: "Add Company", link: "/AddNewCompany", icon: BsBuildingAdd },
+    { name: "Add Company", link: "/AddNewCustomer", icon: BsBuildingAdd },
     { name: "Search Customer", link: "/SearchCustomer", icon: BiSearch },
   
   ];
