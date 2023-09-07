@@ -51,7 +51,9 @@ const [inputs, setInputs] = useState({
   const [editClick, setEditClick] = useState(false);
   const [editIndex, setEditIndex] = useState("");
   const [selectedOptions, setSelectedOptions] = useState([]);
-
+  const [naMfgDate, setNaMfgDate] = useState(false);
+  const [naExpDate, setNaExpDate] = useState(false);
+  const [naRetestDate, setNaRetestDate] = useState(false);
   const handleSelectChange = (selectedOptions) => {
     setSelectedOptions(selectedOptions);
     setInputs({
@@ -69,6 +71,21 @@ const [inputs, setInputs] = useState({
     selectedOptions: "",
   });
     
+  };
+  const handleNaChange = (fieldName) => {
+    switch (fieldName) {
+      case "mfgDate":
+        setNaMfgDate(!naMfgDate);
+        break;
+      case "expDate":
+        setNaExpDate(!naExpDate);
+        break;
+      case "retestDate":
+        setNaRetestDate(!naRetestDate);
+        break;
+      default:
+        break;
+    }
   };
   console.log("input" ,inputs);
   const handleChange = (e) => {
@@ -285,19 +302,21 @@ const handleTextChange=()=>{
                     </Col>
                   </Row>
 
- <div style={{alignItems:'center',display:'flex'}} className="mb-3"> 
+ 
+                  <Row className="mb-3 rowtabview">
+                    <Col>
+                    <div style={{alignItems:'center',display:'flex'}} className="mb-3"> 
  <div>               {/* ---------------------------------   card column start  -------------------------------------------- */}
 <label className="cardcolhed me-2" >NA</label>
 </div>
 <div>
   <input className="customRadio"
 type="checkbox"
-onChange={handleTextChange}
-checked={disabletext}/>
+ checked={naMfgDate}
+              onChange={() => handleNaChange("mfgDate")} // Handle "N/A" checkbox
+              />
 </div>
 </div>
-                  <Row className="mb-3 rowtabview">
-                    <Col>
                       <div>
                         <label className="cardcolhed">
                           Mfg. Date
@@ -309,12 +328,25 @@ checked={disabletext}/>
                         name="mfgDate"
                         value={inputs.mfgDate}
                         onChange={handleChange}
-                        disabled={disabletext} />
+                        disabled={disabletext || naMfgDate} // Disable if "N/A" is checked
+            />
                       </div>
                       <p style={{color:"red"}}>{formErrors.mfgDate}</p>
                     </Col>
 
                     <Col>
+                    <div style={{alignItems:'center',display:'flex'}} className="mb-3"> 
+ <div>               {/* ---------------------------------   card column start  -------------------------------------------- */}
+<label className="cardcolhed me-2" >NA</label>
+</div>
+<div>
+  <input className="customRadio"
+type="checkbox"
+checked={naExpDate}
+onChange={() => handleNaChange("expDate")} // Handle "N/A" checkbox
+/>
+</div>
+</div>
                       <div>
                         <label className="cardcolhed">
                           Exp. Date
@@ -325,14 +357,28 @@ checked={disabletext}/>
                         <input type="date" className="cardcolumninputtype"
                         name="expDate"
                         value={inputs.expDate}
-                        onChange={handleChange}
+                      
                         min={inputs.mfgDate}
-                        disabled={disabletext} />
+                        onChange={handleChange}
+              disabled={disabletext || naExpDate} // Disable if "N/A" is checked
+              />
                       </div>
                       <p style={{color:"red"}}>{formErrors.expDate}</p>
                     </Col>
 
                     <Col>
+                    <div style={{alignItems:'center',display:'flex'}} className="mb-3"> 
+ <div>               {/* ---------------------------------   card column start  -------------------------------------------- */}
+<label className="cardcolhed me-2" >NA</label>
+</div>
+<div>
+  <input className="customRadio"
+type="checkbox"
+checked={naRetestDate}
+onChange={() => handleNaChange("retestDate")} // Handle "N/A" checkbox
+/>
+</div>
+</div>
                       <div>
                         <label className="cardcolhed">
                           Retest Date
@@ -345,7 +391,8 @@ checked={disabletext}/>
                         value={inputs.retestDate}
                         min={inputs.expDate}
                         onChange={handleChange}
-                        disabled={disabletext}/>
+                        disabled={disabletext || naRetestDate} // Disable if "N/A" is checked
+                        />
                       </div>
                       <p style={{color:"red"}}>{formErrors.retestDate}</p>
                     </Col>
