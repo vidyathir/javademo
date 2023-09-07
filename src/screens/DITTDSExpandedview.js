@@ -7,9 +7,9 @@ import {
   AiOutlineLeft,
   // AiOutlineEye
 } from "react-icons/ai";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector} from "react-redux";
 import { PiFilePdfFill } from "react-icons/pi";
-// import { BiRightArrowAlt } from "react-icons/bi";
+
 import NavbartitleAddco from "../components/NavbartitleAddco";
 import SidenavbarDIT from "../components/SidenavbarDIT";
 import axios from "axios";
@@ -17,11 +17,11 @@ export default function DITTDSExpandedView() {
   const navigate = useNavigate();
   const id = useSelector((state) => state.form.TdsId.TdsId);
   const [detailedView, setDetailedView] = useState({});
-  const [datasheet, setDatasheet] = useState([]);
+
   const [tdsView,setTdsView]=useState({});
   const analysis = useSelector((state) => state.form.data);
 
-  const token = useSelector((state) => state.form.usertoken.token);
+  
 
   console.log(id);
   useEffect(() => {
@@ -35,14 +35,7 @@ export default function DITTDSExpandedView() {
   }, [id]);
 
 console.log("detail", tdsView)
-  // useEffect(() => {
-  //   axios
-  //     .get(
-  //       "http://3.80.98.199:3000/api/batchDetails/getDataSheets?batchId=" + id
-  //     )
-  //     .then((response) => setDatasheet(response.data))
-  //     .catch((error) => console.error("Error fetching batch data:", error));
-  // }, [id]);
+
 
   return (
     <div className="app">
