@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
-import { AiFillLeftCircle, AiFillRightCircle } from "react-icons/ai";
+import { AiOutlineRightCircle, AiOutlineLeftCircle } from "react-icons/ai";
 import { IconContext } from "react-icons";
 import "./pahin.css";
 import {
@@ -160,15 +160,16 @@ export default function DitDashboard() {
         onPageChange={handlePageChange}
         pageCount={Math.ceil(data.length / itemsPerPage)}
         previousLabel={
-          <IconContext.Provider value={{ color: "#B8C1CC", size: "36px" }}>
-            <AiFillLeftCircle />
-            <text>previous</text>
+          <IconContext.Provider value={{ color: "#9AC037", size: "30px" }}>
+            
+            <AiOutlineLeftCircle />
+            <text>Previous</text>
           </IconContext.Provider>
         }
         nextLabel={
-          <IconContext.Provider value={{ color: "#B8C1CC", size: "36px" }}>
-            <AiFillRightCircle />
+          <IconContext.Provider value={{ color: "#ffffff", size: "30px" }}>
             <text>Next</text>
+            <AiOutlineRightCircle />
           </IconContext.Provider>
         }
       />

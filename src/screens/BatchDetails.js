@@ -35,7 +35,7 @@ const [inputs, setInputs] = useState({
     testParameter:[],
 
   });
-  const [disabletext,setDisabletext]=useState(false);
+  const [disabletext]=useState(false);
   const [formErrors, setFormErrors] = useState({
     batchNo: "",
     batchSize: "",
@@ -180,9 +180,7 @@ useEffect(()=>{
   }
 },[])
 
-const handleTextChange=()=>{
-  setDisabletext(!disabletext );
-}
+
 
   const handleDelete = (index) => {
     const filterData = tableData.filter((item, i) => i !== index);
@@ -445,18 +443,23 @@ onChange={() => handleNaChange("retestDate")} // Handle "N/A" checkbox
                         {/* <input type="date" className="cardcolumninputtype"/> */}
 
                         <button type="reset"
-                          className="cardbutton"
+                          className="cardbuttonbatchdetails"
                         onClick={handleClear}
                         >
-                          <AiOutlineClose size={18} /> Clear
+                          <div>
+                          <AiOutlineClose size={18} /> </div> <text>Clear</text> 
                         </button>
                         
                         <button type="submit"
-                          className="cardbutton"
+                          className="cardbuttonbatchdetails"
                             onClick={handleadd}
                         >
+                          <text>
                              {editClick ? "update" : "Add"}
-                          <MdOutlineAdd size={20} />
+                             </text>
+                             <div>
+                          <MdOutlineAdd size={18} />
+                          </div>
                         </button>
                          
                       </div>

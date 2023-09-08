@@ -344,6 +344,21 @@ font-weight: 400;
   font-size: 12px;
   font-weight: 600;
 }
+.cardbuttonbatchdetails{
+  background-color: #3A4175 !important;
+  height: 40px;
+  width: 122px;
+  color: #ffffff;
+  border-radius: 6px;
+  align-items: center;
+  flex-direction: row;
+  display: flex;
+  justify-content: center;
+  outline: none;
+  border: none;
+  font-size: 12px;
+  font-weight: 600;
+}
 
 .DITcardbutton{
   background-color: #9AC037;
