@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import { useAppState } from "../state";
 import { Button, Field, Form, Input } from "../Forms";
-import React, {useState } from "react";
+import React, {useState,useEffect } from "react";
 
 import { Row, Col, Card } from "react-bootstrap";
 import "./Styles.css";
@@ -14,24 +14,70 @@ export default function SampleDetails({ onButtonClick }) {
 
   const [selectedOptioncheck, setSelectedOptioncheck] = useState(false);
   const [selectedOptioncheck1, setSelectedOptioncheck1] = useState(false);
-
+  const [otherValue, setOtherValue] = useState('');
+  const [sampleTypeOther, setSampleTypeOther] = useState('');
   const dispatch = useDispatch();
   const [state, setState] = useAppState();
   const {
     handleSubmit,
     register,
+    setValue,
     formState: { errors },
   } = useForm({ defaultValues: state });
 
  
    const handlecheckboxchange = () => {
-   setSelectedOptioncheck(!selectedOptioncheck);;
+   setSelectedOptioncheck(!selectedOptioncheck);
+   if (!selectedOptioncheck) {
+    // Reset the sampleTypeOther when "Others" is selected
+    setSampleTypeOther('');
+  }
    };
-   
+   useEffect(() => {
+    // Set the initial value of "selectedOption" and "otherValue" when the component mounts
+    const initialNatureOfSample = state.natureofsample || null;
+    setSelectedOption(initialNatureOfSample);
+     const initialSampleType = state.sampletype || null;
+    setSelectedOptioncheck(initialSampleType);
+    if (initialNatureOfSample === "Others") {
+      const initialSamplename = state.othersample || '';
+      setOtherValue(initialSamplename);
+      // Set the value of "otherValue" in react-hook-form
+      setValue("othersample", initialSamplename);
+    }
+    if (initialSampleType === "Others") {
+      const initialSample = state.othercheck || '';
+      setSampleTypeOther(initialSample);
+      // Set the value of "otherValue" in react-hook-form
+      setValue("othercheck", initialSample);}
+
+  }, [state.natureofsample,state.sampletype]);
+
+
    const handlemsdschange = () => {
     setSelectedOptioncheck1(!selectedOptioncheck1);;
     };
+    const handleInputChange = (event) => {
+      const inputValue = event.target.value;
+      setOtherValue(inputValue);
+      
+      // Update the value of the "samplename" field in react-hook-form
+      setValue("othersample", inputValue);
+    };
+    const handleRadioChange = (event) => {
+      const selectedValue = event.target.value;
+      setSelectedOption(selectedValue);
+      
+      // When a radio option other than "Others" is selected, clear the "otherValue" and react-hook-form field
+      if (selectedValue !== "Others") {
+        setOtherValue('');
+        setValue("othersample", '');
+      }
+    };
   const saveData = (data) => {
+    if (data.natureofsample !== "Others") {
+      data.othersample = ""; // Reset the value if it's not "Others"
+    }
     setState({ ...state, ...data });
     dispatch(changeSampleDetails(
       {
@@ -42,7 +88,8 @@ sampletype:data.sampletype,
 sampleretension:data.sampleretension,
 storage:data.storage,
 submissiontype:data.submissiontype,
-
+othersample: data.othersample,
+othercheck:data.sampleTypeOther,
       })
     )
     onButtonClick("BatchDetails");
@@ -505,9 +552,8 @@ submissiontype:data.submissiontype,
                                     name="natureofsample"
                                     value="Others"
                                     checked={selectedOption === "Others"}
-                                    onChange={() =>
-                                      setSelectedOption("Others")
-                                    }
+                                    onChange={handleRadioChange}
+                                    
                                     //checked={selectedOption1 === "option10"}
                                     //checked={showTextBox}
                                     //onChange={handleRadioChange}
@@ -524,10 +570,16 @@ submissiontype:data.submissiontype,
                             <div className="col">
                               <span>
                                 {selectedOption === "Others" && (
+                                  <Field>
                                   <Input
+                                  {...register("othersample")}
+                                  
                                     type="text"
                                     className="NatureOfSample"
+                                    onChange={handleInputChange}
+                                    value={otherValue}
                                   />
+                                  </Field>
                                 )}
                               </span>
                             </div>
@@ -774,11 +826,20 @@ submissiontype:data.submissiontype,
                               <div className="col">
                                 <span>
                                   {selectedOptioncheck  && (
+                                    <Field>
                                     <Input
+                                    {...register("sampleTypeOther")}
+                                    type="text"
+                                    name="sampleTypeOther"
+                                    value={sampleTypeOther}
                                       className="cardcolumninputtype"
                                       //value="sampletype"
                                       id="sampletype"
+                                      onChange={(e) =>{setSampleTypeOther(e.target.value);
+                                      setValue("sampleTypeOther", e.target.value);
+        }}
                                     />
+                                    </Field>
                                   )}
                                 </span>
                               </div>

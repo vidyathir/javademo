@@ -32,7 +32,7 @@ const Login = () => {
         navigate("/DitDashboard");
       }
       if (userToken.userType === "Analyst") {
-        navigate("/AnalystDashboard");
+        navigate("/AnalystDashboaed");
       }
       if (userToken.userType === "Reviewer") {
         navigate("/ReviewDashboard");

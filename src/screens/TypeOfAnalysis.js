@@ -2,7 +2,7 @@ import { useForm } from "react-hook-form";
 
 import { useAppState } from "../state";
 import { Button, Field, Form, Input } from "../Forms";
-import React, { useState } from "react";
+import React, { useState ,useEffect} from "react";
 import { useDispatch } from "react-redux";
 import { MdOutlineUploadFile } from "react-icons/md";
 import { changeTypeofAnalysis } from "../redux/FormSlice";
@@ -21,6 +21,9 @@ export default function TypeOfAnalysis({ onButtonClick }) {
   const [selectedOptionmet, setSelectedOptionmet] = useState(null);
   const [selectedOption1, setSelectedOption1] = useState([]);
   const [selectedOptionvalid, setSelectedOptionvalid] = useState(null);
+  const [otherValue, setOtherValue] = useState('');
+  const [otherreg, setOtherreg] = useState('');
+  const [othervalid, setOthervalid] = useState('');
   const dispatch = useDispatch();
   const [state, setState] = useAppState();
   const {
@@ -29,8 +32,100 @@ export default function TypeOfAnalysis({ onButtonClick }) {
     setValue,
     // formState: {},
   } = useForm({ defaultValues: state });
+  const handleRadioChange = (event) => {
+    const selectedValue = event.target.value;
+    setSelectedOptionmet(selectedValue);
+    
+    // When a radio option other than "Others" is selected, clear the "otherValue" and react-hook-form field
+    if (selectedValue !== "GTP" ) { 
+      setOtherValue('');
+      setValue("referencetext", '');
+    }
+    if (selectedValue !== "STP" ) { 
+      setOtherValue('');
+      setValue("referencetext", '');
+    }
+    if (selectedValue !== "Reference No" ) { 
+      setOtherValue('');
+      setValue("referencetext", '');
+    }
+  };
+  const handleOtherchange = (event) => {
+    const selectedValue = event.target.value;
+    setSelectedOption(selectedValue);
+    
+    // When a radio option other than "Others" is selected, clear the "otherValue" and react-hook-form field
+    if (selectedValue !== "Other" ) { 
+      setOtherreg('');
+      setValue("otherregulatory", '');
+    }
+    
+  };
+  const handleRadioValid = (event) => {
+    const selectedValue = event.target.value;
+    setSelectedOptionvalid(selectedValue);
+    
+    // When a radio option other than "Others" is selected, clear the "otherValue" and react-hook-form field
+    if (selectedValue !== "Yes" ) { 
+      setOthervalid('');
+      setValue("yesvalid", '');
+    }
+    
+  };
+  useEffect(() => {
+    // Set the initial value of "selectedOption" and "otherValue" when the component mounts
+    const initialMethodology = state.methodologyfollowed || null;
+    setSelectedOptionmet(initialMethodology);
+    const initialRegulatory = state.formfilling || null;
+    setSelectedOption(initialRegulatory);
+    const initialValid = state.methodvalidation || null;
+    setSelectedOptionvalid(initialValid);
+     
+    if (initialMethodology === "GTP" || "STP" ||"Reference No") {
+      const initialSamplename = state.referencetext || '';
+      setOtherValue(initialSamplename);
+      // Set the value of "otherValue" in react-hook-form
+      setValue("referencetext", initialSamplename);
+    }
+    if (initialRegulatory === "Other" ) {
+      const initialSamplename = state.otherregulatory || '';
+      setOtherreg(initialSamplename);
+      // Set the value of "otherValue" in react-hook-form
+      setValue("otherregulatory", initialSamplename);
+    }
+    if (initialRegulatory === "Yes" ) {
+      const initialSamplename = state.yesvalid || '';
+      setOthervalid(initialSamplename);
+      // Set the value of "otherValue" in react-hook-form
+      setValue("yesvalid", initialSamplename);
+    }
 
+  }, [state.methodologyfollowed,state.formfilling]);
+  const handleInputChange = (event) => {
+    const inputValue = event.target.value;
+    setOtherValue(inputValue);
+    
+    // Update the value of the "samplename" field in react-hook-form
+    setValue("referencetext", inputValue);
+  };
+  const handleOtherInputchange = (event) => {
+    const inputValue = event.target.value;
+    setOtherreg(inputValue);
+    
+    // Update the value of the "samplename" field in react-hook-form
+    setValue("otherregulatory", inputValue);
+  };
+  const handleInputValidChange = (event) => {
+    const inputValue = event.target.value;
+    setOthervalid(inputValue);
+    
+    // Update the value of the "samplename" field in react-hook-form
+    setValue("yesvalid", inputValue);
+  };
   const saveData = (data) => {
+    // if (data.methodologyfollowed !== "") {
+    //   data.referencetext = ""; // Reset the value if it's not "Others"
+    // }
     setState({ ...state, ...data });
 
     if (selectedRadio === "Regulatory") {
@@ -43,6 +138,9 @@ export default function TypeOfAnalysis({ onButtonClick }) {
           methodvalidation: data.methodvalidation,
           specialinstruction: data.specialinstruction,
           test: data.test,
+          referencetext:data.referencetext,
+          otherregulatory:data.otherregulatory,
+          yesvalid:data.yesvalid
         })
       );
     } else {
@@ -53,8 +151,12 @@ export default function TypeOfAnalysis({ onButtonClick }) {
           formfilling: null,
           methodologyfollowed: data.methodologyfollowed,
           methodvalidation: data.methodvalidation,
-          specialinstruction: data.specialinstruction,
+          specialinstruction: data.SpecialInstruction,
           test: data.test,
+          referencetext:data.referencetext,
+          otherregulatory:data.otherreg,
+          yesvalid:data.othervalid
+
         })
       );
     }
@@ -304,11 +406,11 @@ export default function TypeOfAnalysis({ onButtonClick }) {
                           <Input
                             {...register("formfilling")}
                             type="radio"
-                            id="other"
-                            value="other"
-                            name="other"
-                            checked={selectedOption === "other"}
-                            onChange={() => setSelectedOption("other")}
+                            id="Other"
+                            value="Other"
+                            name="formfilling"
+                            checked={selectedOption === "Other"}
+                            onChange={handleOtherchange}
                             className="customRadio"
                           />
                         </Field>
@@ -322,8 +424,14 @@ export default function TypeOfAnalysis({ onButtonClick }) {
 
                 <div className="col">
                   <span>
-                    {selectedOption === "other" && (
-                      <Input type="text" className="NatureOfSample" />
+                    {selectedOption === "Other" && (
+                      <Field>
+                      <Input 
+                      {...register("otherregulatory")}
+                      type="text" className="NatureOfSample" 
+                      onChange={handleOtherInputchange}
+                      value={otherreg}/>
+                      </Field>
                     )}
                   </span>
                 </div>
@@ -604,9 +712,7 @@ export default function TypeOfAnalysis({ onButtonClick }) {
                                       value="Yes"
                                       id="Yes"
                                       checked={selectedOptionvalid === "Yes"}
-                                      onChange={() =>
-                                        setSelectedOptionvalid("Yes")
-                                      }
+                                      onChange={handleRadioValid}
                                       name="methodvalidation"
                                       //checked={selectedOption2 === "option15"}
                                       //onChange={handleOptionChange2}
@@ -624,10 +730,15 @@ export default function TypeOfAnalysis({ onButtonClick }) {
                               <div className="col">
                                 <span>
                                   {selectedOptionvalid === "Yes" && (
+                                    <Field>
                                     <Input
+                                    {...register("yesvalid")}
                                       type="text"
                                       className="methodValidation"
+                                      onChange={handleInputValidChange}
+                                      value={othervalid}
                                     />
+                                    </Field>
                                   )}
                                 </span>
                               </div>
@@ -784,7 +895,7 @@ export default function TypeOfAnalysis({ onButtonClick }) {
                     <hr />
                     {/* --------------------------------------------3rd Column starting ----------------------------------*/}
                     <Row>
-                      <Col md={6} className="col-12 cardcolhed">
+                     <div md={6} className="col-12 cardcolhed">
                         <div className="mb-3">
                           <label>Methodology</label>
                         </div>
@@ -807,7 +918,7 @@ export default function TypeOfAnalysis({ onButtonClick }) {
                                     id="STP"
                                     value="STP"
                                     checked={selectedOptionmet === "STP"}
-                                    onChange={() => setSelectedOptionmet("STP")}
+                                    onChange={handleRadioChange}
                                     name="methodologyfollowed"
                                     //checked={selectedOption4 === "option22"}
                                     //onChange={handleOptionChange4}
@@ -819,8 +930,23 @@ export default function TypeOfAnalysis({ onButtonClick }) {
                                 <label className="space">STP</label>
                               </div>
                             </div>
+                        
                           </div>
-
+                          <div
+                            style={{ alignItems:"center", display:"flex" }}
+                          >
+                            {selectedOptionmet === "STP" && (
+                              <Field>
+                              <Input
+                                {...register("referencetext")}
+                                type="text"
+                                className="methodology"
+                                onChange={handleInputChange}
+                                    value={otherValue}
+                              />
+                              </Field>
+                            )}
+                          </div>
                           <div className="col">
                             <div
                               style={{
@@ -835,7 +961,7 @@ export default function TypeOfAnalysis({ onButtonClick }) {
                                     id="GTP"
                                     value="GTP"
                                     checked={selectedOptionmet === "GTP"}
-                                    onChange={() => setSelectedOptionmet("GTP")}
+                                    onChange={handleRadioChange}
                                     name="methodologyfollowed"
                                     //checked={selectedOption4 === "option23"}
                                     //onChange={handleOptionChange4}
@@ -847,8 +973,21 @@ export default function TypeOfAnalysis({ onButtonClick }) {
                                 <label className="space">GTP</label>
                               </div>
                             </div>
+                           
                           </div>
-
+                          <div
+                            style={{ alignItems: "center", display: "flex" }}
+                          >
+                            {selectedOptionmet === "GTP" && (
+                              <Input
+                                {...register("referencetext")}
+                                type="text"
+                                className="methodology"
+                                onChange={handleInputChange}
+                                    value={otherValue}
+                              />
+                            )}
+                          </div>
                           <div className="col">
                             <div
                               style={{
@@ -866,9 +1005,7 @@ export default function TypeOfAnalysis({ onButtonClick }) {
                                     checked={
                                       selectedOptionmet === "Reference No"
                                     }
-                                    onChange={() =>
-                                      setSelectedOptionmet("Reference No")
-                                    }
+                                    onChange={handleRadioChange}
                                     name="methodologyfollowed"
                                     //checked={selectedOption4 === "option24"}
                                     //onChange={handleOptionChange4}
@@ -889,11 +1026,13 @@ export default function TypeOfAnalysis({ onButtonClick }) {
                                 {...register("referencetext")}
                                 type="text"
                                 className="methodology"
+                                onChange={handleInputChange}
+                                    value={otherValue}
                               />
                             )}
                           </div>
                         </div>
-                      </Col>
+                      </div>
                     </Row>
                     <hr />
 
@@ -950,7 +1089,7 @@ export default function TypeOfAnalysis({ onButtonClick }) {
                               name="specialinstruction"
                               type="textarea"
                               className="spclInstruction"
-                              {...register("Special Instruction")}
+                              {...register("specialinstruction")}
                             />
                           </Field>
                         </div>

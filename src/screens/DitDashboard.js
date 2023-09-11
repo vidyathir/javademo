@@ -34,7 +34,7 @@ export default function DitDashboard() {
       .catch((error) => {
         console.error("Error fetching data:", error);
       });
-  }, [page]);
+  }, []);
 
   useEffect(() => {
     // Update the filtered data when the page or data changes

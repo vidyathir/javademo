@@ -180,9 +180,6 @@ useEffect(()=>{
   }
 },[])
 
-const handleTextChange=()=>{
-  setDisabletext(!disabletext );
-}
 
   const handleDelete = (index) => {
     const filterData = tableData.filter((item, i) => i !== index);
@@ -326,7 +323,7 @@ type="checkbox"
                       <div>
                         <input type="date" className="cardcolumninputtype"
                         name="mfgDate"
-                        value={inputs.mfgDate}
+                        value={naMfgDate? '' :inputs.mfgDate}
                         onChange={handleChange}
                         disabled={disabletext || naMfgDate} // Disable if "N/A" is checked
             />
@@ -356,7 +353,7 @@ onChange={() => handleNaChange("expDate")} // Handle "N/A" checkbox
                       <div>
                         <input type="date" className="cardcolumninputtype"
                         name="expDate"
-                        value={inputs.expDate}
+                        value={naExpDate? "" :inputs.expDate}
                       
                         min={inputs.mfgDate}
                         onChange={handleChange}
@@ -388,7 +385,7 @@ onChange={() => handleNaChange("retestDate")} // Handle "N/A" checkbox
                       <div>
                         <input type="date" className="cardcolumninputtype" 
                         name="retestDate"
-                        value={inputs.retestDate}
+                        value={naRetestDate?"": inputs.retestDate}
                         min={inputs.expDate}
                         onChange={handleChange}
                         disabled={disabletext || naRetestDate} // Disable if "N/A" is checked

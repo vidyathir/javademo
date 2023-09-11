@@ -120,11 +120,17 @@ console.log("form",form)
               </div>
             </Col>
             <Col className="columnMb">
+            {sample.sampletype?
               <div className="d-flex row">
+             
                 <text className="cardcolhed">Sample Type</text>
-                {sample.sampletype?
-                <text className="cardcolhedtext mt-1">{(sample.sampletype).join('    ,   ')}</text>:<text className="cardcolhedtext mt-1">N/A</text>}
+                
+                {sample.sampletype.includes("Others")?
+                <text className="cardcolhedtext mt-1">{(sample.sampletype).join("      ,   ")},({sample.othercheck})</text> :
+                <text className="cardcolhedtext mt-1">{(sample.sampletype).join('    ,   ')}</text>}
+            
               </div>
+              :<text className="cardcolhedtext mt-1">N/A</text>}
             </Col>
           </Row>
 
@@ -132,7 +138,10 @@ console.log("form",form)
             <Col className="columnMb col-3">
               <div className="d-flex row">
                 <text className="cardcolhed">Nature of Sample</text>
-                <text className="cardcolhedtext mt-1">{sample.natureofsample}</text>
+                {(sample.natureofsample==="Others")?
+                <text className="cardcolhedtext mt-1">{sample.natureofsample}({sample.othersample})</text>:
+                <text className="cardcolhedtext mt-1">{sample.natureofsample}</text> }
+                
               </div>
             </Col>
             <Col className="columnMb col-3">
@@ -204,13 +213,15 @@ console.log("form",form)
 
           <Row className="rowtabview">
             <Col className="">
+            {analysis.formfilling ?
               <div className="d-flex row">
                 <text className="cardcolhed">
                   Regulatory(Form-39/DMF Filing/ANDA Filing/Any Query)
                 </text>
-                {analysis.formfilling ?
-                <text className="cardcolhedtext mt-1">{analysis.formfilling}</text>:<text className="cardcolhedtext mt-1">N/A</text>}
-              </div>
+                {(analysis.formfilling==="Other")?
+                <text className="cardcolhedtext mt-1">{analysis.formfilling}({analysis.otherregulatory})</text>:
+                <text className="cardcolhedtext mt-1">{analysis.formfilling}</text>}
+              </div>:<text className="cardcolhedtext mt-1">N/A</text>}
             </Col>
             <Col className="columnMb">
               <div className="d-flex row">
@@ -244,14 +255,15 @@ console.log("form",form)
 
           <Row className="mt-3 rowtabview">
             <Col className="columnMb">
+            {analysis.methodvalidation ?
               <div className="d-flex row">
                 <text className="cardcolhed">
                   If Method Validation/Verification/Transfer/Development are
                   performed atRevin Labs please specify the Report Ref.num.{" "}
-                </text>
-                {analysis.methodvalidation ?
-                <text className="cardcolhedtext mt-1">{analysis.methodvalidation}</text>:<text className="cardcolhedtext mt-1">N/A</text>}
-              </div>
+                </text>{(analysis.methodvalidation==="Yes")?
+                <text className="cardcolhedtext mt-1">{analysis.methodvalidation}({analysis.yesvalid})</text>:
+                <text className="cardcolhedtext mt-1">{analysis.methodvalidation}</text>}
+              </div>:<text className="cardcolhedtext mt-1">N/A</text>}
             </Col>
             <Col className="columnMb">
               <div className="d-flex row">
@@ -265,11 +277,13 @@ console.log("form",form)
 
           <Row className="mt-3 rowtabview">
             <Col className="columnMb">
+            {analysis.methodologyfollowed?
               <div className="d-flex row">
                 <text className="cardcolhed">Methodology </text>
-                {analysis.methodologyfollowed?
-                <text className="cardcolhedtext mt-1">{analysis.methodologyfollowed}</text>:<text className="cardcolhedtext mt-1">N/A</text>}
-              </div>
+                {(analysis.methodologyfollowed=== "GTP" || "STP" ||"Reference No") ?
+                <text className="cardcolhedtext mt-1">{analysis.methodologyfollowed}({analysis.referencetext})</text>:
+                <text className="cardcolhedtext mt-1">{analysis.methodologyfollowed}</text>}
+              </div>:<text className="cardcolhedtext mt-1">N/A</text>}
             </Col>
             <Col className="columnMb">
               <div className="d-flex row">
