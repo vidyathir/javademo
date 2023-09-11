@@ -178,7 +178,7 @@ fetch("http://3.80.98.199:3000/api/sampleDetails/createSample", {
                         </text>
                       </div>
                       <div className="d-flex">
-                        <span style={{ display: "flex",alignItems:"center" }}>
+                        <span style={{ display: "flex" }}>
                           <div>
                             <Field>
                           <Input
@@ -196,7 +196,7 @@ fetch("http://3.80.98.199:3000/api/sampleDetails/createSample", {
                           <label className="space">Yes</label>
                           </div>
                         </span>
-                        <span style={{ display: "flex",alignItems:"center" }}>
+                        <span style={{ display: "flex"}}>
                           <div>
                             <Field>
                           <Input
@@ -213,7 +213,7 @@ fetch("http://3.80.98.199:3000/api/sampleDetails/createSample", {
                           <label className="space">No</label>
                           </div>
                         </span>
-                        <span style={{ display: "flex",alignItems:'center' }}>
+                        <span style={{ display: "flex"}}>
                           <div>
                             <Field>
                           <Input
@@ -248,7 +248,7 @@ fetch("http://3.80.98.199:3000/api/sampleDetails/createSample", {
                         </text>
                       </div>
                       <div className="d-flex">
-                        <span style={{ display: "flex",alignItems:'center' }}>
+                        <span style={{ display: "flex" }}>
                           <div>
                             <Field>
                           <Input
@@ -264,7 +264,7 @@ fetch("http://3.80.98.199:3000/api/sampleDetails/createSample", {
                           <label className="space">Yes</label>
                           </div>
                         </span>
-                        <span style={{ display: "flex",alignItems:"center" }}>
+                        <span style={{ display: "flex" }}>
                           <div>
                             <Field>
                             <Input
@@ -317,7 +317,7 @@ fetch("http://3.80.98.199:3000/api/sampleDetails/createSample", {
                         </text>
                       </div>
                       <div className="d-flex">
-                        <span style={{ display: "flex",alignItems:"center" }}>
+                        <span style={{ display: "flex"}}>
                           <div>
                             <Field>
                           <Input
@@ -334,7 +334,7 @@ fetch("http://3.80.98.199:3000/api/sampleDetails/createSample", {
                           <label className="space">Yes</label>
                           </div>
                         </span>
-                        <span style={{ display: "flex",alignItems:"center" }}>
+                        <span style={{ display: "flex" }}>
                           <div>
                             <Field>
                             <Input
@@ -351,7 +351,7 @@ fetch("http://3.80.98.199:3000/api/sampleDetails/createSample", {
                           <label className="space">No</label>
                           </div>
                         </span>
-                        <span style={{ display: "flex",alignItems:"center" }}>
+                        <span style={{ display: "flex" }}>
                           <div>
                             <Field>
                             <Input
@@ -384,7 +384,7 @@ fetch("http://3.80.98.199:3000/api/sampleDetails/createSample", {
                         </text>
                       </div>
                       <div className="d-flex">
-                        <span style={{ display: "flex" ,alignItems:"center"}}>
+                        <span style={{ display: "flex" }}>
                           <div>
                             <Field>
                           <Input
@@ -403,7 +403,7 @@ fetch("http://3.80.98.199:3000/api/sampleDetails/createSample", {
                           </div>
                           
                         </span>
-                        <span style={{ display: "flex" ,alignItems:"center"}}>
+                        <span style={{ display: "flex" }}>
                           <div>
                             <Field>
                             <Input
@@ -422,7 +422,7 @@ fetch("http://3.80.98.199:3000/api/sampleDetails/createSample", {
                           </div>
                           
                         </span>
-                        <span style={{ display: "flex",alignItems:'center' }}>
+                        <span style={{ display: "flex" }}>
                           <div>
                             <Field>
                             <Input
@@ -456,7 +456,7 @@ fetch("http://3.80.98.199:3000/api/sampleDetails/createSample", {
                         </text>
                       </div>
                       <div className="d-flex">
-                        <span style={{ display: "flex",alignItems:"center" }}>
+                        <span style={{ display: "flex" }}>
                           <div>
                             <Field>
                             <Input
@@ -475,7 +475,7 @@ fetch("http://3.80.98.199:3000/api/sampleDetails/createSample", {
                       </div>
                           
                         </span>
-                        <span style={{ display: "flex" ,alignItems:"center"}}>
+                        <span style={{ display: "flex"}}>
                           <div>
                             <Field>
                             <Input
@@ -495,7 +495,7 @@ fetch("http://3.80.98.199:3000/api/sampleDetails/createSample", {
                           </div>
                           
                         </span>
-                        <span style={{ display: "flex",alignItems:"center" }}>
+                        <span style={{ display: "flex"}}>
                           <div>
                             <Field>
                             <Input
@@ -553,7 +553,7 @@ fetch("http://3.80.98.199:3000/api/sampleDetails/createSample", {
                         </div>
                           
                         </span>
-                        <span style={{ display: "flex",alignItems:"center" }}>
+                        <span style={{ display: "flex" }}>
                           <div>
                             <Field>
                             <Input
@@ -573,7 +573,7 @@ fetch("http://3.80.98.199:3000/api/sampleDetails/createSample", {
                         </div>
                          
                         </span>
-                        <span style={{ display: "flex" ,alignItems:"center"}}>
+                        <span style={{ display: "flex" }}>
                           <div>
                             <Field>
                             <Input
@@ -616,7 +616,7 @@ fetch("http://3.80.98.199:3000/api/sampleDetails/createSample", {
                         </text>
                       </div>
                       <div className="d-flex">
-                        <span style={{ display: "flex",alignItems:'center' }}>
+                        <span style={{ display: "flex"}}>
                           <div>
                             <Field>
                             <Input
@@ -636,7 +636,7 @@ fetch("http://3.80.98.199:3000/api/sampleDetails/createSample", {
                           </div>
                           
                         </span>
-                        <span style={{ display: "flex",alignItems:"center" }}>
+                        <span style={{ display: "flex" }}>
                           <div>
                             <Field>
                             <Input
@@ -656,7 +656,7 @@ fetch("http://3.80.98.199:3000/api/sampleDetails/createSample", {
                         </div>
                           
                         </span>
-                        <span style={{ display: "flex",alignItems:"center" }}>
+                        <span style={{ display: "flex" }}>
                           <div>
                             <Field>
                             <Input
@@ -694,7 +694,7 @@ fetch("http://3.80.98.199:3000/api/sampleDetails/createSample", {
                         </text>
                       </div>
                       <div className="d-flex">
-                        <span style={{ display: "flex",alignItems:'center' }}>
+                        <span style={{ display: "flex" }}>
                           <div>
                             <Field>
                             <Input
@@ -714,7 +714,7 @@ fetch("http://3.80.98.199:3000/api/sampleDetails/createSample", {
                           </div>
                           
                         </span>
-                        <span style={{ display: "flex",alignItems:"center" }}>
+                        <span style={{ display: "flex"}}>
                           <div>
                             <Field>
                             <Input
@@ -734,7 +734,7 @@ fetch("http://3.80.98.199:3000/api/sampleDetails/createSample", {
                           </div>
                           
                         </span>
-                        <span style={{ display: "flex",alignItems:"center" }}>
+                        <span style={{ display: "flex"}}>
                           <div>
                             <Field>
                             <Input
@@ -773,7 +773,7 @@ fetch("http://3.80.98.199:3000/api/sampleDetails/createSample", {
                         </text>
                       </div>
                       <div className="d-flex">
-                        <span style={{ display: "flex" ,alignItems:"center"}}>
+                        <span style={{ display: "flex" }}>
                           <div>
                             <Field>
                             <Input
@@ -793,7 +793,7 @@ fetch("http://3.80.98.199:3000/api/sampleDetails/createSample", {
                           </div>
                           
                         </span>
-                        <span style={{ display: "flex",alignItems:"center" }}>
+                        <span style={{ display: "flex"}}>
                           <div>
                             <Field>
                             <Input
@@ -813,7 +813,7 @@ fetch("http://3.80.98.199:3000/api/sampleDetails/createSample", {
                           </div>
                           
                         </span>
-                        <span style={{ display: "flex",alignItems:"center" }}>
+                        <span style={{ display: "flex"}}>
                           <div>
                             <Field>
                             <Input
@@ -848,7 +848,7 @@ fetch("http://3.80.98.199:3000/api/sampleDetails/createSample", {
                         <text>Is the sample type marked on the TRF?</text>
                       </div>
                       <div className="d-flex">
-                        <span style={{ display: "flex" ,alignContent:"center"}}>
+                        <span style={{ display: "flex" }}>
                           <div>
                             <Field>
                             <Input
@@ -868,7 +868,7 @@ fetch("http://3.80.98.199:3000/api/sampleDetails/createSample", {
                           </div>
                           
                         </span>
-                        <span style={{ display: "flex" ,alignItems:"center"}}>
+                        <span style={{ display: "flex" }}>
                           <div>
                             <Field>
                             <Input
@@ -888,7 +888,7 @@ fetch("http://3.80.98.199:3000/api/sampleDetails/createSample", {
                           </div>
                          
                         </span>
-                        <span style={{ display: "flex",alignItems:"center" }}>
+                        <span style={{ display: "flex" }}>
                           <div>
                             <Field>
                             <Input
@@ -925,7 +925,7 @@ fetch("http://3.80.98.199:3000/api/sampleDetails/createSample", {
                         </text>
                       </div>
                       <div className="d-flex">
-                        <span style={{ display: "flex",alignItems:'center' }}>
+                        <span style={{ display: "flex"}}>
                           <div>
                             <Field>
                             <Input
@@ -945,7 +945,7 @@ fetch("http://3.80.98.199:3000/api/sampleDetails/createSample", {
                           </div>
                           
                         </span>
-                        <span style={{ display: "flex",alignItems:'center' }}>
+                        <span style={{ display: "flex"}}>
                           <div>
                             <Field>
                             <Input
@@ -965,7 +965,7 @@ fetch("http://3.80.98.199:3000/api/sampleDetails/createSample", {
                           </div>
                           
                         </span>
-                        <span style={{ display: "flex",alignItems:"center" }}>
+                        <span style={{ display: "flex"}}>
                           <div>
                             <Field>
                             <Input

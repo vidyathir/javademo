@@ -140,10 +140,10 @@ export default function RlplGenerated() {
                         </td>
                       </tr>
                       <tr>
-                        <td style={{ color: "#3A4175" }}>{sample.samplename}</td>
-                        <td style={{ color: "#3A4175" }}>{sample.sampletype}</td>
-                        <td style={{ color: "#3A4175" }}>{sample.natureofsample}</td>
-                        <td style={{ color: "#3A4175" }}>{sample.storage}</td>
+                        <td style={{ color: "#3A4175",fontSize:12,fontWeight:500 }}>{sample.samplename}</td>
+                        <td style={{ color: "#3A4175",fontSize:12,fontWeight:500 }}>{sample.sampletype}</td>
+                        <td style={{ color: "#3A4175",fontSize:12,fontWeight:500 }}>{sample.natureofsample}</td>
+                        <td style={{ color: "#3A4175",fontSize:12,fontWeight:500 }}>{sample.storage}</td>
                       </tr>
                     </thead>
                   </Table>
