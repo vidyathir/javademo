@@ -422,6 +422,7 @@ export default function TypeOfAnalysis({ onButtonClick }) {
                   </div>
                 </div>
 
+
                 <div className="col">
                   <span>
                     {selectedOption === "Other" && (
@@ -895,7 +896,7 @@ export default function TypeOfAnalysis({ onButtonClick }) {
                     <hr />
                     {/* --------------------------------------------3rd Column starting ----------------------------------*/}
                     <Row>
-                     <div md={6} className="col-12 cardcolhed">
+                     <div  className="col-12 cardcolhed">
                         <div className="mb-3">
                           <label>Methodology</label>
                         </div>
@@ -932,8 +933,8 @@ export default function TypeOfAnalysis({ onButtonClick }) {
                             </div>
                         
                           </div>
-                          <div
-                            style={{ alignItems:"center", display:"flex" }}
+                          <div 
+                           
                           >
                             {selectedOptionmet === "STP" && (
                               <Field>
@@ -947,7 +948,7 @@ export default function TypeOfAnalysis({ onButtonClick }) {
                               </Field>
                             )}
                           </div>
-                          <div className="col">
+                          <div  className="col">
                             <div
                               style={{
                                 display: "flex",
@@ -972,10 +973,8 @@ export default function TypeOfAnalysis({ onButtonClick }) {
                               <div>
                                 <label className="space">GTP</label>
                               </div>
-                            </div>
-                           
-                          </div>
-                          <div
+
+                              <div 
                             style={{ alignItems: "center", display: "flex" }}
                           >
                             {selectedOptionmet === "GTP" && (
@@ -988,7 +987,14 @@ export default function TypeOfAnalysis({ onButtonClick }) {
                               />
                             )}
                           </div>
-                          <div className="col">
+                            </div>
+
+                          
+                           
+                          </div>
+
+                         
+                          <div  className="col">
                             <div
                               style={{
                                 display: "flex",
@@ -1015,10 +1021,8 @@ export default function TypeOfAnalysis({ onButtonClick }) {
                               <div>
                                 <label className="space">Reference No</label>
                               </div>
-                            </div>
-                          </div>
 
-                          <div
+                              <div
                             style={{ alignItems: "center", display: "flex" }}
                           >
                             {selectedOptionmet === "Reference No" && (
@@ -1031,6 +1035,10 @@ export default function TypeOfAnalysis({ onButtonClick }) {
                               />
                             )}
                           </div>
+                            </div>
+                          </div>
+
+                          
                         </div>
                       </div>
                     </Row>

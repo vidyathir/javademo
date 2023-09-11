@@ -427,7 +427,7 @@ othercheck:data.sampleTypeOther,
                       
 
                         <div
-                          className="cardcolhed mb-4"
+                          className="cardcolhed mt-4"
                           style={{ display: "block" }}
                         >
                           <div
@@ -435,7 +435,7 @@ othercheck:data.sampleTypeOther,
                               flexDirection: "row",
                               justifyContent: "space-between",
                               display: "flex",
-
+                              marginBottom:'5px',
                               fontSize: "12px",
                               fontWeight: 400,
                             }}
@@ -527,7 +527,7 @@ othercheck:data.sampleTypeOther,
                         </div>
 
                         <div
-                          className="cardcolhed mb-4"
+                          className="cardcolhed mt-4"
                           style={{ display: "block" }}
                         >
                           <div
