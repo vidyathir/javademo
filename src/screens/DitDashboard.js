@@ -154,13 +154,13 @@ export default function DitDashboard() {
   
       
       <ReactPaginate
-        containerClassName={"pagination"}
+       // containerClassName={"pagination"}
         activeClassName={"active"}
         pageClassName={"page-item"}
         onPageChange={handlePageChange}
         pageCount={Math.ceil(data.length / itemsPerPage)}
         previousLabel={
-          <IconContext.Provider value={{ color: "#B8C1CC", size: "36px" }}>
+          <IconContext.Provider value={{ color: "#B8C1CC", size: "36px" ,outline:"none"}}>
             <AiFillLeftCircle />
             <text>previous</text>
           </IconContext.Provider>

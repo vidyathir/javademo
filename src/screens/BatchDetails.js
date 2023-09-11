@@ -54,6 +54,8 @@ const [inputs, setInputs] = useState({
   const [naMfgDate, setNaMfgDate] = useState(false);
   const [naExpDate, setNaExpDate] = useState(false);
   const [naRetestDate, setNaRetestDate] = useState(false);
+  const [isNextButtonDisabled, setIsNextButtonDisabled] = useState(true);
+
   const handleSelectChange = (selectedOptions) => {
     setSelectedOptions(selectedOptions);
     setInputs({
@@ -72,6 +74,20 @@ const [inputs, setInputs] = useState({
   });
     
   };
+  useEffect(() => {
+    const storedTableData = sessionStorage.getItem("tableData");
+    if (storedTableData) {
+      setTableData(JSON.parse(storedTableData));
+    }
+  
+    // Check if tableData has at least one item
+    if (tableData.length > 0) {
+      setIsNextButtonDisabled(false);
+    } else {
+      setIsNextButtonDisabled(true);
+    }
+  }, [tableData]);
+  
   const handleNaChange = (fieldName) => {
     switch (fieldName) {
       case "mfgDate":
@@ -105,8 +121,17 @@ setSelectedOptions("")
     }
   const handleadd = (e) => {
    e.preventDefault();
-   const newinputerror=validate(inputs);
+   const isMfgDateUnchecked = !naMfgDate && !inputs.mfgDate;
+  
+   // Check if the "NA" checkbox for Exp. Date is unchecked
+   const isExpDateUnchecked = !naExpDate && !inputs.expDate;
+ 
+   // Check if the "NA" checkbox for Retest Date is unchecked
+   const isRetestDateUnchecked = !naRetestDate && !inputs.retestDate;
+ 
+   const newinputerror = validate(inputs, isMfgDateUnchecked, isExpDateUnchecked, isRetestDateUnchecked);
    setFormErrors(newinputerror);
+ 
    const hasErrors = Object.values(newinputerror).some((error) => !!error);
    if(!hasErrors){ 
     
@@ -199,36 +224,45 @@ useEffect(()=>{
     return nonEmptyValues.length > 0 ? nonEmptyValues.join(", ") : "N/A";
   }
 
-  function validate(values) {
+  function validate(values, isMfgDateUnchecked, isExpDateUnchecked, isRetestDateUnchecked) {
     const errors = {};
-
+  
     if (!values.batchNo) {
       errors.batchNo = "This field is required!";
     }
-    if (!disabletext) {
+  
+    if (isMfgDateUnchecked) {
       if (!values.mfgDate) {
         errors.mfgDate = "This field is required!";
       }
+    }
+  
+    if (isExpDateUnchecked) {
       if (!values.expDate) {
         errors.expDate = "This field is required!";
       } else {
-        // Check if Exp. Date is greater than or equal to Retest Date
-        if (new Date(values.mfgDate) >= new Date(values.expDate)) {
-          errors.expDate = "Exp Date must be after than Mfg Date!";
+        // Check if Exp. Date is greater than or equal to Mfg Date
+        if (new Date(values.expDate) <= new Date(values.mfgDate)) {
+          errors.expDate = "Exp Date must be after Mfg Date!";
         }
       }
+    }
+  
+    if (isRetestDateUnchecked) {
       if (!values.retestDate) {
         errors.retestDate = "This field is required!";
       } else {
-        // Check if Exp. Date is greater than or equal to Retest Date
-        if (new Date(values.expDate) >= new Date(values.retestDate)) {
-          errors.retestDate = "Retest Date must be after than Exp Date!";
+        // Check if Retest Date is greater than or equal to Exp Date
+        if (new Date(values.retestDate) <= new Date(values.expDate)) {
+          errors.retestDate = "Retest Date must be after Exp Date!";
         }
       }
     }
+  
     if (!values.testParameter || values.testParameter.length === 0) {
       errors.selectedOptions = "This field is required!";
     }
+  
     return errors;
   }
   return (
@@ -514,7 +548,7 @@ onChange={() => handleNaChange("retestDate")} // Handle "N/A" checkbox
 
                   <div className="cardbuttonboubleend">
                     <button
-                      className="cardbuttonoutline"
+                      className="previous"
                        onClick={() => onButtonClick("SampleDetails")}
                     >
                       <BiLeftArrowAlt size={24} /> Previous
@@ -522,7 +556,7 @@ onChange={() => handleNaChange("retestDate")} // Handle "N/A" checkbox
                     <button type="submit"
                       className="cardbutton"
         
-                    
+                      disabled={isNextButtonDisabled}
                     >
                       Next <BiRightArrowAlt size={24} />
                     </button>
