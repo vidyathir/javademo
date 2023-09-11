@@ -24,7 +24,10 @@ sampleDetails:{
   sampleretension: "",
   sampletype: [''],
   storage: "",
-  submissiontype: ""    
+  submissiontype: ""   ,
+  othersample:"" ,
+  othercheck:'',
+  msdsattached:''
 },
 data:{
   analyticalfeasibile:[''],
@@ -33,7 +36,10 @@ data:{
   methodologyfollowed:'',
   methodvalidation:'',
   specialinstruction:'',
-  test:['']
+  test:[''],
+  referenceno:"",
+  otherreg:"",
+  yesvalid:""
 },
 tabledata:[
   {
@@ -94,6 +100,7 @@ TdsId:'',
           state.customer = action.payload   
         },
         changeSampleDetails: (state,action)=> {
+          console.log(action.payload)
               state.sampleDetails = action.payload   
             },
 changeTypeofAnalysis: (state,action)=>{

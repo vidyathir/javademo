@@ -1,13 +1,27 @@
 
-import React from "react";
+import React,{useState} from "react";
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import logo from "../assets/logo 2.png"
 import profilepic from "../assets/avater2.jpg";
+import {useNavigate} from 'react-router-dom';
 
 function NavbartitleAddco() {
+  const navigate = useNavigate();
+  const [selectedOption, setSelectedOption] = useState('');
+  const handleSelectChange = (event) => {
+    const selectedValue = event.target.value;
+    setSelectedOption(selectedValue);
+
+    if (selectedValue === "logout") {
+      // Perform logout action, such as clearing user session, etc.
+      // Then, navigate to the login page or perform any other necessary actions.
+      // For this example, I'll just navigate to the root ("/") path.
+      navigate("/");
+    }
+  };
   return (
     <Navbar expand="lg" className="bg-body navbartop" bg="light">
       <Container fluid>
@@ -51,9 +65,12 @@ function NavbartitleAddco() {
 
 <div className="titleprofile">
           <img className="profilepic" src={profilepic} alt="profile" />
-          <select className="titleselect titleselectsize">
-            <option className="titleselect">Jeyaprakash</option>
-            <option className="titleselect">Mahendra varma</option>
+          <select className="titleselect titleselectsize"
+          id="profile"
+          value={selectedOption}
+          onChange={handleSelectChange}>
+            <option className="titleselect" value="useranme">Jeyaprakash</option>
+            <option className="titleselect" value="logout">Logout</option>
           </select>
         </div>
            
