@@ -24,9 +24,8 @@ sampleDetails:{
   sampleretension: "",
   sampletype: [''],
   storage: "",
-  submissiontype: ""   ,
-  othersample:"" ,
-  othercheck:'',
+  submissiontype: "", 
+  othercheck:''  ,
   msdsattached:''
 },
 data:{
@@ -37,9 +36,6 @@ data:{
   methodvalidation:'',
   specialinstruction:'',
   test:[''],
-  referenceno:"",
-  otherreg:"",
-  yesvalid:""
 },
 tabledata:[
   {

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React,{useState,useEffect} from "react";
 import "./Styles.css";
 import { Col, Row, Table } from "react-bootstrap";
@@ -29,14 +30,27 @@ export default function DITExpandedView() {
   useEffect(() => {
 
     axios
-      .get("http://3.80.98.199:3000/api/batchDetails/getBatchById?batchId="+id)
+      .get("http://3.80.98.199:3000/api/batchDetails/getBatchById?batchId="+id,{
+        headers: {
+    "Content-Type": "application/json",
+    'Authorization': token
+  },
+
+      })
+      
       .then((response) => setDetailedView(response.data))
       .catch((error) => console.error("Error fetching batch data:", error));
   }, [id]);
   useEffect(() => {
 
     axios
-      .get("http://3.80.98.199:3000/api/batchDetails/getDataSheets?batchId="+id)
+      .get("http://3.80.98.199:3000/api/batchDetails/getDataSheets?batchId="+id,{
+        headers: {
+    "Content-Type": "application/json",
+    'Authorization': token
+  },
+
+      })
       .then((response) => setDatasheet(response.data))
       .catch((error) => console.error("Error fetching batch data:", error));
   }, [id]);
@@ -46,7 +60,8 @@ export default function DITExpandedView() {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-      
+    'Authorization': token
+
       },
     
     
@@ -123,7 +138,7 @@ export default function DITExpandedView() {
          <td>
   {detailedView.testParameter && Array.isArray(detailedView.testParameter) ? (
     detailedView.testParameter.map((item, index) => (
-      <li key={index}>{item.testDataCode}</li>
+      <li  style={{listStyleType:"none"}}key={index}>{item.testDataCode}</li>
     ))
   ) : (
     <span>No test parameters available</span>
@@ -131,7 +146,7 @@ export default function DITExpandedView() {
 </td>
                 
                   <td> {datasheet.map((item, i)=> (
-   <ul key={i}><li><PiFilePdfFill /> <a href={item.url} target="_blank" rel="noopener noreferrer">
+   <ul style={{listStyleType:"none"}} key={i}><li style={{listStyleType:"none"}} ><PiFilePdfFill /> <a href={item.url} target="_blank" rel="noopener noreferrer">
    {item.testDataCode ? item.testDataCode : "No testdatacode available"}
  </a></li>
    </ul>))}
@@ -170,7 +185,7 @@ export default function DITExpandedView() {
                 <div className="d-flex row">
                   <text className="cardcolhed">Sample Type</text>
                   {detailedView.sampleDetails.sampleType?
-                  <text className="cardcolhedtext mt-1">{detailedView.sampleDetails.sampleType}</text>:'N/A'}
+                  <text className="cardcolhedtext mt-1">{detailedView.sampleDetails.sampleType.join(",")}</text>:'N/A'}
                 </div>
               </Col>
             </Row>
@@ -215,15 +230,20 @@ export default function DITExpandedView() {
                   <text className="cardcolhedtext mt-1">{detailedView.sampleDetails.regulatory}</text>:'N/A'}
                 </div>
               </Col>
-              {/* <Col className="columnMb">
+               <Col className="columnMb">
                 <div className="d-flex row">
                   <text className="cardcolhed">Other than Regulatory </text>
                   {detailedView.sampleDetails.otherThanRegulatory ?
-                  <text className="cardcolhedtext mt-1">{detailedView.sampleDetails.otherThanRegulatory.join('   ,  ')}</text>:'N/A'}
+                  <text className="cardcolhedtext mt-1">{detailedView.sampleDetails.otherThanRegulatory.join('   ,  ')}</text>: <text className="cardcolhedtext mt-1">N/A</text>}
                 </div>
-              </Col> */}
+              </Col> 
+</Row>
 
-<Col className="columnMb">
+
+            
+
+            <Row className="mt-3 rowtabview">
+            <Col className="columnMb">
                 <div className="d-flex row">
                   <text className="cardcolhed">
                     If Method Validation/Verification/Transfer/Development are
@@ -232,10 +252,6 @@ export default function DITExpandedView() {
                   <text className="cardcolhedtext mt-1">{detailedView.sampleDetails.vvtddRefNo}</text>
                 </div>
               </Col>
-
-            </Row>
-
-            <Row className="mt-3 rowtabview">
               <Col className="columnMb">
                 <div className="d-flex row">
                   <text className="cardcolhed">
@@ -254,12 +270,6 @@ export default function DITExpandedView() {
                 </div>
               </Col> */}
 
-<Col className="columnMb">
-                <div className="d-flex row">
-                  <text className="cardcolhed">Methodology </text>
-                  <text className="cardcolhedtext mt-1">{detailedView.sampleDetails.methodology}</text>
-                </div>
-              </Col>
 
             </Row>
 
@@ -300,12 +310,13 @@ export default function DITExpandedView() {
             </Row> */}
 
             <Row className="mt-3 rowtabview">
-              {/* <Col className="columnMb">
+               <Col className="columnMb">
                 <div className="d-flex row">
                   <text className="cardcolhed">Methodology </text>
                   <text className="cardcolhedtext mt-1">{detailedView.sampleDetails.methodology}</text>
                 </div>
-              </Col> */}
+              </Col> 
+              
               <Col className="columnMb">
                 <div className="d-flex row">
                   <text className="cardcolhed">Attachments </text>
@@ -317,13 +328,20 @@ export default function DITExpandedView() {
                 </div>
               </Col>
 
-               <Col className="columnMb">
+              
+
+            </Row>
+            <Row>
+            <Col className="columnMb">
                 <div className="d-flex row">
                   <text className="cardcolhed">Special Instructions If any other </text>
-                  <text className="cardcolhedtext mt-1">{detailedView.sampleDetails.methodology}</text>
+                  <text className="cardcolhedtext mt-1">{detailedView.sampleDetails.specialInstruction}</text>
                 </div>
               </Col>
-
+              <Col className="columnMb">
+                <div className="d-flex row">
+                  </div>
+              </Col>
             </Row>
             </>
 ):(

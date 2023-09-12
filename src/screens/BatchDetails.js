@@ -12,13 +12,14 @@ import { BiRightArrowAlt, BiEdit, BiLeftArrowAlt } from "react-icons/bi";
 import { AiOutlineClose } from "react-icons/ai";
 import { MdOutlineAdd } from "react-icons/md";
 import { RiDeleteBinLine } from "react-icons/ri";
-import { useDispatch } from 'react-redux';
+import { useDispatch,useSelector } from 'react-redux';
 import { changeBatchDetails } from "../redux/FormSlice";
 import Select from "react-select";
 import { Form } from "../Forms";
 import axios from "axios";
 export default function BatchDetails({onButtonClick}) {
   const dispatch = useDispatch();
+  const token  = useSelector((state) => state.form.usertoken.token);
  const [state, setState] = useAppState();
   const [testData,setTestData]=useState([]);
 
@@ -35,7 +36,7 @@ const [inputs, setInputs] = useState({
     testParameter:[],
 
   });
-  const [disabletext,setDisabletext]=useState(false);
+  const [disabletext]=useState(false);
   const [formErrors, setFormErrors] = useState({
     batchNo: "",
     batchSize: "",
@@ -171,7 +172,12 @@ setSelectedOptions("")
   useEffect(() => {
     
     axios
-      .get("http://3.80.98.199:3000/api/testParameters?filter[fields][testDataName]=true&filter[fields][testDataCode]=true")
+      .get("http://3.80.98.199:3000/api/testParameters?filter[fields][testDataName]=true&filter[fields][testDataCode]=true",{
+        headers: {
+          "Content-Type": "application/json",
+          'Authorization': token
+        },
+      })
       .then((response) => setTestData (response.data.map(item => ({
         value: item.testDataCode,
         label: item.testDataName
@@ -204,6 +210,7 @@ useEffect(()=>{
     setTableData(JSON.parse(storedTableData));
   }
 },[])
+
 
 
   const handleDelete = (index) => {
@@ -476,18 +483,23 @@ onChange={() => handleNaChange("retestDate")} // Handle "N/A" checkbox
                         {/* <input type="date" className="cardcolumninputtype"/> */}
 
                         <button type="reset"
-                          className="cardbutton"
+                          className="cardbuttonbatchdetails"
                         onClick={handleClear}
                         >
-                          <AiOutlineClose size={18} /> Clear
+                          <div>
+                          <AiOutlineClose size={18} /> </div> <text>Clear</text> 
                         </button>
                         
                         <button type="submit"
-                          className="cardbutton"
+                          className="cardbuttonbatchdetails"
                             onClick={handleadd}
                         >
+                          <text>
                              {editClick ? "update" : "Add"}
-                          <MdOutlineAdd size={20} />
+                             </text>
+                             <div>
+                          <MdOutlineAdd size={18} />
+                          </div>
                         </button>
                          
                       </div>

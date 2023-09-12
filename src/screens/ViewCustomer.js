@@ -16,7 +16,7 @@ export default function ViewCustomer() {
   const navigate = useNavigate();
   const[detailedView,setDetailedView]=useState({});
   const id=useSelector(state =>state.form.companyId.companyId);
-
+  const token  = useSelector((state) => state.form.usertoken.token);
   const {
     handleSubmit,
     register,
@@ -26,7 +26,12 @@ export default function ViewCustomer() {
   } = useForm();
   useEffect(() => {
     axios
-      .get("http://3.80.98.199:3000/api/companyDetails/" + id)
+      .get("http://3.80.98.199:3000/api/companyDetails/" + id,{
+        headers: {
+    "Content-Type": "application/json",
+    'Authorization': token
+  },
+      })
       .then((response) => {
         setDetailedView(response.data);
         // Set form field values when detailedView data is available
@@ -63,10 +68,9 @@ console.log("data" ,data)
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
+          'Authorization': token
+        },
         
-      },
-    
-    
       body: JSON.stringify(item),
     })
       .then((response) => response.json())

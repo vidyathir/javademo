@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from "react";
 import "./Styles.css";
 import { Col, Row, Table } from "react-bootstrap";
@@ -16,6 +17,7 @@ import axios from "axios";
 export default function DITTDSExpandedView() {
   const navigate = useNavigate();
   const id = useSelector((state) => state.form.TdsId.TdsId);
+  const token  = useSelector((state) => state.form.usertoken.token);
   const [detailedView, setDetailedView] = useState({});
 
   const [tdsView,setTdsView]=useState({});
@@ -27,7 +29,12 @@ export default function DITTDSExpandedView() {
   useEffect(() => {
 
     axios
-      .get("http://3.80.98.199:3000/api/tdsDetails/getTdsById?tdsId="+id)
+      .get("http://3.80.98.199:3000/api/tdsDetails/getTdsById?tdsId="+id,{
+        headers: {
+          "Content-Type": "application/json",
+          'Authorization': token
+        },
+      })
       .then((response) => {
         setDetailedView(response.data);
         setTdsView(response.data.batchDetails);})
@@ -94,7 +101,7 @@ console.log("detail", tdsView)
                     {tdsView.testParameter &&
                     Array.isArray(tdsView.testParameter) ? (
                       tdsView.testParameter.map((item, index) => (
-                        <li key={index}>{item.testDataCode}</li>
+                        <li style={{listStyleType:"none"}} key={index}>{item.testDataCode}</li>
                       ))
                     ) : (
                       <span>No test parameters available</span>
@@ -293,7 +300,7 @@ console.log("detail", tdsView)
                         Array.isArray(tdsView.testParameter) ? (
                           tdsView.testParameter.map((item, index) => (
                             <text className="analyticalbutton mt-1 ">
-                              <li key={index}>{item.testDataCode}</li>
+                              <li style={{listStyleType:"none"}} key={index}>{item.testDataCode}</li>
                             </text>
                           ))
                         ) : (

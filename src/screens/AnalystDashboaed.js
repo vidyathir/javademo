@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
 import { AiFillLeftCircle, AiFillRightCircle } from "react-icons/ai";
@@ -18,8 +19,9 @@ import { useNavigate } from "react-router-dom";
 import NavbartitleAddco from "../components/NavbartitleAddco";
 import SidenavbarAnalyst from "../components/SidenavbarAnalyst";
 import { changeBatchId } from "../redux/FormSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch,useSelector } from "react-redux";
 export default function AnalystDashboaed() {
+  const token  = useSelector((state) => state.form.usertoken.token);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [page, setPage] = useState(0);
@@ -29,7 +31,12 @@ export default function AnalystDashboaed() {
 
   useEffect(() => {
     // Fetch data from your API endpoint here
-    fetch(`http://3.80.98.199:3000/api/batchDetails/getDitApprovedBatchDetails?page=${page}&perPage=${itemsPerPage}`)
+    fetch(`http://3.80.98.199:3000/api/batchDetails/getDitApprovedBatchDetails?page=${page}&perPage=${itemsPerPage}`,{
+      headers: {
+        "Content-Type": "application/json",
+        'Authorization': token
+      },
+    })
       .then((response) => response.json())
       .then((apiData) => {
         setData(apiData.samples); // Set the fetched data in the state

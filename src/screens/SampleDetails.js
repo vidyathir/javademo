@@ -11,11 +11,11 @@ import { useDispatch } from 'react-redux';
 import { changeSampleDetails } from '../redux/FormSlice';
 export default function SampleDetails({ onButtonClick }) {
   const [selectedOption, setSelectedOption] = useState(null);
-
   const [selectedOptioncheck, setSelectedOptioncheck] = useState(false);
   const [selectedOptioncheck1, setSelectedOptioncheck1] = useState(false);
   const [otherValue, setOtherValue] = useState('');
   const [sampleTypeOther, setSampleTypeOther] = useState('');
+  
   const dispatch = useDispatch();
   const [state, setState] = useAppState();
   const {
@@ -81,15 +81,15 @@ export default function SampleDetails({ onButtonClick }) {
     setState({ ...state, ...data });
     dispatch(changeSampleDetails(
       {
-natureofsample:data.natureofsample,
+     
+natureofsample:`${data.natureofsample} (${data.othersample})`,
 report:data.report,
 samplename:data.samplename,
-sampletype:data.sampletype,
+sampletype:data.sampletype.concat(sampleTypeOther),
 sampleretension:data.sampleretension,
 storage:data.storage,
 submissiontype:data.submissiontype,
-othersample: data.othersample,
-othercheck:data.sampleTypeOther,
+
       })
     )
     onButtonClick("BatchDetails");
@@ -427,7 +427,7 @@ othercheck:data.sampleTypeOther,
                       
 
                         <div
-                          className="cardcolhed mb-4"
+                          className="cardcolhed mt-4"
                           style={{ display: "block" }}
                         >
                           <div
@@ -435,7 +435,7 @@ othercheck:data.sampleTypeOther,
                               flexDirection: "row",
                               justifyContent: "space-between",
                               display: "flex",
-
+                              marginBottom:'5px',
                               fontSize: "12px",
                               fontWeight: 400,
                             }}
@@ -527,7 +527,7 @@ othercheck:data.sampleTypeOther,
                         </div>
 
                         <div
-                          className="cardcolhed mb-4"
+                          className="cardcolhed mt-4"
                           style={{ display: "block" }}
                         >
                           <div
@@ -828,15 +828,15 @@ othercheck:data.sampleTypeOther,
                                   {selectedOptioncheck  && (
                                     <Field>
                                     <Input
-                                    {...register("sampleTypeOther")}
+                                    {...register("othercheck")}
                                     type="text"
-                                    name="sampleTypeOther"
+                                    name="othercheck"
                                     value={sampleTypeOther}
                                       className="cardcolumninputtype"
                                       //value="sampletype"
                                       id="sampletype"
                                       onChange={(e) =>{setSampleTypeOther(e.target.value);
-                                      setValue("sampleTypeOther", e.target.value);
+                                      setValue("othercheck", e.target.value);
         }}
                                     />
                                     </Field>

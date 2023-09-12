@@ -56,10 +56,12 @@ export default function RLPLNotgenerated() {
                                 <td style={{color:'#8F8F8F',fontSize:12,fontWeight:500}}>Storage Condition</td>
                             </tr>
                            <tr>
-                        <td style={{ color: "#3A4175" }}>{sample.samplename}</td>
-                        <td style={{ color: "#3A4175" }}>{sample.sampletype}</td>
-                        <td style={{ color: "#3A4175" }}>{sample.natureofsample}</td>
-                        <td style={{ color: "#3A4175" }}>{sample.storage}</td>
+                        <td style={{ color: "#3A4175",fontSize:12,fontWeight:500 }}>{sample.samplename}</td>
+                        {sample.sampletype?
+                        <td style={{ color: "#3A4175",fontSize:12,fontWeight:500 }}>{sample.sampletype.join(",")}</td>:<text className="cardcolhedtext mt-1">N/A</text>}
+                    
+                        <td style={{ color: "#3A4175",fontSize:12,fontWeight:500 }}>{sample.natureofsample}</td>
+                        <td style={{ color: "#3A4175",fontSize:12,fontWeight:500 }}>{sample.storage}</td>
                       </tr>
                         </thead>
 
@@ -131,7 +133,7 @@ export default function RLPLNotgenerated() {
                             borderBottom: "none",
                           }}
                         > {item.testparameters.map((value,index)=>(
-                         <li key={index}>{value.label}</li>
+                         <li  style={{listStyleType:"none"}}key={index}>{value.label}</li>
                         ))}</td>
                       </tr>
                        ))}

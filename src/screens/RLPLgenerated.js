@@ -14,7 +14,7 @@ export default function RlplGenerated() {
     window.sessionStorage.removeItem('tableData')
   },[])
   const navigate = useNavigate();
-  
+  const token  = useSelector((state) => state.form.usertoken.token);
   const sample=useSelector(state =>state.form.sampleDetails);
   
   const batch=useSelector(state =>state.form.newArray)
@@ -32,6 +32,8 @@ export default function RlplGenerated() {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+          'Authorization': token
+        
         
       },
     
@@ -140,10 +142,11 @@ export default function RlplGenerated() {
                         </td>
                       </tr>
                       <tr>
-                        <td style={{ color: "#3A4175" }}>{sample.samplename}</td>
-                        <td style={{ color: "#3A4175" }}>{sample.sampletype}</td>
-                        <td style={{ color: "#3A4175" }}>{sample.natureofsample}</td>
-                        <td style={{ color: "#3A4175" }}>{sample.storage}</td>
+                        <td style={{ color: "#3A4175",fontSize:12,fontWeight:500 }}>{sample.samplename}</td>
+                        {sample.sampletype?
+                        <td style={{ color: "#3A4175",fontSize:12,fontWeight:500 }}>{sample.sampletype.join(",")}</td>:<text className="cardcolhedtext mt-1">N/A</text>}
+                        <td style={{ color: "#3A4175",fontSize:12,fontWeight:500 }}>{sample.natureofsample}</td>
+                        <td style={{ color: "#3A4175",fontSize:12,fontWeight:500 }}>{sample.storage}</td>
                       </tr>
                     </thead>
                   </Table>
@@ -261,7 +264,7 @@ export default function RlplGenerated() {
                             borderBottom: "none",
                           }}
                         >{item.testParameter.map((value,index)=>(
-                          <li key={index}>{value.testDataCode}</li>
+                          <li style={{listStyleType:"none"}} key={index}>{value.testDataCode}</li>
                          ))}
 
                         </td>

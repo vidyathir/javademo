@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 
 import { useAppState } from "../state";
 import { Button,Form, Input } from "../Forms";
@@ -9,11 +10,12 @@ import { Card, Col, Row } from "react-bootstrap";
 import { useForm, Controller } from "react-hook-form";
 import { changeCustomerDetails } from "../redux/FormSlice";
 import Select from "react-select";
-import { useDispatch } from "react-redux";
+import { useDispatch,useSelector } from "react-redux";
 import axios from "axios"
 export default function CustomerDetailes({onButtonClick}){
   const [state, setState] = useAppState();
 const dispatch = useDispatch();
+const token  = useSelector((state) => state.form.usertoken.token);
   const [companyOptions, setCompanyOptions] = useState([]);
   const {
     control,
@@ -25,7 +27,12 @@ const dispatch = useDispatch();
   useEffect(() => {
     // Fetch company options from API
     axios
-      .get("http://3.80.98.199:3000/api/companyDetails")
+      .get("http://3.80.98.199:3000/api/companyDetails",{
+        headers: {
+          "Content-Type": "application/json",
+          'Authorization': token
+        },
+      })
       .then((response) => setCompanyOptions(response.data))
       .catch((error) => console.error("Error fetching company data:", error));
   }, []);
@@ -34,7 +41,12 @@ const dispatch = useDispatch();
     // Fetch other data based on selected company
     axios
       .get(
-        `http://3.80.98.199:3000/api/companyDetails/${selectedCompany.companyId}`
+        `http://3.80.98.199:3000/api/companyDetails/${selectedCompany.companyId}`,{
+          headers: {
+            "Content-Type": "application/json",
+            'Authorization': token
+          },
+        }
       )
       .then((response) => {
         const data1 = response.data;

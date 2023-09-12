@@ -80,7 +80,7 @@ function handleSubmit(item) {
                   background: "#9AC037",
                 }}
                 className="DITSuccessButton"
-                onClick={()=>navigate("DitDashboard")}
+                onClick={()=>navigate("/DitDashboard")}
               >
                 <text className="DITSuccessButtontext">ok</text>
               </button>

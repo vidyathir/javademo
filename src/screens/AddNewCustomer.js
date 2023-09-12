@@ -10,10 +10,12 @@ import Sidenavbar from "../components/Sidenavbar";
 import {useNavigate} from 'react-router-dom';
 import { useForm,Controller } from "react-hook-form";
 import * as yup from 'yup';
+import { useSelector} from "react-redux";
 import NavbartitleAddco from "../components/NavbartitleAddco";
 
 
 export default function AddNewCustomer() {
+  const token  = useSelector((state) => state.form.usertoken.token);
   const navigate = useNavigate();
   const {
     handleSubmit,
@@ -40,7 +42,8 @@ console.log("data" ,data)
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        
+          'Authorization': token
+  
       },
     
     

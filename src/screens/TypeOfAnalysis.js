@@ -37,18 +37,11 @@ export default function TypeOfAnalysis({ onButtonClick }) {
     setSelectedOptionmet(selectedValue);
     
     // When a radio option other than "Others" is selected, clear the "otherValue" and react-hook-form field
-    if (selectedValue !== "GTP" ) { 
+    if (selectedValue !== "GTP"||"STP"||"Reference No" ) { 
       setOtherValue('');
       setValue("referencetext", '');
     }
-    if (selectedValue !== "STP" ) { 
-      setOtherValue('');
-      setValue("referencetext", '');
-    }
-    if (selectedValue !== "Reference No" ) { 
-      setOtherValue('');
-      setValue("referencetext", '');
-    }
+    
   };
   const handleOtherchange = (event) => {
     const selectedValue = event.target.value;
@@ -100,7 +93,7 @@ export default function TypeOfAnalysis({ onButtonClick }) {
       setValue("yesvalid", initialSamplename);
     }
 
-  }, [state.methodologyfollowed,state.formfilling]);
+  }, [state.methodologyfollowed,state.formfilling,state.methodvalidation]);
   const handleInputChange = (event) => {
     const inputValue = event.target.value;
     setOtherValue(inputValue);
@@ -123,9 +116,15 @@ export default function TypeOfAnalysis({ onButtonClick }) {
     setValue("yesvalid", inputValue);
   };
   const saveData = (data) => {
-    // if (data.methodologyfollowed !== "") {
+    // if (data.methodologyfollowed !== "GTP" ||"STP"||"Reference No") {
     //   data.referencetext = ""; // Reset the value if it's not "Others"
     // }
+    if (data.formfilling !== "Other") {
+      data.otherregulatory = ""; // Reset the value if it's not "Others"
+    }
+    if (data.methodvalidation !== "Yes") {
+      data.yesvalid = ""; // Reset the value if it's not "Others"
+    }
     setState({ ...state, ...data });
 
     if (selectedRadio === "Regulatory") {
@@ -133,32 +132,30 @@ export default function TypeOfAnalysis({ onButtonClick }) {
         changeTypeofAnalysis({
           analyticalfeasibile: null,
           choosefile: data.choosefile,
-          formfilling: data.formfilling,
-          methodologyfollowed: data.methodologyfollowed,
-          methodvalidation: data.methodvalidation,
+          formfilling:`${data.formfilling}(${data.otherregulatory})`,
+          methodologyfollowed:`${data.methodologyfollowed}(${data.referencetext})`,
+          methodvalidation: `${data.methodvalidation}(${data.yesvalid})`,
           specialinstruction: data.specialinstruction,
           test: data.test,
-          referencetext:data.referencetext,
-          otherregulatory:data.otherregulatory,
-          yesvalid:data.yesvalid
+          referencetext:data.referencetext
+          
         })
-      );
+      )
     } else {
       dispatch(
         changeTypeofAnalysis({
           analyticalfeasibile: data.analyticalfeasibile,
           choosefile: data.choosefile,
           formfilling: null,
-          methodologyfollowed: data.methodologyfollowed,
-          methodvalidation: data.methodvalidation,
+          methodologyfollowed:`${data.methodologyfollowed} (${data.referencetext})`,
+          methodvalidation: `${data.methodvalidation}(${data.yesvalid})`,
           specialinstruction: data.SpecialInstruction,
           test: data.test,
-          referencetext:data.referencetext,
-          otherregulatory:data.otherreg,
-          yesvalid:data.othervalid
+          referencetext:data.referencetext
+    
 
         })
-      );
+      )
     }
 
     onButtonClick("ConfirmDetails");
@@ -421,6 +418,7 @@ export default function TypeOfAnalysis({ onButtonClick }) {
                     </div>
                   </div>
                 </div>
+
 
                 <div className="col">
                   <span>
@@ -895,7 +893,7 @@ export default function TypeOfAnalysis({ onButtonClick }) {
                     <hr />
                     {/* --------------------------------------------3rd Column starting ----------------------------------*/}
                     <Row>
-                     <div md={6} className="col-12 cardcolhed">
+                     <div  className="col-12 cardcolhed">
                         <div className="mb-3">
                           <label>Methodology</label>
                         </div>
@@ -932,8 +930,8 @@ export default function TypeOfAnalysis({ onButtonClick }) {
                             </div>
                         
                           </div>
-                          <div
-                            style={{ alignItems:"center", display:"flex" }}
+                          <div 
+                           
                           >
                             {selectedOptionmet === "STP" && (
                               <Field>
@@ -947,7 +945,7 @@ export default function TypeOfAnalysis({ onButtonClick }) {
                               </Field>
                             )}
                           </div>
-                          <div className="col">
+                          <div  className="col">
                             <div
                               style={{
                                 display: "flex",
@@ -972,10 +970,8 @@ export default function TypeOfAnalysis({ onButtonClick }) {
                               <div>
                                 <label className="space">GTP</label>
                               </div>
-                            </div>
-                           
-                          </div>
-                          <div
+
+                              <div 
                             style={{ alignItems: "center", display: "flex" }}
                           >
                             {selectedOptionmet === "GTP" && (
@@ -988,7 +984,14 @@ export default function TypeOfAnalysis({ onButtonClick }) {
                               />
                             )}
                           </div>
-                          <div className="col">
+                            </div>
+
+                          
+                           
+                          </div>
+
+                         
+                          <div  className="col">
                             <div
                               style={{
                                 display: "flex",
@@ -1015,10 +1018,8 @@ export default function TypeOfAnalysis({ onButtonClick }) {
                               <div>
                                 <label className="space">Reference No</label>
                               </div>
-                            </div>
-                          </div>
 
-                          <div
+                              <div
                             style={{ alignItems: "center", display: "flex" }}
                           >
                             {selectedOptionmet === "Reference No" && (
@@ -1031,6 +1032,10 @@ export default function TypeOfAnalysis({ onButtonClick }) {
                               />
                             )}
                           </div>
+                            </div>
+                          </div>
+
+                          
                         </div>
                       </div>
                     </Row>
