@@ -5,11 +5,10 @@ import { Card } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import InputGroup from 'react-bootstrap/InputGroup';
 import Sidenavbar from "../components/Sidenavbar";
 import {useNavigate} from 'react-router-dom';
 import { useForm,Controller } from "react-hook-form";
-import * as yup from 'yup';
+
 import { useSelector} from "react-redux";
 import NavbartitleAddco from "../components/NavbartitleAddco";
 
@@ -63,18 +62,6 @@ console.log("data" ,data)
       });
     navigate('/Progress')
   };
-  const schema = yup.object().shape({
-    CompanyName: yup.string().required(),
-    ContactPersonName: yup.string().required(),
-    licno: yup.string().required(),
-    phonenumber: yup.string().required(),
-    emailid: yup.string().required(),
-    address: yup.string().required(),
-    City: yup.string().required(),
-    state: yup.string().required(),
-    pincode: yup.string().required(),
-
-  });
   
 
     

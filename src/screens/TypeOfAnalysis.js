@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useForm } from "react-hook-form";
 
 import { useAppState } from "../state";
@@ -37,7 +38,7 @@ export default function TypeOfAnalysis({ onButtonClick }) {
     setSelectedOptionmet(selectedValue);
     
     // When a radio option other than "Others" is selected, clear the "otherValue" and react-hook-form field
-    if (selectedValue !== "GTP"||"STP"||"Reference No" ) { 
+    if (selectedValue !== ("GTP"||"STP"||"Reference No") ) { 
       setOtherValue('');
       setValue("referencetext", '');
     }
@@ -74,7 +75,7 @@ export default function TypeOfAnalysis({ onButtonClick }) {
     const initialValid = state.methodvalidation || null;
     setSelectedOptionvalid(initialValid);
      
-    if (initialMethodology === "GTP" || "STP" ||"Reference No") {
+    if (initialMethodology === ("GTP" || "STP" ||"Reference No")) {
       const initialSamplename = state.referencetext || '';
       setOtherValue(initialSamplename);
       // Set the value of "otherValue" in react-hook-form
@@ -116,9 +117,7 @@ export default function TypeOfAnalysis({ onButtonClick }) {
     setValue("yesvalid", inputValue);
   };
   const saveData = (data) => {
-    // if (data.methodologyfollowed !== "GTP" ||"STP"||"Reference No") {
-    //   data.referencetext = ""; // Reset the value if it's not "Others"
-    // }
+   
     if (data.formfilling !== "Other") {
       data.otherregulatory = ""; // Reset the value if it's not "Others"
     }
