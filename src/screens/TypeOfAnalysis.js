@@ -1112,7 +1112,7 @@ export default function TypeOfAnalysis({ onButtonClick }) {
                             className="previous"
                             onClick={() => onButtonClick("BatchDetails")}
                           >
-                            <BiLeftArrowAlt size={24} color="#9AC037" />
+                            <BiLeftArrowAlt size={24} />
                             Previous
                           </Button>
                           <Button type="submit" className="next" name="Next">
