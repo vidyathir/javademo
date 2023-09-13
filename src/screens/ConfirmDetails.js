@@ -297,7 +297,7 @@ console.log("sample",sample)
 
           <div className="cardbuttonboubleend mb-3">
             <button
-              className="cardbuttonoutline"
+              className="previous"
               onClick={() => onButtonClick("TypeOfAnalysis")}
             >
               <BiLeftArrowAlt size={24} /> Previous

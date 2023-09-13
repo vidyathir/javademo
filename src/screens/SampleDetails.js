@@ -1039,7 +1039,7 @@ submissiontype:data.submissiontype,
                         className="previous"
                         onClick={() => onButtonClick("CustomerDetailes")}
                       >
-                        <BiLeftArrowAlt size={24} color="#9AC037" />
+                        <BiLeftArrowAlt size={24} />
                         Previous
                       </Button>
 
