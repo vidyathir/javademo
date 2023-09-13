@@ -8,7 +8,7 @@ import Col from "react-bootstrap/Col";
 import Sidenavbar from "../components/Sidenavbar";
 import {useNavigate} from 'react-router-dom';
 import { useForm,Controller } from "react-hook-form";
-import * as yup from 'yup';
+
 import NavbartitleAddco from "../components/NavbartitleAddco";
 import { useSelector} from "react-redux";
 import axios from "axios";

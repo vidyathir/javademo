@@ -116,9 +116,7 @@ export default function TypeOfAnalysis({ onButtonClick }) {
     setValue("yesvalid", inputValue);
   };
   const saveData = (data) => {
-    // if (data.methodologyfollowed !== "GTP" ||"STP"||"Reference No") {
-    //   data.referencetext = ""; // Reset the value if it's not "Others"
-    // }
+   
     if (data.formfilling !== "Other") {
       data.otherregulatory = ""; // Reset the value if it's not "Others"
     }
