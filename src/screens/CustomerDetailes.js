@@ -51,7 +51,7 @@ const token  = useSelector((state) => state.form.usertoken.token);
       .then((response) => {
         const data1 = response.data;
         setValue("data2", data1.contactPerson || "");
-        setValue("data3", data1.manufacturingLicenceNumber || "");
+        setValue("data3", data1.manufacturingLicenseNumber || "");
         setValue("data4", data1.mobileNumber || "");
         setValue("data5", data1.email || "");
         setValue("data6", data1.address1 || "");
