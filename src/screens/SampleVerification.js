@@ -1032,21 +1032,10 @@ fetch("http://3.80.98.199:3000/api/sampleDetails/createSample", {
                           <div>
                             <Button
                             type="button"
-                              style={{
-                                height: "40px",
-                                width: "122px",
-                                borderRadius: "6px",
-                                backgroundColor: "#fff",
-                                borderColor: "#9AC037",
-                                color: "#9AC037",
-                                fontSize: 12,
-                                fontWeight: 600,
-                                marginRight: 10,
-                                justifyContent:'space-between',
-                                
-                              }}onClick={()=>onButtonClick("ConfirmDetails")}
+                            className="previous"
+                             onClick={()=>onButtonClick("ConfirmDetails")}
                             >
-                              <BiLeftArrowAlt size={24} color="#9AC037" />&nbsp;
+                              <BiLeftArrowAlt size={24} />&nbsp;
                               Previous
                             </Button>
                           </div>
@@ -1055,32 +1044,14 @@ fetch("http://3.80.98.199:3000/api/sampleDetails/createSample", {
                           <Button
                           type="button"
                           onClick={handleReject}
-                            style={{
-                              height: "40px",
-                              width: "122px",
-                              borderRadius: "6px",
-                              backgroundColor: "#fff",
-                              borderColor: "#9AC037",
-                              color: "#9AC037",
-                              fontSize: 12,
-                              fontWeight: 600,
-                              marginRight: 10,
-                            }}
+                          className="previous"
                           >
-                            <TbLogout2 size={24} color="#9AC037" />&nbsp;
+                            <TbLogout2 size={24} />&nbsp;
                             Reject
                           </Button>
                           <Button
                             type="submit"
-                            style={{
-                              height: "40px",
-                              width: "122px",
-                              borderRadius: "6px",
-                              backgroundColor: "#3A4175",
-                              fontWeight: 600,
-                              fontSize: 12,
-                              border:'none'
-                            }}
+                            className="cardbutton"
                       
                           >
                              <MdDone size={24} color="#fff" />&nbsp;Accept
