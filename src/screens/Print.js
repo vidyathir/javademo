@@ -155,7 +155,7 @@ export default function Print() {
             <hr />
           </div>
 
-          {/* <Card className="cardtablesize"> */}
+          
             <Table responsive border={1}>
               <thead className="table-custom">
                 <tr>
@@ -168,7 +168,7 @@ export default function Print() {
                   <th>Retest Date</th>
                   <th>Sample Quantity</th>
                   <th>testparameters</th>
-                  {/* <th>Edit & Delete</th> */}
+                 
                 </tr>
               </thead>
               <tbody className="tablebody-custom">
@@ -191,7 +191,7 @@ export default function Print() {
               
               </tbody>
             </Table>
-          {/* </Card> */}
+        
 
           <div className="mt-3">
             <text className="mainheadtitlesubprint">Type of Analysis</text>
@@ -269,7 +269,7 @@ export default function Print() {
                   <div>{Array.from(analysis.choosefile).map(f => (<text className="cardcolhedtext mt-1" key={f.name}> {f.name}</text>
       ))}
     </div>
-                  {/* <text className="cardcolhedtext mt-1">{}</text> */}
+                 
                 </span>
               </div>
             </Col>

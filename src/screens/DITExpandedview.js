@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 
 import {
   AiOutlineLeft,
-  // AiOutlineEye
+  
 } from "react-icons/ai";
 import { useSelector ,useDispatch} from "react-redux";
 import { PiFilePdfFill } from "react-icons/pi";
@@ -109,7 +109,7 @@ export default function DITExpandedView() {
               <hr />
             </div>
 
-            {/* <Card className="cardtablesize"> */}
+          
             <Table responsive border={1}>
               <thead className="table-custom">
                 <tr>
@@ -154,7 +154,7 @@ export default function DITExpandedView() {
         </tr>      
 </tbody>
             </Table>
-            {/* </Card> */}
+         
 
             <div className="mt-3">
               <text className="mainheadtitlesub">Sample details</text>
@@ -261,53 +261,11 @@ export default function DITExpandedView() {
                   <text className="cardcolhedtext mt-1">{detailedView.sampleDetails.testToBeCarriedOut.join('  ,  ')}</text>:'N/A'}
                 </div>
               </Col>
-              {/* <Col className="columnMb">
-                <div className="d-flex row">
-                  <text className="cardcolhed">
-                    Special Instructions If any other{" "}
-                  </text>
-                  <text className="cardcolhedtext mt-1">{detailedView.sampleDetails.specialInstruction}</text>
-                </div>
-              </Col> */}
+            
 
 
             </Row>
 
-      {/* <Row className="mt-3 rowtabview"> 
-              <Col className="columnMb">
-                <div className="d-flex row">
-                  <text className="cardcolhed">
-                    If Method Validation/Verification/Transfer/Development are
-                    performed atRevin Labs please specify the Report Ref. No.{" "}
-                  </text>
-                  <text className="cardcolhedtext mt-1">{detailedView.sampleDetails.vvtddRefNo}</text>
-                </div>
-              </Col>
-              <Col className="columnMb">
-                <div className="d-flex row">
-                  <div>
-                    <text className="cardcolhed">
-                      Analytical Test Parameter; If require attach Annexure
-                      along with this filled TRF{" "}
-                    </text>
-                  </div>
-
-                  <div className="analyticalbutton-div">
-                  {detailedView.testParameter && Array.isArray(detailedView.testParameter) ? (
-    detailedView.testParameter.map((item, index) => (
-                    <text className="analyticalbutton mt-1 ">
-      <li key={index}>{item.testDataCode}</li>
-  </text>))): (
-    <span>No test parameters available</span>
-  )}
-                    
-
-                  </div>
-
-                   <text className="cardcolhedtext mt-1">xxxxxx xxxxx</text> 
-                </div>
-              </Col>
-            </Row> */}
 
             <Row className="mt-3 rowtabview">
                <Col className="columnMb">

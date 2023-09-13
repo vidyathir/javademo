@@ -8,7 +8,6 @@ import {
   Table,
   Row,
   Col,
-  // Button,
   Card,
 } from "react-bootstrap";
 
@@ -25,12 +24,12 @@ export default function AnalystDashboaed() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [page, setPage] = useState(0);
-  const [data, setData] = useState([]); // Initialize data as an empty array
+  const [data, setData] = useState([]); 
   const [filterData, setFilterData] = useState([]);
   const itemsPerPage = 10;
 
   useEffect(() => {
-    // Fetch data from your API endpoint here
+   
     fetch(`http://3.80.98.199:3000/api/batchDetails/getDitApprovedBatchDetails?page=${page}&perPage=${itemsPerPage}`,{
       headers: {
         "Content-Type": "application/json",
@@ -39,7 +38,7 @@ export default function AnalystDashboaed() {
     })
       .then((response) => response.json())
       .then((apiData) => {
-        setData(apiData.samples); // Set the fetched data in the state
+        setData(apiData.samples); 
       })
       .catch((error) => {
         console.error("Error fetching data:", error);
@@ -47,7 +46,7 @@ export default function AnalystDashboaed() {
   }, []);
 
   useEffect(() => {
-    // Update the filtered data when the page or data changes
+    
     const startIndex = page * itemsPerPage;
     const endIndex = startIndex + itemsPerPage;
     setFilterData(data.slice(startIndex, endIndex));
@@ -124,9 +123,7 @@ export default function AnalystDashboaed() {
 
               <div className="topforsamplewaitingandviewall">
                 <p className="tableTop mt-3">Samples awaiting testing</p>
-                {/* <a href="/" className="viewAll">
-                  View all
-                </a> */}
+               
               </div>
               <div>
                 <Table className="table" border={1}>
