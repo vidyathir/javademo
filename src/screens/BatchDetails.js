@@ -23,20 +23,19 @@ export default function BatchDetails({onButtonClick}) {
   const token  = useSelector((state) => state.form.usertoken.token);
  const [state, setState] = useAppState();
   const [testData,setTestData]=useState([]);
-
-
-const { handleSubmit } = useForm({ defaultValues: state });
-const [inputs, setInputs] = useState({
+  const initialInputs = {
     batchNo: "",
     batchSize: "",
-    natureOfPacking:"",
-    mfgDate:"",
-    expDate:"",
-    retestDate:"",
-    sampleQuantity:"",
-    testParameter:[],
+    natureOfPacking: "",
+    mfgDate: "",
+    expDate: "",
+    retestDate: "",
+    sampleQuantity: "",
+    testParameter: [],
+  };
 
-  });
+const { handleSubmit } = useForm({ defaultValues: state });
+const [inputs, setInputs] = useState(initialInputs);
   const [disabletext]=useState(false);
   const [formErrors, setFormErrors] = useState({
     batchNo: "",
@@ -48,11 +47,12 @@ const [inputs, setInputs] = useState({
     sampleQuantity:"",
     testParameter:"",
   });
+  const initialSelectedOptions = [];
   const [isSubmit, setIsSubmit] = useState(false);
   const [tableData, setTableData] = useState([]);
   const [editClick, setEditClick] = useState(false);
   const [editIndex, setEditIndex] = useState("");
-  const [selectedOptions, setSelectedOptions] = useState([]);
+  const [selectedOptions, setSelectedOptions] = useState(initialSelectedOptions);
   const [naMfgDate, setNaMfgDate] = useState(false);
   const [naExpDate, setNaExpDate] = useState(false);
   const [naRetestDate, setNaRetestDate] = useState(false);
@@ -76,11 +76,23 @@ const [inputs, setInputs] = useState({
   });
     
   };
+  const resetForm = () => {
+    setInputs(initialInputs);
+    setSelectedOptions(initialSelectedOptions);
+    setEditClick(false);
+    setEditIndex("");
+    setIsSubmit(false);
+  };
+  
   useEffect(() => {
-    const storedTableData = sessionStorage.getItem("tableData");
-    if (storedTableData) {
-      setTableData(JSON.parse(storedTableData));
-    }
+    // Call the resetForm function when you come back to the page
+    resetForm();
+  }, []);
+  useEffect(() => {
+    // const storedTableData = sessionStorage.getItem("tableData");
+    // if (storedTableData) {
+    //   setTableData(JSON.parse(storedTableData));
+    // }
   
     // Check if tableData has at least one item
     if (tableData.length > 0) {
@@ -122,7 +134,7 @@ const [inputs, setInputs] = useState({
 setSelectedOptions("")
     }
   const handleadd = (e) => {
-   e.preventDefault();
+   
    const isMfgDateUnchecked = !naMfgDate && !inputs.mfgDate;
   
    // Check if the "NA" checkbox for Exp. Date is unchecked
@@ -491,7 +503,7 @@ onChange={() => handleNaChange("retestDate")} // Handle "N/A" checkbox
                           <AiOutlineClose size={18} /> </div> <text>Clear</text> 
                         </button>
                         
-                        <button type="submit"
+                        <button type="button"
                           className="cardbuttonbatchdetails"
                             onClick={handleadd}
                         >

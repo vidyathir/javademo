@@ -50,11 +50,11 @@ export default function App() {
      <Route exact path='/Progress/RLPLgenerated' element={<RLPLgenerated/>}/>  
      <Route exact path='/Progress/RLPLNotgenerated' element={<RLPLNotgenerated/>}/>
      <Route exact path='/AnalystDashboaed' element={<AnalystDashboaed/>}/>  
-     <Route exact path='/AnalystDashboaed/AwaitingSamples' element={<AwaitingSamples/>}/>  
-     <Route exact path='/AnalystDashboaed/AwaitingSamples/AnalystBatchandRLPLdetails' element={<AnalystBatchandRLPLdetails/>}/>  
+     {/* <Route exact path='/AnalystDashboaed/AwaitingSamples' element={<AwaitingSamples/>}/>   */}
+     <Route exact path='/AnalystDashboaed/AnalystBatchandRLPLdetails' element={<AnalystBatchandRLPLdetails/>}/>  
      <Route exact path='/ReviewDashboard' element={<ReviewDashboard/>}/>  
-     <Route exact path='/ReviewDashboard/AwaitingSamplesReview' element={<AwaitingSamplesReview/>}/>  
-     <Route exact path='/ReviewDashboard/AwaitingSamplesReview/ReviewerDetails' element={<ReviewerDetails/>}/>  
+  
+     <Route exact path='/ReviewDashboard/ReviewerDetails' element={<ReviewerDetails/>}/>  
      <Route exact path='/ApproverDashboard' element={<ApproverDashboard/>}/>  
      <Route exact path='/ApproverDashboard/AwaitingSamplesApprover' element={<AwaitingSamplesApprover/>}/>  
      <Route exact path='/ApproverDashboard/AwaitingSamplesApprover/ApproverDetails' element={<ApproverDetails/>}/> 

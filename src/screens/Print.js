@@ -44,7 +44,7 @@ export default function Print() {
             <text className="mainheadtitle">Please Confirm the details</text>
           </div>
 
-          <div className="mt-2">
+          {/* <div className="mt-2">
             <text className="mainheadtitlesubprint">Company details</text>
             <hr />
           </div>
@@ -91,7 +91,7 @@ export default function Print() {
                 <text className="cardcolhedtext mt-1">{form.phoneNo1}</text>
               </div>
             </Col>
-          </Row>
+          </Row> */}
 
           <div className="mt-3">
             <text className="mainheadtitlesubprint">Sample details</text>

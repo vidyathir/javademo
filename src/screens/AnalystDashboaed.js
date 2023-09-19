@@ -18,13 +18,14 @@ import { LuClipboardEdit } from "react-icons/lu";
 import { useNavigate } from "react-router-dom";
 import NavbartitleAddco from "../components/NavbartitleAddco";
 import SidenavbarAnalyst from "../components/SidenavbarAnalyst";
-import { changeBatchId } from "../redux/FormSlice";
+import { changeAnalystBatchId } from "../redux/FormSlice";
 import { useDispatch,useSelector } from "react-redux";
 export default function AnalystDashboaed() {
   const token  = useSelector((state) => state.form.usertoken.token);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [page, setPage] = useState(0);
+
   const [data, setData] = useState([]); // Initialize data as an empty array
   const [filterData, setFilterData] = useState([]);
   const itemsPerPage = 10;
@@ -39,13 +40,14 @@ export default function AnalystDashboaed() {
     })
       .then((response) => response.json())
       .then((apiData) => {
+        
         setData(apiData.samples); // Set the fetched data in the state
       })
       .catch((error) => {
         console.error("Error fetching data:", error);
       });
   }, []);
-
+console.log("data", data)
   useEffect(() => {
     // Update the filtered data when the page or data changes
     const startIndex = page * itemsPerPage;
@@ -59,8 +61,8 @@ export default function AnalystDashboaed() {
   function handleSubmit(item) {
     console.log("item", item.id);
     dispatch(
-      changeBatchId({
-        batchId: item.id,
+      changeAnalystBatchId({
+        AbatchId: item.id,
       })
      );
     navigate("AnalystBatchandRLPLdetails");
@@ -106,7 +108,7 @@ export default function AnalystDashboaed() {
                 <Col md={6}>
                   <Card
                     className="mainCard2 p-2"
-                    onClick={() => navigate("AwaitingSamples")}
+              
                   >
                     <div className="cardArrangement">
                       <div>
@@ -163,6 +165,7 @@ export default function AnalystDashboaed() {
                   </tbody>
                 </Table>
               </div>
+              {data.length>0 ?
                <ReactPaginate
         containerClassName={"pagination"}
         activeClassName={"active"}
@@ -181,7 +184,7 @@ export default function AnalystDashboaed() {
             <text>Next</text>
           </IconContext.Provider>
         }
-      />
+      />:null}
             </div>
           </div>
         </div>
