@@ -180,7 +180,7 @@ const token  = useSelector((state) => state.form.usertoken.token);
        
         </Col>
         <Col>
-        <label className="cardcolhed mb-2">ManufacturingLicenceNumber</label>
+        <label className="cardcolhed mb-2">Manufacturing Licence Number</label>
 
         
         <Controller

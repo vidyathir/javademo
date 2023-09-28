@@ -1,14 +1,61 @@
-import React from "react";
+import React,{useState,useEffect} from "react";
 import { Table, Row, Col, Card } from "react-bootstrap";
 import { BsBoxSeam, BsClipboardCheck } from "react-icons/bs";
 import { LuClipboardEdit } from "react-icons/lu";
 import { useNavigate } from "react-router-dom";
 import NavbartitleAddco from "../components/NavbartitleAddco";
 import SidenavbarApprover from "../components/SidenavbarApprover";
-
+import { AiFillLeftCircle, AiFillRightCircle } from "react-icons/ai";
+import ReactPaginate from "react-paginate";
+import { IconContext } from "react-icons";
+import { useDispatch,useSelector } from "react-redux";
+import { changeAnalystBatchId } from "../redux/FormSlice";
 export default function ApproverDashboard() {
   const navigate = useNavigate();
+  const token  = useSelector((state) => state.form.usertoken.token);
+  const dispatch = useDispatch();
+  const [page, setPage] = useState(0);
 
+  const [data, setData] = useState([]); // Initialize data as an empty array
+  const [filterData, setFilterData] = useState([]);
+  const itemsPerPage = 10;
+  useEffect(() => {
+    // Fetch data from your API endpoint here
+    fetch(`http://3.80.98.199:3000/api/tdsDetails/getReviewedTdsDetails?page=${page}&perPage=${itemsPerPage}`,{
+      headers: {
+        "Content-Type": "application/json",
+        'Authorization': token
+      },
+    })
+      .then((response) => response.json())
+      .then((apiData) => {
+        
+        setData(apiData.samples); // Set the fetched data in the state
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+      });
+  }, [page, token]);
+console.log("data", data)
+  useEffect(() => {
+    // Update the filtered data when the page or data changes
+    const startIndex = page * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+    setFilterData(data.slice(startIndex, endIndex));
+  }, [data, page]);
+
+  const handlePageChange = (selectedPage) => {
+    setPage(selectedPage.selected);
+  };
+  function handleSubmit(item) {
+    console.log("item", item.id);
+    dispatch(
+      changeAnalystBatchId({
+        AbatchId: item.id,
+      })
+     );
+    navigate("ApproverDetails");
+  }
   return (
     <div className="app">
       <NavbartitleAddco />
@@ -26,7 +73,7 @@ export default function ApproverDashboard() {
                   <Card className="mainCard1 p-2">
                     <div className="cardArrangement">
                       <div style={{ justifyContent: "space-evenly" }}>
-                        <p>Total TDS</p>
+                      
                         <p className="cardNum">25</p>
                       </div>
                       <div>
@@ -69,156 +116,65 @@ export default function ApproverDashboard() {
 
               <div className="topforsamplewaitingandviewall">
                 <p
-                  onClick={() => navigate("AwaitingSamplesApprover")}
                   className="tableTop mt-3"
                 >
                   Awaiting Approve
                 </p>
-                <a
-                  href="./AwaitingSamplesApprover"
-                  className="viewAll"
-                  onClick={() => navigate("AwaitingSamplesApprover")}
-                >
-                  View all
-                </a>
+              
               </div>
               <div>
                 <Table className="table" border={1}>
                   <thead className="tbhed">
                     <tr>
                       <th>S.No</th>
-                      <th>TDS Number</th>
-                      <th>Test Parameter</th>
-                      <th>Analyst By</th>
-                      <th>Reviewd By</th>
+                      <th>RLPL ID</th>
+                       <th>Test Parameters</th>
                       <th>View</th>
                     </tr>
                   </thead>
                   <tbody className="trAlign">
-                    <tr>
-                      <td>1</td>
-                      <td>TDS/XRD/23/19923</td>
-                      <td>PXRD,DSC</td>
-                      <td>Ashok</td>
+                  {filterData.map((item, index) => (
+     <tr key={item.id}>
+     <td>{index + 1}</td>
+     <td>{item.batchDetails.rlplNumber}</td>
+     <td>
+       {item.batchDetails.testParameter
+         ? item.batchDetails.testParameter
+             .map((option) => option.testDataCode)
+             .join(" , ")
+         : "N/A"}
+     </td>
+                     
 
-                      <td>Robert Fox</td>
                       <td>
-                        <button className="tbbutton ">View</button>
+                        <button className="tbbutton " onClick={()=>handleSubmit(item)}>View</button>
                       </td>
-                    </tr>
+                    </tr>))}
 
-                    <tr>
-                      <td>2</td>
-                      <td>TDS/XRD/23/19923</td>
-                      <td>PXRD,DSC</td>
-                      <td>Ashok</td>
-                      <td>Robert Fox</td>
-                      <td>
-                        <button className="tbbutton ">View</button>
-                      </td>
-                    </tr>
-
-                    <tr>
-                      <td>3</td>
-                      <td>TDS/XRD/23/19923</td>
-                      <td>PXRD,DSC</td>
-                      <td>Ashok</td>
-                      <td>Robert Fox</td>
-                      <td>
-                        <button className="tbbutton ">View</button>
-                      </td>
-                    </tr>
-
-                    <tr>
-                      <td>4</td>
-                      <td>TDS/XRD/23/19923</td>
-                      <td>PXRD,DSC</td>
-                      <td>Ashok</td>
-                      <td>Robert Fox</td>
-                      <td>
-                        <button className="tbbutton ">View</button>
-                      </td>
-                    </tr>
-
-                    <tr>
-                      <td>5</td>
-                      <td>TDS/XRD/23/19923</td>
-                      <td>PXRD,DSC</td>
-                      <td>Ashok</td>
-                      <td>Robert Fox</td>
-                      <td>
-                        <button className="tbbutton ">View</button>
-                      </td>
-                    </tr>
-
-                    <tr>
-                      <td>6</td>
-                      <td>TDS/XRD/23/19923</td>
-                      <td>PXRD,DSC</td>
-                      <td>Ashok</td>
-                      <td>Robert Fox</td>
-                      <td>
-                        <button className="tbbutton ">View</button>
-                      </td>
-                    </tr>
-
-                    <tr>
-                      <td>7</td>
-                      <td>TDS/XRD/23/19923</td>
-                      <td>PXRD,DSC</td>
-                      <td>Ashok</td>
-                      <td>Robert Fox</td>
-                      <td>
-                        <button className="tbbutton ">View</button>
-                      </td>
-                    </tr>
-
-                    <tr>
-                      <td>8</td>
-                      <td>TDS/XRD/23/19923</td>
-                      <td>PXRD,DSC</td>
-                      <td>Ashok</td>
-                      <td>Robert Fox</td>
-                      <td>
-                        <button className="tbbutton ">View</button>
-                      </td>
-                    </tr>
-
-                    <tr>
-                      <td>9</td>
-                      <td>TDS/XRD/23/19923</td>
-                      <td>PXRD,DSC</td>
-                      <td>Ashok</td>
-                      <td>Robert Fox</td>
-                      <td>
-                        <button className="tbbutton ">View</button>
-                      </td>
-                    </tr>
-
-                    <tr>
-                      <td>10</td>
-                      <td>TDS/XRD/23/19923</td>
-                      <td>PXRD,DSC</td>
-                      <td>Ashok</td>
-                      <td>Robert Fox</td>
-                      <td>
-                        <button className="tbbutton ">View</button>
-                      </td>
-                    </tr>
-
-                    <tr>
-                      <td>11</td>
-                      <td>TDS/XRD/23/19923</td>
-                      <td>PXRD,DSC</td>
-                      <td>Ashok</td>
-                      <td>Robert Fox</td>
-                      <td>
-                        <button className="tbbutton ">View</button>
-                      </td>
-                    </tr>
+                    
                   </tbody>
                 </Table>
               </div>
+              {data.length>0 ?
+               <ReactPaginate
+        containerClassName={"pagination"}
+        activeClassName={"active"}
+        pageClassName={"page-item"}
+        onPageChange={handlePageChange}
+        pageCount={Math.ceil(data.length / itemsPerPage)}
+        previousLabel={
+          <IconContext.Provider value={{ color: "#B8C1CC", size: "36px" }}>
+            <AiFillLeftCircle />
+            <text>previous</text>
+          </IconContext.Provider>
+        }
+        nextLabel={
+          <IconContext.Provider value={{ color: "#B8C1CC", size: "36px" }}>
+            <AiFillRightCircle />
+            <text>Next</text>
+          </IconContext.Provider>
+        }
+      />:null}
             </div>
           </div>
         </div>

@@ -56,8 +56,8 @@ export default function App() {
   
      <Route exact path='/ReviewDashboard/ReviewerDetails' element={<ReviewerDetails/>}/>  
      <Route exact path='/ApproverDashboard' element={<ApproverDashboard/>}/>  
-     <Route exact path='/ApproverDashboard/AwaitingSamplesApprover' element={<AwaitingSamplesApprover/>}/>  
-     <Route exact path='/ApproverDashboard/AwaitingSamplesApprover/ApproverDetails' element={<ApproverDetails/>}/> 
+    
+     <Route exact path='/ApproverDashboard/ApproverDetails' element={<ApproverDetails/>}/> 
     
      </Routes>
     </BrowserRouter>

@@ -36,6 +36,33 @@ export default function ReviewerDetails() {
   }, [id, token]);
   console.log("analystview", analystView);
 
+const handleSubmit=()=>{
+ 
+fetch("http://3.80.98.199:3000/api/tdsDetails/review", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+    'Authorization': token
+  },
+
+
+  body: JSON.stringify({"tdsId":id, "review":"success"}),
+})
+  .then((response) => response.json())
+
+  .then((data) => {
+  
+    console.log("Success:", data);
+    
+     // handle the response data here
+  })
+
+  .catch((error) => {
+    // handle any errors here
+  });
+  navigate("/ReviewDashboard")
+}
+ 
   return (
     <div className="app">
       <NavbartitleAddco />
@@ -61,7 +88,7 @@ export default function ReviewerDetails() {
               <text className="mainheadtitlesub">Sample details</text>
               <hr />
             </div>
-            {analystView.sampleDetails?
+            {analystView.sampleDetails?(
             <Row className="rowtabview">
               
               <Col className="">
@@ -84,17 +111,17 @@ export default function ReviewerDetails() {
               </Col>
               <Col className="columnMb">
                 <div className="d-flex row">
-                  <text className="cardcolhed">Sample Type</text>
-                  <text className="cardcolhedtext mt-1">{analystView.sampleDetails.sampleType}</text>
+                  <text className="cardcolhed">Sample Type</text>{analystView.sampleDetails.sampleType?
+                  <text className="cardcolhedtext mt-1">{analystView.sampleDetails.sampleType.join(",")}</text>:<text className="cardcolhedtext mt-1">NA</text>}
                 </div>
               </Col>
-            </Row>:"N/A"}
-            {analystView.sampleDetails?
+            </Row>):(  <div>N/A</div>)}
+            {analystView.sampleDetails?(
             <Row className="mt-3 rowtabview">
               <Col className="columnMb col-3">
                 <div className="d-flex row">
                   <text className="cardcolhed">Nature of Sample</text>
-                  <text className="cardcolhedtext mt-1">{analystView.sampleDetails.natureOfsample}</text>
+                  <text className="cardcolhedtext mt-1">{analystView.sampleDetails.natureOfSample}</text>
                 </div>
               </Col>
               <Col className="columnMb col-3">
@@ -113,7 +140,7 @@ export default function ReviewerDetails() {
                   <text className="cardcolhedtext mt-1">{analystView.sampleDetails.sampleRetentionRequired}</text>
                 </div>
               </Col>
-            </Row>:"N/A"}
+            </Row>):( <div>N/A</div>)}
 
             <div className="mt-3">
               <div className="titlemainreference">
@@ -172,43 +199,44 @@ export default function ReviewerDetails() {
               <text className="mainheadtitlesub">Type of Analysis</text>
               <hr />
             </div>
-
+            {analystView.sampleDetails ? (
             <Row className="rowtabview">
               <Col className="">
                 <div className="d-flex row">
                   <text className="cardcolhed">
                     Regulatory(Form-39/DMF Filing/ANDA Filing/Any Query)
-                  </text>
-                  <text className="cardcolhedtext mt-1">{analystView.sampleDetails.regulatory}</text>
+                  </text>{analystView.sampleDetails.regulatory?
+                  <text className="cardcolhedtext mt-1">{analystView.sampleDetails.regulatory||"NA"}</text>:<text className="cardcolhedtext mt-1">NA</text>}
                 </div>
               </Col>
               <Col className="columnMb">
                 <div className="d-flex row">
                   <text className="cardcolhed">Other than Regulatory </text>
-                  <text className="cardcolhedtext mt-1">{analystView.sampleDetails.otherThanRegulatory}</text>
+                  {analystView.sampleDetails.otherThanRegulatory?
+                  <text className="cardcolhedtext mt-1">{analystView.sampleDetails.otherThanRegulatory.join(",")||"NA"}</text>:<text className="cardcolhedtext mt-1">NA</text>}
                 </div>
               </Col>
-            </Row>
-
+            </Row>):(<div>N/A</div>)}
+            {analystView.sampleDetails ? (
             <Row className="mt-3 rowtabview">
               <Col className="columnMb">
                 <div className="d-flex row">
                   <text className="cardcolhed">
                     Test to be carried out as per{" "}
-                  </text>
-                  <text className="cardcolhedtext mt-1">{analystView.sampleDetails.testToBeCarriedOut}</text>
+                  </text>{analystView.sampleDetails.testToBeCarriedOut?
+                  <text className="cardcolhedtext mt-1">{analystView.sampleDetails.testToBeCarriedOut.join(' ,')||"NA"}</text>:<text className="cardcolhedtext mt-1">NA</text>}
                 </div>
               </Col>
               <Col className="columnMb">
                 <div className="d-flex row">
                   <text className="cardcolhed">
                     Special Instructions If any other{" "}
-                  </text>
-                  <text className="cardcolhedtext mt-1">{analystView.sampleDetails.specialInstruction}</text>
+                  </text>{analystView.sampleDetails.specialInstruction?
+                  <text className="cardcolhedtext mt-1">{analystView.sampleDetails.specialInstruction}</text>:<text className="cardcolhedtext mt-1">NA</text>}
                 </div>
               </Col>
-            </Row>
-
+            </Row>):(<div>N/A</div>)}
+            {analystView.sampleDetails ? (
             <Row className="mt-3 rowtabview">
               <Col className="columnMb">
                 <div className="d-flex row">
@@ -231,8 +259,8 @@ export default function ReviewerDetails() {
                   {/* <text className="cardcolhedtext mt-1">xxxxxx xxxxx</text> */}
                 </div>
               </Col>
-            </Row>
-
+            </Row>):(<div>N/A</div>)}
+            {analystView.sampleDetails ? (
             <Row className="mt-3 rowtabview">
               <Col className="columnMb">
                 <div className="d-flex row">
@@ -249,7 +277,7 @@ export default function ReviewerDetails() {
                 </span>
               </div>
             </Col> */}
-            </Row>
+            </Row>):(<div>N/A</div>)}
 
            
             <div className="mt-3">
@@ -325,7 +353,7 @@ export default function ReviewerDetails() {
             <button
               className="cardbutton"
               type="submit"
-              onClick={() => navigate("/Reviewdashboard")}
+              onClick={handleSubmit}
             >
               Approve
               {/* <BiRightArrowAlt size={24} /> */}

@@ -119,15 +119,49 @@ const [inputs, setInputs] = useState(initialInputs);
   };
   console.log("input" ,inputs);
   const handleChange = (e) => {
+    const { name, value } = e.target;
+
+    // Perform date validation for date fields
+    if (name === "mfgDate" || name === "expDate" || name === "retestDate") {
+      // Check if the entered date is a valid date
+      if (!/^\d{4}-\d{2}-\d{2}$/.test(value)) {
+        setFormErrors({
+          ...formErrors,
+          [name]: "Invalid date format. Please use YYYY-MM-DD format.",
+        });
+      } else {
+        // Clear any previous error messages for the date field
+        setFormErrors({
+          ...formErrors,
+          [name]: "",
+        });
   
+        // Check if Exp. Date is greater than or equal to Mfg Date
+        if (name === "expDate" && inputs.mfgDate) {
+          if (new Date(value) <= new Date(inputs.mfgDate)) {
+            setFormErrors({
+              ...formErrors,
+              [name]: "Exp Date must be after Mfg Date!",
+            });
+          }
+        }
+  
+        // Check if Retest Date is greater than or equal to Exp Date
+        if (name === "retestDate" && inputs.expDate) {
+          if (new Date(value) <= new Date(inputs.expDate)) {
+            setFormErrors({
+              ...formErrors,
+              [name]: "Retest Date must be after Exp Date!",
+            });
+          }
+        }
+      }
+    }
   setInputs({
        ...inputs,
-       [e.target.name]: e.target.value,
+       [name]: value,
      });
-     setFormErrors({
-      ...formErrors,
-      [e.target.name]: "",
-    });
+
    };
     const handleClear=()=>{
       setInputs("")

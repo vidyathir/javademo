@@ -22,12 +22,6 @@ export default function AnalystBatchandRLPLdetails() {
   const [fileAnalyticalData, setFileAnalyticalData] = useState([]);
   const fileInputRefs = useRef([]);
   const fileAnalytical =useRef([]);
-  const [updatedItem, setUpdatedItem] = useState({
-    tdsId: 0,
-    tdsDocument: "", // Initialize with an empty string
-    sysDocument: "",  // Initialize with an empty string
-  });
-  
   const navigate = useNavigate();
   const id = useSelector((state) => state.form.AbatchId.AbatchId);
   const token = useSelector((state) => state.form.usertoken.token);

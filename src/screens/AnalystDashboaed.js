@@ -32,7 +32,7 @@ export default function AnalystDashboaed() {
 
   useEffect(() => {
     // Fetch data from your API endpoint here
-    fetch(`http://3.80.98.199:3000/api/batchDetails/getDitApprovedBatchDetails?page=${page}&perPage=${itemsPerPage}`,{
+    fetch(`http://3.80.98.199:3000/api/tdsDetails/getDitApprovedTdsDetails?page=${page}&perPage=${itemsPerPage}`,{
       headers: {
         "Content-Type": "application/json",
         'Authorization': token
@@ -144,10 +144,10 @@ console.log("data", data)
                     {filterData.map((item, index) => (
      <tr key={item.id}>
      <td>{index + 1}</td>
-     <td>{item.rlplNumber}</td>
+     <td>{item.batchDetails.rlplNumber}</td>
      <td>
-       {item.testParameter
-         ? item.testParameter
+       {item.batchDetails.testParameter
+         ? item.batchDetails.testParameter
              .map((option) => option.testDataCode)
              .join(" , ")
          : "N/A"}

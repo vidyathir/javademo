@@ -16,6 +16,7 @@ export default function RLPLNotgenerated() {
   const batch=useSelector(state =>state.form.newArray)
   useEffect(()=>{
     window.sessionStorage.removeItem('tableData')
+    window.sessionStorage.removeItem('names')
   },[])
   return (
     <div className="app">
@@ -133,7 +134,7 @@ export default function RLPLNotgenerated() {
                             borderBottom: "none",
                           }}
                         > {item.testparameters.map((value,index)=>(
-                         <li  style={{listStyleType:"none"}}key={index}>{value.label}</li>
+                         <li  style={{listStyleType:"none"}}key={index}>{value.testDataCode}</li>
                         ))}</td>
                       </tr>
                        ))}

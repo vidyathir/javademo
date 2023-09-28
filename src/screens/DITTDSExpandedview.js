@@ -23,7 +23,6 @@ export default function DITTDSExpandedView() {
   const [tdsView,setTdsView]=useState({});
   const analysis = useSelector((state) => state.form.data);
 
-  
 
   console.log(id);
   useEffect(() => {
@@ -40,7 +39,7 @@ export default function DITTDSExpandedView() {
         setTdsView(response.data.batchDetails);})
       .catch((error) => console.error("Error fetching batch data:", error));
   }, [id]);
-
+console.log("detailedview",detailedView)
 console.log("detail", tdsView)
 
 
@@ -98,14 +97,11 @@ console.log("detail", tdsView)
                   <td>{tdsView.expDate}</td>
                   <td>{tdsView.retestDate}</td>
                   <td>
-                    {tdsView.testParameter &&
-                    Array.isArray(tdsView.testParameter) ? (
-                      tdsView.testParameter.map((item, index) => (
-                        <li style={{listStyleType:"none"}} key={index}>{item.testDataCode}</li>
-                      ))
-                    ) : (
-                      <span>No test parameters available</span>
-                    )}
+                  {detailedView.testParameter ?(
+                            <text className="analyticalbutton mt-1 ">{detailedView.testParameter} </text>
+                          ) : (
+                          <span>No test parameters available</span>
+                        )}
                   </td>
 
                 {/*  <td>
@@ -296,14 +292,9 @@ console.log("detail", tdsView)
                       </div>
 
                       <div className="analyticalbutton-div">
-                        {tdsView.testParameter &&
-                        Array.isArray(tdsView.testParameter) ? (
-                          tdsView.testParameter.map((item, index) => (
-                            <text className="analyticalbutton mt-1 ">
-                              <li style={{listStyleType:"none"}} key={index}>{item.testDataCode}</li>
-                            </text>
-                          ))
-                        ) : (
+                        {detailedView.testParameter ?(
+                            <text className="analyticalbutton mt-1 ">{detailedView.testParameter} </text>
+                          ) : (
                           <span>No test parameters available</span>
                         )}
                       </div>
@@ -327,14 +318,16 @@ console.log("detail", tdsView)
                       <text className="cardcolhed">Attachments </text>
                       <span>
                         <PiFilePdfFill />
-                        <text className="cardcolhedtext mt-1">
-                          {Array.from(analysis.choosefile).map((f) => (
-                            <text className="cardcolhedtext mt-1" key={f.name}>
-                              {" "}
-                              {f.name}
+                        {detailedView.sampleDetails.attachment &&
+                        Array.isArray(detailedView.sampleDetails.attachment) ? (
+                          detailedView.sampleDetails.attachment.map((item, index) => (
+                            <text >
+                              <li style={{listStyleType:"none"}} key={index}>{item}</li>
                             </text>
-                          ))}
-                        </text>
+                          ))
+                        ) : (
+                          <span>No attachments available</span>
+                        )}
                       </span>
                     </div>
                   </Col>
