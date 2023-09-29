@@ -472,7 +472,7 @@ export default function TypeOfAnalysis({ onButtonClick }) {
                       <Field>
                       <Input 
                       {...register("otherregulatory")}
-                      type="text" className="NatureOfSample" 
+                      type="text" className="NatureOfSample1" 
                       onChange={handleOtherInputchange}
                       value={otherreg}/>
                       </Field>
