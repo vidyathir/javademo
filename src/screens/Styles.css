@@ -1237,11 +1237,24 @@ input{
 .NatureOfSample{
   height: 40px;
   width: 100%;
-  margin:30px 0px 0px 0px ;
+  margin:0px 0px 0px -105px ;
   border: 1px solid #D1D1D1;
   border-radius: 6px;
   padding-left: 10px;
   color: #8F8F8F;
+}
+.NatureOfSample1{
+  height: 40px;
+  width: 100%;
+  margin:30px 0px 0px -80px ;
+  border: 1px solid #D1D1D1;
+  border-radius: 6px;
+  padding-left: 10px;
+  color: #8F8F8F;
+}
+.NatureOfSample1:focus{
+  border-color: #3A4175;
+  outline: none;
 }
 .NatureOfSample:focus{
   border-color: #3A4175;
@@ -1343,7 +1356,7 @@ input{
   outline: none;
 }
 .methodology{
-display: inline-block;
+  
   border: 1px solid #d1d1d1;
   height: 40px;
   width: 100%;
@@ -1351,6 +1364,7 @@ display: inline-block;
   color: #8f8f8f;
   font-size: 12px;
   padding-left: 10px;
+  margin: -10px 0px 0px 0px;
 
 }
 .methodology:focus{

@@ -832,7 +832,7 @@ submissiontype:data.submissiontype,
                                     type="text"
                                     name="othercheck"
                                     value={sampleTypeOther}
-                                      className="cardcolumninputtype"
+                                      className="NatureOfSample"
                                       //value="sampletype"
                                       id="sampletype"
                                       onChange={(e) =>{setSampleTypeOther(e.target.value);

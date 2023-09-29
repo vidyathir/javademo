@@ -44,7 +44,7 @@ export default function Print() {
             <text className="mainheadtitle">Please Confirm the details</text>
           </div>
 
-          <div className="mt-2">
+          {/* <div className="mt-2">
             <text className="mainheadtitlesubprint">Company details</text>
             <hr />
           </div>
@@ -91,7 +91,7 @@ export default function Print() {
                 <text className="cardcolhedtext mt-1">{form.phoneNo1}</text>
               </div>
             </Col>
-          </Row>
+          </Row> */}
 
           <div className="mt-3">
             <text className="mainheadtitlesubprint">Sample details</text>
@@ -203,8 +203,8 @@ export default function Print() {
               <div className="d-flex row">
                 <text className="cardcolhed">
                   Regulatory(Form-39/DMF Filing/ANDA Filing/Any Query)
-                </text>
-                <text className="cardcolhedtext mt-1">{analysis.formfilling}</text>
+                </text>{analysis.formfilling?
+                <text className="cardcolhedtext mt-1">{analysis.formfilling}</text>:<text className="cardcolhedtext mt-1">NA</text>}
               </div>
             </Col>
             <Col className="columnMb">
@@ -229,7 +229,8 @@ export default function Print() {
                 <text className="cardcolhed">
                   Special Instructions If any other{" "}
                 </text>
-                <text className="cardcolhedtext mt-1">{analysis.specialinstruction}</text>
+                {analysis.specialinstruction ?
+                <text className="cardcolhedtext mt-1">{analysis.specialinstruction}</text>:<text className="cardcolhedtext mt-1">N/A</text>}
               </div>
             </Col>
           </Row>
@@ -266,10 +267,11 @@ export default function Print() {
                 <text className="cardcolhed">Attachments </text>
                 <span>
                   <PiFilePdfFill />
-                  <div>{Array.from(analysis.choosefile).map(f => (<text className="cardcolhedtext mt-1" key={f.name}> {f.name}</text>
-      ))}
-    </div>
-                 
+                  <div>{analysis.choosefile?
+                  <div><text className="cardcolhedtext mt-1">{(analysis.choosefile).join(",")}</text>
+  
+    </div>:<text className="cardcolhedtext mt-1">N/A</text>}</div>
+                  {/* <text className="cardcolhedtext mt-1">{}</text> */}
                 </span>
               </div>
             </Col>

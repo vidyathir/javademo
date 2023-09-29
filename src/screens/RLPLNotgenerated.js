@@ -16,12 +16,13 @@ import Navbartitle from "../components/Navbartitle";
 import { useSelector } from "react-redux";
 export default function RLPLNotgenerated() {
   const navigate = useNavigate();
+  const sample=useSelector(state =>state.form.sampleDetails);
+  const batch=useSelector(state =>state.form.newArray)
+  useEffect(()=>{
+    window.sessionStorage.removeItem('tableData')
+    window.sessionStorage.removeItem('names')
+  },[])
 
-  const sample = useSelector((state) => state.form.sampleDetails);
-  const batch = useSelector((state) => state.form.newArray);
-  useEffect(() => {
-    window.sessionStorage.removeItem("tableData");
-  }, []);
   return (
     <div className="app">
       <Navbartitle />
@@ -350,10 +351,68 @@ export default function RLPLNotgenerated() {
                           }}
                           name="Next"
                         >
-                          <AiFillPrinter size={20} color="#fff" />
-                          Print
-                        </Button>
-                      </div>
+                          {item.sampleQuantity}
+                        </td>
+                        <td
+                          style={{
+                             fontSize: 12,
+                            fontWeight: 500,
+                            borderLeft: "1px solid #d1d1d1",
+                            borderBottom: "none",
+                          }}
+                        > {item.testparameters.map((value,index)=>(
+                         <li  style={{listStyleType:"none"}}key={index}>{value.testDataCode}</li>
+                        ))}</td>
+                      </tr>
+                       ))}
+                                  
+                                       
+                                    
+                                    </thead>
+                        </Table>
+                        <div style={{flexDirection:'column',display:'flex'}}>
+                        <label style={{color:'#8F8F8F',fontSize:12,fontWeight:500}}>
+                            Reason for Rejections
+                        </label>
+                        <text style={{color:'#3A4175',fontSize:12,fontWeight:500}}>xxxxxx xxxxx xxxxxxx xxxxxx</text>
+                        </div> 
+                        <div className="mt-5"  style={{justifyContent:'space-between',display:'flex'}}>
+
+                            <div  >
+                        <Button
+                    style={{
+                      height: "40px",
+                      width: "166px",
+                      borderRadius: "6px",
+                      backgroundColor: "#3A4175",
+                      fontWeight: 600,
+                      fontSize: 12,
+                      border:'none'
+                    }}
+                    name="Next"
+                  >
+                    <AiOutlineMail size={20} color="#fff" />
+                    Send an email
+                  </Button>
+                  <Button
+                   onClick={() => navigate("/Print")}
+                    style={{
+                      height: "40px",
+                      width: "122px",
+                      borderRadius: "6px",
+                      backgroundColor: "#9AC037",
+                      fontWeight: 600,
+                      fontSize: 12,
+                      marginLeft: 20,
+                      border:'none'
+                    }}
+                    name="Next"
+                  >
+                    <AiFillPrinter size={20} color="#fff" />
+                    Print
+                  </Button>
+                  </div>
+
 
                       <Button
                         onClick={() => navigate("/Progress")}

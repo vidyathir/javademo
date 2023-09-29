@@ -17,20 +17,22 @@ import { LuClipboardEdit } from "react-icons/lu";
 import { useNavigate } from "react-router-dom";
 import NavbartitleAddco from "../components/NavbartitleAddco";
 import SidenavbarAnalyst from "../components/SidenavbarAnalyst";
-import { changeBatchId } from "../redux/FormSlice";
+import { changeAnalystBatchId } from "../redux/FormSlice";
 import { useDispatch,useSelector } from "react-redux";
 export default function AnalystDashboaed() {
   const token  = useSelector((state) => state.form.usertoken.token);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [page, setPage] = useState(0);
-  const [data, setData] = useState([]); 
+
+  const [data, setData] = useState([]); // Initialize data as an empty array
+
   const [filterData, setFilterData] = useState([]);
   const itemsPerPage = 10;
 
   useEffect(() => {
-   
-    fetch(`http://3.80.98.199:3000/api/batchDetails/getDitApprovedBatchDetails?page=${page}&perPage=${itemsPerPage}`,{
+    // Fetch data from your API endpoint here
+    fetch(`http://3.80.98.199:3000/api/tdsDetails/getDitApprovedTdsDetails?page=${page}&perPage=${itemsPerPage}`,{
       headers: {
         "Content-Type": "application/json",
         'Authorization': token
@@ -38,13 +40,14 @@ export default function AnalystDashboaed() {
     })
       .then((response) => response.json())
       .then((apiData) => {
-        setData(apiData.samples); 
+
+        setData(apiData.samples); // Set the fetched data in the state
       })
       .catch((error) => {
         console.error("Error fetching data:", error);
       });
   }, []);
-
+console.log("data", data)
   useEffect(() => {
     
     const startIndex = page * itemsPerPage;
@@ -58,8 +61,8 @@ export default function AnalystDashboaed() {
   function handleSubmit(item) {
     console.log("item", item.id);
     dispatch(
-      changeBatchId({
-        batchId: item.id,
+      changeAnalystBatchId({
+        AbatchId: item.id,
       })
      );
     navigate("AnalystBatchandRLPLdetails");
@@ -105,7 +108,7 @@ export default function AnalystDashboaed() {
                 <Col md={6}>
                   <Card
                     className="mainCard2 p-2"
-                    onClick={() => navigate("AwaitingSamples")}
+              
                   >
                     <div className="cardArrangement">
                       <div>
@@ -139,10 +142,10 @@ export default function AnalystDashboaed() {
                     {filterData.map((item, index) => (
      <tr key={item.id}>
      <td>{index + 1}</td>
-     <td>{item.rlplNumber}</td>
+     <td>{item.batchDetails.rlplNumber}</td>
      <td>
-       {item.testParameter
-         ? item.testParameter
+       {item.batchDetails.testParameter
+         ? item.batchDetails.testParameter
              .map((option) => option.testDataCode)
              .join(" , ")
          : "N/A"}
@@ -160,6 +163,7 @@ export default function AnalystDashboaed() {
                   </tbody>
                 </Table>
               </div>
+              {data.length>0 ?
                <ReactPaginate
         containerClassName={"pagination"}
         activeClassName={"active"}
@@ -178,7 +182,7 @@ export default function AnalystDashboaed() {
             <text>Next</text>
           </IconContext.Provider>
         }
-      />
+      />:null}
             </div>
           </div>
         </div>

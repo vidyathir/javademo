@@ -208,20 +208,21 @@ console.log("sample",sample)
 
           <Row className="rowtabview">
             <Col className="">
-            {analysis.formfilling ?
+            
               <div className="d-flex row">
+             
                 <text className="cardcolhed">
                   Regulatory(Form-39/DMF Filing/ANDA Filing/Any Query)
                 </text>
-                
-                <text className="cardcolhedtext mt-1">{analysis.formfilling}</text>
-              </div>:<text className="cardcolhedtext mt-1">N/A</text>}
+                {analysis.formfilling ?
+                <text className="cardcolhedtext mt-1">{analysis.formfilling}</text>:<text className="cardcolhedtext mt-1">N/A</text>}
+              </div>
             </Col>
             <Col className="columnMb">
               <div className="d-flex row">
                 <text className="cardcolhed">Other than Regulatory </text>
-                {analysis.analyticalfeasibile ?
-                <text className="cardcolhedtext mt-1"><ul>{analysis.analyticalfeasibile.join('  ,  ')}</ul></text>:<text className="cardcolhedtext mt-1">N/A</text>}
+                {analysis.analyticalfeasibile ? 
+                <text className="cardcolhedtext mt-1"><ul>{(analysis.analyticalfeasibile).join(",")}</ul></text>:<text className="cardcolhedtext mt-1">N/A</text>}
               </div>
             </Col>
           </Row>
@@ -284,8 +285,8 @@ console.log("sample",sample)
                 <span>
                   <PiFilePdfFill />
                   {analysis.choosefile?
-                  <div>{Array.from(analysis.choosefile).map(f => (<text className="cardcolhedtext mt-1" key={f.name}> {f.name}</text>
-      ))}
+                  <div><text className="cardcolhedtext mt-1">{(analysis.choosefile).join(",")}</text>
+  
     </div>:<text className="cardcolhedtext mt-1">N/A</text>}
                  
                 </span>

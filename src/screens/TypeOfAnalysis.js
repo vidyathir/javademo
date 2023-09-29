@@ -1,17 +1,13 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import { useForm } from "react-hook-form";
-
 import { useAppState } from "../state";
 import { Button, Field, Form, Input } from "../Forms";
 import React, { useState ,useEffect} from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch,useSelector } from "react-redux";
 import { MdOutlineUploadFile } from "react-icons/md";
 import { changeTypeofAnalysis } from "../redux/FormSlice";
 import { Row, Col, Card } from "react-bootstrap";
 import "./Styles.css";
-
 import { BiRightArrowAlt, BiLeftArrowAlt } from "react-icons/bi";
-
 export default function TypeOfAnalysis({ onButtonClick }) {
   const [selectedOption, setSelectedOption] = useState(null);
   const [selectedRadio, setSelectedRadio] = useState(() => {
@@ -33,9 +29,13 @@ export default function TypeOfAnalysis({ onButtonClick }) {
     setValue,
     // formState: {},
   } = useForm({ defaultValues: state });
+  const [selectedFileNames, setSelectedFileNames] = useState([]);
+  const [names, setNames] = useState([]);
+  const token = useSelector((state) => state.form.usertoken.token);
   const handleRadioChange = (event) => {
     const selectedValue = event.target.value;
     setSelectedOptionmet(selectedValue);
+
     
     // When a radio option other than "Others" is selected, clear the "otherValue" and react-hook-form field
     if (selectedValue !== ("GTP"||"STP"||"Reference No") ) { 
@@ -93,8 +93,7 @@ export default function TypeOfAnalysis({ onButtonClick }) {
       // Set the value of "otherValue" in react-hook-form
       setValue("yesvalid", initialSamplename);
     }
-
-  }, [state.methodologyfollowed,state.formfilling,state.methodvalidation]);
+  }, [state.methodologyfollowed, state.formfilling, state.methodvalidation, state.referencetext, state.otherregulatory, state.yesvalid, setValue]);
   const handleInputChange = (event) => {
     const inputValue = event.target.value;
     setOtherValue(inputValue);
@@ -116,8 +115,71 @@ export default function TypeOfAnalysis({ onButtonClick }) {
     // Update the value of the "samplename" field in react-hook-form
     setValue("yesvalid", inputValue);
   };
-  const saveData = (data) => {
+  
+  const handleFileChange = (event) => {
+    const files = Array.from(event.target.files);
+    const validFiles = files.filter((file) => file instanceof File && file.size > 0);
+    
+    setSelectedFileNames((prevSelectedFiles) => [...prevSelectedFiles, ...validFiles]);
+     const extractedNames = validFiles.map(file => file.name);
+     setNames((prevNames) => [...prevNames, ...extractedNames]);
+  };
+
+  useEffect(() => {
+    // Retrieving the names from localStorage
+    setNames(selectedFileNames.map(obj => obj.name));
+    const storedNames =sessionStorage.getItem("names");
+    if(storedNames){
+      setNames(JSON.parse(storedNames));
+    }
+  },[])
+  console.log("files",names)
+  const handleRemoveFile = (indexToRemove) => {
+    const updatedSelectedFilenames = selectedFileNames.filter(
+      (files) => files !== indexToRemove
+    );
+    setSelectedFileNames(updatedSelectedFilenames);
+
+    // Remove the corresponding name from namesArray
+    const updatedNames = names.filter(
+      (name) => name !== indexToRemove
+    );
+    setNames(updatedNames);
    
+  };
+  // useEffect(() => {
+  //   const storedFileNames = localStorage.getItem("selectedFileNames");
+  //   if (storedFileNames) {
+  //     setSelectedFileNames(JSON.parse(storedFileNames));
+  //   }
+  
+  // }, []);
+
+  const saveData =async(data) => {
+    const formData = new FormData();
+    selectedFileNames.forEach((file, index) => {
+      formData.append(`file${index}`, file);
+    });
+
+    try {
+      const response = await fetch('http://3.80.98.199:3000/api/container/sroDoc/upload', {
+        method: 'POST',
+        body: formData,
+        headers: {
+          Authorization: token,
+        },
+      });
+  
+      if (response.ok) {
+        // Handle successful upload
+        console.log('File uploaded successfully');
+      } else {
+        // Handle upload error
+        console.error('File upload failed');
+      }
+    } catch (error) {
+      console.error('Error uploading file:', error);
+    }
     if (data.formfilling !== "Other") {
       data.otherregulatory = ""; // Reset the value if it's not "Others"
     }
@@ -125,12 +187,11 @@ export default function TypeOfAnalysis({ onButtonClick }) {
       data.yesvalid = ""; // Reset the value if it's not "Others"
     }
     setState({ ...state, ...data });
-
     if (selectedRadio === "Regulatory") {
       dispatch(
         changeTypeofAnalysis({
           analyticalfeasibile: null,
-          choosefile: data.choosefile,
+          choosefile:names,
           formfilling:`${data.formfilling}(${data.otherregulatory})`,
           methodologyfollowed:`${data.methodologyfollowed}(${data.referencetext})`,
           methodvalidation: `${data.methodvalidation}(${data.yesvalid})`,
@@ -144,28 +205,25 @@ export default function TypeOfAnalysis({ onButtonClick }) {
       dispatch(
         changeTypeofAnalysis({
           analyticalfeasibile: data.analyticalfeasibile,
-          choosefile: data.choosefile,
+          choosefile: names,
           formfilling: null,
           methodologyfollowed:`${data.methodologyfollowed} (${data.referencetext})`,
           methodvalidation: `${data.methodvalidation}(${data.yesvalid})`,
-          specialinstruction: data.SpecialInstruction,
+          specialinstruction: data.specialinstruction,
           test: data.test,
           referencetext:data.referencetext
     
-
         })
       )
     }
-
+    sessionStorage.setItem('names', JSON.stringify(names));
     onButtonClick("ConfirmDetails");
   };
   const handleOptionChange = (event) => {
     const selectedOptionValue = event.target.value;
     setSelectedRadio(selectedOptionValue);
-
     // Store the selected value in localStorage
     localStorage.setItem("selectedRadio", selectedOptionValue);
-
     // Clear the values of the corresponding fields when switching between options
     if (selectedOptionValue === "Regulatory") {
       setValue("analyticalfeasibile", ""); // Clear the value of analyticalfeasibile
@@ -210,7 +268,6 @@ export default function TypeOfAnalysis({ onButtonClick }) {
                       <label className="space">Validation</label>
                     </div>
                   </div>
-
                   <div className="col">
                     <div style={{ display: "flex" }}>
                       <div>
@@ -234,7 +291,6 @@ export default function TypeOfAnalysis({ onButtonClick }) {
                     </div>
                   </div>
                 </div>
-
                 <div className="col">
                   <div style={{ display: "flex" }}>
                     <div>
@@ -256,7 +312,6 @@ export default function TypeOfAnalysis({ onButtonClick }) {
                       <label className="space">Verification</label>
                     </div>
                   </div>
-
                   <div className="col">
                     <div style={{ display: "flex" }}>
                       <div>
@@ -280,7 +335,6 @@ export default function TypeOfAnalysis({ onButtonClick }) {
                     </div>
                   </div>
                 </div>
-
                 <div className="col">
                   <div style={{ display: "flex" }}>
                     <div>
@@ -302,7 +356,6 @@ export default function TypeOfAnalysis({ onButtonClick }) {
                       <label className="space">Transfer</label>
                     </div>
                   </div>
-
                   <div className="col">
                     <div style={{ display: "flex" }}>
                       <div>
@@ -326,7 +379,6 @@ export default function TypeOfAnalysis({ onButtonClick }) {
                     </div>
                   </div>
                 </div>
-
                 <div className="col">
                   <div style={{ display: "flex" }}>
                     <div>
@@ -348,7 +400,6 @@ export default function TypeOfAnalysis({ onButtonClick }) {
                       <label className="space">Stability</label>
                     </div>
                   </div>
-
                   <div className="col">
                     <div style={{ display: "flex" }}>
                       <div>
@@ -372,7 +423,6 @@ export default function TypeOfAnalysis({ onButtonClick }) {
                     </div>
                   </div>
                 </div>
-
                 <div className="col">
                   <div style={{ display: "flex" }}>
                     <div>
@@ -394,7 +444,6 @@ export default function TypeOfAnalysis({ onButtonClick }) {
                       <label className="space">Batch Release</label>
                     </div>
                   </div>
-
                   <div className="col">
                     <div style={{ display: "flex" }}>
                       <div>
@@ -417,15 +466,13 @@ export default function TypeOfAnalysis({ onButtonClick }) {
                     </div>
                   </div>
                 </div>
-
-
                 <div className="col">
                   <span>
                     {selectedOption === "Other" && (
                       <Field>
                       <Input 
                       {...register("otherregulatory")}
-                      type="text" className="NatureOfSample" 
+                      type="text" className="NatureOfSample1" 
                       onChange={handleOtherInputchange}
                       value={otherreg}/>
                       </Field>
@@ -465,7 +512,6 @@ export default function TypeOfAnalysis({ onButtonClick }) {
               <div>
                 <label className="space">Analytical Feasibility</label>
               </div>
-
               <div
                 style={{
                   marginLeft: 60,
@@ -493,7 +539,6 @@ export default function TypeOfAnalysis({ onButtonClick }) {
               </div>
             </div>
           )}
-
           {selectedRadio === "NonRegulatory" && (
             <div style={{ display: "flex" }}>
               <div>
@@ -514,7 +559,6 @@ export default function TypeOfAnalysis({ onButtonClick }) {
               <div>
                 <label className="space">Method Development</label>
               </div>
-
               <div
                 style={{
                   marginLeft: 50,
@@ -546,19 +590,6 @@ export default function TypeOfAnalysis({ onButtonClick }) {
       );
     }
   };
-  // useEffect(() => {
-
-  //   if (selectedRadio === "Regulatory") {
-  //     setValue("choice","");
-  //     setValue("choosefile", ""); // Update with the default value for "choosefile"
-  //     setValue("formfilling", ""); // Update with the default value for "formfilling"
-
-  //   } else if (selectedRadio === "NonRegulatory") {
-  //     setValue("choice","");
-  //     setValue("analyticalfeasibile", ""); // Update with the default value for "analyticalfeasibile"
-  //     // ... Set other fields to their default values for "nonregulatory"
-  //   }
-  // }, [selectedRadio, setValue]);
 
   const handleList1Change = (event) => {
     setSelectedOption(event.target.value);
@@ -573,7 +604,6 @@ export default function TypeOfAnalysis({ onButtonClick }) {
     }
     setSelectedOption(null);
   };
-
   return (
     <div>
       <div>
@@ -587,7 +617,6 @@ export default function TypeOfAnalysis({ onButtonClick }) {
                 <fieldset>
                   <div className="cardcolumnpadding">
                     <label className="cardcolhed mb-2">Is comes under?</label>
-
                     <div className="row">
                       <div className="col-6" style={{ display: "flex" }}>
                         <div className="col">
@@ -615,7 +644,6 @@ export default function TypeOfAnalysis({ onButtonClick }) {
                             </div>
                           </div>
                         </div>
-
                         <div className="col">
                           <div style={{ display: "flex" }}>
                             <div>
@@ -641,16 +669,12 @@ export default function TypeOfAnalysis({ onButtonClick }) {
                         </div>
                       </div>
                     </div>
-
                     <hr />
-
                     <Col md={12} style={{ display: "block" }} className="mb-3">
                       {renderRadioList()}
                     </Col>
                     <hr />
-
                     {/*----------------------------------------------- First Column End ------------------------------------*/}
-
                     <Row className="cardcolhed">
                       <Col md={6} style={{ display: "block" }}>
                         <div className=" cardcolhedd">
@@ -694,7 +718,6 @@ export default function TypeOfAnalysis({ onButtonClick }) {
                                 </div>
                               </div>
                             </div>
-
                             <div className="col">
                               <div
                                 style={{
@@ -722,7 +745,6 @@ export default function TypeOfAnalysis({ onButtonClick }) {
                                 </div>
                               </div>
                             </div>
-
                             <div>
                               <div className="col">
                                 <span>
@@ -747,7 +769,6 @@ export default function TypeOfAnalysis({ onButtonClick }) {
                         <div className="mb-3">
                           <label>Test to be carried out as per</label>
                         </div>
-
                         <div style={{ display: "flex" }}>
                           <div
                             className="col"
@@ -816,7 +837,6 @@ export default function TypeOfAnalysis({ onButtonClick }) {
                             </div>
                           </div>
                         </div>
-
                         <div style={{ display: "flex", marginTop: 5 }}>
                           <div
                             className="col"
@@ -970,7 +990,6 @@ export default function TypeOfAnalysis({ onButtonClick }) {
                               <div>
                                 <label className="space">GTP</label>
                               </div>
-
                               <div 
                             style={{paddingLeft:30,}}
                           >
@@ -985,11 +1004,9 @@ export default function TypeOfAnalysis({ onButtonClick }) {
                             )}
                           </div>
                             </div>
-
                           
                            
                           </div>
-
                          
                           <div  className="col">
                             <div
@@ -1018,7 +1035,6 @@ export default function TypeOfAnalysis({ onButtonClick }) {
                               <div>
                                 <label className="space">Reference No</label>
                               </div>
-
                               <div
                             style={{paddingLeft:30,}}
                           >
@@ -1034,15 +1050,12 @@ export default function TypeOfAnalysis({ onButtonClick }) {
                           </div>
                             </div>
                           </div>
-
                           
                         </div>
                       </div>
                     </Row>
                     <hr />
-
                     {/*------------------------------------------------------ second column End--------------------------------------------------- */}
-
                     <Row>
                       <Col
                         md={6}
@@ -1073,9 +1086,29 @@ export default function TypeOfAnalysis({ onButtonClick }) {
                                   type="file"
                                   name="choosefile"
                                   className="customInput"
-                                  {...register("choosefile")}
-                                />
-                              
+                                
+                                  onChange={handleFileChange}
+                                  style={{ display: 'none' }} // Hide the file input
+                                  multiple
+                                />  
+                              <label className="customInputLabel">
+                        
+  Selected Files: {' '}
+  <input
+    type="button"
+    className="customInputButton"
+    value="Browse"
+    onClick={() => document.querySelector('[name="choosefile"]').click()} // Trigger the hidden file input
+  /> 
+            {names.map(name => (
+              <li key={name}>
+                {name}
+                <button type="button" onClick={() => handleRemoveFile(name)}>X</button>
+              </li> 
+            ))}
+      
+          
+</label>
                             </div>
                           </Card>
                         </div>
@@ -1098,7 +1131,6 @@ export default function TypeOfAnalysis({ onButtonClick }) {
                             />
                           </Field>
                         </div>
-
                         <div
                           style={{
                             display: "flex",
@@ -1113,6 +1145,7 @@ export default function TypeOfAnalysis({ onButtonClick }) {
                             className="previous"
                             onClick={() => onButtonClick("BatchDetails")}
                           >
+                            
                             <BiLeftArrowAlt size={24} />
                             Previous
                           </Button>

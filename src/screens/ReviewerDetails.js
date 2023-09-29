@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./Styles.css";
 import { Col, Row, Table } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
@@ -8,10 +8,61 @@ import { RiFileWord2Fill } from "react-icons/ri";
 import { BsArrowDownCircle } from "react-icons/bs";
 import NavbartitleAddco from "../components/NavbartitleAddco";
 import SidenavbarReviewer from "../components/SidenavbarReviewer";
-
+import { useSelector } from "react-redux";
+import axios from "axios";
 export default function ReviewerDetails() {
   const navigate = useNavigate();
+  const [analystView, setAnalystView] = useState({});
+ 
+  const id = useSelector((state) => state.form.AbatchId.AbatchId);
+  const token = useSelector((state) => state.form.usertoken.token);
+  console.log(id);
+  const item = {tdsId:id};
+  console.log(item)
+  useEffect(() => {
+    axios
+      .get(
+        "http://3.80.98.199:3000/api/batchDetails/getBatchById?batchId=" + id,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: token,
+          },
+        }
+      )
 
+      .then((response) => setAnalystView(response.data))
+      .catch((error) => console.error("Error fetching batch data:", error));
+  }, [id, token]);
+  console.log("analystview", analystView);
+
+const handleSubmit=()=>{
+ 
+fetch("http://3.80.98.199:3000/api/tdsDetails/review", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+    'Authorization': token
+  },
+
+
+  body: JSON.stringify({"tdsId":id, "review":"success"}),
+})
+  .then((response) => response.json())
+
+  .then((data) => {
+  
+    console.log("Success:", data);
+    
+     // handle the response data here
+  })
+
+  .catch((error) => {
+    // handle any errors here
+  });
+  navigate("/ReviewDashboard")
+}
+ 
   return (
     <div className="app">
       <NavbartitleAddco />
@@ -23,11 +74,11 @@ export default function ReviewerDetails() {
           <div className="mainitem">
             <div
               className="analystbackbutton mt-3"
-              onClick={() => navigate("/ReviewDashboard/AwaitingSamplesReview")}
+              onClick={() => navigate("/ReviewDashboard")}
             >
               <AiOutlineLeft
                 onClick={() =>
-                  navigate("/ReviewDashboard/AwaitingSamplesReview")
+                  navigate("/ReviewDashboard")
                 }
               />{" "}
               <text>back</text>
@@ -37,39 +88,40 @@ export default function ReviewerDetails() {
               <text className="mainheadtitlesub">Sample details</text>
               <hr />
             </div>
-
+            {analystView.sampleDetails?(
             <Row className="rowtabview">
+              
               <Col className="">
                 <div className="d-flex row">
                   <text className="cardcolhed">Name of the Sample</text>
-                  <text className="cardcolhedtext mt-1">xxxxx</text>
+                  <text className="cardcolhedtext mt-1">{analystView.sampleDetails.sampleName}</text>
                 </div>
               </Col>
               <Col className="columnMb">
                 <div className="d-flex row">
                   <text className="cardcolhed">Storage Condition</text>
-                  <text className="cardcolhedtext mt-1">xxxxxxx</text>
+                  <text className="cardcolhedtext mt-1">{analystView.sampleDetails.storageCondition}</text>
                 </div>
               </Col>
               <Col className="columnMb">
                 <div className="d-flex row">
                   <text className="cardcolhed">Type of Submission</text>
-                  <text className="cardcolhedtext mt-1">xxxxxx xxx</text>
+                  <text className="cardcolhedtext mt-1">{analystView.sampleDetails.typeOfSubmission}</text>
                 </div>
               </Col>
               <Col className="columnMb">
                 <div className="d-flex row">
-                  <text className="cardcolhed">Sample Type</text>
-                  <text className="cardcolhedtext mt-1">xxxxx xxxxx </text>
+                  <text className="cardcolhed">Sample Type</text>{analystView.sampleDetails.sampleType?
+                  <text className="cardcolhedtext mt-1">{analystView.sampleDetails.sampleType.join(",")}</text>:<text className="cardcolhedtext mt-1">NA</text>}
                 </div>
               </Col>
-            </Row>
-
+            </Row>):(  <div>N/A</div>)}
+            {analystView.sampleDetails?(
             <Row className="mt-3 rowtabview">
               <Col className="columnMb col-3">
                 <div className="d-flex row">
                   <text className="cardcolhed">Nature of Sample</text>
-                  <text className="cardcolhedtext mt-1">xxxxxx</text>
+                  <text className="cardcolhedtext mt-1">{analystView.sampleDetails.natureOfSample}</text>
                 </div>
               </Col>
               <Col className="columnMb col-3">
@@ -77,7 +129,7 @@ export default function ReviewerDetails() {
                   <text className="cardcolhed">
                     Report required as per Form-39*
                   </text>
-                  <text className="cardcolhedtext mt-1">xxxxxx</text>
+                  <text className="cardcolhedtext mt-1">{analystView.sampleDetails.reportRequiredaAsPerForm39}</text>
                 </div>
               </Col>
               <Col className="columnMb col-6">
@@ -85,167 +137,25 @@ export default function ReviewerDetails() {
                   <text className="cardcolhed">
                     Sample Retention required(Drug Product/Substance){" "}
                   </text>
-                  <text className="cardcolhedtext mt-1">xxxxxx</text>
+                  <text className="cardcolhedtext mt-1">{analystView.sampleDetails.sampleRetentionRequired}</text>
                 </div>
               </Col>
-            </Row>
-
-            <div className="mt-3">
-              <text className="mainheadtitlesub">Batch details</text>
-              <hr />
-            </div>
-
-            {/* <Card className="cardtablesize"> */}
-            <Table responsive border={1}>
-              <thead className="table-custom">
-                <tr>
-                  <th>S.No</th>
-                  <th>Batch No./Lot No(s)</th>
-                  <th>Batch Size</th>
-                  <th>Nature Of Packaging</th>
-                  <th>Mfg. Date</th>
-                  <th>Exp. Date</th>
-                  <th>Retest Date</th>
-                  <th>Sample Quantity</th>
-                  {/* <th>Edit & Delete</th> */}
-                </tr>
-              </thead>
-              <tbody className="tablebody-custom">
-                <tr>
-                  <td>01</td>
-                  <td>0101</td>
-                  <td>xxxxx</td>
-                  <td>xxxxx</td>
-                  <td>11/02/2023</td>
-                  <td>31/04/2023</td>
-                  <td>01/02/2023</td>
-                  <td>xxxxxx</td>
-                </tr>
-
-                <tr>
-                  <td>01</td>
-                  <td>0101</td>
-                  <td>xxxxx</td>
-                  <td>xxxxx</td>
-                  <td>11/02/2023</td>
-                  <td>31/04/2023</td>
-                  <td>01/02/2023</td>
-                  <td>xxxxxx</td>
-                </tr>
-
-                <tr>
-                  <td>01</td>
-                  <td>0101</td>
-                  <td>xxxxx</td>
-                  <td>xxxxx</td>
-                  <td>11/02/2023</td>
-                  <td>31/04/2023</td>
-                  <td>01/02/2023</td>
-                  <td>xxxxxx</td>
-                </tr>
-              </tbody>
-            </Table>
-            {/* </Card> */}
-
-            <div className="mt-3">
-              <text className="mainheadtitlesub">Type of Analysis</text>
-              <hr />
-            </div>
-
-            <Row className="rowtabview">
-              <Col className="">
-                <div className="d-flex row">
-                  <text className="cardcolhed">
-                    Regulatory(Form-39/DMF Filing/ANDA Filing/Any Query)
-                  </text>
-                  <text className="cardcolhedtext mt-1">xxxxxx xxxxx</text>
-                </div>
-              </Col>
-              <Col className="columnMb">
-                <div className="d-flex row">
-                  <text className="cardcolhed">Other than Regulatory </text>
-                  <text className="cardcolhedtext mt-1">xxxxxx xxxxx</text>
-                </div>
-              </Col>
-            </Row>
-
-            <Row className="mt-3 rowtabview">
-              <Col className="columnMb">
-                <div className="d-flex row">
-                  <text className="cardcolhed">
-                    Test to be carried out as per{" "}
-                  </text>
-                  <text className="cardcolhedtext mt-1">xxxxxx xxxxx</text>
-                </div>
-              </Col>
-              <Col className="columnMb">
-                <div className="d-flex row">
-                  <text className="cardcolhed">
-                    Special Instructions If any other{" "}
-                  </text>
-                  <text className="cardcolhedtext mt-1">xxxxxx xxxxx</text>
-                </div>
-              </Col>
-            </Row>
-
-            <Row className="mt-3 rowtabview">
-              <Col className="columnMb">
-                <div className="d-flex row">
-                  <text className="cardcolhed">
-                    If Method Validation/Verification/Transfer/Development are
-                    performed atRevin Labs please specify the Report Ref. No.{" "}
-                  </text>
-                  <text className="cardcolhedtext mt-1">xxxxxx xxxxx</text>
-                </div>
-              </Col>
-              <Col className="columnMb">
-                <div className="d-flex row">
-                  <text className="cardcolhed">
-                    Analytical Test Parameter; If require attach Annexure along
-                    with this filled TRF{" "}
-                  </text>
-                  <div className="analyticalbutton-div">
-                    <text className="analyticalbutton mt-1">xxxxxxxx xxx</text>
-                  </div>
-                  {/* <text className="cardcolhedtext mt-1">xxxxxx xxxxx</text> */}
-                </div>
-              </Col>
-            </Row>
-
-            <Row className="mt-3 rowtabview">
-              <Col className="columnMb">
-                <div className="d-flex row">
-                  <text className="cardcolhed">Methodology </text>
-                  <text className="cardcolhedtext mt-1">xxxxxx xxxxx</text>
-                </div>
-              </Col>
-              {/* <Col className="columnMb">
-              <div className="d-flex row">
-                <text className="cardcolhed">Attachments </text>
-                <span>
-                  <PiFilePdfFill />
-                  <text className="cardcolhedtext mt-1">xyz.pdf</text>
-                </span>
-              </div>
-            </Col> */}
-            </Row>
+            </Row>):( <div>N/A</div>)}
 
             <div className="mt-3">
               <div className="titlemainreference">
                 <text className="mainheadtitlesub">Batch & RLPL details</text>
-                <text className="titlesubreference">
-                  TDS Number: TDS/XRD/23/19923
-                </text>
+          
               </div>
               <hr />
             </div>
-
-            {/* <Card className="cardtablesize"> */}
+{analystView?
+          
             <Table responsive border={1} className="table-custom">
               <thead className="table-custom">
                 <tr>
                   <th>S.No</th>
-                  <th>Registration No</th>
+                  <th>RLPL No</th>
                   <th>Batch No./Lot No(s)</th>
                   <th>Nature Of Packaging</th>
                   <th>Sample Quantity</th>
@@ -260,65 +170,116 @@ export default function ReviewerDetails() {
               <tbody className="tablebody-custom">
                 <tr>
                   <td>01</td>
-                  <td>0101</td>
-                  <td>xxxxx</td>
-                  <td>xxxxx</td>
-                  <td>11/02/2023</td>
-                  <td>31/04/2023</td>
-                  <td>01/02/2023</td>
-                  <td>xxxxxx</td>
-                  <td>SOR.doc</td>
+                  <td>{analystView.rlplNumber}</td>
+                  <td>{analystView.batchNo}</td>
+                  <td>{analystView.natureOfPacking}</td>
+                  <td>{analystView.sampleQuantity}</td>
+                  <td>{analystView.mfgDate}</td>
+                  <td>{analystView.expDate}</td>
+                  <td>{analystView.retestDate}</td>
+                  
+                  <td>{analystView.testParameter && Array.isArray(analystView.testParameter) ? (
+    analystView.testParameter.map((item, index) => (
+      <li  style={{listStyleType:"none"}}key={index}>{item.testDataCode}</li>
+    ))
+  ) : (
+    <span>No test parameters available</span>
+  )}</td>
                 </tr>
 
-                <tr>
-                  <td>01</td>
-                  <td>0101</td>
-                  <td>xxxxx</td>
-                  <td>xxxxx</td>
-                  <td>11/02/2023</td>
-                  <td>31/04/2023</td>
-                  <td>01/02/2023</td>
-                  <td>xxxxxx</td>
-                  <td>SOR.doc</td>
-                </tr>
-
-                <tr>
-                  <td>01</td>
-                  <td>0101</td>
-                  <td>xxxxx</td>
-                  <td>xxxxx</td>
-                  <td>11/02/2023</td>
-                  <td>31/04/2023</td>
-                  <td>01/02/2023</td>
-                  <td>xxxxxx</td>
-                  <td>SOR.doc</td>
-                </tr>
+                
+                
               </tbody>
 
-              {/* <tr >
-    <td align='center'>01</td>
-    <td align='center'>RLPLR2317026</td>
-    <td> xxxxxx </td>
-    <td rowspan='3' align='center'>xxxxxxx</td>
-    <td rowspan='3' align='center'>xxxxx</td>
-    <td rowspan='3' align='center'>02/03/2023</td>
-    <td rowspan='3' align='center'>02/03/2023</td>
-    <td rowspan='3' align='center'>02/03/2023</td>
-    <td rowspan='3' align='center'>SOR.doc</td>
-  </tr>
-  <tr>
-    <td>02</td>
-     <td>RLPLR2317027</td>
-      <td>xxxxxxx</td>
-  </tr>
-  <tr>
-    <td>03</td>
-     <td>RLPLR2317028</td>
-      <td>xxxxxx</td>
-  </tr> */}
+    
             </Table>
-            {/* </Card> */}
 
+:"N/A"}
+            <div className="mt-3">
+              <text className="mainheadtitlesub">Type of Analysis</text>
+              <hr />
+            </div>
+            {analystView.sampleDetails ? (
+            <Row className="rowtabview">
+              <Col className="">
+                <div className="d-flex row">
+                  <text className="cardcolhed">
+                    Regulatory(Form-39/DMF Filing/ANDA Filing/Any Query)
+                  </text>{analystView.sampleDetails.regulatory?
+                  <text className="cardcolhedtext mt-1">{analystView.sampleDetails.regulatory||"NA"}</text>:<text className="cardcolhedtext mt-1">NA</text>}
+                </div>
+              </Col>
+              <Col className="columnMb">
+                <div className="d-flex row">
+                  <text className="cardcolhed">Other than Regulatory </text>
+                  {analystView.sampleDetails.otherThanRegulatory?
+                  <text className="cardcolhedtext mt-1">{analystView.sampleDetails.otherThanRegulatory.join(",")||"NA"}</text>:<text className="cardcolhedtext mt-1">NA</text>}
+                </div>
+              </Col>
+            </Row>):(<div>N/A</div>)}
+            {analystView.sampleDetails ? (
+            <Row className="mt-3 rowtabview">
+              <Col className="columnMb">
+                <div className="d-flex row">
+                  <text className="cardcolhed">
+                    Test to be carried out as per{" "}
+                  </text>{analystView.sampleDetails.testToBeCarriedOut?
+                  <text className="cardcolhedtext mt-1">{analystView.sampleDetails.testToBeCarriedOut.join(' ,')||"NA"}</text>:<text className="cardcolhedtext mt-1">NA</text>}
+                </div>
+              </Col>
+              <Col className="columnMb">
+                <div className="d-flex row">
+                  <text className="cardcolhed">
+                    Special Instructions If any other{" "}
+                  </text>{analystView.sampleDetails.specialInstruction?
+                  <text className="cardcolhedtext mt-1">{analystView.sampleDetails.specialInstruction}</text>:<text className="cardcolhedtext mt-1">NA</text>}
+                </div>
+              </Col>
+            </Row>):(<div>N/A</div>)}
+            {analystView.sampleDetails ? (
+            <Row className="mt-3 rowtabview">
+              <Col className="columnMb">
+                <div className="d-flex row">
+                  <text className="cardcolhed">
+                    If Method Validation/Verification/Transfer/Development are
+                    performed atRevin Labs please specify the Report Ref. No.{" "}
+                  </text>
+                  <text className="cardcolhedtext mt-1">{analystView.sampleDetails.vvtddRefNo}</text>
+                </div>
+              </Col>
+              <Col className="columnMb">
+                <div className="d-flex row">
+                  <text className="cardcolhed">
+                    Analytical Test Parameter; If require attach Annexure along
+                    with this filled TRF{" "}
+                  </text>
+                  <div className="analyticalbutton-div">
+                    <text className="analyticalbutton mt-1"></text>
+                  </div>
+                  {/* <text className="cardcolhedtext mt-1">xxxxxx xxxxx</text> */}
+                </div>
+              </Col>
+            </Row>):(<div>N/A</div>)}
+            {analystView.sampleDetails ? (
+            <Row className="mt-3 rowtabview">
+              <Col className="columnMb">
+                <div className="d-flex row">
+                  <text className="cardcolhed">Methodology </text>
+                  <text className="cardcolhedtext mt-1">{analystView.sampleDetails.methodology}</text>
+                </div>
+              </Col>
+              {/* <Col className="columnMb">
+              <div className="d-flex row">
+                <text className="cardcolhed">Attachments </text>
+                <span>
+                  <PiFilePdfFill />
+                  <text className="cardcolhedtext mt-1">xyz.pdf</text>
+                </span>
+              </div>
+            </Col> */}
+            </Row>):(<div>N/A</div>)}
+
+           
             <div className="mt-3">
               <text className="mainheadtitlesub">
                 Test Data Sheet & System Generated Copy
@@ -384,7 +345,7 @@ export default function ReviewerDetails() {
           <div className="reviewerdetailsbutton mb-3">
             <button
               className="cardbuttonoutline"
-              //  onClick={() => navigate("batchdetails")}
+              onClick={() => navigate("/ReviewDashboard")}
             >
               {/* <BiLeftArrowAlt size={24} />  */}
               Reject
@@ -392,7 +353,7 @@ export default function ReviewerDetails() {
             <button
               className="cardbutton"
               type="submit"
-              onClick={() => navigate("/")}
+              onClick={handleSubmit}
             >
               Approve
               {/* <BiRightArrowAlt size={24} /> */}

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import './Styles.css';
 import { useForm } from "react-hook-form";
 import {  Card, } from "react-bootstrap";
@@ -27,53 +27,54 @@ export default function SampleVerification({onButtonClick}) {
 console.log("analysis",analysis)
 console.log("batch", batch)
 console.log("form",form)
-const item={
-  companyName:form.company,
-  manufacturingLicenseNumber:form.licenceNo,
-  contactPerson: form.contactPersonName,
-  mobileNumber: form.phoneNo,
-  additionalMobileNumber:form.phoneNo1,
-  email:form.emailId,
-  address1: form.address1,
-  address2:form.address2,
-  city:form.city,
-  state: form.state,
-  pincode:form.pincode,
-  sampleName:sample.samplename,
-  reportRequiredaAsPerForm39:sample.report,
-  storageCondition: sample.storage,
-  natureOfSample:sample.natureofsample,
-  sampleType:[sample.sampletype],
-  sampleRetentionRequired:sample.sampleretension ,
-  typeOfSubmission:sample.submissiontype,
-  batchDetails:
-    batch.map((item,i)=>(
-      {
-        batchNo:item.batchNo,
-        batchSize:item.batchSize,
-        natureOfPacking:item.natureOfPacking,
-        mfgDate:item.mfgDate,
-        expDate:item.expDate,
-        retestDate:item.retestDate,
-        sampleQuantity:item.sampleQuantity,
-        testParameter:item.testParameter.map(option=>(
-          {
-            testDataName:option.label,
-            testDataCode:option.value
-          }))
-      }
-    )),
-  regulatory:analysis.formfilling,
-  otherThanRegulatory:analysis.analyticalfeasibile ,
-  vvtddRefNo:analysis.methodvalidation,
-  methodology: analysis.methodologyfollowed,
-  testToBeCarriedOut:analysis.test,
-  attachment:analysis.choosefile,
-  specialInstruction:analysis.specialinstruction,
-sampleVerification:result
-}
-console.log("item", item)
-const postapicall=()=>{
+
+const postapicall=(result)=>{
+  const item={
+    companyName:form.company,
+    manufacturingLicenseNumber:form.licenceNo,
+    contactPerson: form.contactPersonName,
+    mobileNumber: form.phoneNo,
+    additionalMobileNumber:form.phoneNo1,
+    email:form.emailId,
+    address1: form.address1,
+    address2:form.address2,
+    city:form.city,
+    state: form.state,
+    pincode:form.pincode,
+    sampleName:sample.samplename,
+    reportRequiredaAsPerForm39:sample.report,
+    storageCondition: sample.storage,
+    natureOfSample:sample.natureofsample,
+    sampleType:sample.sampletype,
+    sampleRetentionRequired:sample.sampleretension ,
+    typeOfSubmission:sample.submissiontype,
+    batchDetails:
+      batch.map((item,i)=>(
+        {
+          batchNo:item.batchNo,
+          batchSize:item.batchSize,
+          natureOfPacking:item.natureOfPacking,
+          mfgDate:item.mfgDate,
+          expDate:item.expDate,
+          retestDate:item.retestDate,
+          sampleQuantity:item.sampleQuantity,
+          testParameter:item.testParameter.map(option=>(
+            {
+              testDataName:option.label,
+              testDataCode:option.value
+            }))
+        }
+      )),
+    regulatory:analysis.formfilling,
+    otherThanRegulatory:analysis.analyticalfeasibile ,
+    vvtddRefNo:analysis.methodvalidation,
+    methodology: analysis.methodologyfollowed,
+    testToBeCarriedOut:analysis.test,
+    attachment:analysis.choosefile,
+    specialInstruction:analysis.specialinstruction,
+  sampleVerification:result
+  }
+  console.log("item", item)
 fetch("http://3.80.98.199:3000/api/sampleDetails/createSample", {
   method: "POST",
   headers: {
@@ -108,6 +109,7 @@ fetch("http://3.80.98.199:3000/api/sampleDetails/createSample", {
   
   const saveData = (data1) => {
     setResult(data1)
+    console.log(result)
   MySwal.fire({
     title: 'Are you sure?',
     text: "You want to accept the sample!",
@@ -118,7 +120,7 @@ fetch("http://3.80.98.199:3000/api/sampleDetails/createSample", {
     confirmButtonText: 'Yes!'
   }).then((result) => {
     if (result.isConfirmed) {
-      postapicall()
+      postapicall(result)
       MySwal.fire(
         'RLPL number is generated!',
         'success'

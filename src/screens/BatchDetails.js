@@ -23,20 +23,19 @@ export default function BatchDetails({onButtonClick}) {
   const token  = useSelector((state) => state.form.usertoken.token);
  const [state, setState] = useAppState();
   const [testData,setTestData]=useState([]);
-
-
-const { handleSubmit } = useForm({ defaultValues: state });
-const [inputs, setInputs] = useState({
+  const initialInputs = {
     batchNo: "",
     batchSize: "",
-    natureOfPacking:"",
-    mfgDate:"",
-    expDate:"",
-    retestDate:"",
-    sampleQuantity:"",
-    testParameter:[],
+    natureOfPacking: "",
+    mfgDate: "",
+    expDate: "",
+    retestDate: "",
+    sampleQuantity: "",
+    testParameter: [],
+  };
 
-  });
+const { handleSubmit } = useForm({ defaultValues: state });
+const [inputs, setInputs] = useState(initialInputs);
   const [disabletext]=useState(false);
   const [formErrors, setFormErrors] = useState({
     batchNo: "",
@@ -48,11 +47,12 @@ const [inputs, setInputs] = useState({
     sampleQuantity:"",
     testParameter:"",
   });
+  const initialSelectedOptions = [];
   const [isSubmit, setIsSubmit] = useState(false);
   const [tableData, setTableData] = useState([]);
   const [editClick, setEditClick] = useState(false);
   const [editIndex, setEditIndex] = useState("");
-  const [selectedOptions, setSelectedOptions] = useState([]);
+  const [selectedOptions, setSelectedOptions] = useState(initialSelectedOptions);
   const [naMfgDate, setNaMfgDate] = useState(false);
   const [naExpDate, setNaExpDate] = useState(false);
   const [naRetestDate, setNaRetestDate] = useState(false);
@@ -76,11 +76,23 @@ const [inputs, setInputs] = useState({
   });
     
   };
+  const resetForm = () => {
+    setInputs(initialInputs);
+    setSelectedOptions(initialSelectedOptions);
+    setEditClick(false);
+    setEditIndex("");
+    setIsSubmit(false);
+  };
+  
   useEffect(() => {
-    const storedTableData = sessionStorage.getItem("tableData");
-    if (storedTableData) {
-      setTableData(JSON.parse(storedTableData));
-    }
+    // Call the resetForm function when you come back to the page
+    resetForm();
+  }, []);
+  useEffect(() => {
+    // const storedTableData = sessionStorage.getItem("tableData");
+    // if (storedTableData) {
+    //   setTableData(JSON.parse(storedTableData));
+    // }
   
     // Check if tableData has at least one item
     if (tableData.length > 0) {
@@ -107,22 +119,142 @@ const [inputs, setInputs] = useState({
   };
   console.log("input" ,inputs);
   const handleChange = (e) => {
+    const { name, value } = e.target;
+
+    // Perform date validation for date fields
+    if (name === "mfgDate" || name === "expDate" || name === "retestDate") {
+      // Check if the entered date is a valid date
+      if (!/^\d{4}-\d{2}-\d{2}$/.test(value)) {
+        setFormErrors({
+          ...formErrors,
+          [name]: "Invalid date format. Please use YYYY-MM-DD format.",
+        });
+      } else {
+        // Clear any previous error messages for the date field
+        setFormErrors({
+          ...formErrors,
+          [name]: "",
+        });
   
+        // Check if Exp. Date is greater than or equal to Mfg Date
+        if (name === "expDate" && inputs.mfgDate) {
+          if (new Date(value) <= new Date(inputs.mfgDate)) {
+            setFormErrors({
+              ...formErrors,
+              [name]: "Exp Date must be after Mfg Date!",
+            });
+          }
+        }
+  
+        // Check if Retest Date is greater than or equal to Exp Date
+        if (name === "retestDate" && inputs.expDate) {
+          if (new Date(value) <= new Date(inputs.expDate)) {
+            setFormErrors({
+              ...formErrors,
+              [name]: "Retest Date must be after Exp Date!",
+            });
+          }
+        }
+      }
+    }
   setInputs({
        ...inputs,
-       [e.target.name]: e.target.value,
+       [name]: value,
      });
-     setFormErrors({
-      ...formErrors,
-      [e.target.name]: "",
-    });
+
    };
+   useEffect(()=>{
+    if(naMfgDate===true&&naExpDate===true&&naRetestDate===true){
+      setInputs({
+        batchNo: inputs.batchNo,
+         batchSize:inputs.batchSize,
+       natureOfPacking:inputs.natureOfPacking,
+         mfgDate:"",
+         expDate:"",
+         retestDate:"",
+         sampleQuantity:inputs.sampleQuantity,
+      testParameter:selectedOptions,
+    })
+  };
+  if(naMfgDate===true&&naExpDate===false&&naRetestDate===false){
+      setInputs({
+        batchNo: inputs.batchNo,
+         batchSize:inputs.batchSize,
+       natureOfPacking:inputs.natureOfPacking,
+         mfgDate:"",
+         expDate:inputs.expDate,
+         retestDate:inputs.retestDate,
+         sampleQuantity:inputs.sampleQuantity,
+      testParameter:selectedOptions,
+    })
+    };
+  if(naMfgDate===false&&naExpDate===false&&naRetestDate===true){
+      setInputs({
+        batchNo: inputs.batchNo,
+         batchSize:inputs.batchSize,
+       natureOfPacking:inputs.natureOfPacking,
+         mfgDate:inputs.mfgDate,
+         expDate:inputs.expDate,
+         retestDate:"",
+         sampleQuantity:inputs.sampleQuantity,
+      testParameter:selectedOptions,
+    })
+    }
+    if(naMfgDate===false&&naExpDate===true&&naRetestDate===true){
+      setInputs({
+        batchNo: inputs.batchNo,
+         batchSize:inputs.batchSize,
+       natureOfPacking:inputs.natureOfPacking,
+         mfgDate:inputs.mfgDate,
+         expDate:"",
+         retestDate:"",
+         sampleQuantity:inputs.sampleQuantity,
+      testParameter:selectedOptions,
+    })
+    }
+    if(naMfgDate===false&&naExpDate===true&&naRetestDate===false){
+      setInputs({
+        batchNo: inputs.batchNo,
+         batchSize:inputs.batchSize,
+       natureOfPacking:inputs.natureOfPacking,
+         mfgDate:inputs.mfgDate,
+         expDate:"",
+         retestDate:inputs.retestDate,
+         sampleQuantity:inputs.sampleQuantity,
+      testParameter:selectedOptions,
+    })
+    }
+    if(naMfgDate===true&&naExpDate===true&&naRetestDate===false){
+      setInputs({
+        batchNo: inputs.batchNo,
+         batchSize:inputs.batchSize,
+       natureOfPacking:inputs.natureOfPacking,
+         mfgDate:"",
+         expDate:"",
+         retestDate:inputs.retestDate,
+         sampleQuantity:inputs.sampleQuantity,
+      testParameter:selectedOptions,
+    })
+    }
+    if(naMfgDate===true&&naExpDate===false&&naRetestDate===true){
+      setInputs({
+        batchNo: inputs.batchNo,
+         batchSize:inputs.batchSize,
+       natureOfPacking:inputs.natureOfPacking,
+         mfgDate:"",
+         expDate:inputs.expDate,
+         retestDate:"",
+         sampleQuantity:inputs.sampleQuantity,
+      testParameter:selectedOptions,
+    })
+    }
+   });
     const handleClear=()=>{
       setInputs("")
 setSelectedOptions("")
     }
   const handleadd = (e) => {
-   e.preventDefault();
+   
    const isMfgDateUnchecked = !naMfgDate && !inputs.mfgDate;
   
    // Check if the "NA" checkbox for Exp. Date is unchecked
@@ -136,6 +268,7 @@ setSelectedOptions("")
  
    const hasErrors = Object.values(newinputerror).some((error) => !!error);
    if(!hasErrors){ 
+    
     
     if (editClick) {
       const tempTableData = tableData;
@@ -165,6 +298,7 @@ setSelectedOptions("")
         testParameter:[],
       });
     }
+    
     setSelectedOptions(null)
     console.log("inputs", inputs)
     setIsSubmit(true)
@@ -491,7 +625,7 @@ onChange={() => handleNaChange("retestDate")} // Handle "N/A" checkbox
                           <AiOutlineClose size={18} /> </div> <text>Clear</text> 
                         </button>
                         
-                        <button type="submit"
+                        <button type="button"
                           className="cardbuttonbatchdetails"
                             onClick={handleadd}
                         >

@@ -279,9 +279,11 @@ export default function DITExpandedView() {
                 <div className="d-flex row">
                   <text className="cardcolhed">Attachments </text>
                   <span>
-                    <PiFilePdfFill />
-                    <text className="cardcolhedtext mt-1">{Array.from(analysis.choosefile).map(f => (<text className="cardcolhedtext mt-1" key={f.name}> {f.name}</text>
-      ))}</text>
+                    <PiFilePdfFill />{analysis.choosefile?
+                  <div><text className="cardcolhedtext mt-1">{(analysis.choosefile).join(",")}</text>
+  
+    </div>:<text className="cardcolhedtext mt-1">N/A</text>}
+                   
                   </span>
                 </div>
               </Col>

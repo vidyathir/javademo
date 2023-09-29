@@ -12,6 +12,7 @@ export default function RlplGenerated() {
 
   useEffect(()=>{
     window.sessionStorage.removeItem('tableData')
+    window.sessionStorage.removeItem('names')
   },[])
   const navigate = useNavigate();
   const token  = useSelector((state) => state.form.usertoken.token);

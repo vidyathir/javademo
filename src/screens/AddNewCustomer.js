@@ -134,7 +134,7 @@ console.log("data" ,data)
   defaultValue="" // Set your default value here if needed
   render={({ field }) => (
                     <Form.Control className="cardcolhedinput"
-                    {...register("contactPerson", { required: true })}
+                    {...register("contactPerson")}
                     type="text"
                 {...field}
                     isInvalid={!!errors.contactPerson}
@@ -150,7 +150,7 @@ console.log("data" ,data)
                   <Form.Group as={Col} controlId="validationFormikUsername">
                     <Form.Label className="cardcolhed">
                       Manufacturing Lic No
-                      <text className="cardcolhedstar">*</text>{" "}
+              
                     </Form.Label>
                     <Controller
   name="licno"
@@ -158,17 +158,17 @@ console.log("data" ,data)
   defaultValue="" // Set your default value here if needed
   render={({ field }) => (
                     <Form.Control className="cardcolhedinput" 
-                    {...register("licno", { required: true })}
+                    {...register("licno")}
                      type="text"
                     {...field}
                      isInvalid={!!errors.licno}
                     />
   )}
   />
-                    <Form.Control.Feedback type="invalid">
+                    {/* <Form.Control.Feedback type="invalid">
                   {errors.licno?.type ==="required" &&
                   "This field is required."}
-                </Form.Control.Feedback>
+                </Form.Control.Feedback> */}
                 
                   </Form.Group>
                 </Row>
