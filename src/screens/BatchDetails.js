@@ -163,6 +163,92 @@ const [inputs, setInputs] = useState(initialInputs);
      });
 
    };
+   useEffect(()=>{
+    if(naMfgDate===true&&naExpDate===true&&naRetestDate===true){
+      setInputs({
+        batchNo: inputs.batchNo,
+         batchSize:inputs.batchSize,
+       natureOfPacking:inputs.natureOfPacking,
+         mfgDate:"",
+         expDate:"",
+         retestDate:"",
+         sampleQuantity:inputs.sampleQuantity,
+      testParameter:selectedOptions,
+    })
+  };
+  if(naMfgDate===true&&naExpDate===false&&naRetestDate===false){
+      setInputs({
+        batchNo: inputs.batchNo,
+         batchSize:inputs.batchSize,
+       natureOfPacking:inputs.natureOfPacking,
+         mfgDate:"",
+         expDate:inputs.expDate,
+         retestDate:inputs.retestDate,
+         sampleQuantity:inputs.sampleQuantity,
+      testParameter:selectedOptions,
+    })
+    };
+  if(naMfgDate===false&&naExpDate===false&&naRetestDate===true){
+      setInputs({
+        batchNo: inputs.batchNo,
+         batchSize:inputs.batchSize,
+       natureOfPacking:inputs.natureOfPacking,
+         mfgDate:inputs.mfgDate,
+         expDate:inputs.expDate,
+         retestDate:"",
+         sampleQuantity:inputs.sampleQuantity,
+      testParameter:selectedOptions,
+    })
+    }
+    if(naMfgDate===false&&naExpDate===true&&naRetestDate===true){
+      setInputs({
+        batchNo: inputs.batchNo,
+         batchSize:inputs.batchSize,
+       natureOfPacking:inputs.natureOfPacking,
+         mfgDate:inputs.mfgDate,
+         expDate:"",
+         retestDate:"",
+         sampleQuantity:inputs.sampleQuantity,
+      testParameter:selectedOptions,
+    })
+    }
+    if(naMfgDate===false&&naExpDate===true&&naRetestDate===false){
+      setInputs({
+        batchNo: inputs.batchNo,
+         batchSize:inputs.batchSize,
+       natureOfPacking:inputs.natureOfPacking,
+         mfgDate:inputs.mfgDate,
+         expDate:"",
+         retestDate:inputs.retestDate,
+         sampleQuantity:inputs.sampleQuantity,
+      testParameter:selectedOptions,
+    })
+    }
+    if(naMfgDate===true&&naExpDate===true&&naRetestDate===false){
+      setInputs({
+        batchNo: inputs.batchNo,
+         batchSize:inputs.batchSize,
+       natureOfPacking:inputs.natureOfPacking,
+         mfgDate:"",
+         expDate:"",
+         retestDate:inputs.retestDate,
+         sampleQuantity:inputs.sampleQuantity,
+      testParameter:selectedOptions,
+    })
+    }
+    if(naMfgDate===true&&naExpDate===false&&naRetestDate===true){
+      setInputs({
+        batchNo: inputs.batchNo,
+         batchSize:inputs.batchSize,
+       natureOfPacking:inputs.natureOfPacking,
+         mfgDate:"",
+         expDate:inputs.expDate,
+         retestDate:"",
+         sampleQuantity:inputs.sampleQuantity,
+      testParameter:selectedOptions,
+    })
+    }
+   });
     const handleClear=()=>{
       setInputs("")
 setSelectedOptions("")
@@ -182,6 +268,7 @@ setSelectedOptions("")
  
    const hasErrors = Object.values(newinputerror).some((error) => !!error);
    if(!hasErrors){ 
+    
     
     if (editClick) {
       const tempTableData = tableData;
@@ -211,6 +298,7 @@ setSelectedOptions("")
         testParameter:[],
       });
     }
+    
     setSelectedOptions(null)
     console.log("inputs", inputs)
     setIsSubmit(true)

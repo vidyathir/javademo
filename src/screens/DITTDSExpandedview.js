@@ -97,8 +97,8 @@ console.log("detail", tdsView)
                   <td>{tdsView.expDate}</td>
                   <td>{tdsView.retestDate}</td>
                   <td>
-                  {detailedView.testParameter ?(
-                            <text className="analyticalbutton mt-1 ">{detailedView.testParameter} </text>
+                  {detailedView.testDataCode ?(
+                            <text>{detailedView.testDataCode} </text>
                           ) : (
                           <span>No test parameters available</span>
                         )}
@@ -292,8 +292,8 @@ console.log("detail", tdsView)
                       </div>
 
                       <div className="analyticalbutton-div">
-                        {detailedView.testParameter ?(
-                            <text className="analyticalbutton mt-1 ">{detailedView.testParameter} </text>
+                        {detailedView.testDataCode ?(
+                            <text className="analyticalbutton mt-1 ">{detailedView.testDataCode} </text>
                           ) : (
                           <span>No test parameters available</span>
                         )}
