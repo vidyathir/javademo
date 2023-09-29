@@ -54,11 +54,11 @@ console.log("data" ,data)
     
         console.log("Success:", data);
         
-         // handle the response data here
+       
       })
     
       .catch((error) => {
-        // handle any errors here
+        
       });
     navigate('/Progress')
   };

@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 
 import {
   AiOutlineLeft,
-  // AiOutlineEye
+ 
 } from "react-icons/ai";
 import { useSelector} from "react-redux";
 import { PiFilePdfFill } from "react-icons/pi";
@@ -70,7 +70,7 @@ console.log("detail", tdsView)
               <hr />
             </div>
 
-            {/* <Card className="cardtablesize"> */}
+          
             <Table responsive border={1}>
               <thead className="table-custom">
                 <tr>
@@ -104,25 +104,7 @@ console.log("detail", tdsView)
                         )}
                   </td>
 
-                {/*  <td>
-                    {" "}
-                    {datasheet.map((item, i) => (
-                      <ul key={i}>
-                        <li>
-                          <PiFilePdfFill />{" "}
-                          <a
-                            href={item.url}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                          >
-                            {item.testDataCode
-                              ? item.testDataCode
-                              : "No testdatacode available"}
-                          </a>
-                        </li>
-                      </ul>
-                    ))}
-                  </td> */}
+               
                 </tr>
               </tbody>
             </Table>
@@ -299,7 +281,7 @@ console.log("detail", tdsView)
                         )}
                       </div>
 
-                      {/* <text className="cardcolhedtext mt-1">xxxxxx xxxxx</text> */}
+                     
                     </div>
                   </Col>
                 </Row>

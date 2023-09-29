@@ -8,7 +8,7 @@ import Col from "react-bootstrap/Col";
 import Sidenavbar from "../components/Sidenavbar";
 import {useNavigate} from 'react-router-dom';
 import { useForm,Controller } from "react-hook-form";
-import * as yup from 'yup';
+
 import NavbartitleAddco from "../components/NavbartitleAddco";
 import { useSelector} from "react-redux";
 import axios from "axios";
@@ -159,14 +159,11 @@ console.log("data" ,data)
                     {...register("contactPerson")}
                     type="text"
                 {...field}
-                  //  isInvalid={!!errors.contactPerson}
+                 
                     />
   )}
   />
-                     {/* <Form.Control.Feedback type="invalid">
-                  {errors.contactPerson?.type ==="required" &&
-                  "This field is required."}
-                </Form.Control.Feedback> */}
+                    
                   </Form.Group>
 
                   <Form.Group as={Col} controlId="validationFormikUsername">
@@ -183,14 +180,11 @@ console.log("data" ,data)
                     {...register("licno")}
                      type="text"
                     {...field}
-                     //isInvalid={!!errors.licno}
+                    
                     />
   )}
   />
-                    {/* <Form.Control.Feedback type="invalid">
-                  {errors.licno?.type ==="required" &&
-                  "This field is required."}
-                </Form.Control.Feedback> */}
+                   
                 
                   </Form.Group>
                 </Row>
@@ -211,14 +205,11 @@ console.log("data" ,data)
                     {...register("phonenumber")}
                      type="number"
                     {...field}
-                    // isInvalid={!!errors.phonenumber}
+                    
                     />
   )}
   />
-                     {/* <Form.Control.Feedback type="invalid">
-                {errors.phonenumber?.type === "required" &&
-                              "This field is required."}
-              </Form.Control.Feedback> */}
+                    
                   </Form.Group>
 
                   <Form.Group as={Col} >
@@ -251,14 +242,11 @@ console.log("data" ,data)
                     {...register("emailid")}
                      type="email"
                     {...field}
-                    // isInvalid={!!errors.emailid}
+                    
                     />
   )}
   />
-                     {/* <Form.Control.Feedback type="invalid">
-                {errors.emailid?.type === "required" &&
-                              "This field is required."}
-              </Form.Control.Feedback> */}
+                    
                   </Form.Group>
                 </Row>
 
@@ -278,14 +266,11 @@ console.log("data" ,data)
                     {...register("address1")}
                      type="text"
                     {...field}
-                     //isInvalid={!!errors.address1}
+                     
                     />
   )}
   />
-                     {/* <Form.Control.Feedback type="invalid">
-                {errors.address1?.type === "required" &&
-                              "This field is required."}
-              </Form.Control.Feedback> */}
+                    
                   </Form.Group>
 
                   <Form.Group as={Col}>
@@ -319,14 +304,11 @@ console.log("data" ,data)
                     {...register("city")}
                     type="text"
                     {...field}
-                    //isInvalid={!!errors.city}
+                   
                     />
   )}
   />
-                     {/* <Form.Control.Feedback type="invalid">
-                {errors.city?.type === "required" &&
-                              "This field is required."}
-              </Form.Control.Feedback> */}
+                    
                   </Form.Group>
                 </Row>
 
@@ -346,14 +328,11 @@ console.log("data" ,data)
                     {...register("state")}
                      type="text"
                     {...field}
-                    // isInvalid={!!errors.state}
+                  
                     />
   )}
   />
-                     {/* <Form.Control.Feedback type="invalid">
-                {errors.state?.type === "required" &&
-                              "This field is required."}
-              </Form.Control.Feedback> */}
+                    
                   </Form.Group>
 
                   <Form.Group as={Col} controlId="validationFormik08">
@@ -369,20 +348,17 @@ console.log("data" ,data)
                     {...register("pincode")}
                      type="text"
                      {...field}
-                    // isInvalid={!!errors.pincode}
+                    
                     />
   )}
                     />
-              {/* <Form.Control.Feedback type="invalid">
-                {errors.pincode?.type === "required" &&
-                              "This field is required."}
-              </Form.Control.Feedback> */}
+             
                   </Form.Group>
 
                   <Form.Group as={Col} className="cardbuttonwid">
                     <Form.Label></Form.Label>
                     <button className="cardbutton" type="submit"
-                    //  onClick={() => navigate("customerdetailes")}
+                   
                       >
                       <AiOutlineCheck size={19}  /> Save
                     </button>

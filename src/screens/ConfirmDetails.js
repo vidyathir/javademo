@@ -162,7 +162,7 @@ console.log("sample",sample)
             <hr />
           </div>
 
-          {/* <Card className="cardtablesize"> */}
+       
             <Table responsive border={1}>
               <thead className="table-custom">
                 <tr>
@@ -175,7 +175,7 @@ console.log("sample",sample)
                   <th>Retest Date</th>
                   <th>Sample Quantity</th>
                   <th>testParameter</th>
-                  {/* <th>Edit & Delete</th> */}
+               
                 </tr>
               </thead>
               <tbody className="tablebody-custom">
@@ -199,7 +199,7 @@ console.log("sample",sample)
               
               </tbody>
             </Table>
-          {/* </Card> */}
+        
 
           <div className="mt-3">
             <text className="mainheadtitlesub">Type of Analysis</text>
@@ -288,7 +288,7 @@ console.log("sample",sample)
                   <div><text className="cardcolhedtext mt-1">{(analysis.choosefile).join(",")}</text>
   
     </div>:<text className="cardcolhedtext mt-1">N/A</text>}
-                  {/* <text className="cardcolhedtext mt-1">{}</text> */}
+                 
                 </span>
               </div>
             </Col>

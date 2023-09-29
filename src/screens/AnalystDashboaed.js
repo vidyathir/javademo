@@ -8,7 +8,6 @@ import {
   Table,
   Row,
   Col,
-  // Button,
   Card,
 } from "react-bootstrap";
 
@@ -27,6 +26,7 @@ export default function AnalystDashboaed() {
   const [page, setPage] = useState(0);
 
   const [data, setData] = useState([]); // Initialize data as an empty array
+
   const [filterData, setFilterData] = useState([]);
   const itemsPerPage = 10;
 
@@ -40,7 +40,7 @@ export default function AnalystDashboaed() {
     })
       .then((response) => response.json())
       .then((apiData) => {
-        
+
         setData(apiData.samples); // Set the fetched data in the state
       })
       .catch((error) => {
@@ -49,7 +49,7 @@ export default function AnalystDashboaed() {
   }, []);
 console.log("data", data)
   useEffect(() => {
-    // Update the filtered data when the page or data changes
+    
     const startIndex = page * itemsPerPage;
     const endIndex = startIndex + itemsPerPage;
     setFilterData(data.slice(startIndex, endIndex));
@@ -126,9 +126,7 @@ console.log("data", data)
 
               <div className="topforsamplewaitingandviewall">
                 <p className="tableTop mt-3">Samples awaiting testing</p>
-                {/* <a href="/" className="viewAll">
-                  View all
-                </a> */}
+               
               </div>
               <div>
                 <Table className="table" border={1}>
