@@ -4,21 +4,16 @@ import ReactPaginate from "react-paginate";
 import { AiOutlineRightCircle, AiOutlineLeftCircle } from "react-icons/ai";
 import { IconContext } from "react-icons";
 import "./pahin.css";
-import {
-  Table,
-  Row,
-  Col,
-  Card,
-} from "react-bootstrap";
+import { Table, Row, Col, Card } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { BsBoxSeam, BsClipboardCheck } from "react-icons/bs";
 import { LuClipboardEdit } from "react-icons/lu";
 import NavbartitleAddco from "../components/NavbartitleAddco";
 import SidenavbarDIT from "../components/SidenavbarDIT";
 import { changeBatchId } from "../redux/FormSlice";
-import { useDispatch,useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 export default function DitDashboard() {
-  const token  = useSelector((state) => state.form.usertoken.token);
+  const token = useSelector((state) => state.form.usertoken.token);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [page, setPage] = useState(0);
@@ -28,12 +23,15 @@ export default function DitDashboard() {
 
   useEffect(() => {
     // Fetch data from your API endpoint here
-    fetch(`http://3.80.98.199:3000/api/batchDetails/getBatchDetails?page=${page}&perPage=${itemsPerPage}`,{
-      headers: {
-        "Content-Type": "application/json",
-        'Authorization': token
-      },
-    })
+    fetch(
+      `http://3.80.98.199:3000/api/batchDetails/getBatchDetails?page=${page}&perPage=${itemsPerPage}`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: token,
+        },
+      }
+    )
       .then((response) => response.json())
       .then((apiData) => {
         setData(apiData.samples); // Set the fetched data in the state
@@ -59,7 +57,7 @@ export default function DitDashboard() {
       changeBatchId({
         batchId: item.id,
       })
-     );
+    );
     navigate("DITExpandedview");
   }
   return (
@@ -73,7 +71,7 @@ export default function DitDashboard() {
             {/* -----------------------------------------Top Card Start---------------------------------- */}
             <div className="mt-4 row wholeCardDiv">
               <Row>
-                 <Col md={3}>
+                <Col md={3}>
                   <Card className="mainCard1 p-2">
                     <div className="cardArrangement">
                       <div style={{ justifyContent: "space-evenly" }}>
@@ -124,7 +122,7 @@ export default function DitDashboard() {
                   View all
                 </a>
               </div>
-    <div>
+              <div>
                 <Table className="table" border={1}>
                   <thead className="tbhed">
                     <tr>
@@ -135,56 +133,58 @@ export default function DitDashboard() {
                     </tr>
                   </thead>
                   <tbody className="trAlign">
-        {filterData.map((item, index) => (
-     <tr key={item.id}>
-     <td>{index + 1}</td>
-     <td>{item.rlplNumber}</td>
-     <td>
-       {item.testParameter
-         ? item.testParameter
-             .map((option) => option.testDataCode)
-             .join(" , ")
-         : "N/A"}
-     </td>
-     <td>
-       <button
-         className="tbbutton"
-         onClick={() => handleSubmit(item)}
-       >
-         View
-       </button>
-     </td>
-   </tr>))}
-   </tbody>
+                    {filterData.map((item, index) => (
+                      <tr key={item.id}>
+                        <td>{index + 1}</td>
+                        <td>{item.rlplNumber}</td>
+                        <td>
+                          {item.testParameter
+                            ? item.testParameter
+                                .map((option) => option.testDataCode)
+                                .join(" , ")
+                            : "N/A"}
+                        </td>
+                        <td>
+                          <button
+                            className="tbbutton"
+                            onClick={() => handleSubmit(item)}
+                          >
+                            View
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
                 </Table>
-                </div>
-  
-      
-      <ReactPaginate
-       containerClassName={"pagination"}
-      
-        activeClassName={"active"}
-        pageClassName={"page-item"}
-        onPageChange={handlePageChange}
-        pageCount={Math.ceil(data.length / itemsPerPage)}
-        previousLabel={
-          <IconContext.Provider value={{ color: "#B8C1CC", size: "36px" ,outline:"none"}}>
-            < AiOutlineLeftCircle />
-            <text>previous</text>
-          </IconContext.Provider>
-        }
-        nextLabel={
-          <IconContext.Provider value={{ color: "#ffffff", size: "36px" }}>
-            <AiOutlineRightCircle />
-            <text>Next</text> 
-          </IconContext.Provider>
-        }
-      />
-    </div>
-    </div>
+              </div>
+
+              <ReactPaginate
+                containerClassName={"pagination"}
+                activeClassName={"active"}
+                pageClassName={"page-item"}
+                onPageChange={handlePageChange}
+                pageCount={Math.ceil(data.length / itemsPerPage)}
+                previousLabel={
+                  <IconContext.Provider
+                    value={{ color: "#B8C1CC", size: "36px", outline: "none" }}
+                  >
+                    <AiOutlineLeftCircle />
+                    <text>previous</text>
+                  </IconContext.Provider>
+                }
+                nextLabel={
+                  <IconContext.Provider
+                    value={{ color: "#ffffff", size: "36px" }}
+                  >
+                    <AiOutlineRightCircle />
+                    <text>Next</text>
+                  </IconContext.Provider>
+                }
+              />
+            </div>
           </div>
         </div>
       </div>
-    
+    </div>
   );
 }
