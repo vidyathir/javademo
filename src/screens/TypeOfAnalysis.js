@@ -892,7 +892,7 @@ export default function TypeOfAnalysis({ onButtonClick }) {
                     <hr />
                     {/* --------------------------------------------3rd Column starting ----------------------------------*/}
                     <Row>
-                     <div  className="col-12 cardcolhed">
+                     <div  className="col cardcolhed">
                         <div className="mb-3">
                           <label>Methodology</label>
                         </div>
@@ -904,7 +904,8 @@ export default function TypeOfAnalysis({ onButtonClick }) {
                           <div className="col">
                             <div
                               style={{
-                                display: "flex",
+                                display:"flex",
+                          
                               }}
                             >
                               <div>
@@ -926,12 +927,8 @@ export default function TypeOfAnalysis({ onButtonClick }) {
                               <div>
                                 <label className="space">STP</label>
                               </div>
-                            </div>
-                        
-                          </div>
-                          <div 
-                           
-                          >
+                     
+                          <div style={{paddingLeft:30,}}>
                             {selectedOptionmet === "STP" && (
                               <Field>
                               <Input
@@ -944,6 +941,10 @@ export default function TypeOfAnalysis({ onButtonClick }) {
                               </Field>
                             )}
                           </div>
+                          </div>
+                          </div>
+
+
                           <div  className="col">
                             <div
                               style={{
@@ -971,7 +972,7 @@ export default function TypeOfAnalysis({ onButtonClick }) {
                               </div>
 
                               <div 
-                            style={{ alignItems: "center", display: "flex" }}
+                            style={{paddingLeft:30,}}
                           >
                             {selectedOptionmet === "GTP" && (
                               <Input
@@ -1019,7 +1020,7 @@ export default function TypeOfAnalysis({ onButtonClick }) {
                               </div>
 
                               <div
-                            style={{ alignItems: "center", display: "flex" }}
+                            style={{paddingLeft:30,}}
                           >
                             {selectedOptionmet === "Reference No" && (
                               <Input
