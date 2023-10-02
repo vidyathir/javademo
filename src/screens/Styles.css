@@ -36,7 +36,7 @@ body{
   color: #ffffff;
 }
 .sidebar-Link:hover{
-  background-color: #9AC037;
+  /* background-color: #9AC037; */
   color: #ffffff;
   /* border-radius: 5px; */
 }
@@ -44,7 +44,11 @@ body{
   font-size: 12px;
   font-weight: 500;
 }
-
+.sidebar-Link.active {
+  background-color: #9AC037; /* Highlight background color */
+  color: #fff; /* Highlight text color */
+  border-radius: 10px; 
+}
 .sidebarhedsty {
   padding: 10px;
   align-items: center;

@@ -71,6 +71,7 @@ const Login = () => {
             usertype: responseData.userType,
             token: responseData.id,
             userid: responseData.userId,
+            username:responseData.userName
           })
         );
       } else {

@@ -7,8 +7,9 @@ import Navbar from 'react-bootstrap/Navbar';
 import logo from "../assets/logo 2.png"
 import profilepic from "../assets/avater2.jpg";
 import {useNavigate} from 'react-router-dom';
-
+import { useSelector } from "react-redux";
 function NavbartitleAddco() {
+  const userName = useSelector((state) => state.form.usertoken.username);
   const navigate = useNavigate();
   const [selectedOption, setSelectedOption] = useState('');
   const handleSelectChange = (event) => {
@@ -35,7 +36,7 @@ function NavbartitleAddco() {
             style={{ maxHeight: '100px' }}
             navbarScroll
           >
-            <text className="title">Welcome Back Aravind<span className="titlecolor"></span></text>
+            <text className="title">Welcome Back <span className="titlecolor">{userName}</span></text>
             {/* <Nav.Link href="#action1">Home</Nav.Link>
             <Nav.Link href="#action2">Link</Nav.Link>
             <NavDropdown title="Link" id="navbarScrollingDropdown">
@@ -69,7 +70,7 @@ function NavbartitleAddco() {
           id="profile"
           value={selectedOption}
           onChange={handleSelectChange}>
-            <option className="titleselect" value="useranme">Jeyaprakash</option>
+            <option className="titleselect" value="useranme">{userName}</option>
             <option className="titleselect" value="logout">Logout</option>
           </select>
         </div>

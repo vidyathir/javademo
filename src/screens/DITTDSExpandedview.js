@@ -146,7 +146,7 @@ console.log("detail", tdsView)
                       <text className="cardcolhed">Sample Type</text>
                       {detailedView.sampleDetails.sampleType ? (
                         <text className="cardcolhedtext mt-1">
-                          {detailedView.sampleDetails.sampleType}
+                          {detailedView.sampleDetails.sampleType.join(",")}
                         </text>
                       ) : (
                         "N/A"

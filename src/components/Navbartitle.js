@@ -8,11 +8,12 @@ import Navbar from 'react-bootstrap/Navbar';
 import logo from "../assets/logo 2.png"
 import profilepic from "../assets/avater2.jpg";
 import {useNavigate} from 'react-router-dom';
-
+import { useSelector } from "react-redux";
 
 import {IoIosAddCircleOutline} from 'react-icons/io'
 
 function Navbartitle() {
+  const userName = useSelector((state) => state.form.usertoken.username);
   const navigate = useNavigate();
   const [selectedOption, setSelectedOption] = useState('');
   const handleSelectChange = (event) => {
@@ -39,7 +40,7 @@ function Navbartitle() {
             style={{ maxHeight: '100px' }}
             navbarScroll
           >
-            <text className="title">Welcome Back <span className="titlecolor"></span></text>
+            <text className="title">Welcome Back <span className="titlecolor">{userName}</span></text>
          
           </Nav>
           <Form className="d-flex titleaddprofile">
@@ -60,7 +61,7 @@ function Navbartitle() {
           id="profile"
           value={selectedOption}
           onChange={handleSelectChange}>
-            <option className="titleselect" value="useranme">Jeyaprakash</option>
+            <option className="titleselect" value="useranme">{userName}</option>
             <option className="titleselect" value="logout">Logout</option>
           </select>
         </div>

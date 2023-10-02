@@ -15,7 +15,7 @@ export default function ApproverDashboard() {
   const token  = useSelector((state) => state.form.usertoken.token);
   const dispatch = useDispatch();
   const [page, setPage] = useState(0);
-
+  const[dashboard,setDashboard]=useState({});
   const [data, setData] = useState([]); // Initialize data as an empty array
   const [filterData, setFilterData] = useState([]);
   const itemsPerPage = 10;
@@ -31,6 +31,23 @@ export default function ApproverDashboard() {
       .then((apiData) => {
         
         setData(apiData.samples); // Set the fetched data in the state
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+      });
+  }, [page, token]);
+  useEffect(() => {
+    // Fetch data from your API endpoint here
+    fetch('http://3.80.98.199:3000/api/batchDetails/dashBoard',{
+      headers: {
+        "Content-Type": "application/json",
+        'Authorization': token
+      },
+    })
+      .then((response) => response.json())
+      .then((apiData) => {
+        
+        setDashboard(apiData); // Set the fetched data in the state
       })
       .catch((error) => {
         console.error("Error fetching data:", error);
@@ -69,25 +86,13 @@ console.log("data", data)
 
             <div className="mt-4 row wholeCardDiv">
               <Row>
-                <Col md={3}>
-                  <Card className="mainCard1 p-2">
-                    <div className="cardArrangement">
-                      <div style={{ justifyContent: "space-evenly" }}>
-                      
-                        <p className="cardNum">25</p>
-                      </div>
-                      <div>
-                        <BsBoxSeam size={50} color="#fff" />
-                      </div>
-                    </div>
-                  </Card>
-                </Col>
+               
                 <Col md={3}>
                   <Card className="mainCard2 p-2">
                     <div className="cardArrangement">
                       <div style={{ justifyContent: "space-evenly" }}>
                         <p>Approved TDS</p>
-                        <p className="cardNum">19</p>
+                        <p className="cardNum">{dashboard.todayCompleted}</p>
                       </div>
                       <div>
                         <BsClipboardCheck size={50} color="#fff" />
@@ -98,12 +103,12 @@ console.log("data", data)
                 <Col md={6}>
                   <Card
                     className="mainCard2 p-2"
-                    onClick={() => navigate("AwaitingsamplesApprover")}
+                  
                   >
                     <div className="cardArrangement">
                       <div>
                         <p>Awaiting Approve</p>
-                        <p className="cardNum">06</p>
+                        <p className="cardNum">{dashboard.pending}</p>
                       </div>
                       <div>
                         <LuClipboardEdit size={50} color="#fff" />

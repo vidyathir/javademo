@@ -26,11 +26,12 @@ export default function AnalystDashboaed() {
   const [page, setPage] = useState(0);
 
   const [data, setData] = useState([]); // Initialize data as an empty array
-
+const [dashBoard,setDashboard]=useState({});
   const [filterData, setFilterData] = useState([]);
   const itemsPerPage = 10;
 
   useEffect(() => {
+    
     // Fetch data from your API endpoint here
     fetch(`http://3.80.98.199:3000/api/tdsDetails/getDitApprovedTdsDetails?page=${page}&perPage=${itemsPerPage}`,{
       headers: {
@@ -46,7 +47,25 @@ export default function AnalystDashboaed() {
       .catch((error) => {
         console.error("Error fetching data:", error);
       });
+      
   }, []);
+  useEffect(() => {
+    // Fetch data from your API endpoint here
+    fetch('http://3.80.98.199:3000/api/batchDetails/dashBoard',{
+      headers: {
+        "Content-Type": "application/json",
+        'Authorization': token
+      },
+    })
+      .then((response) => response.json())
+      .then((apiData) => {
+        
+        setDashboard(apiData); // Set the fetched data in the state
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+      });
+  }, [page, token]);
 console.log("data", data)
   useEffect(() => {
     
@@ -59,6 +78,7 @@ console.log("data", data)
     setPage(selectedPage.selected);
   };
   function handleSubmit(item) {
+    
     console.log("item", item.id);
     dispatch(
       changeAnalystBatchId({
@@ -79,25 +99,13 @@ console.log("data", data)
 
             <div className="mt-4 row wholeCardDiv">
               <Row>
-                <Col md={3}>
-                  <Card className="mainCard1 p-2">
-                    <div className="cardArrangement">
-                      <div style={{ justifyContent: "space-evenly" }}>
-                        <p>Sample Details</p>
-                        <p className="cardNum">25</p>
-                      </div>
-                      <div>
-                        <BsBoxSeam size={50} color="#fff" />
-                      </div>
-                    </div>
-                  </Card>
-                </Col>
+              
                 <Col md={3}>
                   <Card className="mainCard2 p-2">
                     <div className="cardArrangement">
                       <div style={{ justifyContent: "space-evenly" }}>
                         <p>Samples Completed</p>
-                        <p className="cardNum">19</p>
+                        <p className="cardNum">{dashBoard.todayCompleted}</p>
                       </div>
                       <div>
                         <BsClipboardCheck size={50} color="#fff" />
@@ -113,7 +121,7 @@ console.log("data", data)
                     <div className="cardArrangement">
                       <div>
                         <p>Samples Awaiting</p>
-                        <p className="cardNum">06</p>
+                        <p className="cardNum">{dashBoard.pending}</p>
                       </div>
                       <div>
                         <LuClipboardEdit size={50} color="#fff" />
@@ -133,8 +141,8 @@ console.log("data", data)
                   <thead className="tbhed">
                     <tr>
                       <th>S.No</th>
-                      <th>RLPL ID</th>
-                       <th>Test Parameters</th>
+                      <th>TDS ID</th>
+                       <th>RLPL ID</th>
                       <th>View</th>
                     </tr>
                   </thead>
@@ -142,14 +150,9 @@ console.log("data", data)
                     {filterData.map((item, index) => (
      <tr key={item.id}>
      <td>{index + 1}</td>
+     <td>{item.tdsNumber}</td>
      <td>{item.batchDetails.rlplNumber}</td>
-     <td>
-       {item.batchDetails.testParameter
-         ? item.batchDetails.testParameter
-             .map((option) => option.testDataCode)
-             .join(" , ")
-         : "N/A"}
-     </td>
+    
      <td>
        <button
          className="tbbutton"

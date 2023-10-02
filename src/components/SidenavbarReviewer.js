@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { LuClipboardSignature} from "react-icons/lu";
 import { MdOutlineDashboard } from "react-icons/md";
 
@@ -8,7 +8,7 @@ export default function SidenavbarReviewer() {
 
   const menus = [
     { name: "Dashboard",  link: "/ReviewDashboard", icon: MdOutlineDashboard },
-    { name: "AwaitingReviewer", link: "/AwaitingSamplesReview", icon: LuClipboardSignature },
+    
     // { name: "SearchCustomer", link: "/SearchCustomer", icon: BiSearch },
   
   ];
@@ -23,14 +23,14 @@ export default function SidenavbarReviewer() {
  
        
         {menus?.map((menu, i) => (
-          <Link className="sidebar-Link" to={menu?.link}>
+          <NavLink className="sidebar-Link"  key={i} to={menu?.link} activeClassName="active">
             <div className="sidebarhedsty">
             <div>{React.createElement(menu?.icon, { size: "25" })}</div>
             <div>
             <text className="sidebartext">{menu?.name}</text>
             </div>
             </div>
-          </Link>
+          </NavLink>
         ))}
 
       </div>

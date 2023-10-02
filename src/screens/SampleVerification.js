@@ -72,7 +72,8 @@ const postapicall=(result)=>{
     testToBeCarriedOut:analysis.test,
     attachment:analysis.choosefile,
     specialInstruction:analysis.specialinstruction,
-  sampleVerification:result
+  sampleVerification:result,
+  msdsAttached:sample.msdsAttached
   }
   console.log("item", item)
 fetch("http://3.80.98.199:3000/api/sampleDetails/createSample", {

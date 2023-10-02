@@ -8,8 +8,10 @@ import { changeTypeofAnalysis } from "../redux/FormSlice";
 import { Row, Col, Card } from "react-bootstrap";
 import "./Styles.css";
 import { BiRightArrowAlt, BiLeftArrowAlt } from "react-icons/bi";
+import Spinner from "../Forms/Spinner"; 
 export default function TypeOfAnalysis({ onButtonClick }) {
   const [selectedOption, setSelectedOption] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
   const [selectedRadio, setSelectedRadio] = useState(() => {
     const storedValue = localStorage.getItem("selectedRadio");
     // Use the stored value if available, otherwise default to "Regulatory"
@@ -119,10 +121,19 @@ export default function TypeOfAnalysis({ onButtonClick }) {
   const handleFileChange = (event) => {
     const files = Array.from(event.target.files);
     const validFiles = files.filter((file) => file instanceof File && file.size > 0);
-    
-    setSelectedFileNames((prevSelectedFiles) => [...prevSelectedFiles, ...validFiles]);
-     const extractedNames = validFiles.map(file => file.name);
-     setNames((prevNames) => [...prevNames, ...extractedNames]);
+  
+    // Rename and add the files to selectedFileNames using the refNo
+    const renamedFiles = validFiles.map((file) => {
+      const epoch = "" + Date.now();
+      const refNo = epoch.substring(0, 10);
+      const newName = `${refNo}_${file.name}`;
+      return new File([file], newName);
+    });
+  
+    setSelectedFileNames((prevSelectedFiles) => [...prevSelectedFiles, ...renamedFiles]);
+  
+    const extractedNames = renamedFiles.map((file) => file.name);
+    setNames((prevNames) => [...prevNames, ...extractedNames]);
   };
 
   useEffect(() => {
@@ -156,6 +167,7 @@ export default function TypeOfAnalysis({ onButtonClick }) {
   // }, []);
 
   const saveData =async(data) => {
+    setIsLoading(true); 
     const formData = new FormData();
     selectedFileNames.forEach((file, index) => {
       formData.append(`file${index}`, file);
@@ -166,7 +178,7 @@ export default function TypeOfAnalysis({ onButtonClick }) {
         method: 'POST',
         body: formData,
         headers: {
-          Authorization: token,
+          'Authorization': token,
         },
       });
   
@@ -179,7 +191,7 @@ export default function TypeOfAnalysis({ onButtonClick }) {
       }
     } catch (error) {
       console.error('Error uploading file:', error);
-    }
+    }setIsLoading(false);
     if (data.formfilling !== "Other") {
       data.otherregulatory = ""; // Reset the value if it's not "Others"
     }
@@ -1149,8 +1161,8 @@ export default function TypeOfAnalysis({ onButtonClick }) {
                             <BiLeftArrowAlt size={24} />
                             Previous
                           </Button>
-                          <Button type="submit" className="next" name="Next">
-                            Next <BiRightArrowAlt size={24} color="#fff" />
+                          <Button type="submit" className="next" name="Next"disabled={isLoading} >
+                          {isLoading ? <Spinner /> : "Next"}  <BiRightArrowAlt size={24} color="#fff" />
                           </Button>
                         </div>
                       </Col>

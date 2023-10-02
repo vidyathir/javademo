@@ -84,7 +84,8 @@ ditresponse:[
 usertoken:{
   usertype:"",
   token:"",
-  userid:""
+  userid:"",
+  username:""
 },
 batchId:'',
 companyId:'',

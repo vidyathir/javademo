@@ -13,7 +13,8 @@ import axios from "axios";
 export default function ApproverDetails() {
   const navigate = useNavigate();
   const [analystView, setAnalystView] = useState({});
- 
+  const [fileContent, setFileContent] = useState(null);
+  const [fileContenttds, setFileContenttds] = useState(null);
   const id = useSelector((state) => state.form.AbatchId.AbatchId);
   const token = useSelector((state) => state.form.usertoken.token);
   console.log(id);
@@ -22,7 +23,7 @@ export default function ApproverDetails() {
   useEffect(() => {
     axios
       .get(
-        "http://3.80.98.199:3000/api/batchDetails/getBatchById?batchId=" + id,
+        "http://3.80.98.199:3000/api/tdsDetails/getTdsById?tdsId=" + id,
         {
           headers: {
             "Content-Type": "application/json",
@@ -35,7 +36,54 @@ export default function ApproverDetails() {
       .catch((error) => console.error("Error fetching batch data:", error));
   }, [id, token]);
   console.log("analystview", analystView);
-
+  useEffect(()=>{
+    fetchFileContent();
+    fetchFileContenttds();
+  })
+  const fetchFileContent = async () => {
+    try {
+      const response = await fetch(analystView.sysDocument);
+      if (response.ok) {
+        const blob = await response.blob();
+        setFileContent(URL.createObjectURL(blob));
+      } else {
+        console.error('Failed to fetch file content');
+      }
+    } catch (error) {
+      console.error('Error fetching file content:', error);
+    }
+  };
+  const fetchFileContenttds = async () => {
+    try {
+      const response = await fetch(analystView.tdsDocument);
+      if (response.ok) {
+        const blob = await response.blob();
+        setFileContenttds(URL.createObjectURL(blob));
+      } else {
+        console.error('Failed to fetch file content');
+      }
+    } catch (error) {
+      console.error('Error fetching file content:', error);
+    }
+  };
+  const downloadFile = () => {
+    const link = document.createElement('a');
+    link.href = analystView.sysDocument;
+    link.download = 'filename.docx'; // You can specify the desired filename here
+    link.click();
+  };
+  const openFileInNewTab = () => {
+    window.open(analystView.sysDocument, '_blank');
+  };
+  const downloadFiletds = () => {
+    const link = document.createElement('a');
+    link.href = analystView.tdsDocument;
+    link.download = 'filename.docx'; // You can specify the desired filename here
+    link.click();
+  };
+  const openFileInNewTabtds = () => {
+    window.open(analystView.tdsDocument, '_blank');
+  };
 const handleSubmit=()=>{
  
 fetch("http://3.80.98.199:3000/api/tdsDetails/approve", {
@@ -151,7 +199,7 @@ fetch("http://3.80.98.199:3000/api/tdsDetails/approve", {
               
               <hr />
             </div>
-            {analystView?
+            
             
             <Table responsive border={1} className="table-custom">
               <thead className="table-custom">
@@ -168,30 +216,31 @@ fetch("http://3.80.98.199:3000/api/tdsDetails/approve", {
                   {/* <th>Edit & Delete</th> */}
                 </tr>
               </thead>
+              {analystView.batchDetails ? (
               <tbody className="tablebody-custom">
                 <tr>
-                <td>01</td>
-                  <td>{analystView.rlplNumber}</td>
-                  <td>{analystView.batchNo}</td>
-                  <td>{analystView.natureOfPacking}</td>
-                  <td>{analystView.sampleQuantity}</td>
-                  <td>{analystView.mfgDate}</td>
-                  <td>{analystView.expDate}</td>
-                  <td>{analystView.retestDate}</td>
+                  <td>01</td>
+                  <td>{analystView.batchDetails.rlplNumber}</td>
+                  <td>{analystView.batchDetails.batchNo}</td>
+                  <td>{analystView.batchDetails.natureOfPacking}</td>
+                  <td>{analystView.batchDetails.sampleQuantity}</td>
+                  <td>{analystView.batchDetails.mfgDate}</td>
+                  <td>{analystView.batchDetails.expDate}</td>
+                  <td>{analystView.batchDetails.retestDate}</td>
                   
-                  <td>{analystView.testParameter && Array.isArray(analystView.testParameter) ? (
-    analystView.testParameter.map((item, index) => (
-      <li  style={{listStyleType:"none"}}key={index}>{item.testDataCode}</li>
-    ))
-  ) : (
-    <span>No test parameters available</span>
-  )}</td>
+                  <td>{analystView.testDataCode}</td>
                 </tr>
 
                 
-              </tbody>
-            </Table>
-            :"N/A"}
+                
+              </tbody>) : (
+  <tbody className="tablebody-custom">
+    <tr>
+      <td colSpan="9">Data not available</td>
+    </tr>
+  </tbody>
+)}
+</Table>
 
             <div className="mt-3">
               <text className="mainheadtitlesub">Type of Analysis</text>
@@ -293,16 +342,20 @@ fetch("http://3.80.98.199:3000/api/tdsDetails/approve", {
                   <div>
                     <RiFileWord2Fill size={24} color="#2368C4" />
                     <text className="analysttestdata-text ms-2">
-                      ANALYTICAL DATA.docs
+                      {analystView.sysDocument}
                     </text>
                   </div>
+                  
                   <div>
-                    <AiOutlineEye size={28} color="#9AC037" />
+                  
+                    <AiOutlineEye size={28} color="#9AC037" onClick={openFileInNewTab}/>
+                    
                     <BsArrowDownCircle
                       size={24}
                       color="#9AC037"
-                      className="ms-4"
+                      onClick={downloadFile}
                     />
+              
                   </div>
                 </div>
 
@@ -310,15 +363,16 @@ fetch("http://3.80.98.199:3000/api/tdsDetails/approve", {
                   <div>
                     <RiFileWord2Fill size={24} color="#2368C4" />
                     <text className="analysttestdata-text ms-2">
-                      SPECIFIC OPTICAL ROTATION TDS.docs
+                      {analystView.tdsDocument}
                     </text>
                   </div>
                   <div>
-                    <AiOutlineEye size={28} color="#9AC037" />
+                    <AiOutlineEye size={28} color="#9AC037"  onClick={openFileInNewTabtds}/>
                     <BsArrowDownCircle
                       size={24}
                       color="#9AC037"
                       className="ms-4"
+                      onClick={downloadFiletds}
                     />
                   </div>
                 </div>

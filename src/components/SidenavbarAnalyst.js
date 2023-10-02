@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { BsClipboard2Data} from "react-icons/bs";
 import { MdOutlineDashboard } from "react-icons/md";
 
@@ -9,7 +9,7 @@ export default function SidenavbarAnalyst() {
 
   const menus = [
     { name: "Dashboard", link: "/AnalystDashboaed", icon: MdOutlineDashboard },
-    { name: "AwaitingSamples", link: "/AwaitingSamples", icon: BsClipboard2Data },
+  
     // { name: "SearchCustomer", link: "/SearchCustomer", icon: BiSearch },
   
   ];
@@ -19,14 +19,14 @@ export default function SidenavbarAnalyst() {
     <div className='sidebar'>
   
         {menus?.map((menu, i) => (
-          <Link className="sidebar-Link" to={menu?.link}>
+          <NavLink className="sidebar-Link" key={i} to={menu?.link} activeClassName="active">
             <div className="sidebarhedsty">
             <div>{React.createElement(menu?.icon, { size: "25" })}</div>
             <div>
             <text className="sidebartext">{menu?.name}</text>
             </div>
             </div>
-          </Link>
+          </NavLink>
         ))}
 
       </div>

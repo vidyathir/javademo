@@ -82,7 +82,7 @@ export default function DITExpandedView() {
       navigate("DITSuccess")
     }
 
-  console.log("details",datasheet)
+  console.log("details",detailedView)
   return (
     <div className="app">
       <NavbartitleAddco />
@@ -279,10 +279,17 @@ export default function DITExpandedView() {
                 <div className="d-flex row">
                   <text className="cardcolhed">Attachments </text>
                   <span>
-                    <PiFilePdfFill />{analysis.choosefile?
-                  <div><text className="cardcolhedtext mt-1">{(analysis.choosefile).join(",")}</text>
-  
-    </div>:<text className="cardcolhedtext mt-1">N/A</text>}
+                    <PiFilePdfFill />
+                   {detailedView.sampleDetails.attachment &&
+                    Array.isArray(detailedView.sampleDetails.attachment) ? (
+                      detailedView.sampleDetails.attachment.map((item, index) => (
+                        <text >
+                          <li style={{listStyleType:"none"}} key={index}>{item}</li>
+                        </text>
+                      ))
+                    ) : (
+                      <span>No attachments available</span>
+                    )}
                    
                   </span>
                 </div>

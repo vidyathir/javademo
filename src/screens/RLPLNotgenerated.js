@@ -21,6 +21,7 @@ export default function RLPLNotgenerated() {
   useEffect(()=>{
     window.sessionStorage.removeItem('tableData')
     window.sessionStorage.removeItem('names')
+    window.sessionStorage.removeItem('mnames')
   },[])
 
   return (
@@ -270,87 +271,7 @@ export default function RLPLNotgenerated() {
                                 fontWeight: 500,
                               }}
                             >
-                              {item.sampleQuantity}
-                            </td>
-                            <td
-                              style={{
-                                fontSize: 12,
-                                fontWeight: 500,
-                                borderLeft: "1px solid #d1d1d1",
-                                borderBottom: "none",
-                              }}
-                            >
-                              {" "}
-                              {item.testparameters.map((value, index) => (
-                                <li
-                                  style={{ listStyleType: "none" }}
-                                  key={index}
-                                >
-                                  {value.label}
-                                </li>
-                              ))}
-                            </td>
-                          </tr>
-                        ))}
-                      </thead>
-                    </Table>
-                    <div style={{ flexDirection: "column", display: "flex" }}>
-                      <label
-                        style={{
-                          color: "#8F8F8F",
-                          fontSize: 12,
-                          fontWeight: 500,
-                        }}
-                      >
-                        Reason for Rejections
-                      </label>
-                      <text
-                        style={{
-                          color: "#3A4175",
-                          fontSize: 12,
-                          fontWeight: 500,
-                        }}
-                      >
-                        xxxxxx xxxxx xxxxxxx xxxxxx
-                      </text>
-                    </div>
-                    <div
-                      className="mt-5"
-                      style={{
-                        justifyContent: "space-between",
-                        display: "flex",
-                      }}
-                    >
-                      <div>
-                        <Button
-                          style={{
-                            height: "40px",
-                            width: "166px",
-                            borderRadius: "6px",
-                            backgroundColor: "#3A4175",
-                            fontWeight: 600,
-                            fontSize: 12,
-                            border: "none",
-                          }}
-                          name="Next"
-                        >
-                          <AiOutlineMail size={20} color="#fff" />
-                          Send an email
-                        </Button>
-                        <Button
-                          onClick={() => navigate("/Print")}
-                          style={{
-                            height: "40px",
-                            width: "122px",
-                            borderRadius: "6px",
-                            backgroundColor: "#9AC037",
-                            fontWeight: 600,
-                            fontSize: 12,
-                            marginLeft: 20,
-                            border: "none",
-                          }}
-                          name="Next"
-                        >
+                          
                           {item.sampleQuantity}
                         </td>
                         <td

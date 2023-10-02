@@ -7,15 +7,17 @@ import { Row, Col, Card } from "react-bootstrap";
 import "./Styles.css";
 
 import { BiRightArrowAlt, BiLeftArrowAlt } from "react-icons/bi";
-import { useDispatch } from 'react-redux';
+import { useDispatch,useSelector } from 'react-redux';
 import { changeSampleDetails } from '../redux/FormSlice';
+import Spinner from "../Forms/Spinner"; 
 export default function SampleDetails({ onButtonClick }) {
   const [selectedOption, setSelectedOption] = useState(null);
   const [selectedOptioncheck, setSelectedOptioncheck] = useState(false);
   const [selectedOptioncheck1, setSelectedOptioncheck1] = useState(false);
   const [otherValue, setOtherValue] = useState('');
   const [sampleTypeOther, setSampleTypeOther] = useState('');
-  
+  const [isLoading, setIsLoading] = useState(false);
+  const [names, setNames] = useState([]);
   const dispatch = useDispatch();
   const [state, setState] = useAppState();
   const {
@@ -24,8 +26,8 @@ export default function SampleDetails({ onButtonClick }) {
     setValue,
     formState: { errors },
   } = useForm({ defaultValues: state });
-
- 
+  const [selectedFileNames, setSelectedFileNames] = useState([]);
+  const token = useSelector((state) => state.form.usertoken.token);
    const handlecheckboxchange = () => {
    setSelectedOptioncheck(!selectedOptioncheck);
    if (!selectedOptioncheck) {
@@ -64,6 +66,46 @@ export default function SampleDetails({ onButtonClick }) {
       // Update the value of the "samplename" field in react-hook-form
       setValue("othersample", inputValue);
     };
+    const handleFileChange = (event) => {
+      const files = Array.from(event.target.files);
+      const validFiles = files.filter((file) => file instanceof File && file.size > 0);
+    
+      // Rename and add the files to selectedFileNames using the refNo
+      const renamedFiles = validFiles.map((file) => {
+        const epoch = "" + Date.now();
+        const refNo = epoch.substring(0, 10);
+        const newName = `${refNo}_${file.name}`;
+        return new File([file], newName);
+      });
+    
+      setSelectedFileNames((prevSelectedFiles) => [...prevSelectedFiles, ...renamedFiles]);
+    
+      const extractedNames = renamedFiles.map((file) => file.name);
+      setNames((prevNames) => [...prevNames, ...extractedNames]);
+    };
+  
+    useEffect(() => {
+      // Retrieving the names from localStorage
+      setNames(selectedFileNames.map(obj => obj.name));
+      const storedNames =sessionStorage.getItem("mnames");
+      if(storedNames){
+        setNames(JSON.parse(storedNames));
+      }
+    },[])
+    console.log("files",names)
+    const handleRemoveFile = (indexToRemove) => {
+      const updatedSelectedFilenames = selectedFileNames.filter(
+        (files) => files !== indexToRemove
+      );
+      setSelectedFileNames(updatedSelectedFilenames);
+  
+      // Remove the corresponding name from namesArray
+      const updatedNames = names.filter(
+        (name) => name !== indexToRemove
+      );
+      setNames(updatedNames);
+     
+    };
     const handleRadioChange = (event) => {
       const selectedValue = event.target.value;
       setSelectedOption(selectedValue);
@@ -74,7 +116,37 @@ export default function SampleDetails({ onButtonClick }) {
         setValue("othersample", '');
       }
     };
-  const saveData = (data) => {
+    
+  const saveData = async(data) => {
+  
+    const concatenatedElements =sampleTypeOther+data.sampletype.join(",")
+    console.log(concatenatedElements)
+    setIsLoading(true); 
+    const formData = new FormData();
+    selectedFileNames.forEach((file, index) => {
+      formData.append(`file${index}`, file);
+    });
+
+    try {
+      const response = await fetch('http://3.80.98.199:3000/api/container/sroDoc/upload', {
+        method: 'POST',
+        body: formData,
+        headers: {
+          'Authorization': token,
+        },
+      });
+  
+      if (response.ok) {
+        // Handle successful upload
+        console.log('File uploaded successfully');
+      } else {
+        // Handle upload error
+        console.error('File upload failed');
+      }
+    } catch (error) {
+      console.error('Error uploading file:', error);
+    }
+    setIsLoading(false);
     if (data.natureofsample !== "Others") {
       data.othersample = ""; // Reset the value if it's not "Others"
     }
@@ -85,13 +157,14 @@ export default function SampleDetails({ onButtonClick }) {
 natureofsample:`${data.natureofsample} (${data.othersample})`,
 report:data.report,
 samplename:data.samplename,
-sampletype:data.sampletype.concat(sampleTypeOther),
+sampletype:concatenatedElements,
 sampleretension:data.sampleretension,
 storage:data.storage,
 submissiontype:data.submissiontype,
-
+msdsAttached:names
       })
     )
+    sessionStorage.setItem('mnames', JSON.stringify(names));
     onButtonClick("BatchDetails");
   };
 
@@ -752,61 +825,6 @@ submissiontype:data.submissiontype,
                                         required: true,
                                       })}
                                       type="checkbox"
-                                      //id="msds"
-                                      name="sampleType"
-                                      value="MSDS Attached"
-                                      checked={selectedOptioncheck1}
-                                      onChange={handlemsdschange}
-                                      className="customRadio"
-                                    />
-                                  </Field>
-                                  </div>
-                                  <div>
-                                  <label className="space">MSDS Attached</label>
-                                  </div>
-                                </span>
-                              </div>
-
-                              <div className="col">
-                                <span style={{ display: "flex" }}>
-                                  <div>
-                                  <span>
-                                  {selectedOptioncheck1  && (
-                                    <Input
-                                      type="file"
-                                      
-                                      style={{ width: 170 }}
-                                      className="customInput"
-                                    />)}
-                                  </span>
-                                  </div>
-                                </span>
-                              </div>
-                            </div>
-                          </div>
-
-                          <div
-                            className="cardcolhed mb-4"
-                            style={{ display: "block" }}
-                          >
-                            <div
-                              style={{
-                                flexDirection: "row",
-                                justifyContent: "space-between",
-                                display: "flex",
-                                fontSize: "12px",
-                                fontWeight: 400,
-                              }}
-                            >
-                              <div className="col">
-                                <span style={{ display: "flex" }}>
-                                  <div>
-                                  <Field>
-                                    <Input
-                                      {...register("sampletype", {
-                                        required: true,
-                                      })}
-                                      type="checkbox"
                                     
                                       name="sampletype"
                                       value="Others"
@@ -834,7 +852,7 @@ submissiontype:data.submissiontype,
                                     value={sampleTypeOther}
                                       className="NatureOfSample"
                                       //value="sampletype"
-                                      id="sampletype"
+                                      id="othercheck"
                                       onChange={(e) =>{setSampleTypeOther(e.target.value);
                                       setValue("othercheck", e.target.value);
         }}
@@ -843,6 +861,78 @@ submissiontype:data.submissiontype,
                                   )}
                                 </span>
                               </div>
+                            </div>
+                          </div>
+
+                          <div
+                            className="cardcolhed mb-4"
+                            style={{ display: "block" }}
+                          >
+                            <div
+                              style={{
+                                flexDirection: "row",
+                                justifyContent: "space-between",
+                                display: "flex",
+                                fontSize: "12px",
+                                fontWeight: 400,
+                              }}
+                            ><div className="col">
+                            <span style={{ display: "flex" }}>
+                              <div>
+                              <Field>
+                                <Input
+                                  {...register("sampletype", {
+                                    required: true,
+                                  })}
+                                  type="checkbox"
+                                  //id="msds"
+                                  name="sampleType"
+                                  value="MSDS"
+                                  checked={selectedOptioncheck1}
+                                  onChange={handlemsdschange}
+                                  className="customRadio"
+                                />
+                              </Field>
+                              </div>
+                              <div>
+                              <label className="space">MSDS Attached</label>
+                              </div>
+                            </span>
+                          </div>
+
+                          <div className="col">
+                          
+                              <span>
+                              {selectedOptioncheck1  && (
+                                <Field>
+                                <Input
+                                 {...register("choosefile")}
+                                  type="file"
+                                  multiple
+                                  name="choosefile"
+                          
+                                  style={{ width: 170 }}
+                                  className="customInput"
+                                  onChange={handleFileChange}   
+                                />
+                                </Field>)}
+                                <div>
+                                 <label className="customInputLabel">
+                        
+                        Selected Files: {' '}
+            
+                                  {names.map(name => (
+                                    <li key={name}>
+                                      {name}
+                                      <button type="button" onClick={() => handleRemoveFile(name)}>X</button>
+                                    </li> 
+                                  ))}
+                   </label>
+                   </div>
+                              </span>
+                          
+                          </div>
+                              
                             </div>
                           </div>
                           <div className="text-danger mt-3">
@@ -1043,8 +1133,8 @@ submissiontype:data.submissiontype,
                         Previous
                       </Button>
 
-                      <Button type="submit" className="next">
-                        Next <BiRightArrowAlt size={24} color="#fff" />
+                      <Button type="submit" className="next" disabled={isLoading}>
+                      {isLoading ? <Spinner /> : "Next"}<BiRightArrowAlt size={24} color="#fff" />
                       </Button>
                     </div>
                     </Row>

@@ -14,9 +14,11 @@ import { changeBatchId } from "../redux/FormSlice";
 import { useDispatch, useSelector } from "react-redux";
 export default function DitDashboard() {
   const token = useSelector((state) => state.form.usertoken.token);
+  console.log(token)
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [page, setPage] = useState(0);
+  const[dashBoard,setDashboard]=useState({});
   const [data, setData] = useState([]); // Initialize data as an empty array
   const [filterData, setFilterData] = useState([]);
   const itemsPerPage = 10;
@@ -28,7 +30,7 @@ export default function DitDashboard() {
       {
         headers: {
           "Content-Type": "application/json",
-          Authorization: token,
+          'Authorization': token,
         },
       }
     )
@@ -40,6 +42,24 @@ export default function DitDashboard() {
         console.error("Error fetching data:", error);
       });
   }, []);
+  console.log(data)
+  useEffect(() => {
+    // Fetch data from your API endpoint here
+    fetch('http://3.80.98.199:3000/api/batchDetails/dashBoard',{
+      headers: {
+        "Content-Type": "application/json",
+        'Authorization': token,
+      },
+    })
+      .then((response) => response.json())
+      .then((apiData) => {
+        
+        setDashboard(apiData); // Set the fetched data in the state
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+      });
+  }, [token]);
 
   useEffect(() => {
     // Update the filtered data when the page or data changes
@@ -71,25 +91,13 @@ export default function DitDashboard() {
             {/* -----------------------------------------Top Card Start---------------------------------- */}
             <div className="mt-4 row wholeCardDiv">
               <Row>
-                <Col md={3}>
-                  <Card className="mainCard1 p-2">
-                    <div className="cardArrangement">
-                      <div style={{ justifyContent: "space-evenly" }}>
-                        <p>Total Samples</p>
-                        <p className="cardNum">25</p>
-                      </div>
-                      <div>
-                        <BsBoxSeam size={50} color="#fff" />
-                      </div>
-                    </div>
-                  </Card>
-                </Col>
+              
                 <Col md={3}>
                   <Card className="mainCard2 p-2">
                     <div className="cardArrangement">
                       <div style={{ justifyContent: "space-evenly" }}>
                         <p>Approved</p>
-                        <p className="cardNum">19</p>
+                        <p className="cardNum">{dashBoard.todayCompleted}</p>
                       </div>
                       <div>
                         <BsClipboardCheck size={50} color="#fff" />
@@ -100,12 +108,12 @@ export default function DitDashboard() {
                 <Col md={6}>
                   <Card
                     className="mainCard2 p-2"
-                    onClick={() => navigate("DITExpandedView")}
+                  
                   >
                     <div className="cardArrangement">
                       <div>
                         <p>Remain</p>
-                        <p className="cardNum">06</p>
+                        <p className="cardNum">{dashBoard.pending}</p>
                       </div>
                       <div>
                         <LuClipboardEdit size={50} color="#fff" />
@@ -117,10 +125,8 @@ export default function DitDashboard() {
               {/* -----------------------------------------Top Card Ended---------------------------------- */}
 
               <div className="topforsamplewaitingandviewall">
-                <p className="tableTop mt-3">Samples awaiting testing</p>
-                <a href="/" className="viewAll">
-                  View all
-                </a>
+                <p className="tableTop mt-3">Samples awaiting </p>
+          
               </div>
               <div>
                 <Table className="table" border={1}>
@@ -157,7 +163,7 @@ export default function DitDashboard() {
                   </tbody>
                 </Table>
               </div>
-
+              {data.length>0 ?
               <ReactPaginate
                 containerClassName={"pagination"}
                 activeClassName={"active"}
@@ -180,7 +186,7 @@ export default function DitDashboard() {
                     <text>Next</text>
                   </IconContext.Provider>
                 }
-              />
+              />:null}
             </div>
           </div>
         </div>

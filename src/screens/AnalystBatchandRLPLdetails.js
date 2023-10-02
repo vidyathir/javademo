@@ -17,9 +17,11 @@ import axios from "axios";
 export default function AnalystBatchandRLPLdetails() {
   const [analystView, setAnalystView] = useState({});
   const [datasheet, setDatasheet] = useState([]);
-  const [fileData, setFileData] = useState([]);
+  const [selectedFileNames, setSelectedFileNames] = useState([]);
+  const [names, setNames] = useState([]);
   const [result,setResult]=useState({});
-  const [fileAnalyticalData, setFileAnalyticalData] = useState([]);
+  const [selectedAFileNames, setSelectedAFileNames] = useState([]);
+  const [anames, setANames] = useState([]);
   const fileInputRefs = useRef([]);
   const fileAnalytical =useRef([]);
   const navigate = useNavigate();
@@ -31,11 +33,11 @@ export default function AnalystBatchandRLPLdetails() {
   useEffect(() => {
     axios
       .get(
-        "http://3.80.98.199:3000/api/batchDetails/getBatchById?batchId=" + id,
+        "http://3.80.98.199:3000/api/tdsDetails/getTdsById?tdsId=" + id,
         {
           headers: {
             "Content-Type": "application/json",
-            Authorization: token,
+            'Authorization': token,
           },
         }
       )
@@ -51,64 +53,111 @@ export default function AnalystBatchandRLPLdetails() {
         {
           headers: {
             "Content-Type": "application/json",
-            Authorization: token,
+            'Authorization': token,
           },
         }
       )
       .then((response) => setDatasheet(response.data))
       .catch((error) => console.error("Error fetching batch data:", error));
   }, [id, token]);
-  const handleFileUpload = (index, event) => {
-    const files = event.target.files;
-    const newFileData = [...fileData];
-    const epoch = "" + Date.now();
-    const refNo = epoch.substring(0, 10);
-    const renamedFile = new File([files[0]], refNo + "_" + files[0].name, {
-      type: files[0].type,
-    });
-    newFileData[index] = renamedFile;
-    setFileData(newFileData);
+  const handleFileChange = (event) => {
+    const files = Array.from(event.target.files);
+    const validFiles = files.filter((file) => file instanceof File && file.size > 0);
   
-  };
-  const handleUploadClick = (index) => {
-    fileInputRefs.current[index].click();
-    console.log("hello")
-    
+    // Rename and add the files to selectedFileNames using the refNo
+    const renamedFiles = validFiles.map((file) => {
+      const epoch = "" + Date.now();
+      const refNo = epoch.substring(0, 10);
+      const newName = `${refNo}_${file.name}`;
+      return new File([file], newName);
+    });
+  
+    setSelectedFileNames((prevSelectedFiles) => [...prevSelectedFiles, ...renamedFiles]);
+  
+    const extractedNames = renamedFiles.map((file) => file.name);
+    setNames((prevNames) => [...prevNames, ...extractedNames]);
   };
 
-  const handleAnalyticalFileUpload = (index, event) => {
-    const files = event.target.files;
-    const newFileData = [...fileAnalyticalData];
-    const epoch = "" + Date.now();
-    const refNo = epoch.substring(0, 10);
-    const renamedFile = new File([files[0]], refNo + "_" + files[0].name, {
-      type: files[0].type,
+  useEffect(() => {
+    // Retrieving the names from localStorage
+    setNames(selectedFileNames.map(obj => obj.name));
+    const storedNames =sessionStorage.getItem("names");
+    if(storedNames){
+      setNames(JSON.parse(storedNames));
+    }
+  },[])
+  console.log("files",names)
+  const handleRemoveFile = (indexToRemove) => {
+    const updatedSelectedFilenames = selectedFileNames.filter(
+      (files) => files !== indexToRemove
+    );
+    setSelectedFileNames(updatedSelectedFilenames);
+
+    // Remove the corresponding name from namesArray
+    const updatedNames = names.filter(
+      (name) => name !== indexToRemove
+    );
+    setNames(updatedNames);
+   
+  };
+  const handleAFileChange = (event) => {
+    const files = Array.from(event.target.files);
+    const validFiles = files.filter((file) => file instanceof File && file.size > 0);
+  
+    // Rename and add the files to selectedFileNames using the refNo
+    const renamedFiles = validFiles.map((file) => {
+      const epoch = "" + Date.now();
+      const refNo = epoch.substring(0, 10);
+      const newName = `${refNo}_${file.name}`;
+      return new File([file], newName);
     });
-    newFileData[index] = renamedFile;
-    setFileAnalyticalData(newFileData);
-  };
-  const handleAnalyticalUploadClick = (index) => {
-    fileAnalytical.current[index].click();
   
-  };
+    setSelectedAFileNames((prevSelectedFiles) => [...prevSelectedFiles, ...renamedFiles]);
   
+    const extractedNames = renamedFiles.map((file) => file.name);
+    setANames((prevNames) => [...prevNames, ...extractedNames]);
+  };
+
+  useEffect(() => {
+    // Retrieving the names from localStorage
+    setANames(selectedAFileNames.map(obj => obj.name));
+    const storedNames =sessionStorage.getItem("anames");
+    if(storedNames){
+      setANames(JSON.parse(storedNames));
+    }
+  },[])
+  console.log("files",names)
+  const handleARemoveFile = (indexToRemove) => {
+    const updatedSelectedFilenames = selectedFileNames.filter(
+      (files) => files !== indexToRemove
+    );
+    setSelectedAFileNames(updatedSelectedFilenames);
+
+    // Remove the corresponding name from namesArray
+    const updatedNames = anames.filter(
+      (name) => name !== indexToRemove
+    );
+    setANames(updatedNames);
+   
+  };
+ 
   const handleSubmit = async (event) => {
     
-    if (fileData.length > 0 || fileAnalyticalData.length > 0) {
+    if (selectedFileNames.length > 0 || selectedAFileNames.length > 0) {
       const formData = new FormData();
   
       // Append the first file to the formData
-      formData.append("file1", fileData[0]);
+      formData.append("file1", selectedFileNames[0]);
   
       // Append the second file to the formData
-      formData.append("file2", fileAnalyticalData[0]);
+      formData.append("file2", selectedAFileNames[0]);
   
       try {
         let res = await fetch("http://3.80.98.199:3000/api/container/sampleDoc/upload", {
           method: "POST",
           body: formData,
           headers: {
-            Authorization: token,
+            'Authorization': token,
           },
         });
   
@@ -130,7 +179,7 @@ export default function AnalystBatchandRLPLdetails() {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: token,
+        'Authorization': token,
       },
 
       body: JSON.stringify(payload),
@@ -154,17 +203,10 @@ export default function AnalystBatchandRLPLdetails() {
       // If either file is not selected, show an alert
       alert('Please Select both files first');
     }
-  };
- 
-       
-
-    
-
-  const postapicall = () => {
-    handleSubmit()
-    
     navigate("/Analystdashboaed");
   };
+ 
+      
 
   return (
     <div className="app">
@@ -201,33 +243,22 @@ export default function AnalystBatchandRLPLdetails() {
                   <th>Mfg. Date</th>
                   <th>Exp. Date</th>
                   <th>Retest Date</th>
-                  <th>Test Parameter</th>
+              
                   
                 </tr>
               </thead>
               <tbody className="tablebody-custom">
                 <tr>
                   <td>01</td>
-                  <td>{analystView.rlplNumber}</td>
-                  <td>{analystView.batchNo}</td>
-                  <td>{analystView.natureOfPacking}</td>
-                  <td>{analystView.sampleQuantity}</td>
-                  <td>{analystView.mfgDate}</td>
-                  <td>{analystView.expDate}</td>
-                  <td>{analystView.retestDate}</td>
+                  <td>{analystView.batchDetails.rlplNumber}</td>
+                  <td>{analystView.batchDetails.batchNo}</td>
+                  <td>{analystView.batchDetails.natureOfPacking}</td>
+                  <td>{analystView.batchDetails.sampleQuantity}</td>
+                  <td>{analystView.batchDetails.mfgDate}</td>
+                  <td>{analystView.batchDetails.expDate}</td>
+                  <td>{analystView.batchDetails.retestDate}</td>
 
-                  <td>
-                    {analystView.testParameter &&
-                    Array.isArray(analystView.testParameter) ? (
-                      analystView.testParameter.map((item, index) => (
-                        <li style={{ listStyleType: "none" }} key={index}>
-                          {item.testDataCode}
-                        </li>
-                      ))
-                    ) : (
-                      <span>No test parameters available</span>
-                    )}
-                  </td>
+        
                   
                 </tr>
               </tbody>
@@ -250,83 +281,97 @@ export default function AnalystBatchandRLPLdetails() {
                 </tr>
               </thead>
               <tbody className="tablebody-custom">
-                {analystView.tdsDetails &&
-                Array.isArray(analystView.tdsDetails) ? (
-                  analystView.tdsDetails.map((item, index) => (
-                    <tr key={index}>
-                      <td>{index + 1}</td>
-                      <td>{item.tdsNumber}</td>
+        
+                    {datasheet.map((item, index) => (
+      <tr key={index}>
+        <td>{index + 1}</td>
+        <td>{analystView.tdsNumber}</td>
+        <td>{analystView.testDataCode}</td>
+        <td>
+          {/* Render download link for datasheet */}
+          {item.url ? (
+            <div>
+              <a
+                href={item.url}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <PiFilePdfFill /> Download
+              </a>
+              <BsArrowDownCircle size={23} color="#9AC037" />
+            </div>
+          ) : (
+            <span>No data available</span>
+          )}
+        </td>
                       <td>
-                        {analystView.testParameter &&
-                        Array.isArray(analystView.testParameter) ? (
-                            <li style={{ listStyleType: "none" }} key={index}>
-                              {analystView.testParameter[index].testDataCode}
-                            </li>
+                        <PiFileArrowUp
+                          size={23}
+                          color="#818181"
                           
-                        ) : (
-                          <span>No test parameters available</span>
-                        )}
-                      </td>
-                      <td>
-                        {" "}
+                        />
+                    
+                        <input
+                          type="file"
+                    name="tdsdoc"
+                    multiple
+                          style={{ display: "none" }}
+                          onChange={handleFileChange}
+                        /> <label className="customInputLabel">
                         
-                        {" "}
-                    {datasheet &&
-                    Array.isArray(datasheet) &&
-                    datasheet[index] &&
-                    datasheet[index].url ? (
-                      <ul style={{ listStyleType: "none" }} key={index}>
-                        <li style={{ listStyleType: "none" }}>
-                        
-                          <PiFilePdfFill />{" "}
-                          <a
-                            href={datasheet[index].url}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                          >{datasheet[index].testDataCode}
-                            <BsArrowDownCircle size={23} color="#9AC037" />
-                          </a>
-                        </li>
-                      </ul>
-                    ):(<span>no data available</span>)}
+                        Selected Files: {' '}
+                        <input
+                          type="button"
+                          className="customInputButton"
+                          value="Browse"
+                          onClick={() => document.querySelector('[name="tdsdoc"]').click()} // Trigger the hidden file input
+                        /> 
+                                  {names.map(name => (
+                                    <li key={name}>
+                                      {name}
+                                      <button type="button" style={{color:"red"}}onClick={() => handleRemoveFile(name)}>X</button>
+                                    </li> 
+                                  ))}
+                            
+                                
+                      </label>
+                                  
                       </td>
                       <td>
                         <PiFileArrowUp
                           size={23}
                           color="#818181"
-                          onClick={() => handleUploadClick(index)}
+                          
                         />
-                        {/* Display the uploaded file name */}
-                        {fileData[index]
-                          ? fileData[index].name
-                          : "No file selected"}
+                    
                         <input
                           type="file"
-                          ref={(ref) => (fileInputRefs.current[index] = ref)}
+                    name="sysdoc"
+                    multiple
                           style={{ display: "none" }}
-                          onChange={(event) => handleFileUpload(index, event)}
-                        />
+                          onChange={handleAFileChange}
+                        /> <label className="customInputLabel">
+                        
+                        Selected Files: {' '}
+                        <input
+                          type="button"
+                          className="customInputButton"
+                          value="Browse"
+                          onClick={() => document.querySelector('[name="sysdoc"]').click()} // Trigger the hidden file input
+                        /> 
+                                  {anames.map(name => (
+                                    <li key={name}>
+                                      {name}
+                                      <button type="button"style={{color:"red"}} onClick={() => handleARemoveFile(name)}>X</button>
+                                    </li> 
+                                  ))}
+                            
+                                
+                      </label>
+                                  
                       </td>
-                      <td><PiFileArrowUp
-                          size={23}
-                          color="#818181"
-                          onClick={() => handleAnalyticalUploadClick(index)}
-                        />
-                        {/* Display the uploaded file name */}
-                        {fileAnalyticalData[index]
-                          ? fileAnalyticalData[index].name
-                          : "No file selected"}
-                        <input
-                          type="file"
-                          ref={(ref) => (fileAnalytical.current[index] = ref)}
-                          style={{ display: "none" }}
-                          onChange={(event) => handleAnalyticalFileUpload(index, event)}
-                        /></td>
-                    </tr>
-                  ))
-                ) : (
-                  <span>No tds available</span>
-                )}
+                      
+                      </tr>))}
               </tbody>
             </Table>
 
@@ -334,7 +379,7 @@ export default function AnalystBatchandRLPLdetails() {
               <button
                 className="cardbutton"
                 type="submit"
-                onClick={postapicall}
+                onClick={handleSubmit}
               >
                 Submit <BiRightArrowAlt size={24} />
               </button>

@@ -24,9 +24,10 @@ import { changeAnalystBatchId } from "../redux/FormSlice";
 export default function ReviewDashboard() {
   const navigate = useNavigate();
   const token = useSelector((state) => state.form.usertoken.token);
+
   const dispatch = useDispatch();
   const [page, setPage] = useState(0);
-
+const[dashboard,setDashboard]=useState({});
   const [data, setData] = useState([]); // Initialize data as an empty array
   const [filterData, setFilterData] = useState([]);
   const itemsPerPage = 10;
@@ -43,6 +44,23 @@ export default function ReviewDashboard() {
       .then((apiData) => {
         
         setData(apiData); // Set the fetched data in the state
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+      });
+  }, [page, token]);
+  useEffect(() => {
+    // Fetch data from your API endpoint here
+    fetch('http://3.80.98.199:3000/api/batchDetails/dashBoard',{
+      headers: {
+        "Content-Type": "application/json",
+        'Authorization': token
+      },
+    })
+      .then((response) => response.json())
+      .then((apiData) => {
+        
+        setDashboard(apiData); // Set the fetched data in the state
       })
       .catch((error) => {
         console.error("Error fetching data:", error);
