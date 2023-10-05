@@ -22,7 +22,7 @@ sampleDetails:{
   report: "",
   samplename: "",
   sampleretension: "",
-  sampletype:"",
+  sampletype:[''],
   storage: "",
   submissiontype: "", 
   othercheck:''  ,

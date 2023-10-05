@@ -123,7 +123,7 @@ console.log("sample",sample)
               <div className="d-flex row">
              
                 <text className="cardcolhed">Sample Type</text>
-                {sample.sampletype?
+                {sample.sampletype ?
                 <text className="cardcolhedtext mt-1">{sample.sampletype.join(",")}</text>:<text className="cardcolhedtext mt-1">N/A</text>}
             
               </div>

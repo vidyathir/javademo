@@ -60,6 +60,7 @@ export default function AnalystBatchandRLPLdetails() {
       .then((response) => setDatasheet(response.data))
       .catch((error) => console.error("Error fetching batch data:", error));
   }, [id, token]);
+  console.log("datasheet",datasheet)
   const handleFileChange = (event) => {
     const files = Array.from(event.target.files);
     const validFiles = files.filter((file) => file instanceof File && file.size > 0);
@@ -247,6 +248,7 @@ export default function AnalystBatchandRLPLdetails() {
                   
                 </tr>
               </thead>
+              {analystView.batchDetails ? (
               <tbody className="tablebody-custom">
                 <tr>
                   <td>01</td>
@@ -261,7 +263,13 @@ export default function AnalystBatchandRLPLdetails() {
         
                   
                 </tr>
-              </tbody>
+              </tbody>) : (
+  <tbody className="tablebody-custom">
+    <tr>
+      <td colSpan="9">Data not available</td>
+    </tr>
+  </tbody>
+)}
             </Table>
 
             <div className="mt-3">
@@ -282,23 +290,24 @@ export default function AnalystBatchandRLPLdetails() {
               </thead>
               <tbody className="tablebody-custom">
         
-                    {datasheet.map((item, index) => (
-      <tr key={index}>
-        <td>{index + 1}</td>
+                    
+      <tr>
+        <td>{1}</td>
         <td>{analystView.tdsNumber}</td>
         <td>{analystView.testDataCode}</td>
         <td>
           {/* Render download link for datasheet */}
-          {item.url ? (
+          {datasheet ? (
             <div>
               <a
-                href={item.url}
+                href={datasheet}
                 target="_blank"
                 rel="noopener noreferrer"
               >
                 <PiFilePdfFill /> Download
+                <BsArrowDownCircle size={23} color="#9AC037" />
               </a>
-              <BsArrowDownCircle size={23} color="#9AC037" />
+              
             </div>
           ) : (
             <span>No data available</span>
@@ -371,7 +380,7 @@ export default function AnalystBatchandRLPLdetails() {
                                   
                       </td>
                       
-                      </tr>))}
+                      </tr>
               </tbody>
             </Table>
 

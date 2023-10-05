@@ -116,10 +116,10 @@ export default function SampleDetails({ onButtonClick }) {
         setValue("othersample", '');
       }
     };
-    
+    let concatenatedElements=[]
   const saveData = async(data) => {
   
-    const concatenatedElements =sampleTypeOther+data.sampletype.join(",")
+   concatenatedElements =[sampleTypeOther+data.sampletype]
     console.log(concatenatedElements)
     setIsLoading(true); 
     const formData = new FormData();

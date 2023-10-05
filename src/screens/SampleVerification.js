@@ -27,6 +27,7 @@ export default function SampleVerification({onButtonClick}) {
 console.log("analysis",analysis)
 console.log("batch", batch)
 console.log("form",form)
+console.log("sample",sample)
 
 const postapicall=(result)=>{
   const item={

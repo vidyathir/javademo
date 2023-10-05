@@ -10,6 +10,8 @@ import {useNavigate} from 'react-router-dom';
 import { useSelector } from "react-redux";
 function NavbartitleAddco() {
   const userName = useSelector((state) => state.form.usertoken.username);
+  const userType = useSelector((state) => state.form.usertoken.usertype);
+
   const navigate = useNavigate();
   const [selectedOption, setSelectedOption] = useState('');
   const handleSelectChange = (event) => {
@@ -36,7 +38,7 @@ function NavbartitleAddco() {
             style={{ maxHeight: '100px' }}
             navbarScroll
           >
-            <text className="title">Welcome Back <span className="titlecolor">{userName}</span></text>
+            <text className="title">Welcome Back <span className="titlecolor">{userName}({userType})</span></text>
             {/* <Nav.Link href="#action1">Home</Nav.Link>
             <Nav.Link href="#action2">Link</Nav.Link>
             <NavDropdown title="Link" id="navbarScrollingDropdown">
@@ -70,7 +72,7 @@ function NavbartitleAddco() {
           id="profile"
           value={selectedOption}
           onChange={handleSelectChange}>
-            <option className="titleselect" value="useranme">{userName}</option>
+            <option className="titleselect" value="useranme">{userName}({userType})</option>
             <option className="titleselect" value="logout">Logout</option>
           </select>
         </div>

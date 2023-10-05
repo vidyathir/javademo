@@ -14,6 +14,8 @@ import {IoIosAddCircleOutline} from 'react-icons/io'
 
 function Navbartitle() {
   const userName = useSelector((state) => state.form.usertoken.username);
+  const userType = useSelector((state) => state.form.usertoken.usertype);
+
   const navigate = useNavigate();
   const [selectedOption, setSelectedOption] = useState('');
   const handleSelectChange = (event) => {
@@ -40,7 +42,7 @@ function Navbartitle() {
             style={{ maxHeight: '100px' }}
             navbarScroll
           >
-            <text className="title">Welcome Back <span className="titlecolor">{userName}</span></text>
+            <text className="title">Welcome Back <span className="titlecolor">{userName}({userType})</span></text>
          
           </Nav>
           <Form className="d-flex titleaddprofile">
@@ -61,7 +63,7 @@ function Navbartitle() {
           id="profile"
           value={selectedOption}
           onChange={handleSelectChange}>
-            <option className="titleselect" value="useranme">{userName}</option>
+            <option className="titleselect" value="useranme">{userName}({userType})</option>
             <option className="titleselect" value="logout">Logout</option>
           </select>
         </div>
