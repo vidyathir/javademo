@@ -33,7 +33,7 @@ export default function AnalystBatchandRLPLdetails() {
   useEffect(() => {
     axios
       .get(
-        "http://3.80.98.199:3000/api/tdsDetails/getTdsById?tdsId=" + id,
+        "http://54.167.30.227:3000/api/tdsDetails/getTdsById?tdsId=" + id,
         {
           headers: {
             "Content-Type": "application/json",
@@ -49,7 +49,7 @@ export default function AnalystBatchandRLPLdetails() {
   useEffect(() => {
     axios
       .get(
-        "http://3.80.98.199:3000/api/batchDetails/getDataSheets?batchId=" + id,
+        "http://54.167.30.227:3000/api/batchDetails/getDataSheets?batchId=" + id,
         {
           headers: {
             "Content-Type": "application/json",
@@ -154,7 +154,7 @@ export default function AnalystBatchandRLPLdetails() {
       formData.append("file2", selectedAFileNames[0]);
   
       try {
-        let res = await fetch("http://3.80.98.199:3000/api/container/sampleDoc/upload", {
+        let res = await fetch("http://54.167.30.227:3000/api/container/sampleDoc/upload", {
           method: "POST",
           body: formData,
           headers: {
@@ -175,7 +175,7 @@ export default function AnalystBatchandRLPLdetails() {
           tdsDocument,
           sysDocument,
         };
-        const newLocal = "http://3.80.98.199:3000/api/tdsDetails/docSubmit";
+        const newLocal = "http://54.167.30.227:3000/api/tdsDetails/docSubmit";
    const response=await fetch(newLocal, {
       method: "POST",
       headers: {

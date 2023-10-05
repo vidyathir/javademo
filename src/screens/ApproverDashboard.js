@@ -21,7 +21,7 @@ export default function ApproverDashboard() {
   const itemsPerPage = 10;
   useEffect(() => {
     // Fetch data from your API endpoint here
-    fetch(`http://3.80.98.199:3000/api/tdsDetails/getReviewedTdsDetails?page=${page}&perPage=${itemsPerPage}`,{
+    fetch(`http://54.167.30.227:3000/api/tdsDetails/getReviewedTdsDetails?page=${page}&perPage=${itemsPerPage}`,{
       headers: {
         "Content-Type": "application/json",
         'Authorization': token
@@ -38,7 +38,7 @@ export default function ApproverDashboard() {
   }, [page, token]);
   useEffect(() => {
     // Fetch data from your API endpoint here
-    fetch('http://3.80.98.199:3000/api/batchDetails/dashBoard',{
+    fetch('http://54.167.30.227:3000/api/batchDetails/dashBoard',{
       headers: {
         "Content-Type": "application/json",
         'Authorization': token

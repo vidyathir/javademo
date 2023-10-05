@@ -23,7 +23,7 @@ export default function ApproverDetails() {
   useEffect(() => {
     axios
       .get(
-        "http://3.80.98.199:3000/api/tdsDetails/getTdsById?tdsId=" + id,
+        "http://54.167.30.227:3000/api/tdsDetails/getTdsById?tdsId=" + id,
         {
           headers: {
             "Content-Type": "application/json",
@@ -86,7 +86,7 @@ export default function ApproverDetails() {
   };
 const handleSubmit=()=>{
  
-fetch("http://3.80.98.199:3000/api/tdsDetails/approve", {
+fetch("http://54.167.30.227:3000/api/tdsDetails/approve", {
   method: "POST",
   headers: {
     "Content-Type": "application/json",

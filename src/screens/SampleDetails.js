@@ -128,7 +128,7 @@ export default function SampleDetails({ onButtonClick }) {
     });
 
     try {
-      const response = await fetch('http://3.80.98.199:3000/api/container/sroDoc/upload', {
+      const response = await fetch('http://54.167.30.227:3000/api/container/sroDoc/upload', {
         method: 'POST',
         body: formData,
         headers: {

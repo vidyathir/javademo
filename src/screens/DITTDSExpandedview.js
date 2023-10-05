@@ -28,7 +28,7 @@ export default function DITTDSExpandedView() {
   useEffect(() => {
 
     axios
-      .get("http://3.80.98.199:3000/api/tdsDetails/getTdsById?tdsId="+id,{
+      .get("http://54.167.30.227:3000/api/tdsDetails/getTdsById?tdsId="+id,{
         headers: {
           "Content-Type": "application/json",
           'Authorization': token

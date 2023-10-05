@@ -26,7 +26,7 @@ export default function ViewCustomer() {
   } = useForm();
   useEffect(() => {
     axios
-      .get("http://3.80.98.199:3000/api/companyDetails/" + id,{
+      .get("http://54.167.30.227:3000/api/companyDetails/" + id,{
         headers: {
     "Content-Type": "application/json",
     'Authorization': token
@@ -64,7 +64,7 @@ console.log("data" ,data)
       state:data.state,
       pincode:data.pincode
     }
-    fetch("http://3.80.98.199:3000/api/companyDetails/" +id, {
+    fetch("http://54.167.30.227:3000/api/companyDetails/" +id, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

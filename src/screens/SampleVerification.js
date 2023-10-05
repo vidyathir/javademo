@@ -77,7 +77,7 @@ const postapicall=(result)=>{
   msdsAttached:sample.msdsAttached
   }
   console.log("item", item)
-fetch("http://3.80.98.199:3000/api/sampleDetails/createSample", {
+fetch("http://54.167.30.227:3000/api/sampleDetails/createSample", {
   method: "POST",
   headers: {
     "Content-Type": "application/json",

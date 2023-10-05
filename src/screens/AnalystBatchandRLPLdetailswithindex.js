@@ -36,7 +36,7 @@ export default function AnalystBatchandRLPLdetails() {
   useEffect(() => {
     axios
       .get(
-        "http://3.80.98.199:3000/api/batchDetails/getBatchById?batchId=" + id,
+        "http://54.167.30.227/api/batchDetails/getBatchById?batchId=" + id,
         {
           headers: {
             "Content-Type": "application/json",
@@ -54,7 +54,7 @@ export default function AnalystBatchandRLPLdetails() {
   useEffect(() => {
     axios
       .get(
-        "http://3.80.98.199:3000/api/batchDetails/getDataSheets?batchId=" +id,
+        "http://54.167.30.227/api/batchDetails/getDataSheets?batchId=" +id,
         {
           headers: {
             "Content-Type": "application/json",
@@ -125,7 +125,7 @@ export default function AnalystBatchandRLPLdetails() {
       formData.append("file2", fileAnalyticalData[index]);
   
       try {
-        let res = await fetch("http://3.80.98.199:3000/api/container/sampleDoc/upload", {
+        let res = await fetch("http://54.167.30.227/api/container/sampleDoc/upload", {
           method: "POST",
           body: formData,
           headers: {
@@ -177,7 +177,7 @@ export default function AnalystBatchandRLPLdetails() {
   
       try {
         const response = await fetch(
-          "http://3.80.98.199:3000/api/tdsDetails/docSubmit",
+          "http://54.167.30.227/api/tdsDetails/docSubmit",
           {
             method: "POST",
             headers: {

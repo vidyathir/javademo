@@ -27,7 +27,7 @@ const token  = useSelector((state) => state.form.usertoken.token);
   useEffect(() => {
     // Fetch company options from API
     axios
-      .get("http://3.80.98.199:3000/api/companyDetails",{
+      .get("http://54.167.30.227:3000/api/companyDetails",{
         headers: {
           "Content-Type": "application/json",
           'Authorization': token
@@ -41,7 +41,7 @@ const token  = useSelector((state) => state.form.usertoken.token);
     // Fetch other data based on selected company
     axios
       .get(
-        `http://3.80.98.199:3000/api/companyDetails/${selectedCompany.companyId}`,{
+        `http://54.167.30.227:3000/api/companyDetails/${selectedCompany.companyId}`,{
           headers: {
             "Content-Type": "application/json",
             'Authorization': token

@@ -17,7 +17,7 @@ const [searchQuery, setSearchQuery] = useState('');
     useEffect(() => {
         // Fetch company options from API
         axios
-          .get("http://3.80.98.199:3000/api/companyDetails",{
+          .get("http://54.167.30.227:3000/api/companyDetails",{
             headers: {
               "Content-Type": "application/json",
               'Authorization': token
@@ -43,7 +43,7 @@ const [searchQuery, setSearchQuery] = useState('');
       // Function to make an API request with the search query
       const searchCompanies = () => {
         axios
-          .get(`http://3.80.98.199:3000/api/companyDetails/searchCompany?companyName=${searchQuery}`,{
+          .get(`http://54.167.30.227:3000/api/companyDetails/searchCompany?companyName=${searchQuery}`,{
             headers: {
               "Content-Type": "application/json",
               'Authorization': token

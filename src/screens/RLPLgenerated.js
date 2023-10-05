@@ -30,7 +30,7 @@ export default function RlplGenerated() {
     "sampleId":sid
    }
   const postapicall=()=>{
-    fetch("http://3.80.98.199:3000/api/sampleDetails/sendMail", {
+    fetch("http://54.167.30.227:3000/api/sampleDetails/sendMail", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

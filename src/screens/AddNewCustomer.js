@@ -37,7 +37,7 @@ console.log("data" ,data)
       state:data.state,
       pincode:data.pincode
     }
-    fetch("http://3.80.98.199:3000/api/companyDetails/createCompany", {
+    fetch("http://54.167.30.227:3000/api/companyDetails/createCompany", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

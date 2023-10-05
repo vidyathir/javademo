@@ -16,7 +16,7 @@ export default function SroDetails() {
     useEffect(() => {
         axios
           .get(
-            "http://3.80.98.199:3000/api/batchDetails/getBatchById?batchId=" + id,
+            
             {
               headers: {
                 "Content-Type": "application/json",

@@ -30,7 +30,7 @@ export default function DITExpandedView() {
   useEffect(() => {
 
     axios
-      .get("http://3.80.98.199:3000/api/batchDetails/getBatchById?batchId="+id,{
+      .get("http://54.167.30.227:3000/api/batchDetails/getBatchById?batchId="+id,{
         headers: {
     "Content-Type": "application/json",
     'Authorization': token
@@ -44,7 +44,7 @@ export default function DITExpandedView() {
   useEffect(() => {
 
     axios
-      .get("http://3.80.98.199:3000/api/batchDetails/getDataSheets?batchId="+id,{
+      .get("http://54.167.30.227:3000/api/batchDetails/getDataSheets?batchId="+id,{
         headers: {
     "Content-Type": "application/json",
     'Authorization': token
@@ -55,7 +55,7 @@ export default function DITExpandedView() {
       .catch((error) => console.error("Error fetching batch data:", error));
   }, [id]);
   const postapicall=()=>{
-    const newLocal = "http://3.80.98.199:3000/api/batchDetails/ditApproval";
+    const newLocal = "http://54.167.30.227:3000/api/batchDetails/ditApproval";
     fetch(newLocal, {
       method: "POST",
       headers: {

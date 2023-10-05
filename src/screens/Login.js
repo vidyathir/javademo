@@ -49,7 +49,7 @@ const Login = () => {
     setIsLoading(true); // Set loading state to true
     try {
       const response = await fetch(
-        "http://3.80.98.199:3000/api/revinlabsUsers/signIn",
+        "http://54.167.30.227:3000/api/revinlabsUsers/signIn",
         {
           method: "POST",
           headers: {
