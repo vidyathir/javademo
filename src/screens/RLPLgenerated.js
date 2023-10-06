@@ -103,7 +103,7 @@ export default function RlplGenerated() {
               <div>
                 <div className="mt-4">
                   <h4 className="headd">Sample Details</h4>
-                  <Table md={6} borderless>
+                  <Table  md={6} borderless>
                     <thead>
                       <tr>
                         <td
@@ -153,7 +153,7 @@ export default function RlplGenerated() {
                     </thead>
                   </Table>
 
-                  <Table md={6} border={1}>
+                  <Table className="rlpltable" md={6} border={1}>
                     <thead>
                       <tr className="table">
                         <th
