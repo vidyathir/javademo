@@ -9,6 +9,7 @@ import {
   Card,
 } from "react-bootstrap";
 
+import {BsSearch} from 'react-icons/bs';
 import { TbClockEdit,TbFileStar } from "react-icons/tb";
 import { AiFillLeftCircle, AiFillRightCircle } from "react-icons/ai";
 import ReactPaginate from "react-paginate";
@@ -18,7 +19,7 @@ import { useNavigate } from "react-router-dom";
 import {LuClipboardEdit} from 'react-icons/lu';
 import {FaRegWindowClose} from 'react-icons/fa';
 import NavbartitleAddco from "../components/NavbartitleAddco";
-import {AiOutlineFileText,AiOutlineFileProtect} from 'react-icons/ai';
+import {AiOutlineFileText,AiOutlineFileProtect} from "react-icons/ai";
 import { useSelector,useDispatch } from "react-redux";
 import { changeAnalystBatchId } from "../redux/FormSlice";
 export default function ReviewDashboard() {
@@ -95,6 +96,22 @@ function handleSubmit(item) {
         <div className="main">
           <div className="mainitem">
             {/* -----------------------------------------Top Card Start---------------------------------- */}
+
+            <div className='SearchCustomerSearchbox'>
+                <div>
+                    <input type='text' placeholder='Search Company' className='SearchCustomerSearchbox-input'
+                    //  value={searchQuery}
+                    //  onChange={handleSearchInputChange}
+                      />
+                </div>
+                <div>
+                    <button className='SearchCustomer-searchbox-button'
+                    //  onClick={searchCompanies}
+                      >
+                        <BsSearch className='SearchCustomer-searchbox-button-icon' /> <text className='SearchCustomer-searchbox-button-text'>Search</text>
+                    </button>
+                </div>
+                  </div>
 
             <div className="mt-4 row wholeCardDiv">
               <div>
@@ -257,7 +274,7 @@ function handleSubmit(item) {
         pageClassName={"page-item"}
         onPageChange={handlePageChange}
         pageCount={Math.ceil(data.length / itemsPerPage)}
-        previousLabel={
+        previouLabel={
           <IconContext.Provider value={{ color: "#B8C1CC", size: "36px" }}>
             <AiFillLeftCircle />
             <text>previous</text>
