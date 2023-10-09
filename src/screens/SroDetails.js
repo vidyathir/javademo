@@ -1,37 +1,26 @@
-import React,{useEffect,useState} from "react";
+import React from "react";
 import "./Styles.css";
+import Sidenavbar from '../components/Sidenavbar';
+import NavbartitleAddco from "../components/NavbartitleAddco";
+
 import { Col, Row, Table } from "react-bootstrap";
 import { PiFilePdfFill } from "react-icons/pi";
-import { BiLeftArrowAlt, BiRightArrowAlt } from "react-icons/bi";
+// import { BiLeftArrowAlt, BiRightArrowAlt } from "react-icons/bi";
 import { useSelector } from "react-redux";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
-export default function SroDetails() {
-    const navigate = useNavigate();
-    const [analystView, setAnalystView] = useState({});
-   
-    const id = useSelector((state) => state.form.AbatchId.AbatchId);
-    const token = useSelector((state) => state.form.usertoken.token);
- 
-    useEffect(() => {
-        axios
-          .get(
-            
-            {
-              headers: {
-                "Content-Type": "application/json",
-                Authorization: token,
-              },
-            }
-          )
-    
-          .then((response) => setAnalystView(response.data))
-          .catch((error) => console.error("Error fetching batch data:", error));
-      }, [id, token]);
-      console.log("analystview", analystView);
-    
+import SubTable from '../components/SubTable';
+export default function ConfirmDetails({onButtonClick},{data}) {
+  
+  const form=useSelector(state =>state.form.customer);
+  const sample=useSelector(state =>state.form.sampleDetails);
+  const analysis=useSelector(state =>state.form.data);
+  const batch=useSelector(state=>state.form.tabledata); 
+console.log("analysis",analysis)
+console.log("batch", batch)
+console.log("form",form)
+console.log("sample",sample)
+
   const handleSubmit=()=>{
-    navigate("/SroDashboard")
+    onButtonClick("SampleVerification")
   }
 
   function combineValues(...values) {
@@ -40,15 +29,19 @@ export default function SroDetails() {
   }
 
   return (
-    <div>
-      
-
-      <div>
-        <div >
+    <div className='app'>
+    <NavbartitleAddco/>
+    
+    <div className='d-flex'>
+    
+                <Sidenavbar />
+    
+                <div className='main'>
+                    <div className='mainitem'>
        
 
-          <div className="mt-3">
-            <text className="mainheadtitle">Please Confirm the details</text>
+          <div className="">
+            <text className="mainheadtitle">Name Of the Sample : <span>#######</span></text>
           </div>
 
           <div className="mt-2">
@@ -138,7 +131,7 @@ export default function SroDetails() {
               <div className="d-flex row">
              
                 <text className="cardcolhed">Sample Type</text>
-                {sample.sampletype?
+                {sample.sampletype ?
                 <text className="cardcolhedtext mt-1">{sample.sampletype.join(",")}</text>:<text className="cardcolhedtext mt-1">N/A</text>}
             
               </div>
@@ -177,8 +170,8 @@ export default function SroDetails() {
             <hr />
           </div>
 
-          {/* <Card className="cardtablesize"> */}
-            <Table responsive border={1}>
+       
+            <Table responsive >
               <thead className="table-custom">
                 <tr>
                   <th>S.No</th>
@@ -189,10 +182,15 @@ export default function SroDetails() {
                   <th>Exp. Date</th>
                   <th>Retest Date</th>
                   <th>Sample Quantity</th>
-                  <th>testParameter</th>
-                  {/* <th>Edit & Delete</th> */}
+                  {/* <th>testParameter</th> */}
+               
                 </tr>
               </thead>
+
+
+
+
+
               <tbody className="tablebody-custom">
                 
               {batch.map((item, i)=> (
@@ -205,16 +203,131 @@ export default function SroDetails() {
       <td>{combineValues(item.expDate)}</td>
       <td>{combineValues(item.retestDate)}</td>
       <td>{combineValues(item.sampleQuantity)}</td>
-      <td>{combineValues(item.testParameter?.map(option => option.value))}</td>
+      {/* <td>{combineValues(item.testParameter?.map(option => option.value))}</td> */}
                 
                         </tr>
               )           
                           
 )}
-              
+
               </tbody>
+
+
             </Table>
-          {/* </Card> */}
+        
+<div style={{display:'flex',justifyContent:'center'}}>
+  <Table className="table-customsub"  style={{width:'50%',}}>
+    <thead style={{backgroundColor:"#505050"}}>
+      <tr>
+      <th>RLPL ID </th>
+      <th>Test Parameter </th>
+      <th>TDS Number </th>
+      <th>Current Status </th>
+      </tr>
+    </thead>
+    <tbody style={{backgroundColor:'#ffffff',color:'#8f8f8f'}}>
+    <td>rajaj</td>
+    <td>rajaj</td>
+    <td>rajaj</td>
+    <td> <text style={{backgroundColor:"##9AC037"}}>rajaj</text></td>
+    </tbody>
+    <tbody style={{backgroundColor:'#ffffff',color:'#8f8f8f'}}>
+    <td>rajaj</td>
+    <td>rajaj</td>
+    <td>rajaj</td>
+    <td>rajaj</td>
+    </tbody>
+    <tbody style={{backgroundColor:'#ffffff',color:'#8f8f8f'}}>
+    <td>rajaj</td>
+    <td>rajaj</td>
+    <td>rajaj</td>
+    <td>rajaj</td>
+    </tbody>
+  </Table>
+</div>
+
+
+
+{/* -----------------------------------table two -------------------------- */}
+
+
+<Table responsive className="mt-5">
+              {/* <thead className="table-custom">
+                <tr>
+                  <th>S.No</th>
+                  <th>Batch No./Lot No(s)</th>
+                  <th>Batch Size</th>
+                  <th>Nature Of Packaging</th>
+                  <th>Mfg. Date</th>
+                  <th>Exp. Date</th>
+                  <th>Retest Date</th>
+                  <th>Sample Quantity</th>
+                
+               
+                </tr>
+              </thead> */}
+
+
+
+
+
+              <tbody className="tablebody-custom">
+                
+              {batch.map((item, i)=> (
+    <tr key={i}>
+      <td>{i + 1}</td>
+      <td>{item.batchNo}</td>
+      <td>{combineValues(item.batchSize)}</td>
+      <td>{combineValues(item.natureOfPacking)}</td>
+      <td>{combineValues(item.mfgDate)}</td>
+      <td>{combineValues(item.expDate)}</td>
+      <td>{combineValues(item.retestDate)}</td>
+      <td>{combineValues(item.sampleQuantity)}</td>
+      {/* <td>{combineValues(item.testParameter?.map(option => option.value))}</td> */}
+                
+                        </tr>
+              )           
+                          
+)}
+
+              </tbody>
+
+
+            </Table>
+        
+<div style={{display:'flex',justifyContent:'center'}}>
+  <Table className="table-customsub"  style={{width:'50%',}}>
+    <thead style={{backgroundColor:"#505050"}}>
+      <tr>
+      <th>RLPL ID </th>
+      <th>Test Parameter </th>
+      <th>TDS Number </th>
+      <th>Current Status </th>
+      </tr>
+    </thead>
+    <tbody style={{backgroundColor:'#ffffff',color:'#8f8f8f'}}>
+    <td>rajaj</td>
+    <td>rajaj</td>
+    <td>rajaj</td>
+    <td> <text style={{backgroundColor:"##9AC037"}}>rajaj</text></td>
+    </tbody>
+    <tbody style={{backgroundColor:'#ffffff',color:'#8f8f8f'}}>
+    <td>rajaj</td>
+    <td>rajaj</td>
+    <td>rajaj</td>
+    <td>rajaj</td>
+    </tbody>
+    <tbody style={{backgroundColor:'#ffffff',color:'#8f8f8f'}}>
+    <td>rajaj</td>
+    <td>rajaj</td>
+    <td>rajaj</td>
+    <td>rajaj</td>
+    </tbody>
+  </Table>
+</div>
+
+
+
 
           <div className="mt-3">
             <text className="mainheadtitlesub">Type of Analysis</text>
@@ -303,7 +416,7 @@ export default function SroDetails() {
                   <div><text className="cardcolhedtext mt-1">{(analysis.choosefile).join(",")}</text>
   
     </div>:<text className="cardcolhedtext mt-1">N/A</text>}
-                  {/* <text className="cardcolhedtext mt-1">{}</text> */}
+                 
                 </span>
               </div>
             </Col>
@@ -312,22 +425,25 @@ export default function SroDetails() {
           <hr />
 
           <div className="cardbuttonboubleend mb-3">
-            <button
+            {/* <button
               className="previous"
               onClick={() => onButtonClick("TypeOfAnalysis")}
             >
               <BiLeftArrowAlt size={24} /> Previous
-            </button>
+            </button> */}
             <button
               className="cardbutton"
               type="submit"
                 onClick={handleSubmit}
             >
-              Confirm <BiRightArrowAlt size={24} />
+              DONE 
+              {/* <BiRightArrowAlt size={24} /> */}
             </button>
           </div>
         </div>
       </div>
     </div>
+    </div>
+
   );
 }

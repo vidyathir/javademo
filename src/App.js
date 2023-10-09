@@ -26,6 +26,7 @@ import SroDashboard from './screens/SroDashboard';
 import ViewCustomer from './screens/ViewCustomer';
 import Print from './screens/Print'; 
 import DITTDSExpandedview from './screens/DITTDSExpandedview';
+import SroDetails from './screens/SroDetails';
 
 
 export default function App() {
@@ -39,6 +40,7 @@ export default function App() {
      <Route exact path='/Print' element={<Print/>} />
      <Route exact path='/DITExpandedview' element={<DITExpandedview/>}/>
      <Route exact path ='/SroDashboard' element={<SroDashboard />} />
+     <Route exact path ='/SroDashboard/SroDetails' element={<SroDetails />} />
      <Route exact path ='/SearchCustomer/ViewCustomer' element={<ViewCustomer/>} />
      <Route exact path='/DitDashboard' element={<DitDashboard/>}/>  
      <Route exact path='/DitDashboard/DitExpandedView' element={<DITExpandedview/>}/>  
