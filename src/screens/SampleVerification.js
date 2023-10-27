@@ -10,7 +10,7 @@ import{TbLogout2} from 'react-icons/tb';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import { useSelector,useDispatch } from "react-redux";
-import { changeSubmitData} from "../redux/FormSlice";
+import { changeSubmitData,changeSubmitAccept} from "../redux/FormSlice";
 
 export default function SampleVerification({onButtonClick}) {
   const navigate = useNavigate();
@@ -29,7 +29,9 @@ console.log("batch", batch)
 console.log("form",form)
 console.log("sample",sample)
 
-const postapicall=(result)=>{
+const postapicallreject=()=>{
+  const data1 = getValues();
+  console.log("data",data1)
   const item={
     companyName:form.company,
     manufacturingLicenseNumber:form.licenceNo,
@@ -73,8 +75,10 @@ const postapicall=(result)=>{
     testToBeCarriedOut:analysis.test,
     attachment:analysis.choosefile,
     specialInstruction:analysis.specialinstruction,
-  sampleVerification:result,
-  msdsAttached:sample.msdsAttached
+  sampleVerification:data1,
+  comment:data1.comments,
+  msdsAttached:sample.msdsAttached,
+  status:"reject"
   }
   console.log("item", item)
 fetch("http://54.167.30.227:3000/api/sampleDetails/createSample", {
@@ -100,18 +104,94 @@ fetch("http://54.167.30.227:3000/api/sampleDetails/createSample", {
     // handle any errors here
   });
 }
+const postapicall=()=>{
+  const data1 = getValues();
+  console.log("data",data1)
+  const item={
+    companyName:form.company,
+    manufacturingLicenseNumber:form.licenceNo,
+    contactPerson: form.contactPersonName,
+    mobileNumber: form.phoneNo,
+    additionalMobileNumber:form.phoneNo1,
+    email:form.emailId,
+    address1: form.address1,
+    address2:form.address2,
+    city:form.city,
+    state: form.state,
+    pincode:form.pincode,
+    sampleName:sample.samplename,
+    reportRequiredaAsPerForm39:sample.report,
+    storageCondition: sample.storage,
+    natureOfSample:sample.natureofsample,
+    sampleType:sample.sampletype,
+    sampleRetentionRequired:sample.sampleretension ,
+    typeOfSubmission:sample.submissiontype,
+    batchDetails:
+      batch.map((item,i)=>(
+        {
+          batchNo:item.batchNo,
+          batchSize:item.batchSize,
+          natureOfPacking:item.natureOfPacking,
+          mfgDate:item.mfgDate,
+          expDate:item.expDate,
+          retestDate:item.retestDate,
+          sampleQuantity:item.sampleQuantity,
+          testParameter:item.testParameter.map(option=>(
+            {
+              testDataName:option.label,
+              testDataCode:option.value
+            }))
+        }
+      )),
+    regulatory:analysis.formfilling,
+    otherThanRegulatory:analysis.analyticalfeasibile ,
+    vvtddRefNo:analysis.methodvalidation,
+    methodology: analysis.methodologyfollowed,
+    testToBeCarriedOut:analysis.test,
+    attachment:analysis.choosefile,
+    specialInstruction:analysis.specialinstruction,
+  sampleVerification:data1,
+  comment:data1.comments,
+  msdsAttached:sample.msdsAttached,
+  status:"accept"
+  }
+  console.log("item", item)
+fetch("http://54.167.30.227:3000/api/sampleDetails/createSample", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+    'Authorization': token
+  },
 
+
+  body: JSON.stringify(item),
+})
+  .then((response) => response.json())
+
+  .then((data) => {
+    dispatch(changeSubmitAccept(data))
+    console.log("Success:", data);
+    
+     // handle the response data here
+  })
+
+  .catch((error) => {
+    // handle any errors here
+  });
+}
   const {
     handleSubmit,
     register,
     formState: { errors },
+    getValues,
   } = useForm();
 
  
   
-  const saveData = (data1) => {
-    setResult(data1)
-    console.log(result)
+  const saveData = (action) => {
+    const data1 = getValues();
+    console.log("result",data1)
+    if (action === 'accept') {
   MySwal.fire({
     title: 'Are you sure?',
     text: "You want to accept the sample!",
@@ -120,9 +200,9 @@ fetch("http://54.167.30.227:3000/api/sampleDetails/createSample", {
     confirmButtonColor: '#9AC037',
     cancelButtonColor: '#3A4175',
     confirmButtonText: 'Yes!'
-  }).then((result) => {
-    if (result.isConfirmed) {
-      postapicall(result)
+  }).then((data1) => {
+    if (data1.isConfirmed) {
+      postapicall()
       MySwal.fire(
         'RLPL number is generated!',
         'success'
@@ -132,10 +212,8 @@ fetch("http://54.167.30.227:3000/api/sampleDetails/createSample", {
     }
 
   })
-  console.log("data",result)
-  };
-
-  const handleReject=()=>{
+}
+  if(action === 'reject') {
     MySwal.fire({
       title: 'Are you sure?',
       text: "You want to reject this sample!",
@@ -144,8 +222,9 @@ fetch("http://54.167.30.227:3000/api/sampleDetails/createSample", {
       confirmButtonColor: '#9AC037',
       cancelButtonColor: '#3A4175',
       confirmButtonText: 'Yes!'
-    }).then((result) => {
-      if (result.isConfirmed) {
+    }).then((data1) => {
+      if (data1.isConfirmed) {
+        postapicallreject()
         MySwal.fire(
           'RLPL number is not generated!',
           'success'
@@ -154,8 +233,8 @@ fetch("http://54.167.30.227:3000/api/sampleDetails/createSample", {
       }
 
     })
-    
   }
+};
   // ---------------------------------------Radiobuttons functionality ends---------------------------------------------
 
   return (
@@ -1006,7 +1085,8 @@ fetch("http://54.167.30.227:3000/api/sampleDetails/createSample", {
                         <Input
                          {...register("comments", { required: true })}
                         className="commentsInput"
-                          type="text"  />
+                          type="text" 
+                          id="comments" />
                       </div>
 
                      
@@ -1047,15 +1127,16 @@ fetch("http://54.167.30.227:3000/api/sampleDetails/createSample", {
                             <div>
                           <Button
                           type="button"
-                          onClick={handleReject}
+                          onClick={()=>saveData('reject')}
                           className="previous"
                           >
                             <TbLogout2 size={24} />&nbsp;
                             Reject
                           </Button>
                           <Button
-                            type="submit"
+                            type="button"
                             className="cardbutton"
+                            onClick={()=>saveData('accept')}
                       
                           >
                              <MdDone size={24} color="#fff" />&nbsp;Accept

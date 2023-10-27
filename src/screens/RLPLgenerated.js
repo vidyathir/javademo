@@ -19,12 +19,12 @@ export default function RlplGenerated() {
   const token  = useSelector((state) => state.form.usertoken.token);
   const sample=useSelector(state =>state.form.sampleDetails);
   
-  const batch=useSelector(state =>state.form.newArray)
+  const batch=useSelector(state =>state.form.newArrayaccept)
   console.log("batch",batch)
-  let Id=0
-  Id = batch.map(item => item.sampleId);
+  let sid=0
+sid = batch.id;
    
-    const [sid]=Id
+  
     console.log("id",sid)
    const item={
     "sampleId":sid
@@ -211,7 +211,7 @@ export default function RlplGenerated() {
                           Test Parameter
                         </th>
                       </tr>
-                      {batch.map((item,i)=> (
+                      {batch.rlplDetails.map((item,i)=> (
                       <tr key={i}>
                       <td
                           style={{

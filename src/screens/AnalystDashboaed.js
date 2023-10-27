@@ -149,7 +149,7 @@ console.log("data", data)
                   <tbody className="trAlign">
                     {filterData.map((item, index) => (
      <tr key={item.id}>
-     <td>{index + 1}</td>
+     <td>{index + 1 + page * itemsPerPage}</td>
      <td>{item.tdsNumber}</td>
      <td>{item.batchDetails.rlplNumber}</td>
     

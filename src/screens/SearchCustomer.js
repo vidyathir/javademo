@@ -86,7 +86,7 @@ const [searchQuery, setSearchQuery] = useState('');
                 <a href='/' className='viewAll'> View all</a>
 
             </div>
-                    <Table className="table mt-3" border={1}>
+                    <Table className="tableSearch mt-3" border={1}>
                 <thead className="tbhed">
                     <tr>
                     <th>S.No</th>

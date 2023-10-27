@@ -149,7 +149,12 @@ body{
   font-weight: 500;
   color: #3A4175;
 }
-
+.titleselectsearch {
+  margin-left: 10px;
+  font-size: 20px;
+  font-weight: 500;
+  color: #3A4175;
+}
 .titleselectsize {
   border: none;
   border-color: none;
@@ -1707,10 +1712,11 @@ input{
   font-size: 15px;
 
 }
-/* .table{
+.tableSearch th{
   text-align: center;
   background-Color: #3A4175 !important ;
-} */
+  color: #fff !important;
+} 
 .tbhed{
   color: #fff;
   font-size: 13px;
@@ -1722,6 +1728,10 @@ input{
   
  
 }
+.tableSearch{
+  text-align: center;
+  background-Color: #3A4175 !important ;
+} 
 .tbbutton{
   height: 25px;
   width: 62px;

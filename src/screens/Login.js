@@ -21,7 +21,10 @@ const Login = () => {
   } = useForm();
 
   const navigate = useNavigate();
-
+  useEffect(()=>{
+    window.sessionStorage.removeItem('tableData')
+  
+  },[])
   useEffect(() => {
     if (userToken) {
       // Check if userToken is available, you might want to change this condition

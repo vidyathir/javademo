@@ -76,7 +76,9 @@ export default function TypeOfAnalysis({ onButtonClick }) {
     setSelectedOption(initialRegulatory);
     const initialValid = state.methodvalidation || null;
     setSelectedOptionvalid(initialValid);
-     
+    const initialAnalyticalFeasible = state.analyticalfeasibile || [];
+    setSelectedOption1(initialAnalyticalFeasible);
+
     if (initialMethodology === ("GTP" || "STP" ||"Reference No")) {
       const initialSamplename = state.referencetext || '';
       setOtherValue(initialSamplename);
@@ -512,7 +514,7 @@ export default function TypeOfAnalysis({ onButtonClick }) {
                     {...register("analyticalfeasibile")}
                     type="checkbox"
                     value="AnalyticalFeasibility"
-                    id="AnalyticalFeasibilty"
+                    //id="AnalyticalFeasibilty"
                     name="analyticalfeasibile"
                     disabled={selectedRadio === "Regulatory"}
                     checked={selectedOption1.includes("AnalyticalFeasibility")}
@@ -537,7 +539,7 @@ export default function TypeOfAnalysis({ onButtonClick }) {
                     {...register("analyticalfeasibile")}
                     type="checkbox"
                     value="R&D Sample"
-                    id="R&D Sample"
+                    //id="R&D Sample"
                     name="analyticalfeasibile"
                     disabled={selectedRadio === "Regulatory"}
                     checked={selectedOption1.includes("R&D Sample")}
@@ -559,7 +561,7 @@ export default function TypeOfAnalysis({ onButtonClick }) {
                     {...register("analyticalfeasibile")}
                     type="checkbox"
                     value="Method Developement"
-                    id="Method Developement"
+                   // id="Method Developement"
                     name="analyticalfeasibile"
                     disabled={selectedRadio === "Regulatory"}
                     checked={selectedOption1.includes("Method Developement")}
@@ -584,7 +586,7 @@ export default function TypeOfAnalysis({ onButtonClick }) {
                     {...register("analyticalfeasibile")}
                     type="checkbox"
                     value="Batch Analysis"
-                    id="Batch Analysis"
+                   // id="Batch Analysis"
                     name="analyticalfeasibile"
                     disabled={selectedRadio === "Regulatory"}
                     checked={selectedOption1.includes("Batch Analysis")}

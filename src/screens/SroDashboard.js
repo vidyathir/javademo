@@ -1,6 +1,9 @@
 import React,{useState,useEffect} from "react";
 import Sidenavbar from "../components/Sidenavbar";
-
+import ReactPaginate from "react-paginate";
+import { AiFillLeftCircle, AiFillRightCircle, AiOutlineFileText, AiOutlineFileProtect } from "react-icons/ai";
+import { IconContext } from "react-icons";
+import "./pahin.css";
 import {
   Table,
   Row,
@@ -8,20 +11,16 @@ import {
   // Button,
   Card,
 } from "react-bootstrap";
-
+import axios from "axios";
 import {BsSearch} from 'react-icons/bs';
 import { TbClockEdit,TbFileStar } from "react-icons/tb";
-import { AiFillLeftCircle, AiFillRightCircle } from "react-icons/ai";
-import ReactPaginate from "react-paginate";
-import { IconContext } from "react-icons";
 import { FiEdit } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
 import {LuClipboardEdit} from 'react-icons/lu';
 import {FaRegWindowClose} from 'react-icons/fa';
 import NavbartitleAddco from "../components/NavbartitleAddco";
-import {AiOutlineFileText,AiOutlineFileProtect} from "react-icons/ai";
 import { useSelector,useDispatch } from "react-redux";
-import { changeAnalystBatchId } from "../redux/FormSlice";
+import { changeSroId,changeRlplsearch } from "../redux/FormSlice";
 export default function ReviewDashboard() {
   const navigate = useNavigate();
   const token = useSelector((state) => state.form.usertoken.token);
@@ -31,7 +30,14 @@ export default function ReviewDashboard() {
 const[dashboard,setDashboard]=useState({});
   const [data, setData] = useState([]); // Initialize data as an empty array
   const [filterData, setFilterData] = useState([]);
-  const itemsPerPage = 10;
+  const itemsPerPage = 10; 
+  const [selectedOption, setSelectedOption] = useState('');
+  const[companyDetail,setCompanyDetail]=useState([]);
+const [searchQuery, setSearchQuery] = useState('');
+  const handleSelectChange = (event) => {
+    const selectedValue = event.target.value;
+    setSelectedOption(selectedValue);
+  };
 
   useEffect(() => {
     // Fetch data from your API endpoint here
@@ -49,13 +55,13 @@ const[dashboard,setDashboard]=useState({});
       .catch((error) => {
         console.error("Error fetching data:", error);
       });
-  }, [page, token]);
+  }, []);
   useEffect(() => {
     // Fetch data from your API endpoint here
     fetch('http://54.167.30.227:3000/api/batchDetails/dashBoard',{
       headers: {
         "Content-Type": "application/json",
-        'Authorization': token
+        'Authorization': token,
       },
     })
       .then((response) => response.json())
@@ -81,12 +87,57 @@ const handlePageChange = (selectedPage) => {
 function handleSubmit(item) {
   console.log("item", item.id);
   dispatch(
-    changeAnalystBatchId({
-      AbatchId: item.id,
+    changeSroId({
+      SroId: item.id,
     })
    );
   navigate("SroDetails");
 }
+const handleSearchInputChange = (event) => {
+  setSearchQuery(event.target.value);
+};
+
+// Function to make an API request with the search query
+const searchCompanies = () => {
+  const item={
+    "number":searchQuery,"type":selectedOption}
+    console.log(item)
+
+    fetch("http://54.167.30.227:3000/api/batchDetails/search", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+          'Authorization': token
+        
+        
+      },
+    
+    
+      body: JSON.stringify(item),
+    })
+      .then((response) => response.json())
+    
+      .then((data) => {
+        console.log("result:", data);
+        setCompanyDetail(data)
+        dispatch(
+          changeRlplsearch({
+            companydetail:data ,
+          })
+         );
+        if(selectedOption==="RLPL"){
+        navigate('/SroDashboard/SearchRLPL')
+         // handle the response data here
+      }if(selectedOption==="TDS"){
+        navigate('/SroDashboard/SearchTDS')
+      }}
+      )
+    
+      .catch((error) => {
+        // handle any errors here
+      });
+    }
+
   return (
     <div className="app">
       <NavbartitleAddco />
@@ -96,23 +147,34 @@ function handleSubmit(item) {
         <div className="main">
           <div className="mainitem">
             {/* -----------------------------------------Top Card Start---------------------------------- */}
-
+<div className="col" style={{display:"flex" ,alignItems:"center"}}>
             <div className='SearchCustomerSearchbox'>
                 <div>
-                    <input type='text' placeholder='Search Company' className='SearchCustomerSearchbox-input'
-                    //  value={searchQuery}
-                    //  onChange={handleSearchInputChange}
+                    <input type='text' placeholder='Select type of search' className='SearchCustomerSearchbox-input'
+                     value={searchQuery}
+                      onChange={handleSearchInputChange}
                       />
                 </div>
                 <div>
                     <button className='SearchCustomer-searchbox-button'
-                    //  onClick={searchCompanies}
+                     onClick={searchCompanies}
                       >
                         <BsSearch className='SearchCustomer-searchbox-button-icon' /> <text className='SearchCustomer-searchbox-button-text'>Search</text>
                     </button>
                 </div>
                   </div>
-
+                  <div >
+        
+          <select className="titleselectsearch titleselectsize"
+          id="profile"
+          value={selectedOption}
+          onChange={handleSelectChange}>
+            <option className="titleselect" >type</option>
+            <option className="titleselect" value="RLPL">RLPL ID</option>
+            <option className="titleselect" value="TDS">TDS ID</option>
+          </select>
+        </div>
+        </div>
             <div className="mt-4 row wholeCardDiv">
               <div>
                 {/* <p className="overview">Overview</p> */}
@@ -235,29 +297,26 @@ function handleSubmit(item) {
               <div className="topforsamplewaitingandviewall">
                 <p className="tableTop mt-3">Samples awaiting Review</p>
 
-                <p className="viewAll">View all</p>
+          
               </div>
               <div>
                 <Table className="table" border={1}>
-                  <thead className="tbhed">
-                    <tr style={{ backgroundColor: "#3a4175" }}>
+                  <thead className="table-custom">
+                    <tr>
                       <th>S.No</th>
                       <th>Company Name</th>
-                      <th>Manufacturing Lic No.</th>
-                      <th>State</th>
-
+<th>Sample Name</th>
                       <th>View & Edit</th>
                     </tr>
                   </thead>
-                  <tbody className="trAlign">
+                  <tbody className="tablebody-custom">
                   {filterData.map((item, index) => (
      <tr key={item.id}>
                     
-                      <td>{index+1}</td>
-                      <td>ABC Private Limited</td>
-                      <td>02023</td>
-                      <td>Jane Cooper(Reviewer)</td>
-
+                      <td>{index+1 + page * itemsPerPage}</td>
+                      <td>{item.companyName}</td>
+                
+<td>{item.sampleName}</td>
                       <td>
                         <button className="tbbutton " onClick={()=>handleSubmit(item)}>View</button>
                       </td>

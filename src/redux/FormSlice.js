@@ -55,20 +55,117 @@ tabledata:[
 
   }
 ],
-newArray:[
-  {
-    sampleId:0,
+newArray:{
+  additionalMobileNumber:  "",
+  address1: "",
+  address2: "",
+  attachment: [],
+  batchDetails:[{
+  batchNo: "",
+  batchSize: "",
+  expDate: "",
+  mfgDate: "",
+  natureOfPacking: "",
+  retestDate: "",
+  sampleQuantity: "",
+  testParameter: 
+  [{
+
+  }],}],
+  city: "",
+  comment : "",
+  companyName: "",
+  contactPerson :  "",
+  email: "",
+  id: 0,
+  manufacturingLicenseNumber: "",
+  methodology: "",
+  mobileNumber: "",
+  msdsAttached: [],
+  natureOfSample: "",
+  otherThanRegulatory : [],
+  pincode: "",
+
+  regulatory:"",
+  reportRequiredaAsPerForm39:"",
+  sampleName : "",
+  sampleRetentionRequired: "",
+  sampleType: [],
+  sampleVerification: {},
+  specialInstruction: "",
+  state: "",
+  status: "",
+  storageCondition:  "",
+  testToBeCarriedOut :[],
+  typeOfSubmission:"",
+  vvtddRefNo: ""},
+
+
+  newArrayaccept:{
+    additionalMobileNumber:  "",
+    address1: "",
+    address2: "",
+    attachment: [],
+    batchDetails:[{
     batchNo: "",
-batchSize: "",
-expDate: "",
-mfgDate: "",
-natureOfPacking: "",
-retestDate: "",
-rlplNumber:"",
-sampleQuantity:"",
-testParameter:['']
-  }
-],
+    batchSize: "",
+    expDate: "",
+    mfgDate: "",
+    natureOfPacking: "",
+    retestDate: "",
+    sampleQuantity: "",
+    testParameter: 
+    [{
+  
+    }],}],
+    city: "",
+    comment : "",
+    companyName: "",
+    contactPerson :  "",
+    email: "",
+    id: 0,
+    manufacturingLicenseNumber: "",
+    methodology: "",
+    mobileNumber: "",
+    msdsAttached: [],
+    natureOfSample: "",
+    otherThanRegulatory : [],
+    pincode: "",
+  
+    regulatory:"",
+    reportRequiredaAsPerForm39:"",
+    sampleName : "",
+    sampleRetentionRequired: "",
+    sampleType: [],
+    sampleVerification: {},
+    specialInstruction: "",
+    state: "",
+    status: "",
+    storageCondition:  "",
+    testToBeCarriedOut :[],
+    typeOfSubmission:"",
+    vvtddRefNo: "",
+    rlplDetails: [
+      {
+          sampleId:0,
+          rlplNumber: "",
+          batchNo: "",
+          batchSize: "",
+          natureOfPacking: "",
+          mfgDate: "",
+          expDate: "",
+          retestDate: "",
+          sampleQuantity: "",
+          testParameter: [
+              {
+                  testDataName: "",
+                  testDataCode: ""
+              }
+          ],
+          status: "",
+          id:0
+      }
+  ],},
 ditresponse:[
   
     {
@@ -91,6 +188,8 @@ batchId:'',
 companyId:'',
 AbatchId:'',
 TdsId:'',
+SroId:'',
+companydetail:['']
   },
   reducers: { 
       changeCustomerDetails: (state,action)=> {
@@ -113,6 +212,10 @@ state.tabledata =action.payload;
 changeSubmitData:(state,action)=>{
   console.log(action.payload)
 state.newArray =action.payload;
+},
+changeSubmitAccept:(state,action)=>{
+  console.log(action.payload)
+state.newArrayaccept =action.payload;
 },changeUserToken:(state,action)=>{
   
   state.usertoken=action.payload;
@@ -129,14 +232,18 @@ changeCompanyId:(state,action)=>{
 changeTDSId:(state,action)=>{
   state.TdsId=action.payload;
 },
-changeAnalystBatchId:(state,action)=>{
-  state.AbatchId=action.payload;
+
+changeSroId:(state,action)=>{
+  state.SroId=action.payload;
+},
+changeRlplsearch:(state,action)=>{
+  state.companydetail=action.payload
 }
   },
 
 });
 
 export const { changeCustomerDetails,changeSampleDetails,changeTypeofAnalysis,changeBatchDetails,changeSubmitData,changeUserToken,
-changeBatchId,changeSubmitDit,changeCompanyId,changeTDSId,changeAnalystBatchId} = FormSlice.actions;
+changeBatchId,changeSubmitDit,changeCompanyId,changeTDSId,changeAnalystBatchId,changeSroId,changeRlplsearch,changeSubmitAccept} = FormSlice.actions;
 
 export default FormSlice.reducer;

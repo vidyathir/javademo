@@ -12,7 +12,8 @@ import { changeSampleDetails } from '../redux/FormSlice';
 import Spinner from "../Forms/Spinner"; 
 export default function SampleDetails({ onButtonClick }) {
   const [selectedOption, setSelectedOption] = useState(null);
-  const [selectedOptioncheck, setSelectedOptioncheck] = useState(false);
+  const [selectedOptioncheck, setSelectedOptioncheck] = useState([]);
+const [isOthersChecked, setIsOthersChecked] = useState(false);
   const [selectedOptioncheck1, setSelectedOptioncheck1] = useState(false);
   const [otherValue, setOtherValue] = useState('');
   const [sampleTypeOther, setSampleTypeOther] = useState('');
@@ -28,33 +29,43 @@ export default function SampleDetails({ onButtonClick }) {
   } = useForm({ defaultValues: state });
   const [selectedFileNames, setSelectedFileNames] = useState([]);
   const token = useSelector((state) => state.form.usertoken.token);
-   const handlecheckboxchange = () => {
-   setSelectedOptioncheck(!selectedOptioncheck);
-   if (!selectedOptioncheck) {
-    // Reset the sampleTypeOther when "Others" is selected
-    setSampleTypeOther('');
-  }
-   };
-   useEffect(() => {
-    // Set the initial value of "selectedOption" and "otherValue" when the component mounts
+  const handlecheckboxchange = (event) => {
+    const value = event.target.value;
+    if (value === "Others") {
+      setIsOthersChecked(!isOthersChecked);
+    } else if (value === "MSDS") {
+      setSelectedOptioncheck1(!selectedOptioncheck1);
+    } else {
+      setSelectedOptioncheck((prevSelectedOptioncheck) => {
+        if (prevSelectedOptioncheck.includes(value)) {
+          return prevSelectedOptioncheck.filter((item) => item !== value);
+        } else {
+          return [...prevSelectedOptioncheck, value];
+        }
+      });
+    }
+  };
+  
+  useEffect(() => {
     const initialNatureOfSample = state.natureofsample || null;
     setSelectedOption(initialNatureOfSample);
-     const initialSampleType = state.sampletype || null;
-    setSelectedOptioncheck(initialSampleType);
+    const initialSampleType = state.sampletype || [];
+    setSelectedOptioncheck(initialSampleType.filter(item => item !== "Others"));
+    setIsOthersChecked(initialSampleType.includes("Others"));
+    setSelectedOptioncheck1(initialSampleType.includes("MSDS"));
     if (initialNatureOfSample === "Others") {
-      const initialSamplename = state.othersample || '';
-      setOtherValue(initialSamplename);
+      const initialSampleName = state.othersample || '';
+      setOtherValue(initialSampleName);
       // Set the value of "otherValue" in react-hook-form
-      setValue("othersample", initialSamplename);
+      setValue("othersample", initialSampleName);
     }
-    if (initialSampleType === "Others") {
+    if (initialSampleType.includes("Others")) {
       const initialSample = state.othercheck || '';
       setSampleTypeOther(initialSample);
       // Set the value of "otherValue" in react-hook-form
-      setValue("othercheck", initialSample);}
-
-  }, [state.natureofsample,state.sampletype]);
-
+      setValue("othercheck", initialSample);
+    }
+  }, [state.natureofsample, state.sampletype]);
 
    const handlemsdschange = () => {
     setSelectedOptioncheck1(!selectedOptioncheck1);;
@@ -119,7 +130,10 @@ export default function SampleDetails({ onButtonClick }) {
     let concatenatedElements=[]
   const saveData = async(data) => {
   
-   concatenatedElements =[sampleTypeOther+data.sampletype]
+   concatenatedElements =[data.sampletype+    (sampleTypeOther)];
+   if (selectedOptioncheck1) {
+    concatenatedElements.push("MSDS");
+  }
     console.log(concatenatedElements)
     setIsLoading(true); 
     const formData = new FormData();
@@ -704,10 +718,8 @@ msdsAttached:names
                                     name="sampletype"
                                     value="Hygroscopic"
                                    // id="hygroscopic"
-                                    // checked={selectedOptioncheck === "hygroscopic"}
-                                    // onChange={() =>
-                                    //   setSelectedOptioncheck("hygroscopic")
-                                    // }
+                                    checked={selectedOptioncheck.includes("Hygroscopic")}
+                                    onChange={handlecheckboxchange }
                                    
                                     className="customRadio"
                                   />
@@ -731,10 +743,8 @@ msdsAttached:names
                                     name="sampletype"
                                   
                                    // id="lightsensitive"
-                                    // checked={selectedOptioncheck === "lightsensitive"}
-                                    // onChange={() =>
-                                    //   setSelectedOptioncheck("lightsensitive")
-                                    // }
+                                    checked={selectedOptioncheck.includes("Lightsensitive")}
+                                     onChange={handlecheckboxchange }
                                   
                                     className="customRadio"
                                   />
@@ -758,10 +768,8 @@ msdsAttached:names
                                     name="sampletype"
                                     value="Non-Hazardous"
                                     //id="non-hazardous"
-                                   // checked={selectedOptioncheck === "non-hazardous"}
-                                    // onChange={() =>
-                                    //   setSelectedOptioncheck("non-hazardous")
-                                    // }
+                                   checked={selectedOptioncheck.includes("Non-Hazardous")}
+                                    onChange={handlecheckboxchange}
                                    
                                     className="customRadio"
                                   />
@@ -800,12 +808,8 @@ msdsAttached:names
                                       name="sampletype"
                                       value="Hazardous"
                                       //id="hazardous"
-                                      // checked={
-                                      //   selectedOptioncheck === "hazardous"
-                                      // }
-                                      // onChange={() =>
-                                      //   setSelectedOptioncheck("hazardous")
-                                      // }
+                                      checked={ selectedOptioncheck.includes("Hazardous") }
+                                      onChange={handlecheckboxchange}
                                      
                                       className="customRadio"
                                     />
@@ -829,7 +833,7 @@ msdsAttached:names
                                       name="sampletype"
                                       value="Others"
                                       //id="others"
-                                      checked={selectedOptioncheck}
+                                      checked={isOthersChecked}
                                       onChange={handlecheckboxchange}
                                       
                                       className="customRadio"
@@ -843,7 +847,7 @@ msdsAttached:names
                               </div>
                               <div className="col">
                                 <span>
-                                  {selectedOptioncheck  && (
+                                  {isOthersChecked  && (
                                     <Field>
                                     <Input
                                     {...register("othercheck")}
@@ -889,7 +893,7 @@ msdsAttached:names
                                   name="sampleType"
                                   value="MSDS"
                                   checked={selectedOptioncheck1}
-                                  onChange={handlemsdschange}
+                                  onChange={handlecheckboxchange}
                                   className="customRadio"
                                 />
                               </Field>

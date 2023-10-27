@@ -1,28 +1,40 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./Styles.css";
+import { AiOutlineLeft } from "react-icons/ai";
 import Sidenavbar from '../components/Sidenavbar';
 import NavbartitleAddco from "../components/NavbartitleAddco";
-
+import { useNavigate } from "react-router-dom";
 import { Col, Row, Table } from "react-bootstrap";
 import { PiFilePdfFill } from "react-icons/pi";
 // import { BiLeftArrowAlt, BiRightArrowAlt } from "react-icons/bi";
 import { useSelector } from "react-redux";
+import axios from "axios";
 import SubTable from '../components/SubTable';
-export default function ConfirmDetails({onButtonClick},{data}) {
-  
-  const form=useSelector(state =>state.form.customer);
-  const sample=useSelector(state =>state.form.sampleDetails);
-  const analysis=useSelector(state =>state.form.data);
-  const batch=useSelector(state=>state.form.tabledata); 
-console.log("analysis",analysis)
-console.log("batch", batch)
-console.log("form",form)
-console.log("sample",sample)
+export default function SroDetails() {
+  const [analystView, setAnalystView] = useState({});
+  const navigate = useNavigate();
+  const id = useSelector((state) => state.form.SroId.SroId);
+  const token = useSelector((state) => state.form.usertoken.token);
+  console.log(id)
+  useEffect(() => {
+    axios
+      .get(
+        "http://54.167.30.227:3000/api/sampleDetails/getSampleById?sampleId="+id,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            'Authorization': token,
+          },
+        }
+      )
 
+      .then((response) => setAnalystView(response.data))
+      .catch((error) => console.error("Error fetching batch data:", error));
+  }, [id, token]);
+  console.log("analystview", analystView);
   const handleSubmit=()=>{
-    onButtonClick("SampleVerification")
+    navigate("/SroDashboard")
   }
-
   function combineValues(...values) {
     const nonEmptyValues = values.filter(value => value !== "" && value !== undefined);
     return nonEmptyValues.length > 0 ? nonEmptyValues.join(", ") : "N/A";
@@ -38,10 +50,20 @@ console.log("sample",sample)
     
                 <div className='main'>
                     <div className='mainitem'>
-       
+                    <div
+              className="analystbackbutton mt-3"
+              onClick={() => navigate("/SroDashboard")}
+            >
+              <AiOutlineLeft
+                onClick={() =>
+                  navigate("/SroDashboard")
+                }
+              />{" "}
+              <text>back</text>
+            </div>
 
           <div className="">
-            <text className="mainheadtitle">Name Of the Sample : <span>#######</span></text>
+            <text className="mainheadtitle">Name Of the Sample : <span>{analystView.sampleName}</span></text>
           </div>
 
           <div className="mt-2">
@@ -53,31 +75,31 @@ console.log("sample",sample)
             <Col className="">
               <div className="d-flex row " >
                 <text className="cardcolhed" xs={8}>Contact Person Name</text>
-                {form.contactPersonName?
-                <text className="cardcolhedtext mt-1">{form.contactPersonName}</text>:<text className="cardcolhedtext mt-1">N/A</text>}
+            
+                <text className="cardcolhedtext mt-1">{analystView.contactPerson}</text>
               </div>
             </Col>
             <Col className="columnMb">
               <div className="d-flex row ">
                 <text className="cardcolhed">Manufacturing Lic No</text>
-                {form.licenceNo?
-                <text className="cardcolhedtext mt-1">{form.licenceNo}</text>:<text className="cardcolhedtext mt-1">N/A</text>}
+                
+                <text className="cardcolhedtext mt-1">{analystView.manufacturingLicenseNumber}</text>
               </div>
             </Col>
             <Col  className="columnMb">
               <div className="d-flex row ">
                 <text className="cardcolhed ">Email Id</text>
-                {form.emailId?
-                <text className="cardcolhedtext mt-1 ">{form.emailId}</text>:<text className="cardcolhedtext mt-1">N/A</text>}
+                
+                <text className="cardcolhedtext mt-1 ">{analystView.email}</text>
               </div>
             </Col>
             <Col className="columnMb">
               <div className="d-flex row ">
                 <text className="cardcolhed">Company Name & Address</text>
-                {form.company || form.address1 ?
+                
                 <text className="cardcolhedtext mt-1">
-                  {form.company},{form.address1}
-                </text>:<text className="cardcolhedtext mt-1">N/A</text>}
+                  {analystView.companyName},{analystView.address1}
+                </text>
               </div>
             </Col>
           </Row>
@@ -86,15 +108,15 @@ console.log("sample",sample)
             <Col className="columnMb col-3">
               <div className="d-flex row">
                 <text className="cardcolhed">Phone Number</text>
-                {form.phoneNo?
-                <text className="cardcolhedtext mt-1">{form.phoneNo}</text>:<text className="cardcolhedtext mt-1">N/A</text>}
+                
+                <text className="cardcolhedtext mt-1">{analystView.mobileNumber}</text>
               </div>
             </Col>
             <Col className="columnMb col-4">
               <div className="d-flex row">
                 <text className="cardcolhed">Additional Phone Number</text>
-                {form.phoneNo1?
-                <text className="cardcolhedtext mt-1">{form.phoneNo1}</text>:<text className="cardcolhedtext mt-1">N/A</text>}
+                
+                <text className="cardcolhedtext mt-1"></text>
               </div>
             </Col>
           </Row>
@@ -103,48 +125,48 @@ console.log("sample",sample)
             <text className="mainheadtitlesub">Sample details</text>
             <hr />
           </div>
-
+          {analystView?(
           <Row className="rowtabview">
             <Col className="">
               <div className="d-flex row">
                 <text className="cardcolhed">Name of the Sample</text>
-                {sample.samplename?
-                <text className="cardcolhedtext mt-1">{sample.samplename}</text>:<text className="cardcolhedtext mt-1">N/A</text>}
+                
+                <text className="cardcolhedtext mt-1">{analystView.sampleName}</text>
               </div>
             </Col>
             <Col className="columnMb">
               <div className="d-flex row">
                 <text className="cardcolhed">Storage Condition</text>
-                {sample.storage ?
-                <text className="cardcolhedtext mt-1">{sample.storage}</text>:<text className="cardcolhedtext mt-1">N/A</text>}
+              
+                <text className="cardcolhedtext mt-1">{analystView.storageCondition}</text>
               </div>
             </Col>
             <Col className="columnMb">
               <div className="d-flex row">
                 <text className="cardcolhed">Type of Submission</text>
-                {sample.submissiontype?
-                <text className="cardcolhedtext mt-1">{sample.submissiontype}</text>:<text className="cardcolhedtext mt-1">N/A</text>}
+                
+                <text className="cardcolhedtext mt-1">{analystView.typeOfSubmission}</text>
               </div>
             </Col>
             <Col className="columnMb">
            
               <div className="d-flex row">
              
-                <text className="cardcolhed">Sample Type</text>
-                {sample.sampletype ?
-                <text className="cardcolhedtext mt-1">{sample.sampletype.join(",")}</text>:<text className="cardcolhedtext mt-1">N/A</text>}
+                <text className="cardcolhed">Sample Type</text>{analystView.sampleType?
+                
+                <text className="cardcolhedtext mt-1">{analystView.sampleType.join(",")}</text>:<text className="cardcolhedtext mt-1">NA</text>}
             
               </div>
              
             </Col>
-          </Row>
-
+          </Row>):( <div>N/A</div>)}
+          {analystView?(
           <Row className="mt-3 rowtabview">
             <Col className="columnMb col-3">
               <div className="d-flex row">
                 <text className="cardcolhed">Nature of Sample</text>
 
-                <text className="cardcolhedtext mt-1">{sample.natureofsample}</text> 
+                <text className="cardcolhedtext mt-1">{analystView.natureOfSample}</text> 
               </div>
             </Col>
             <Col className="columnMb col-3">
@@ -152,7 +174,7 @@ console.log("sample",sample)
                 <text className="cardcolhed">
                   Report required as per Form-39*
                 </text>
-                <text className="cardcolhedtext mt-1">{sample.report}</text>
+                <text className="cardcolhedtext mt-1">{analystView.reportRequiredaAsPerForm39}</text>
               </div>
             </Col>
             <Col className="columnMb col-6">
@@ -160,21 +182,26 @@ console.log("sample",sample)
                 <text className="cardcolhed">
                   Sample Retention required(Drug Product/Substance){" "}
                 </text>
-                <text className="cardcolhedtext mt-1">{sample.sampleretension}</text>
+                <text className="cardcolhedtext mt-1">{analystView.sampleRetentionRequired}</text>
               </div>
             </Col>
-          </Row>
+          </Row>):( <div>N/A</div>)}
 
           <div className="mt-3">
-            <text className="mainheadtitlesub">Batch details</text>
+            <text className="mainheadtitlesub">Batch & RLPL details</text>
             <hr />
           </div>
-
-       
+          
+          {analystView.batchDetails ? (
+       analystView.batchDetails.map((item, i)=> (
+        <div style={{border:"1px solid", borderColor:"#000",padding:5,paddingTop:20,marginBottom:10}}>
             <Table responsive >
+               
               <thead className="table-custom">
+
                 <tr>
                   <th>S.No</th>
+                  <th>RLPL ID</th>
                   <th>Batch No./Lot No(s)</th>
                   <th>Batch Size</th>
                   <th>Nature Of Packaging</th>
@@ -187,147 +214,76 @@ console.log("sample",sample)
                 </tr>
               </thead>
 
-
-
-
+             
 
               <tbody className="tablebody-custom">
-                
-              {batch.map((item, i)=> (
-    <tr key={i}>
-      <td>{i + 1}</td>
-      <td>{item.batchNo}</td>
+               
+                <tr key={i}>
+                  <td>{i+1}</td>
+                  <td>{item.rlplNumber}</td>
+                  <td>{item.batchNo}</td>
       <td>{combineValues(item.batchSize)}</td>
       <td>{combineValues(item.natureOfPacking)}</td>
       <td>{combineValues(item.mfgDate)}</td>
       <td>{combineValues(item.expDate)}</td>
       <td>{combineValues(item.retestDate)}</td>
       <td>{combineValues(item.sampleQuantity)}</td>
-      {/* <td>{combineValues(item.testParameter?.map(option => option.value))}</td> */}
-                
-                        </tr>
-              )           
+    </tr>
+                         
                           
-)}
+</tbody>
 
-              </tbody>
-
-
-            </Table>
-        
-<div style={{display:'flex',justifyContent:'center'}}>
-  <Table className="table-customsub"  style={{width:'50%',}}>
+</Table>
+{item.tdsDetails && item.tdsDetails.length > 0 ? (
+  <Table className="table-customsub" >
     <thead style={{backgroundColor:"#505050"}}>
       <tr>
-      <th>RLPL ID </th>
-      <th>Test Parameter </th>
-      <th>TDS Number </th>
+  <th>RLPL Number</th>
+     <th>TDS Number </th>
+     <th>Test Parameter</th>
       <th>Current Status </th>
       </tr>
     </thead>
     <tbody style={{backgroundColor:'#ffffff',color:'#8f8f8f'}}>
-    <td>rajaj</td>
-    <td>rajaj</td>
-    <td>rajaj</td>
-    <td> <text style={{backgroundColor:"##9AC037"}}>rajaj</text></td>
+  
+         { item.tdsDetails.map((item1, i) => (
+            <tr key={i+1}>
+    <td>{item.rlplNumber}</td>
+    <td>{item1.tdsNumber}</td>
+    <td>{item1.testDataCode}</td>
+    <td> <text style={{backgroundColor:"##9AC037"}}>{item1.status}</text></td>
+    </tr>))}
     </tbody>
-    <tbody style={{backgroundColor:'#ffffff',color:'#8f8f8f'}}>
-    <td>rajaj</td>
-    <td>rajaj</td>
-    <td>rajaj</td>
-    <td>rajaj</td>
-    </tbody>
-    <tbody style={{backgroundColor:'#ffffff',color:'#8f8f8f'}}>
-    <td>rajaj</td>
-    <td>rajaj</td>
-    <td>rajaj</td>
-    <td>rajaj</td>
-    </tbody>
+  
+  </Table>):(
+    <Table className="table-customsub" >
+      <tbody style={{backgroundColor:'#ffffff',color:'#8f8f8f'}}> <tr>
+      <td colSpan="9">TDS not yet created</td>
+    </tr></tbody>
+    </Table>
+   
+  )}
+
+  </div>
+))
+) : (
+  <Table>
+  <tbody className="tablebody-custom">
+    <tr>
+      <td colSpan="9">Data not available</td>
+    </tr>
+  </tbody>
   </Table>
-</div>
+)}
+
+ 
+
+    
+
 
 
 
 {/* -----------------------------------table two -------------------------- */}
-
-
-<Table responsive className="mt-5">
-              {/* <thead className="table-custom">
-                <tr>
-                  <th>S.No</th>
-                  <th>Batch No./Lot No(s)</th>
-                  <th>Batch Size</th>
-                  <th>Nature Of Packaging</th>
-                  <th>Mfg. Date</th>
-                  <th>Exp. Date</th>
-                  <th>Retest Date</th>
-                  <th>Sample Quantity</th>
-                
-               
-                </tr>
-              </thead> */}
-
-
-
-
-
-              <tbody className="tablebody-custom">
-                
-              {batch.map((item, i)=> (
-    <tr key={i}>
-      <td>{i + 1}</td>
-      <td>{item.batchNo}</td>
-      <td>{combineValues(item.batchSize)}</td>
-      <td>{combineValues(item.natureOfPacking)}</td>
-      <td>{combineValues(item.mfgDate)}</td>
-      <td>{combineValues(item.expDate)}</td>
-      <td>{combineValues(item.retestDate)}</td>
-      <td>{combineValues(item.sampleQuantity)}</td>
-      {/* <td>{combineValues(item.testParameter?.map(option => option.value))}</td> */}
-                
-                        </tr>
-              )           
-                          
-)}
-
-              </tbody>
-
-
-            </Table>
-        
-<div style={{display:'flex',justifyContent:'center'}}>
-  <Table className="table-customsub"  style={{width:'50%',}}>
-    <thead style={{backgroundColor:"#505050"}}>
-      <tr>
-      <th>RLPL ID </th>
-      <th>Test Parameter </th>
-      <th>TDS Number </th>
-      <th>Current Status </th>
-      </tr>
-    </thead>
-    <tbody style={{backgroundColor:'#ffffff',color:'#8f8f8f'}}>
-    <td>rajaj</td>
-    <td>rajaj</td>
-    <td>rajaj</td>
-    <td> <text style={{backgroundColor:"##9AC037"}}>rajaj</text></td>
-    </tbody>
-    <tbody style={{backgroundColor:'#ffffff',color:'#8f8f8f'}}>
-    <td>rajaj</td>
-    <td>rajaj</td>
-    <td>rajaj</td>
-    <td>rajaj</td>
-    </tbody>
-    <tbody style={{backgroundColor:'#ffffff',color:'#8f8f8f'}}>
-    <td>rajaj</td>
-    <td>rajaj</td>
-    <td>rajaj</td>
-    <td>rajaj</td>
-    </tbody>
-  </Table>
-</div>
-
-
-
 
           <div className="mt-3">
             <text className="mainheadtitlesub">Type of Analysis</text>
@@ -342,15 +298,15 @@ console.log("sample",sample)
                 <text className="cardcolhed">
                   Regulatory(Form-39/DMF Filing/ANDA Filing/Any Query)
                 </text>
-                {analysis.formfilling ?
-                <text className="cardcolhedtext mt-1">{analysis.formfilling}</text>:<text className="cardcolhedtext mt-1">N/A</text>}
+                {analystView.regulatory?
+                <text className="cardcolhedtext mt-1">{analystView.regulatory}</text>:<text className="cardcolhedtext mt-1">N/A</text>}
               </div>
             </Col>
             <Col className="columnMb">
               <div className="d-flex row">
                 <text className="cardcolhed">Other than Regulatory </text>
-                {analysis.analyticalfeasibile ? 
-                <text className="cardcolhedtext mt-1"><ul>{(analysis.analyticalfeasibile).join(",")}</ul></text>:<text className="cardcolhedtext mt-1">N/A</text>}
+                {analystView.otherThanRegulatory ?
+                <text className="cardcolhedtext mt-1"><ul>{(analystView.otherThanRegulatory).join(",")}</ul></text>:<text className="cardcolhedtext mt-1">N/A</text>}
               </div>
             </Col>
           </Row>
@@ -361,8 +317,8 @@ console.log("sample",sample)
                 <text className="cardcolhed">
                   Test to be carried out as per{" "}
                 </text>
-                {analysis.test ?
-                <text className="cardcolhedtext mt-1">{analysis.test.join("   ,  ")}</text>:<text className="cardcolhedtext mt-1">N/A</text>}
+                {analystView.testToBeCarriedOut ?
+                <text className="cardcolhedtext mt-1">{analystView.testToBeCarriedOut.join("   ,  ")}</text>:<text className="cardcolhedtext mt-1">N/A</text>}
               </div>
             </Col>
             <Col className="columnMb">
@@ -370,8 +326,8 @@ console.log("sample",sample)
                 <text className="cardcolhed">
                   Special Instructions If any other{" "}
                 </text>
-                {analysis.specialinstruction ?
-                <text className="cardcolhedtext mt-1">{analysis.specialinstruction}</text>:<text className="cardcolhedtext mt-1">N/A</text>}
+                {analystView.specialInstruction?
+                <text className="cardcolhedtext mt-1">{analystView.specialInstruction}</text>:<text className="cardcolhedtext mt-1">N/A</text>}
               </div>
             </Col>
           </Row>
@@ -384,8 +340,8 @@ console.log("sample",sample)
                   If Method Validation/Verification/Transfer/Development are
                   performed atRevin Labs please specify the Report Ref.num.{" "}
                 </text>
-                {analysis.methodvalidation ?
-                <text className="cardcolhedtext mt-1">{analysis.methodvalidation}</text>:<text className="cardcolhedtext mt-1">N/A</text>}
+                {analystView.vvtddRefNo?
+                <text className="cardcolhedtext mt-1">{analystView.vvtddRefNo}</text>:<text className="cardcolhedtext mt-1">N/A</text>}
               </div>
             </Col>
             <Col className="columnMb">
@@ -400,23 +356,24 @@ console.log("sample",sample)
 
           <Row className="mt-3 rowtabview">
             <Col className="columnMb">
-            {analysis.methodologyfollowed?
+            
               <div className="d-flex row">
                 <text className="cardcolhed">Methodology </text>
-                
-                <text className="cardcolhedtext mt-1">{analysis.methodologyfollowed}</text>
-              </div>:<text className="cardcolhedtext mt-1">N/A</text>}
+                {analystView.methodology?
+                <text className="cardcolhedtext mt-1">{analystView.methodology}</text>:<text className="cardcolhedtext mt-1">N/A</text>}
+              </div>
             </Col>
             <Col className="columnMb">
               <div className="d-flex row">
                 <text className="cardcolhed">Attachments </text>
                 <span>
                   <PiFilePdfFill />
-                  {analysis.choosefile?
-                  <div><text className="cardcolhedtext mt-1">{(analysis.choosefile).join(",")}</text>
+                  {analystView.attachment?
+                  <div><text className="cardcolhedtext mt-1">{(analystView.attachment).join(",")}</text>
   
-    </div>:<text className="cardcolhedtext mt-1">N/A</text>}
-                 
+                  </div>:<text className="cardcolhedtext mt-1">N/A</text>}
+  
+  
                 </span>
               </div>
             </Col>

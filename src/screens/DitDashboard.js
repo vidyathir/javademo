@@ -141,7 +141,7 @@ export default function DitDashboard() {
                   <tbody className="trAlign">
                     {filterData.map((item, index) => (
                       <tr key={item.id}>
-                        <td>{index + 1}</td>
+                        <td>{index + 1 + page * itemsPerPage}</td>
                         <td>{item.rlplNumber}</td>
                         <td>
                           {item.testParameter
