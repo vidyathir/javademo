@@ -316,7 +316,7 @@ export default function RLPLNotgenerated() {
                     Send an email
                   </Button>
                   <Button
-                   onClick={() => navigate("/Print")}
+                   onClick={() => navigate("/Printreject")}
                     style={{
                       height: "40px",
                       width: "122px",

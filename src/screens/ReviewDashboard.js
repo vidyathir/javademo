@@ -133,7 +133,7 @@ console.log("data", data)
               </div>
               <div>
                 <Table className="table" border={1}>
-                  <thead className="tbhed">
+                  <thead className="table-custom">
                     <tr style={{ backgroundColor: "#3a4175" }}>
                     <th>S.No</th>
                       <th>TDS ID</th>
@@ -141,7 +141,7 @@ console.log("data", data)
                       <th>View</th>
                     </tr>
                   </thead>
-                  <tbody className="trAlign">
+                  <tbody className="tablebody-custom">
                   {filterData.map((item, index) => (
      <tr key={item.id}>
      <td>{index + 1 + page * itemsPerPage}</td>

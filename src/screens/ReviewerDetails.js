@@ -302,9 +302,9 @@ fetch("http://54.167.30.227:3000/api/tdsDetails/review", {
                     with this filled TRF{" "}
                   </text>
                   <div className="analyticalbutton-div">
-                    {analystView.sampleDetails.attachment?
-                    <text className="analyticalbutton mt-1">{analystView.sampleDetails.attachment.join(',')}</text>:
-                    <text className="analyticalbutton mt-1">N/A</text>}
+                    {analystView.sampleDetails.attachment&& analystView.sampleDetails.attachment.length>0 ?
+                    <text className="cardcolhedtext mt-1">{analystView.sampleDetails.attachment.join(',')}</text>:
+                    <text className="cardcolhedtext mt-1">N/A</text>}
                   </div>
                   {/* <text className="cardcolhedtext mt-1">xxxxxx xxxxx</text> */}
                 </div>

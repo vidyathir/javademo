@@ -130,7 +130,7 @@ export default function DitDashboard() {
               </div>
               <div>
                 <Table className="table" border={1}>
-                  <thead className="tbhed">
+                  <thead className="table-custom">
                     <tr>
                       <th>S.No</th>
                       <th>Registration No</th>
@@ -138,7 +138,7 @@ export default function DitDashboard() {
                       <th>View</th>
                     </tr>
                   </thead>
-                  <tbody className="trAlign">
+                  <tbody className="tablebody-custom">
                     {filterData.map((item, index) => (
                       <tr key={item.id}>
                         <td>{index + 1 + page * itemsPerPage}</td>

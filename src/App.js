@@ -29,6 +29,7 @@ import DITTDSExpandedview from './screens/DITTDSExpandedview';
 import SroDetails from './screens/SroDetails';
 import SearchRLPL from './screens/SearchRLPL';
 import SearchTDS from './screens/SearchTDS';
+import Printreject from './screens/Printreject';
 
 
 export default function App() {
@@ -39,7 +40,6 @@ export default function App() {
     <Routes>
   
      <Route exact path='/' element={<Login/>} />
-     <Route exact path='/Print' element={<Print/>} />
      <Route exact path='/DITExpandedview' element={<DITExpandedview/>}/>
      <Route exact path ='/SroDashboard' element={<SroDashboard />} />
      <Route exact path ='/SroDashboard/SroDetails' element={<SroDetails />} />
@@ -55,6 +55,8 @@ export default function App() {
      <Route exact path='/AddNewCustomer' element={<AddNewCustomer/>}/>
      <Route exact path='/Progress/RLPLgenerated' element={<RLPLgenerated/>}/>  
      <Route exact path='/Progress/RLPLNotgenerated' element={<RLPLNotgenerated/>}/>
+     <Route exact path='/Print' element={<Print/>} />
+     <Route exact path='/Printreject' element={<Printreject/>} />
      <Route exact path='/AnalystDashboaed' element={<AnalystDashboaed/>}/>  
      {/* <Route exact path='/AnalystDashboaed/AwaitingSamples' element={<AwaitingSamples/>}/>   */}
      <Route exact path='/AnalystDashboaed/AnalystBatchandRLPLdetails' element={<AnalystBatchandRLPLdetails/>}/>  

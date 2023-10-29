@@ -9,7 +9,7 @@ export default function Print() {
 
 
   
-  const batch=useSelector(state =>state.form.newArrayaccept)
+  const batch=useSelector(state =>state.form.newArray)
 
 
   const [printing, setPrinting] = useState(true);
@@ -160,7 +160,6 @@ export default function Print() {
               <thead className="table-custom">
                 <tr>
                   <th>S.No</th>
-                  <th>RLPL ID</th>
                   <th>Batch No./Lot No(s)</th>
                   <th>Batch Size</th>
                   <th>Nature Of Packaging</th>
@@ -174,11 +173,10 @@ export default function Print() {
               </thead>
               <tbody className="tablebody-custom">
                 
-              {batch.rlplDetails.map((item, i)=> (
+              {batch.batchDetails.map((item, i)=> (
     <tr key={i}>
       <td>{i + 1}</td>
       <td>{item.batchNo}</td>
-      <td>{item.rlplNumber}</td>
       <td>{combineValues(item.batchSize)}</td>
       <td>{combineValues(item.natureOfPacking)}</td>
       <td>{combineValues(item.mfgDate)}</td>

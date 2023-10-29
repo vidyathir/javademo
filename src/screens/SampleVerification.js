@@ -11,7 +11,8 @@ import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import { useSelector,useDispatch } from "react-redux";
 import { changeSubmitData,changeSubmitAccept} from "../redux/FormSlice";
-
+// import * as yup from 'yup';
+// import { yupResolver } from '@hookform/resolvers/yup';
 export default function SampleVerification({onButtonClick}) {
   const navigate = useNavigate();
   const MySwal = withReactContent(Swal)
@@ -28,167 +29,184 @@ console.log("analysis",analysis)
 console.log("batch", batch)
 console.log("form",form)
 console.log("sample",sample)
+// const validationSchema = yup.object().shape({
+//   trf: yup.string().required('This field is required.'),
+//   sampledetail: yup.string().required('This field is required.'),
+//   regulatory: yup.string().required('This field is required.'),
+//   leakage: yup.string().required('This field is required.'),
+//   splinstruction: yup.string().required('This field is required.'),
+//   datalog: yup.string().required('This field is required.'),
+//   samplematch: yup.string().required('This field is required.'),
+//   method: yup.string().required('This field is required.'),
+//   specification: yup.string().required('This field is required.'),
+//   sampletype: yup.string().required('This field is required.'),
+//   testparam: yup.string().required('This field is required.'),
+//   comments: yup.string().required('This field is required.'),
+// });
 
-const postapicallreject=()=>{
-  const data1 = getValues();
-  console.log("data",data1)
-  const item={
-    companyName:form.company,
-    manufacturingLicenseNumber:form.licenceNo,
-    contactPerson: form.contactPersonName,
-    mobileNumber: form.phoneNo,
-    additionalMobileNumber:form.phoneNo1,
-    email:form.emailId,
-    address1: form.address1,
-    address2:form.address2,
-    city:form.city,
-    state: form.state,
-    pincode:form.pincode,
-    sampleName:sample.samplename,
-    reportRequiredaAsPerForm39:sample.report,
-    storageCondition: sample.storage,
-    natureOfSample:sample.natureofsample,
-    sampleType:sample.sampletype,
-    sampleRetentionRequired:sample.sampleretension ,
-    typeOfSubmission:sample.submissiontype,
-    batchDetails:
-      batch.map((item,i)=>(
-        {
-          batchNo:item.batchNo,
-          batchSize:item.batchSize,
-          natureOfPacking:item.natureOfPacking,
-          mfgDate:item.mfgDate,
-          expDate:item.expDate,
-          retestDate:item.retestDate,
-          sampleQuantity:item.sampleQuantity,
-          testParameter:item.testParameter.map(option=>(
-            {
-              testDataName:option.label,
-              testDataCode:option.value
-            }))
-        }
-      )),
-    regulatory:analysis.formfilling,
-    otherThanRegulatory:analysis.analyticalfeasibile ,
-    vvtddRefNo:analysis.methodvalidation,
-    methodology: analysis.methodologyfollowed,
-    testToBeCarriedOut:analysis.test,
-    attachment:analysis.choosefile,
-    specialInstruction:analysis.specialinstruction,
-  sampleVerification:data1,
-  comment:data1.comments,
-  msdsAttached:sample.msdsAttached,
-  status:"reject"
-  }
-  console.log("item", item)
-fetch("http://54.167.30.227:3000/api/sampleDetails/createSample", {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json",
-    'Authorization': token
-  },
-
-
-  body: JSON.stringify(item),
-})
-  .then((response) => response.json())
-
-  .then((data) => {
-    dispatch(changeSubmitData(data))
-    console.log("Success:", data);
-    
-     // handle the response data here
-  })
-
-  .catch((error) => {
-    // handle any errors here
-  });
-}
-const postapicall=()=>{
-  const data1 = getValues();
-  console.log("data",data1)
-  const item={
-    companyName:form.company,
-    manufacturingLicenseNumber:form.licenceNo,
-    contactPerson: form.contactPersonName,
-    mobileNumber: form.phoneNo,
-    additionalMobileNumber:form.phoneNo1,
-    email:form.emailId,
-    address1: form.address1,
-    address2:form.address2,
-    city:form.city,
-    state: form.state,
-    pincode:form.pincode,
-    sampleName:sample.samplename,
-    reportRequiredaAsPerForm39:sample.report,
-    storageCondition: sample.storage,
-    natureOfSample:sample.natureofsample,
-    sampleType:sample.sampletype,
-    sampleRetentionRequired:sample.sampleretension ,
-    typeOfSubmission:sample.submissiontype,
-    batchDetails:
-      batch.map((item,i)=>(
-        {
-          batchNo:item.batchNo,
-          batchSize:item.batchSize,
-          natureOfPacking:item.natureOfPacking,
-          mfgDate:item.mfgDate,
-          expDate:item.expDate,
-          retestDate:item.retestDate,
-          sampleQuantity:item.sampleQuantity,
-          testParameter:item.testParameter.map(option=>(
-            {
-              testDataName:option.label,
-              testDataCode:option.value
-            }))
-        }
-      )),
-    regulatory:analysis.formfilling,
-    otherThanRegulatory:analysis.analyticalfeasibile ,
-    vvtddRefNo:analysis.methodvalidation,
-    methodology: analysis.methodologyfollowed,
-    testToBeCarriedOut:analysis.test,
-    attachment:analysis.choosefile,
-    specialInstruction:analysis.specialinstruction,
-  sampleVerification:data1,
-  comment:data1.comments,
-  msdsAttached:sample.msdsAttached,
-  status:"accept"
-  }
-  console.log("item", item)
-fetch("http://54.167.30.227:3000/api/sampleDetails/createSample", {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json",
-    'Authorization': token
-  },
-
-
-  body: JSON.stringify(item),
-})
-  .then((response) => response.json())
-
-  .then((data) => {
-    dispatch(changeSubmitAccept(data))
-    console.log("Success:", data);
-    
-     // handle the response data here
-  })
-
-  .catch((error) => {
-    // handle any errors here
-  });
-}
   const {
     handleSubmit,
     register,
     formState: { errors },
     getValues,
+    trigger,
   } = useForm();
-
- 
   
-  const saveData = (action) => {
+  const postapicallreject=()=>{
+    const data1 = getValues();
+    console.log("data",data1)
+    const item={
+      companyName:form.company,
+      manufacturingLicenseNumber:form.licenceNo,
+      contactPerson: form.contactPersonName,
+      mobileNumber: form.phoneNo,
+      additionalMobileNumber:form.phoneNo1,
+      email:form.emailId,
+      address1: form.address1,
+      address2:form.address2,
+      city:form.city,
+      state: form.state,
+      pincode:form.pincode,
+      sampleName:sample.samplename,
+      reportRequiredaAsPerForm39:sample.report,
+      storageCondition: sample.storage,
+      natureOfSample:sample.natureofsample,
+      sampleType:sample.sampletype,
+      sampleRetentionRequired:sample.sampleretension ,
+      typeOfSubmission:sample.submissiontype,
+      batchDetails:
+        batch.map((item,i)=>(
+          {
+            batchNo:item.batchNo,
+            batchSize:item.batchSize,
+            natureOfPacking:item.natureOfPacking,
+            mfgDate:item.mfgDate,
+            expDate:item.expDate,
+            retestDate:item.retestDate,
+            sampleQuantity:item.sampleQuantity,
+            testParameter:item.testParameter.map(option=>(
+              {
+                testDataName:option.label,
+                testDataCode:option.value
+              }))
+          }
+        )),
+      regulatory:analysis.formfilling,
+      otherThanRegulatory:analysis.analyticalfeasibile ,
+      vvtddRefNo:analysis.methodvalidation,
+      methodology: analysis.methodologyfollowed,
+      testToBeCarriedOut:analysis.test,
+      attachment:analysis.choosefile,
+      specialInstruction:analysis.specialinstruction,
+    sampleVerification:data1,
+    comment:data1.comments,
+    msdsAttached:sample.msdsAttached,
+    status:"reject"
+    }
+    console.log("item", item)
+  fetch("http://54.167.30.227:3000/api/sampleDetails/createSample", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      'Authorization': token
+    },
+  
+  
+    body: JSON.stringify(item),
+  })
+    .then((response) => response.json())
+  
+    .then((data) => {
+      dispatch(changeSubmitData(data))
+      console.log("Success:", data);
+      
+       // handle the response data here
+    })
+  
+    .catch((error) => {
+      // handle any errors here
+    });
+  }
+  const postapicall=()=>{
+    const data1 = getValues();
+    console.log("data",data1)
+    const item={
+      companyName:form.company,
+      manufacturingLicenseNumber:form.licenceNo,
+      contactPerson: form.contactPersonName,
+      mobileNumber: form.phoneNo,
+      additionalMobileNumber:form.phoneNo1,
+      email:form.emailId,
+      address1: form.address1,
+      address2:form.address2,
+      city:form.city,
+      state: form.state,
+      pincode:form.pincode,
+      sampleName:sample.samplename,
+      reportRequiredaAsPerForm39:sample.report,
+      storageCondition: sample.storage,
+      natureOfSample:sample.natureofsample,
+      sampleType:sample.sampletype,
+      sampleRetentionRequired:sample.sampleretension ,
+      typeOfSubmission:sample.submissiontype,
+      batchDetails:
+        batch.map((item,i)=>(
+          {
+            batchNo:item.batchNo,
+            batchSize:item.batchSize,
+            natureOfPacking:item.natureOfPacking,
+            mfgDate:item.mfgDate,
+            expDate:item.expDate,
+            retestDate:item.retestDate,
+            sampleQuantity:item.sampleQuantity,
+            testParameter:item.testParameter.map(option=>(
+              {
+                testDataName:option.label,
+                testDataCode:option.value
+              }))
+          }
+        )),
+      regulatory:analysis.formfilling,
+      otherThanRegulatory:analysis.analyticalfeasibile ,
+      vvtddRefNo:analysis.methodvalidation,
+      methodology: analysis.methodologyfollowed,
+      testToBeCarriedOut:analysis.test,
+      attachment:analysis.choosefile,
+      specialInstruction:analysis.specialinstruction,
+    sampleVerification:data1,
+    comment:data1.comments,
+    msdsAttached:sample.msdsAttached,
+    status:"accept"
+    }
+    console.log("item", item)
+  fetch("http://54.167.30.227:3000/api/sampleDetails/createSample", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      'Authorization': token
+    },
+  
+  
+    body: JSON.stringify(item),
+  })
+    .then((response) => response.json())
+  
+    .then((data) => {
+      dispatch(changeSubmitAccept(data))
+      console.log("Success:", data);
+      
+       // handle the response data here
+    })
+  
+    .catch((error) => {
+      // handle any errors here
+    });
+  }
+  
+  const saveData = async(action) => {
+    const isValid = await trigger(); // Trigger validation
+  if (isValid) {
+
     const data1 = getValues();
     console.log("result",data1)
     if (action === 'accept') {
@@ -233,6 +251,9 @@ fetch("http://54.167.30.227:3000/api/sampleDetails/createSample", {
       }
 
     })
+  }}
+  else{
+    alert("please fill all fields")
   }
 };
   // ---------------------------------------Radiobuttons functionality ends---------------------------------------------
@@ -248,6 +269,7 @@ fetch("http://54.167.30.227:3000/api/sampleDetails/createSample", {
               <text className="cardtitlehed">Sample Verification List</text>
             </div>
             <Form onSubmit={handleSubmit(saveData)}>
+              <fieldset>
             <div className="cardcolumnpadding">
               <div className="row">
                 <div className="col-12 d-flex new">
@@ -265,7 +287,7 @@ fetch("http://54.167.30.227:3000/api/sampleDetails/createSample", {
                           <div>
                             <Field>
                           <Input
-                              {...register("trf", { required: true })}
+                              {...register("trf" , { required: true })}
                             type="radio"
                             value="yes"
                             id="yes"
@@ -283,7 +305,7 @@ fetch("http://54.167.30.227:3000/api/sampleDetails/createSample", {
                           <div>
                             <Field>
                           <Input
-                          {...register("trf", { required: true })}
+                          {...register("trf" , { required: true })}
                             type="radio"
                             value="no"
                            id="no"
@@ -300,7 +322,7 @@ fetch("http://54.167.30.227:3000/api/sampleDetails/createSample", {
                           <div>
                             <Field>
                           <Input
-                          {...register("trf", { required: true })}
+                          {...register("trf" , { required: true })}
                             type="radio"
                             value="na"
                            id="na"
@@ -319,8 +341,8 @@ fetch("http://54.167.30.227:3000/api/sampleDetails/createSample", {
                           </div>
                         </span>
                         <div className="text-danger mt-3">
-                            {errors.trf?.type === "required" &&
-                              "This field is required."}
+                        {errors.trf && <p className="error">
+                              "This field is required." </p>}
                           </div>
                       </div>
 
@@ -388,8 +410,8 @@ fetch("http://54.167.30.227:3000/api/sampleDetails/createSample", {
                           </div>
                         </span>
                         <div className="text-danger mt-3">
-                            {errors.sampledetail?.type === "required" &&
-                              "This field is required."}
+                            {errors.sampledetail &&  <p className="error">
+                              "This field is required." </p>}
                           </div>
                       </div>
 
@@ -455,8 +477,8 @@ fetch("http://54.167.30.227:3000/api/sampleDetails/createSample", {
                           </div>
                         </span>
                         <div className="text-danger mt-3">
-                            {errors.regulatory?.type === "required" &&
-                              "This field is required."}
+                            {errors.regulatory &&  <p className="error">
+                              "This field is required." </p>}
                           </div>
                       </div>
 
@@ -528,8 +550,8 @@ fetch("http://54.167.30.227:3000/api/sampleDetails/createSample", {
                           
                         </span>
                         <div className="text-danger mt-3">
-                            {errors.leakage?.type === "required" &&
-                              "This field is required."}
+                            {errors.leakage &&  <p className="error">
+                              "This field is required." </p>}
                           </div>
                       </div>
 
@@ -604,8 +626,8 @@ fetch("http://54.167.30.227:3000/api/sampleDetails/createSample", {
                           
                         </span>
                         <div className="text-danger mt-3">
-                            {errors.splinstruction?.type === "required" &&
-                              "This field is required."}
+                            {errors.splinstruction &&  <p className="error">
+                              "This field is required." </p>}
                           </div>
                       </div>
 
@@ -682,8 +704,8 @@ fetch("http://54.167.30.227:3000/api/sampleDetails/createSample", {
                           
                         </span>
                         <div className="text-danger mt-3">
-                            {errors.datalog?.type === "required" &&
-                              "This field is required."}
+                            {errors.datalog &&  <p className="error">
+                              "This field is required." </p>}
                           </div>
                       </div>
                     </div>
@@ -765,8 +787,8 @@ fetch("http://54.167.30.227:3000/api/sampleDetails/createSample", {
                           
                         </span>
                         <div className="text-danger mt-3">
-                            {errors.samplematch?.type === "required" &&
-                              "This field is required."}
+                            {errors.samplematch &&  <p className="error">
+                              "This field is required." </p>}
                           </div>
                       </div>
 
@@ -777,7 +799,7 @@ fetch("http://54.167.30.227:3000/api/sampleDetails/createSample", {
                         </text>
                       </div>
                       <div className="d-flex">
-                        <span style={{ display: "flex" }}>
+                        <span style={{ display: "flex"}}>
                           <div>
                             <Field>
                             <Input
@@ -786,18 +808,18 @@ fetch("http://54.167.30.227:3000/api/sampleDetails/createSample", {
                             value="yes"
                             id="yes"
                             name="method"
-                            
-                           className="customRadio"
+                           
+                            className="customRadio"
                           />
                             </Field>
                           </div>
-                    
+                          
                           <div>
                           <label className="space">Yes</label>
                           </div>
                           
                         </span>
-                        <span style={{ display: "flex"}}>
+                        <span style={{ display: "flex" }}>
                           <div>
                             <Field>
                             <Input
@@ -806,18 +828,18 @@ fetch("http://54.167.30.227:3000/api/sampleDetails/createSample", {
                             value="no"
                             id="no"
                             name="method"
-                            
+                           
                             className="customRadioMargin"
-                          />
+                        />
                             </Field>
                           </div>
-                         
-                          <div>
-                          <label className="space">No</label>
-                          </div>
+                        
+                        <div>
+                        <label className="space">No</label>
+                        </div>
                           
                         </span>
-                        <span style={{ display: "flex"}}>
+                        <span style={{ display: "flex" }}>
                           <div>
                             <Field>
                             <Input
@@ -826,25 +848,23 @@ fetch("http://54.167.30.227:3000/api/sampleDetails/createSample", {
                             value="na"
                             id="na"
                             name="method"
-
+                            
                             className="customRadioMargin"
-                        />
+                          />
                             </Field>
                           </div>
-                          
-                        <div>
-                        <label
-                            className="space"
-                           
-                          >
+                         
+                          <div>
+                          <label
+                            className="space" >
                             NA
                           </label>
-                        </div>
+                          </div>
                           
                         </span>
                         <div className="text-danger mt-3">
-                            {errors.method?.type === "required" &&
-                              "This field is required."}
+                            {errors.method &&  <p className="error">
+                              "This field is required." </p>}
                           </div>
                       </div>
 
@@ -922,8 +942,8 @@ fetch("http://54.167.30.227:3000/api/sampleDetails/createSample", {
                           
                         </span>
                         <div className="text-danger mt-3">
-                            {errors.specification?.type === "required" &&
-                              "This field is required."}
+                            {errors.specification &&  <p className="error">
+                              "This field is required." </p>}
                           </div>
                       </div>
 
@@ -996,8 +1016,8 @@ fetch("http://54.167.30.227:3000/api/sampleDetails/createSample", {
                           
                         </span>
                         <div className="text-danger mt-3">
-                            {errors.sampletype?.type === "required" &&
-                              "This field is required."}
+                            {errors.sampletype &&  <p className="error">
+                              "This field is required." </p>}
                           </div>
                       </div>
 
@@ -1073,33 +1093,32 @@ fetch("http://54.167.30.227:3000/api/sampleDetails/createSample", {
                           
                         </span>
                         <div className="text-danger mt-3">
-                            {errors.testparam?.type === "required" &&
-                              "This field is required."}
+                            {errors.testparam &&  <p className="error">
+                              "This field is required." </p>}
                           </div>
                       </div>
 
                       <div className="mt-3 mb-3 new1">
                         <text>Comments</text>
                       </div>
-                      <div className="d-flex">
+                      <div >
+                        <div className="d-flex">
                         <Input
                          {...register("comments", { required: true })}
                         className="commentsInput"
                           type="text" 
                           id="comments" />
+                          </div>
+                           <div className="text-danger mt-3">
+                            {errors.comments &&  <p className="error">
+                              "This field is required." </p>}
+                          </div>
                       </div>
 
                      
                     </div>
                   </div>
                 </div>
-
-
-
-
-
-
-
               </div>
 
               <div className="mt-3 mb-3">
@@ -1151,6 +1170,7 @@ fetch("http://54.167.30.227:3000/api/sampleDetails/createSample", {
 
 
             </div>
+            </fieldset>
             </Form>
           </Card>
         </div>

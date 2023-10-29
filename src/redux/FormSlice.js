@@ -232,7 +232,9 @@ changeCompanyId:(state,action)=>{
 changeTDSId:(state,action)=>{
   state.TdsId=action.payload;
 },
-
+changeAnalystBatchId:(state,action)=>{
+  state.AbatchId=action.payload;
+},
 changeSroId:(state,action)=>{
   state.SroId=action.payload;
 },

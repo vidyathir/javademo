@@ -8,7 +8,8 @@ import Col from "react-bootstrap/Col";
 import Sidenavbar from "../components/Sidenavbar";
 import {useNavigate} from 'react-router-dom';
 import { useForm,Controller } from "react-hook-form";
-
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
 import { useSelector} from "react-redux";
 import NavbartitleAddco from "../components/NavbartitleAddco";
 
@@ -22,7 +23,7 @@ export default function AddNewCustomer() {
     control,
     formState: { errors },
   } = useForm();
-  
+  const MySwal = withReactContent(Swal)
   const saveData = (data) => {
 console.log("data" ,data)
     const item={
@@ -60,6 +61,11 @@ console.log("data" ,data)
       .catch((error) => {
         
       });
+      Swal.fire(
+        'Good job!',
+        'New Company Added!',
+        'success'
+      )
     navigate('/Progress')
   };
   
