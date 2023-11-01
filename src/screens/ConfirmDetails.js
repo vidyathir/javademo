@@ -14,6 +14,8 @@ console.log("analysis",analysis)
 console.log("batch", batch)
 console.log("form",form)
 console.log("sample",sample)
+const updatedFilenames = analysis.choosefile.map(filename => filename.replace(/^\d+_/g, ''));
+const updatedFilenamemsds = sample.msdsAttached.map(filename => filename.replace(/^\d+_/g, ''));
 
   const handleSubmit=()=>{
     onButtonClick("SampleVerification")
@@ -285,7 +287,12 @@ console.log("sample",sample)
                 <span>
                   <PiFilePdfFill />
                   {analysis.choosefile?
-                  <div><text className="cardcolhedtext mt-1">{(analysis.choosefile).join(",")}</text>
+                  <div><text className="cardcolhedtext mt-1">{(updatedFilenames).join(",")}</text>
+  
+    </div>:<text className="cardcolhedtext mt-1">N/A</text>}
+    <PiFilePdfFill />
+                  {sample.msdsAttached && sample.msdsAttached.length>0 ?
+                  <div><text className="cardcolhedtext mt-1">{(updatedFilenamemsds).join(",")}</text>
   
     </div>:<text className="cardcolhedtext mt-1">N/A</text>}
                  

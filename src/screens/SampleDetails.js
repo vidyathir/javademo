@@ -5,7 +5,7 @@ import React, {useState,useEffect } from "react";
 
 import { Row, Col, Card } from "react-bootstrap";
 import "./Styles.css";
-
+import { MdOutlineDelete } from "react-icons/md";
 import { BiRightArrowAlt, BiLeftArrowAlt } from "react-icons/bi";
 import { useDispatch,useSelector } from 'react-redux';
 import { changeSampleDetails } from '../redux/FormSlice';
@@ -29,6 +29,7 @@ const [isOthersChecked, setIsOthersChecked] = useState(false);
   } = useForm({ defaultValues: state });
   const [selectedFileNames, setSelectedFileNames] = useState([]);
   const token = useSelector((state) => state.form.usertoken.token);
+  const updatedFilenames = names.map(filename => filename.replace(/^\d+_/g, ''));
   const handlecheckboxchange = (event) => {
     const value = event.target.value;
     if (value === "Others") {
@@ -129,12 +130,12 @@ const [isOthersChecked, setIsOthersChecked] = useState(false);
     };
     let concatenatedElements=[]
   const saveData = async(data) => {
-  
-   concatenatedElements =[data.sampletype+    (sampleTypeOther)];
-   if (selectedOptioncheck1) {
-    concatenatedElements.push("MSDS");
-  }
-    console.log(concatenatedElements)
+    
+   concatenatedElements =[data.sampletype + "," + "(" + sampleTypeOther +")" ];
+  //  if (selectedOptioncheck1) {
+  //   concatenatedElements.push("MSDS");
+  // }
+    console.log("sampleType" ,concatenatedElements)
     setIsLoading(true); 
     const formData = new FormData();
     selectedFileNames.forEach((file, index) => {
@@ -928,7 +929,8 @@ msdsAttached:names
                                   {names.map(name => (
                                     <li key={name}>
                                       {name}
-                                      <button type="button" onClick={() => handleRemoveFile(name)}>X</button>
+                                      
+                                      <MdOutlineDelete size={20} color="red" onClick={() => handleRemoveFile(name)}/>
                                     </li> 
                                   ))}
                    </label>

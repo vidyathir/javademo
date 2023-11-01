@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
+import { AiFillLeftCircle, AiFillRightCircle } from "react-icons/ai";
 import { AiOutlineRightCircle, AiOutlineLeftCircle } from "react-icons/ai";
 import { IconContext } from "react-icons";
 import "./pahin.css";
@@ -164,29 +165,32 @@ export default function DitDashboard() {
                 </Table>
               </div>
               {data.length>0 ?
-              <ReactPaginate
-                containerClassName={"pagination"}
-                activeClassName={"active"}
-                pageClassName={"page-item"}
-                onPageChange={handlePageChange}
-                pageCount={Math.ceil(data.length / itemsPerPage)}
-                previousLabel={
-                  <IconContext.Provider
-                    value={{ color: "#B8C1CC", size: "36px", outline: "none" }}
-                  >
-                    <AiOutlineLeftCircle />
-                    <text>previous</text>
-                  </IconContext.Provider>
-                }
-                nextLabel={
-                  <IconContext.Provider
-                    value={{ color: "#ffffff", size: "36px" }}
-                  >
-                    <AiOutlineRightCircle />
-                    <text>Next</text>
-                  </IconContext.Provider>
-                }
-              />:null}
+               <ReactPaginate 
+        containerClassName={"pagination"}
+        activeClassName={"active"}
+        pageClassName={"page-item"}
+        onPageChange={handlePageChange}
+        pageCount={Math.ceil(data.length / itemsPerPage)}
+        previousLabel={
+          <IconContext.Provider value={{ color: "#B8C1CC", size: "36px" }}>
+            <AiFillLeftCircle />
+          
+          </IconContext.Provider>
+        }
+        nextLabel={
+          <IconContext.Provider value={{ color: "#B8C1CC", size: "36px"}}>
+           
+          
+            <AiFillRightCircle />
+          </IconContext.Provider>
+        }
+        pageLinkClassName="custom-page-link" // Add custom class to page links
+        previousLinkClassName="custom-previous-link" // Add custom class to the previous link
+        nextLinkClassName="custom-next-link" // Add custom class to the next link
+        previousClassName="custom-previous-button" // Add custom class to the previous button
+        nextClassName="custom-next-button" 
+      />
+      :null}
             </div>
           </div>
         </div>

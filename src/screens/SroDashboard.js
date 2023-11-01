@@ -261,7 +261,7 @@ const searchCompanies = () => {
                     </div>
                   </Card>
                 </Col>
-
+{/* 
                 <Col md={3}>
                   <Card className="mainCard2 p-2">
                     <div className="cardArrangement">
@@ -274,7 +274,7 @@ const searchCompanies = () => {
                       </div>
                     </div>
                   </Card>
-                </Col>
+                </Col> */}
 
                 <Col md={3}>
                   <Card className="mainCard2 p-2">
@@ -327,25 +327,32 @@ const searchCompanies = () => {
                 </Table>
               </div>
               {data.length>0 ?
-               <ReactPaginate
+               <ReactPaginate 
         containerClassName={"pagination"}
         activeClassName={"active"}
         pageClassName={"page-item"}
         onPageChange={handlePageChange}
         pageCount={Math.ceil(data.length / itemsPerPage)}
-        previouLabel={
+        previousLabel={
           <IconContext.Provider value={{ color: "#B8C1CC", size: "36px" }}>
             <AiFillLeftCircle />
-            <text>previous</text>
+          
           </IconContext.Provider>
         }
         nextLabel={
-          <IconContext.Provider value={{ color: "#B8C1CC", size: "36px" }}>
+          <IconContext.Provider value={{ color: "#B8C1CC", size: "36px"}}>
+           
+          
             <AiFillRightCircle />
-            <text>Next</text>
           </IconContext.Provider>
         }
-      />:null}
+        pageLinkClassName="custom-page-link" // Add custom class to page links
+        previousLinkClassName="custom-previous-link" // Add custom class to the previous link
+        nextLinkClassName="custom-next-link" // Add custom class to the next link
+        previousClassName="custom-previous-button" // Add custom class to the previous button
+        nextClassName="custom-next-button" 
+      />
+      :null}
             </div>
           </div>
         </div>

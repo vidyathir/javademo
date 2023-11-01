@@ -10,6 +10,7 @@ import NavbartitleAddco from "../components/NavbartitleAddco";
 import SidenavbarReviewer from "../components/SidenavbarReviewer";
 import { useSelector } from "react-redux";
 import axios from "axios";
+import { PiFilePdfFill } from "react-icons/pi";
 export default function ReviewerDetails() {
   const navigate = useNavigate();
   const [analystView, setAnalystView] = useState({});
@@ -36,10 +37,8 @@ export default function ReviewerDetails() {
       .catch((error) => console.error("Error fetching batch data:", error));
   }, [id, token]);
   console.log("analystview", analystView);
-  useEffect(()=>{
-    fetchFileContent();
-    fetchFileContenttds();
-  })
+  // useEffect(()=>{
+
   const fetchFileContent = async () => {
     try {
       const response = await fetch(analystView.sysDocument);
@@ -66,24 +65,90 @@ export default function ReviewerDetails() {
       console.error('Error fetching file content:', error);
     }
   };
-  const downloadFile = () => {
-    const link = document.createElement('a');
-    link.href = analystView.sysDocument;
-    link.download = 'filename.docx'; // You can specify the desired filename here
-    link.click();
+const openFileInNewTab = () => {
+if (analystView.sysDocument) {
+    const fileExtension = analystView.sysDocument.split('.').pop().toLowerCase();
+    
+    if (fileExtension === 'txt') {
+      // For text files, open in a new tab
+      window.open(analystView.sysDocument, '_blank');
+    } else {
+      // For other file types, prompt the user to download
+      downloadFile(analystView.sysDocument);
+    }
+  } else {
+    console.error('Invalid URL for opening in a new tab');
+  }
+};
+  
+  const downloadFile = (url, filename) => {
+    if (url) {
+      fetch(url)
+        .then((response) => response.blob())
+        .then((blob) => {
+          const url = window.URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = filename || 'downloadedFile'; // You can specify the desired filename here
+          document.body.appendChild(a);
+          a.click();
+          window.URL.revokeObjectURL(url);
+        })
+        .catch((error) => {
+          console.error('Error downloading the file:', error);
+        });
+    } else {
+      console.error('Invalid URL for downloading the file');
+    }
   };
-  const openFileInNewTab = () => {
-    window.open(analystView.sysDocument, '_blank');
+  const downloadFilesys = () => {
+    if (analystView.sysDocument) {
+      downloadFile(analystView.sysDocument);
+    } else {
+      console.error('Invalid URL for downloading the file');
+    }
   };
-  const downloadFiletds = () => {
-    const link = document.createElement('a');
-    link.href = analystView.tdsDocument;
-    link.download = 'filename.docx'; // You can specify the desired filename here
-    link.click();
+  // Helper function to get MIME type
+  const getMimeType = (url) => {
+    const extension = url.split('.').pop();
+    switch (extension.toLowerCase()) {
+      case 'jpg':
+        return 'image/jpeg';
+      case 'jpeg':
+        return 'image/jpeg';
+      case 'png':
+        return 'image/png';
+      case 'gif':
+        return 'image/gif';
+      case 'pdf':
+        return 'application/pdf';
+      default:
+        return '';
+    }
   };
   const openFileInNewTabtds = () => {
-    window.open(analystView.tdsDocument, '_blank');
+    if (analystView.tdsDocument) {
+      const fileExtension = analystView.tdsDocument.split('.').pop().toLowerCase();
+      
+      if (fileExtension === 'txt') {
+        // For text files, open in a new tab
+        window.open(analystView.tdsDocument, '_blank');
+      } else {
+        // For other file types, prompt the user to download
+        downloadFile(analystView.tdsDocument);
+      }
+    } else {
+      console.error('Invalid URL for opening in a new tab');
+    }
   };
+  const downloadFiletds = () => {
+    if (analystView.tdsDocument) {
+      downloadFile(analystView.tdsDocument);
+    } else {
+      console.error('Invalid URL for downloading the file');
+    }
+  };
+
 const handleSubmit=()=>{
  
 fetch("http://54.167.30.227:3000/api/tdsDetails/review", {
@@ -110,7 +175,10 @@ fetch("http://54.167.30.227:3000/api/tdsDetails/review", {
   });
   navigate("/ReviewDashboard")
 }
- 
+function combineValues(...values) {
+  const nonEmptyValues = values.filter(value => value !== "" && value !== undefined);
+  return nonEmptyValues.length > 0 ? nonEmptyValues.join(", ") : "NA";
+}
   return (
     <div className="app">
       <NavbartitleAddco />
@@ -142,7 +210,8 @@ fetch("http://54.167.30.227:3000/api/tdsDetails/review", {
               <Col className="">
                 <div className="d-flex row">
                   <text className="cardcolhed">Name of the Sample</text>
-                  <text className="cardcolhedtext mt-1">{analystView.sampleDetails.sampleName}</text>
+                  {analystView.sampleDetails.sampleName?
+                  <text className="cardcolhedtext mt-1">{analystView.sampleDetails.sampleName}</text>:<text className="cardcolhedtext mt-1">NA</text>}
                 </div>
               </Col>
               <Col className="columnMb">
@@ -159,7 +228,7 @@ fetch("http://54.167.30.227:3000/api/tdsDetails/review", {
               </Col>
               <Col className="columnMb">
                 <div className="d-flex row">
-                  <text className="cardcolhed">Sample Type</text>{analystView.sampleDetails.sampleType?
+                  <text className="cardcolhed">Sample Type</text>{analystView.sampleDetails.sampleType && analystView.sampleDetails.sampleType.length>0 ?
                   <text className="cardcolhedtext mt-1">{analystView.sampleDetails.sampleType.join(",")}</text>:<text className="cardcolhedtext mt-1">NA</text>}
                 </div>
               </Col>
@@ -219,12 +288,12 @@ fetch("http://54.167.30.227:3000/api/tdsDetails/review", {
                 <tr>
                   <td>01</td>
                   <td>{analystView.batchDetails.rlplNumber}</td>
-                  <td>{analystView.batchDetails.batchNo}</td>
-                  <td>{analystView.batchDetails.natureOfPacking}</td>
-                  <td>{analystView.batchDetails.sampleQuantity}</td>
-                  <td>{analystView.batchDetails.mfgDate}</td>
-                  <td>{analystView.batchDetails.expDate}</td>
-                  <td>{analystView.batchDetails.retestDate}</td>
+                  <td>{combineValues(analystView.batchDetails.batchNo)}</td>
+                  <td>{combineValues(analystView.batchDetails.natureOfPacking)}</td>
+                  <td>{combineValues(analystView.batchDetails.sampleQuantity)}</td>
+                  <td>{combineValues(analystView.batchDetails.mfgDate)}</td>
+                  <td>{combineValues(analystView.batchDetails.expDate)}</td>
+                  <td>{combineValues(analystView.batchDetails.retestDate)}</td>
                   
                   <td>{analystView.testDataCode}</td>
                 </tr>
@@ -302,10 +371,18 @@ fetch("http://54.167.30.227:3000/api/tdsDetails/review", {
                     with this filled TRF{" "}
                   </text>
                   <div className="analyticalbutton-div">
-                    {analystView.sampleDetails.attachment&& analystView.sampleDetails.attachment.length>0 ?
+                  <span>
+                    <PiFilePdfFill />
+                  <div> {analystView.sampleDetails.attachment&& analystView.sampleDetails.attachment.length>0 ?
                     <text className="cardcolhedtext mt-1">{analystView.sampleDetails.attachment.join(',')}</text>:
-                    <text className="cardcolhedtext mt-1">N/A</text>}
+                    <text className="cardcolhedtext mt-1">NA</text>}</div>
+                    <PiFilePdfFill />
+                   <div> {analystView.sampleDetails.msdsAttached&& analystView.sampleDetails.msdsAttached.length>0 ?
+                    <text className="cardcolhedtext mt-1">{analystView.sampleDetails.msdsAttached.join(',')}</text>:
+                    <text className="cardcolhedtext mt-1">NA</text>}</div>
+                    </span>
                   </div>
+                  
                   {/* <text className="cardcolhedtext mt-1">xxxxxx xxxxx</text> */}
                 </div>
               </Col>
@@ -354,7 +431,7 @@ fetch("http://54.167.30.227:3000/api/tdsDetails/review", {
                     <BsArrowDownCircle
                       size={24}
                       color="#9AC037"
-                      onClick={downloadFile}
+                      onClick={downloadFilesys}
                     />
               
                   </div>

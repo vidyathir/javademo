@@ -23,10 +23,15 @@ export default function DITExpandedView() {
   const analysis=useSelector(state =>state.form.data);
   const dispatch = useDispatch();
   const token  = useSelector((state) => state.form.usertoken.token);
-  
+  const updatedFilenames = detailedView.sampleDetails?.attachment?.map(filename => filename.replace(/^\d+_/g, ''))||[];
+const updatedFilenamemsds = detailedView.sampleDetails?.msdsAttached?.map(filename => filename.replace(/^\d+_/g, ''))||[];
   console.log(id)
  const item={"batchId" : id,"status" : "approved", "ditId" : token.userid}
- 
+ function combineValues(...values) {
+  const nonEmptyValues = values.filter(value => value !== "" && value !== undefined);
+  return nonEmptyValues.length > 0 ? nonEmptyValues.join(", ") : "NA";
+}
+
   useEffect(() => {
 
     axios
@@ -41,6 +46,7 @@ export default function DITExpandedView() {
       .then((response) => setDetailedView(response.data))
       .catch((error) => console.error("Error fetching batch data:", error));
   }, [id]);
+  console.log(detailedView)
   useEffect(() => {
 
     axios
@@ -54,6 +60,7 @@ export default function DITExpandedView() {
       .then((response) => setDatasheet(response.data))
       .catch((error) => console.error("Error fetching batch data:", error));
   }, [id]);
+  console.log(datasheet)
   const postapicall=()=>{
     const newLocal = "http://54.167.30.227:3000/api/batchDetails/ditApproval";
     fetch(newLocal, {
@@ -128,13 +135,14 @@ export default function DITExpandedView() {
               <tbody className="tablebody-custom">
                 <tr>
                   <td>01</td>
+
                   <td>{detailedView.rlplNumber}</td>
-                  <td>{detailedView.batchNo}</td>
-                  <td>{detailedView.natureOfPacking}</td>
-                  <td>{detailedView.sampleQuantity}</td>
-                  <td>{detailedView.mfgDate}</td>
-                  <td>{detailedView.expDate}</td>
-                  <td>{detailedView.retestDate}</td>
+                  <td>{combineValues(detailedView.batchNo)}</td>
+                  <td>{combineValues(detailedView.natureOfPacking)}</td>
+                  <td>{combineValues(detailedView.sampleQuantity)}</td>
+                  <td>{combineValues(detailedView.mfgDate)}</td>
+                  <td>{combineValues(detailedView.expDate)}</td>
+                  <td>{combineValues(detailedView.retestDate)}</td>
          <td>
   {detailedView.testParameter && Array.isArray(detailedView.testParameter) ? (
     detailedView.testParameter.map((item, index) => (
@@ -166,13 +174,15 @@ export default function DITExpandedView() {
               <Col className="">
                 <div className="d-flex row">
                   <text className="cardcolhed">Name of the Sample</text>
-                  <text className="cardcolhedtext mt-1">{detailedView.sampleDetails.sampleName}</text>
+                  {detailedView.sampleDetails.sampleName?
+                  <text className="cardcolhedtext mt-1">{detailedView.sampleDetails.sampleName}</text> :<text className="cardcolhedtext mt-1">NA</text>}
                 </div>
               </Col>
               <Col className="columnMb">
                 <div className="d-flex row">
                   <text className="cardcolhed">Storage Condition</text>
-                  <text className="cardcolhedtext mt-1">{detailedView.sampleDetails.storageCondition}</text>
+                  {detailedView.sampleDetails.storageCondition ?
+                  <text className="cardcolhedtext mt-1">{detailedView.sampleDetails.storageCondition}</text>: <text className="cardcolhedtext mt-1">NA</text>}
                 </div>
               </Col>
               <Col className="columnMb">
@@ -184,8 +194,8 @@ export default function DITExpandedView() {
               <Col className="columnMb">
                 <div className="d-flex row">
                   <text className="cardcolhed">Sample Type</text>
-                  {detailedView.sampleDetails.sampleType?
-                  <text className="cardcolhedtext mt-1">{detailedView.sampleDetails.sampleType.join(",")}</text>:'N/A'}
+                  {detailedView.sampleDetails.sampleType&& detailedView.sampleDetails.sampleType.length>0 ?
+                  <text className="cardcolhedtext mt-1">{detailedView.sampleDetails.sampleType.join(",")}</text>:<text className="cardcolhedtext mt-1">NA</text>}
                 </div>
               </Col>
             </Row>
@@ -227,14 +237,14 @@ export default function DITExpandedView() {
                     Regulatory(Form-39/DMF Filing/ANDA Filing/Any Query)
                   </text>
                   {detailedView.sampleDetails.regulatory?
-                  <text className="cardcolhedtext mt-1">{detailedView.sampleDetails.regulatory}</text>:'N/A'}
+                  <text className="cardcolhedtext mt-1">{detailedView.sampleDetails.regulatory}</text>:<text className="cardcolhedtext mt-1">NA</text>}
                 </div>
               </Col>
                <Col className="columnMb">
                 <div className="d-flex row">
                   <text className="cardcolhed">Other than Regulatory </text>
-                  {detailedView.sampleDetails.otherThanRegulatory ?
-                  <text className="cardcolhedtext mt-1">{detailedView.sampleDetails.otherThanRegulatory.join('   ,  ')}</text>: <text className="cardcolhedtext mt-1">N/A</text>}
+                  {detailedView.sampleDetails.otherThanRegulatory && detailedView.sampleDetails.otherThanRegulatory.length>0 ?
+                  <text className="cardcolhedtext mt-1">{detailedView.sampleDetails.otherThanRegulatory.join('   ,  ')}</text>: <text className="cardcolhedtext mt-1">NA</text>}
                 </div>
               </Col> 
 </Row>
@@ -249,7 +259,8 @@ export default function DITExpandedView() {
                     If Method Validation/Verification/Transfer/Development are
                     performed atRevin Labs please specify the Report Ref. No.{" "}
                   </text>
-                  <text className="cardcolhedtext mt-1">{detailedView.sampleDetails.vvtddRefNo}</text>
+                  {detailedView.sampleDetails.vvtddRefNo?
+                  <text className="cardcolhedtext mt-1">{detailedView.sampleDetails.vvtddRefNo}</text>: <text className="cardcolhedtext mt-1">NA</text>}
                 </div>
               </Col>
               <Col className="columnMb">
@@ -257,8 +268,8 @@ export default function DITExpandedView() {
                   <text className="cardcolhed">
                     Test to be carried out as per{" "}
                   </text>
-                  {detailedView.sampleDetails.testToBeCarriedOut ?
-                  <text className="cardcolhedtext mt-1">{detailedView.sampleDetails.testToBeCarriedOut.join('  ,  ')}</text>:'N/A'}
+                  {detailedView.sampleDetails.testToBeCarriedOut && detailedView.sampleDetails.testToBeCarriedOut.length>0 ?
+                  <text className="cardcolhedtext mt-1">{detailedView.sampleDetails.testToBeCarriedOut.join('  ,  ')}</text>:<text className="cardcolhedtext mt-1">NA</text>}
                 </div>
               </Col>
             
@@ -279,18 +290,29 @@ export default function DITExpandedView() {
                 <div className="d-flex row">
                   <text className="cardcolhed">Attachments </text>
                   <span>
+                    <div>
                     <PiFilePdfFill />
-                   {detailedView.sampleDetails.attachment &&
-                    Array.isArray(detailedView.sampleDetails.attachment) ? (
-                      detailedView.sampleDetails.attachment.map((item, index) => (
-                        <text >
-                          <li style={{listStyleType:"none"}} key={index}>{item}</li>
+                   {detailedView.sampleDetails.attachment && detailedView.sampleDetails.attachment.length>0 ? (
+                      
+                        <text  className="cardcolhedtext mt-1">{updatedFilenames.join(',')}
+                        </text>
+                    
+                    ) : (
+                      <span>No attachments available</span>
+                    )}
+                    </div>
+                    <div>
+                    <PiFilePdfFill />
+                   {detailedView.sampleDetails.msdsAttached &&
+                    Array.isArray(detailedView.sampleDetails.msdsAttached) ? (
+                      detailedView.sampleDetails.msdsAttached.map((item, index) => (
+                        <text  className="cardcolhedtext mt-1" >{updatedFilenamemsds.join(",")}
                         </text>
                       ))
                     ) : (
                       <span>No attachments available</span>
                     )}
-                   
+                   </div>
                   </span>
                 </div>
               </Col>
@@ -302,7 +324,8 @@ export default function DITExpandedView() {
             <Col className="columnMb">
                 <div className="d-flex row">
                   <text className="cardcolhed">Special Instructions If any other </text>
-                  <text className="cardcolhedtext mt-1">{detailedView.sampleDetails.specialInstruction}</text>
+                  {detailedView.sampleDetails.specialInstruction?
+                  <text className="cardcolhedtext mt-1">{detailedView.sampleDetails.specialInstruction}</text> :<text className="cardcolhedtext mt-1">NA</text>}
                 </div>
               </Col>
               <Col className="columnMb">

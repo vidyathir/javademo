@@ -10,6 +10,7 @@ import NavbartitleAddco from "../components/NavbartitleAddco";
 import SidenavbarApprover from "../components/SidenavbarApprover";
 import { useSelector } from "react-redux";
 import axios from "axios";
+import { PiFilePdfFill } from "react-icons/pi";
 export default function ApproverDetails() {
   const navigate = useNavigate();
   const [analystView, setAnalystView] = useState({});
@@ -110,6 +111,10 @@ fetch("http://54.167.30.227:3000/api/tdsDetails/approve", {
   });
   navigate("/ApproverDashboard")
 }
+function combineValues(...values) {
+  const nonEmptyValues = values.filter(value => value !== "" && value !== undefined);
+  return nonEmptyValues.length > 0 ? nonEmptyValues.join(", ") : "NA";
+}
   return (
     <div className="app">
 
@@ -189,7 +194,7 @@ fetch("http://54.167.30.227:3000/api/tdsDetails/approve", {
                   <text className="cardcolhedtext mt-1">{analystView.sampleDetails.sampleRetentionRequired}</text>
                 </div>
               </Col>
-            </Row>):( <div>N/A</div>)}
+            </Row>):(<div> <text className="cardcolhedtext mt-1">NA</text></div>) }
 
             <div className="mt-3">
             <div className="titlemainreference">
@@ -221,14 +226,14 @@ fetch("http://54.167.30.227:3000/api/tdsDetails/approve", {
                 <tr>
                   <td>01</td>
                   <td>{analystView.batchDetails.rlplNumber}</td>
-                  <td>{analystView.batchDetails.batchNo}</td>
-                  <td>{analystView.batchDetails.natureOfPacking}</td>
-                  <td>{analystView.batchDetails.sampleQuantity}</td>
-                  <td>{analystView.batchDetails.mfgDate}</td>
-                  <td>{analystView.batchDetails.expDate}</td>
-                  <td>{analystView.batchDetails.retestDate}</td>
+                  <td>{combineValues(analystView.batchDetails.batchNo)}</td>
+                  <td>{combineValues(analystView.batchDetails.natureOfPacking)}</td>
+                  <td>{combineValues(analystView.batchDetails.sampleQuantity)}</td>
+                  <td>{combineValues(analystView.batchDetails.mfgDate)}</td>
+                  <td>{combineValues(analystView.batchDetails.expDate)}</td>
+                  <td>{combineValues(analystView.batchDetails.retestDate)}</td>
                   
-                  <td>{analystView.testDataCode}</td>
+                  <td>{combineValues(analystView.testDataCode)}</td>
                 </tr>
 
                 
@@ -303,10 +308,20 @@ fetch("http://54.167.30.227:3000/api/tdsDetails/approve", {
                     with this filled TRF{" "}
                   </text>
                   <div className="analyticalbutton-div">
-                  {analystView.sampleDetails.attachment&& analystView.sampleDetails.attachment.length>0 ?
+                  
+                  <span>
+                    <PiFilePdfFill />
+                  <div> {analystView.sampleDetails.attachment&& analystView.sampleDetails.attachment.length>0 ?
                     <text className="cardcolhedtext mt-1">{analystView.sampleDetails.attachment.join(',')}</text>:
-                    <text className="cardcolhedtext mt-1">N/A</text>}
+                    <text className="cardcolhedtext mt-1">N/A</text>}</div>
+                    <PiFilePdfFill />
+                   <div> {analystView.sampleDetails.msdsAttached&& analystView.sampleDetails.msdsAttached.length>0 ?
+                    <text className="cardcolhedtext mt-1">{analystView.sampleDetails.msdsAttached.join(',')}</text>:
+                    <text className="cardcolhedtext mt-1">N/A</text>}</div>
+                    </span>
                   </div>
+                  
+                  
                   {/* <text className="cardcolhedtext mt-1">xxxxxx xxxxx</text> */}
                 </div>
               </Col>
@@ -373,7 +388,6 @@ fetch("http://54.167.30.227:3000/api/tdsDetails/approve", {
                     <BsArrowDownCircle
                       size={24}
                       color="#9AC037"
-                      className="ms-4"
                       onClick={downloadFiletds}
                     />
                   </div>

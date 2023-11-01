@@ -273,6 +273,11 @@ export default function Print() {
                   <div><text className="cardcolhedtext mt-1">{(batch.attachment).join(",")}</text>
   
     </div>:<text className="cardcolhedtext mt-1">N/A</text>}</div>
+    <PiFilePdfFill />
+                  <div>{batch.msdsAttached && batch.msdsAttached.length>0 ?
+                  <div><text className="cardcolhedtext mt-1">{(batch.msdsAttached).join(",")}</text>
+  
+    </div>:<text className="cardcolhedtext mt-1">N/A</text>}</div>
                   {/* <text className="cardcolhedtext mt-1">{}</text> */}
                 </span>
               </div>

@@ -304,7 +304,18 @@ console.log("detail", tdsView)
                         Array.isArray(detailedView.sampleDetails.attachment) ? (
                           detailedView.sampleDetails.attachment.map((item, index) => (
                             <text >
-                              <li style={{listStyleType:"none"}} key={index}>{item}</li>
+                              <li style={{listStyleType:"none"}}  className="cardcolhedtext mt-1" key={index}>{item}</li>
+                            </text>
+                          ))
+                        ) : (
+                          <span>No attachments available</span>
+                        )}
+                         <PiFilePdfFill />
+                        {detailedView.sampleDetails.msdsAttached &&
+                        Array.isArray(detailedView.sampleDetails.msdsAttached) ? (
+                          detailedView.sampleDetails.msdsAttached.map((item, index) => (
+                            <text >
+                              <li style={{listStyleType:"none"}}  className="cardcolhedtext mt-1" key={index}>{item}</li>
                             </text>
                           ))
                         ) : (

@@ -3,7 +3,7 @@ import { useAppState } from "../state";
 import { Button, Field, Form, Input } from "../Forms";
 import React, { useState ,useEffect} from "react";
 import { useDispatch,useSelector } from "react-redux";
-import { MdOutlineUploadFile } from "react-icons/md";
+import { MdOutlineUploadFile,MdOutlineDelete } from "react-icons/md";
 import { changeTypeofAnalysis } from "../redux/FormSlice";
 import { Row, Col, Card } from "react-bootstrap";
 import "./Styles.css";
@@ -34,6 +34,7 @@ export default function TypeOfAnalysis({ onButtonClick }) {
   const [selectedFileNames, setSelectedFileNames] = useState([]);
   const [names, setNames] = useState([]);
   const token = useSelector((state) => state.form.usertoken.token);
+  const updatedFilenames = names.map(filename => filename.replace(/^\d+_/g, ''));
   const handleRadioChange = (event) => {
     const selectedValue = event.target.value;
     setSelectedOptionmet(selectedValue);
@@ -1117,7 +1118,7 @@ export default function TypeOfAnalysis({ onButtonClick }) {
             {names.map(name => (
               <li key={name}>
                 {name}
-                <button type="button" onClick={() => handleRemoveFile(name)}>X</button>
+                <MdOutlineDelete size={20} color="red" onClick={() => handleRemoveFile(name)}/>
               </li> 
             ))}
       

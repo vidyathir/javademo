@@ -6,12 +6,10 @@ import { Col, Row, Table } from "react-bootstrap";
 import { PiFilePdfFill } from "react-icons/pi";
 import { useSelector} from "react-redux";
 export default function Print() {
-
-
-  
   const batch=useSelector(state =>state.form.newArrayaccept)
 
-
+  const updatedFilenames = batch.attachment.map(filename => filename.replace(/^\d+_/g, ''));
+  const updatedFilenamemsds = batch.msdsAttached.map(filename => filename.replace(/^\d+_/g, ''));
   const [printing, setPrinting] = useState(true);
   
   useEffect(() => {
@@ -177,8 +175,8 @@ export default function Print() {
               {batch.rlplDetails.map((item, i)=> (
     <tr key={i}>
       <td>{i + 1}</td>
-      <td>{item.batchNo}</td>
       <td>{item.rlplNumber}</td>
+      <td>{item.batchNo}</td>
       <td>{combineValues(item.batchSize)}</td>
       <td>{combineValues(item.natureOfPacking)}</td>
       <td>{combineValues(item.mfgDate)}</td>
@@ -272,7 +270,12 @@ export default function Print() {
                 <span>
                   <PiFilePdfFill />
                   <div>{batch.attachment && batch.attachment.length>0 ?
-                  <div><text className="cardcolhedtext mt-1">{(batch.attachment).join(",")}</text>
+                  <div><text className="cardcolhedtext mt-1">{(updatedFilenames).join(",")}</text>
+  
+    </div>:<text className="cardcolhedtext mt-1">N/A</text>}</div>
+    <PiFilePdfFill />
+                  <div>{batch.msdsAttached && batch.msdsAttached.length>0 ?
+                  <div><text className="cardcolhedtext mt-1">{(updatedFilenamemsds).join(",")}</text>
   
     </div>:<text className="cardcolhedtext mt-1">N/A</text>}</div>
                   {/* <text className="cardcolhedtext mt-1">{}</text> */}

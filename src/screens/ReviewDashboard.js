@@ -7,6 +7,7 @@ import {
   // Button,
   Card,
 } from "react-bootstrap";
+import './pahin.css';
 import { AiFillLeftCircle, AiFillRightCircle } from "react-icons/ai";
 import ReactPaginate from "react-paginate";
 import { IconContext } from "react-icons";
@@ -160,7 +161,7 @@ console.log("data", data)
                 </Table>
               </div>
               {data.length>0 ?
-               <ReactPaginate
+               <ReactPaginate 
         containerClassName={"pagination"}
         activeClassName={"active"}
         pageClassName={"page-item"}
@@ -169,16 +170,23 @@ console.log("data", data)
         previousLabel={
           <IconContext.Provider value={{ color: "#B8C1CC", size: "36px" }}>
             <AiFillLeftCircle />
-            <text>previous</text>
+          
           </IconContext.Provider>
         }
         nextLabel={
-          <IconContext.Provider value={{ color: "#B8C1CC", size: "36px" }}>
+          <IconContext.Provider value={{ color: "#B8C1CC", size: "36px"}}>
+           
+          
             <AiFillRightCircle />
-            <text>Next</text>
           </IconContext.Provider>
         }
-      />:null}
+        pageLinkClassName="custom-page-link" // Add custom class to page links
+        previousLinkClassName="custom-previous-link" // Add custom class to the previous link
+        nextLinkClassName="custom-next-link" // Add custom class to the next link
+        previousClassName="custom-previous-button" // Add custom class to the previous button
+        nextClassName="custom-next-button" 
+      />
+      :null}
             </div>
           </div>
         </div>

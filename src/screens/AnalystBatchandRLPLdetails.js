@@ -9,6 +9,7 @@ import { PiFilePdfFill } from "react-icons/pi";
 import { AiOutlineLeft } from "react-icons/ai";
 import { BsArrowDownCircle } from "react-icons/bs";
 import { PiFileArrowUp } from "react-icons/pi";
+import { MdOutlineDelete } from "react-icons/md";
 import { BiRightArrowAlt } from "react-icons/bi";
 import NavbartitleAddco from "../components/NavbartitleAddco";
 import SidenavbarAnalyst from "../components/SidenavbarAnalyst";
@@ -27,6 +28,8 @@ export default function AnalystBatchandRLPLdetails() {
   const navigate = useNavigate();
   const id = useSelector((state) => state.form.AbatchId.AbatchId);
   const token = useSelector((state) => state.form.usertoken.token);
+  const updatedFilenames = names.map(filename => filename.replace(/^\d+_/g, ''));
+  const updatedFilenameanadoc = anames.map(filename => filename.replace(/^\d+_/g, ''));
   console.log(id);
   const item = {tdsId:id};
   console.log(item)
@@ -206,7 +209,11 @@ export default function AnalystBatchandRLPLdetails() {
     }
     navigate("/Analystdashboaed");
   };
- 
+  function combineValues(...values) {
+    const nonEmptyValues = values.filter(value => value !== "" && value !== undefined);
+    return nonEmptyValues.length > 0 ? nonEmptyValues.join(", ") : "NA";
+  }
+
       
 
   return (
@@ -253,12 +260,12 @@ export default function AnalystBatchandRLPLdetails() {
                 <tr>
                   <td>01</td>
                   <td>{analystView.batchDetails.rlplNumber}</td>
-                  <td>{analystView.batchDetails.batchNo}</td>
-                  <td>{analystView.batchDetails.natureOfPacking}</td>
-                  <td>{analystView.batchDetails.sampleQuantity}</td>
-                  <td>{analystView.batchDetails.mfgDate}</td>
-                  <td>{analystView.batchDetails.expDate}</td>
-                  <td>{analystView.batchDetails.retestDate}</td>
+                  <td>{combineValues(analystView.batchDetails.batchNo)}</td>
+                  <td>{combineValues(analystView.batchDetails.natureOfPacking)}</td>
+                  <td>{combineValues(analystView.batchDetails.sampleQuantity)}</td>
+                  <td>{combineValues(analystView.batchDetails.mfgDate)}</td>
+                  <td>{combineValues(analystView.batchDetails.expDate)}</td>
+                  <td>{combineValues(analystView.batchDetails.retestDate)}</td>
 
         
                   
@@ -338,7 +345,7 @@ export default function AnalystBatchandRLPLdetails() {
                                   {names.map(name => (
                                     <li key={name}>
                                       {name}
-                                      <button type="button" style={{color:"red"}}onClick={() => handleRemoveFile(name)}>X</button>
+                                      <MdOutlineDelete size={20} color="red" onClick={() => handleRemoveFile(name)}/>
                                     </li> 
                                   ))}
                             
@@ -371,7 +378,7 @@ export default function AnalystBatchandRLPLdetails() {
                                   {anames.map(name => (
                                     <li key={name}>
                                       {name}
-                                      <button type="button"style={{color:"red"}} onClick={() => handleARemoveFile(name)}>X</button>
+                                      <MdOutlineDelete size={20} color="red" onClick={() => handleARemoveFile(name)}/>
                                     </li> 
                                   ))}
                             
