@@ -39,54 +39,90 @@ export default function ApproverDetails() {
       .catch((error) => console.error("Error fetching batch data:", error));
   }, [id, token]);
   console.log("analystview", analystView);
-  useEffect(()=>{
-    fetchFileContent();
-    fetchFileContenttds();
-  })
-  const fetchFileContent = async () => {
-    try {
-      const response = await fetch(analystView.sysDocument);
-      if (response.ok) {
-        const blob = await response.blob();
-        setFileContent(URL.createObjectURL(blob));
-      } else {
-        console.error('Failed to fetch file content');
-      }
-    } catch (error) {
-      console.error('Error fetching file content:', error);
-    }
-  };
-  const fetchFileContenttds = async () => {
-    try {
-      const response = await fetch(analystView.tdsDocument);
-      if (response.ok) {
-        const blob = await response.blob();
-        setFileContenttds(URL.createObjectURL(blob));
-      } else {
-        console.error('Failed to fetch file content');
-      }
-    } catch (error) {
-      console.error('Error fetching file content:', error);
-    }
-  };
-  const downloadFile = () => {
-    const link = document.createElement('a');
-    link.href = analystView.sysDocument;
-    link.download = 'filename.docx'; // You can specify the desired filename here
-    link.click();
-  };
   const openFileInNewTab = () => {
-    window.open(analystView.sysDocument, '_blank');
-  };
-  const downloadFiletds = () => {
-    const link = document.createElement('a');
-    link.href = analystView.tdsDocument;
-    link.download = 'filename.docx'; // You can specify the desired filename here
-    link.click();
-  };
-  const openFileInNewTabtds = () => {
-    window.open(analystView.tdsDocument, '_blank');
-  };
+    if (analystView.sysDocument) {
+        const fileExtension = analystView.sysDocument.split('.').pop().toLowerCase();
+        
+        if (fileExtension === 'txt') {
+          // For text files, open in a new tab
+          window.open(analystView.sysDocument, '_blank');
+        } else {
+          // For other file types, prompt the user to download
+          downloadFile(analystView.sysDocument);
+        }
+      } else {
+        console.error('Invalid URL for opening in a new tab');
+      }
+    };
+      
+      const downloadFile = (url, filename) => {
+        if (url) {
+          fetch(url)
+            .then((response) => response.blob())
+            .then((blob) => {
+              const url = window.URL.createObjectURL(blob);
+              const a = document.createElement('a');
+              a.href = url;
+              a.download = filename || 'downloadedFile'; // You can specify the desired filename here
+              document.body.appendChild(a);
+              a.click();
+              window.URL.revokeObjectURL(url);
+            })
+            .catch((error) => {
+              console.error('Error downloading the file:', error);
+            });
+        } else {
+          console.error('Invalid URL for downloading the file');
+        }
+      };
+      const downloadFilesys = () => {
+        if (analystView.sysDocument) {
+          downloadFile(analystView.sysDocument);
+        } else {
+          console.error('Invalid URL for downloading the file');
+        }
+      };
+      // Helper function to get MIME type
+      const getMimeType = (url) => {
+        const extension = url.split('.').pop();
+        switch (extension.toLowerCase()) {
+          case 'jpg':
+            return 'image/jpeg';
+          case 'jpeg':
+            return 'image/jpeg';
+          case 'png':
+            return 'image/png';
+          case 'gif':
+            return 'image/gif';
+          case 'pdf':
+            return 'application/pdf';
+          default:
+            return '';
+        }
+      };
+      const openFileInNewTabtds = () => {
+        if (analystView.tdsDocument) {
+          const fileExtension = analystView.tdsDocument.split('.').pop().toLowerCase();
+          
+          if (fileExtension === 'txt') {
+            // For text files, open in a new tab
+            window.open(analystView.tdsDocument, '_blank');
+          } else {
+            // For other file types, prompt the user to download
+            downloadFile(analystView.tdsDocument);
+          }
+        } else {
+          console.error('Invalid URL for opening in a new tab');
+        }
+      };
+      const downloadFiletds = () => {
+        if (analystView.tdsDocument) {
+          downloadFile(analystView.tdsDocument);
+        } else {
+          console.error('Invalid URL for downloading the file');
+        }
+      };
+    
 const handleSubmit=()=>{
  
 fetch("http://54.167.30.227:3000/api/tdsDetails/approve", {
@@ -373,7 +409,7 @@ function combineValues(...values) {
                       size={24}
                       color="#9AC037"
                       className="ms-4"
-                      onClick={downloadFile}
+                      onClick={downloadFilesys}
                     />
               
                   </div>
