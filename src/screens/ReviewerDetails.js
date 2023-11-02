@@ -431,13 +431,26 @@ function combineValues(...values) {
                     <BsArrowDownCircle
                       size={24}
                       color="#9AC037"
+                      className="ms-4"
                       onClick={downloadFilesys}
                     />
               
                   </div>
                 </div>
 
-                <div className="analysttestdata mt-2">
+               
+              </Col>
+              
+              {/* <Col>
+    <div className='row'>
+        <text className='cardcolhed'>Special Instructions If any other</text>
+        <text className='analyscardcolhed mt-1'>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore </text>
+    </div>
+    </Col> */}
+            </Row>
+            <Row>
+              <Col>
+              <div className="analysttestdata mt-2">
                   <div>
                     <RiFileWord2Fill size={24} color="#2368C4" />
                     <text className="analysttestdata-text ms-2">
@@ -455,13 +468,6 @@ function combineValues(...values) {
                   </div>
                 </div>
               </Col>
-              <Col></Col>
-              {/* <Col>
-    <div className='row'>
-        <text className='cardcolhed'>Special Instructions If any other</text>
-        <text className='analyscardcolhed mt-1'>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore </text>
-    </div>
-    </Col> */}
             </Row>
 
             <Row>
