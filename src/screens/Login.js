@@ -68,13 +68,21 @@ const Login = () => {
 
       if (response.ok) {
         const responseData = await response.json();
+        localStorage.setItem('accessToken', responseData.id);
+        localStorage.setItem('username', responseData.userName);
+        localStorage.setItem('usertype', responseData.userType);
+        
         setUserToken(responseData);
+        const token = localStorage.getItem('accessToken');
+        const username = localStorage.getItem('username');
+        const usertype = localStorage.getItem('usertype');
+
         dispatch(
           changeUserToken({
-            usertype: responseData.userType,
-            token: responseData.id,
+            usertype: usertype,
+            token: token,
             userid: responseData.userId,
-            username:responseData.userName
+            username:username
           })
         );
       } else {

@@ -74,6 +74,7 @@ export default function DitDashboard() {
   };
   function handleSubmit(item) {
     console.log("item", item.id);
+    localStorage.setItem('batchid', item.id);
     dispatch(
       changeBatchId({
         batchId: item.id,

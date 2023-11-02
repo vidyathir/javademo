@@ -13,9 +13,11 @@ import { useSelector } from "react-redux";
 import {IoIosAddCircleOutline} from 'react-icons/io'
 
 function Navbartitle() {
-  const userName = useSelector((state) => state.form.usertoken.username);
-  const userType = useSelector((state) => state.form.usertoken.usertype);
-
+  // const userName = useSelector((state) => state.form.usertoken.username);
+  // const userType = useSelector((state) => state.form.usertoken.usertype);
+  const token = localStorage.getItem('accessToken');
+  const userName = localStorage.getItem('username');
+  const userType = localStorage.getItem('usertype');
   const navigate = useNavigate();
   const [selectedOption, setSelectedOption] = useState('');
   const handleSelectChange = (event) => {

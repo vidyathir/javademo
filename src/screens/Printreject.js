@@ -212,7 +212,7 @@ export default function Print() {
             <Col className="columnMb">
               <div className="d-flex row">
                 <text className="cardcolhed">Other than Regulatory </text>
-                <text className="cardcolhedtext mt-1"><ul>{(batch.otherThanRegulatory)}</ul></text>
+                <text className="cardcolhedtext mt-1">{(batch.otherThanRegulatory)}</text>
               </div>
             </Col>
           </Row>

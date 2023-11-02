@@ -50,6 +50,7 @@ const [inputs, setInputs] = useState(initialInputs);
   const initialSelectedOptions = [];
   const [isSubmit, setIsSubmit] = useState(false);
   const [tableData, setTableData] = useState([]);
+  const tableLimit = 6; 
   const [editClick, setEditClick] = useState(false);
   const [editIndex, setEditIndex] = useState("");
   const [selectedOptions, setSelectedOptions] = useState(initialSelectedOptions);
@@ -155,6 +156,14 @@ const [inputs, setInputs] = useState(initialInputs);
             });
           }
         }
+        if (name === "retestDate" && inputs.mfgDate) {
+          if (new Date(value) <= new Date(inputs.mfgDate)) {
+            setFormErrors({
+              ...formErrors,
+              [name]: "Retest Date must be after mfg Date!",
+            });
+          }
+        }
       }
     }
   setInputs({
@@ -254,7 +263,9 @@ const [inputs, setInputs] = useState(initialInputs);
 setSelectedOptions("")
     }
   const handleadd = (e) => {
-   
+    if (tableData.length >= tableLimit) {
+      alert(`Table limit of ${tableLimit} rows reached. You cannot add more rows.`);
+    } else {
    const isMfgDateUnchecked = !naMfgDate && !inputs.mfgDate;
   
    // Check if the "NA" checkbox for Exp. Date is unchecked
@@ -303,6 +314,7 @@ setSelectedOptions("")
     console.log("inputs", inputs)
     setIsSubmit(true)
   };
+}
   }
   useEffect(() => {
     
@@ -663,7 +675,7 @@ onChange={() => handleNaChange("retestDate")} // Handle "N/A" checkbox
                     </thead>
                    
                     <tbody className="tablebody-custom ">
-                    {tableData.map((item, i) => (
+                    {tableData.slice(0, tableLimit).map((item, i) => (
     <tr key={item.id}>
       <td>{i + 1}</td>
       <td>{item.batchNo}</td>

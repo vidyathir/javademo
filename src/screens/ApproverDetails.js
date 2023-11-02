@@ -16,8 +16,10 @@ export default function ApproverDetails() {
   const [analystView, setAnalystView] = useState({});
   const [fileContent, setFileContent] = useState(null);
   const [fileContenttds, setFileContenttds] = useState(null);
-  const id = useSelector((state) => state.form.AbatchId.AbatchId);
-  const token = useSelector((state) => state.form.usertoken.token);
+  // const id = useSelector((state) => state.form.AbatchId.AbatchId);
+  // const token = useSelector((state) => state.form.usertoken.token);
+  const id = localStorage.getItem('pbatchid');
+  const token = localStorage.getItem('accessToken');
   console.log(id);
   const item = {tdsId:id};
   console.log(item)

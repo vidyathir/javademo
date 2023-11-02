@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./Styles.css";
 
 import { useNavigate } from "react-router-dom";
@@ -11,9 +11,13 @@ import { changeTDSId } from "../redux/FormSlice";
 export default function DITSuccess() {
 const navigate=useNavigate()
 const dispatch = useDispatch();
-const dit=useSelector(state=>state.form.ditresponse);
+// const dit=useSelector(state=>state.form.ditresponse);
+const storedDataString = localStorage.getItem('dit');
+const dit = JSON.parse(storedDataString);
+
 function handleSubmit(item) {
   console.log("item", item.id);
+  localStorage.setItem('tdsid', item.id);
   dispatch(
     changeTDSId({
       TdsId: item.id,

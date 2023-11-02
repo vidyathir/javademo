@@ -16,8 +16,10 @@ export default function ReviewerDetails() {
   const [analystView, setAnalystView] = useState({});
   const [fileContent, setFileContent] = useState(null);
   const [fileContenttds, setFileContenttds] = useState(null);
-  const id = useSelector((state) => state.form.AbatchId.AbatchId);
-  const token = useSelector((state) => state.form.usertoken.token);
+  // const id = useSelector((state) => state.form.AbatchId.AbatchId);
+  // const token = useSelector((state) => state.form.usertoken.token);
+  const id = localStorage.getItem('rbatchid');
+  const token = localStorage.getItem('accessToken');
   console.log(id);
   const item = {tdsId:id};
   console.log(item)
@@ -39,32 +41,7 @@ export default function ReviewerDetails() {
   console.log("analystview", analystView);
   // useEffect(()=>{
 
-  const fetchFileContent = async () => {
-    try {
-      const response = await fetch(analystView.sysDocument);
-      if (response.ok) {
-        const blob = await response.blob();
-        setFileContent(URL.createObjectURL(blob));
-      } else {
-        console.error('Failed to fetch file content');
-      }
-    } catch (error) {
-      console.error('Error fetching file content:', error);
-    }
-  };
-  const fetchFileContenttds = async () => {
-    try {
-      const response = await fetch(analystView.tdsDocument);
-      if (response.ok) {
-        const blob = await response.blob();
-        setFileContenttds(URL.createObjectURL(blob));
-      } else {
-        console.error('Failed to fetch file content');
-      }
-    } catch (error) {
-      console.error('Error fetching file content:', error);
-    }
-  };
+
 const openFileInNewTab = () => {
 if (analystView.sysDocument) {
     const fileExtension = analystView.sysDocument.split('.').pop().toLowerCase();

@@ -224,7 +224,7 @@ const updatedFilenamemsds = sample.msdsAttached.map(filename => filename.replace
               <div className="d-flex row">
                 <text className="cardcolhed">Other than Regulatory </text>
                 {analysis.analyticalfeasibile ? 
-                <text className="cardcolhedtext mt-1"><ul>{(analysis.analyticalfeasibile).join(",")}</ul></text>:<text className="cardcolhedtext mt-1">N/A</text>}
+                <text className="cardcolhedtext mt-1">{(analysis.analyticalfeasibile).join(",")}</text>:<text className="cardcolhedtext mt-1">N/A</text>}
               </div>
             </Col>
           </Row>

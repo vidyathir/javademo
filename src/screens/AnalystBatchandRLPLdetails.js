@@ -26,8 +26,10 @@ export default function AnalystBatchandRLPLdetails() {
   const fileInputRefs = useRef([]);
   const fileAnalytical =useRef([]);
   const navigate = useNavigate();
-  const id = useSelector((state) => state.form.AbatchId.AbatchId);
-  const token = useSelector((state) => state.form.usertoken.token);
+  // const id = useSelector((state) => state.form.AbatchId.AbatchId);
+  // const token = useSelector((state) => state.form.usertoken.token);
+  const id = localStorage.getItem('batchid');
+  const token = localStorage.getItem('accessToken');
   const updatedFilenames = names.map(filename => filename.replace(/^\d+_/g, ''));
   const updatedFilenameanadoc = anames.map(filename => filename.replace(/^\d+_/g, ''));
   console.log(id);
@@ -197,6 +199,7 @@ export default function AnalystBatchandRLPLdetails() {
         if (result.result.files != null) {
           alert("Files uploaded");
         }
+        navigate("/Analystdashboaed");
       }  else {
         console.error('No files were uploaded.');
       }
@@ -207,7 +210,7 @@ export default function AnalystBatchandRLPLdetails() {
       // If either file is not selected, show an alert
       alert('Please Select both files first');
     }
-    navigate("/Analystdashboaed");
+   
   };
   function combineValues(...values) {
     const nonEmptyValues = values.filter(value => value !== "" && value !== undefined);

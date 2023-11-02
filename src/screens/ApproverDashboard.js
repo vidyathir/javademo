@@ -67,6 +67,7 @@ console.log("data", data)
   };
   function handleSubmit(item) {
     console.log("item", item.id);
+    localStorage.setItem('pbatchid', item.id);
     dispatch(
       changeAnalystBatchId({
         AbatchId: item.id,

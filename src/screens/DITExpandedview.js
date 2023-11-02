@@ -17,12 +17,14 @@ import axios from "axios";
 import { changeSubmitDit } from "../redux/FormSlice";
 export default function DITExpandedView() {
   const navigate = useNavigate();
-  const id=useSelector(state =>state.form.batchId.batchId);
+  // const id=useSelector(state =>state.form.batchId.batchId);
+  const id = localStorage.getItem('batchid');
+  const token = localStorage.getItem('accessToken');
   const[detailedView,setDetailedView]=useState({});
   const[datasheet, setDatasheet]=useState([]);
   const analysis=useSelector(state =>state.form.data);
   const dispatch = useDispatch();
-  const token  = useSelector((state) => state.form.usertoken.token);
+  // const token  = useSelector((state) => state.form.usertoken.token);
   const updatedFilenames = detailedView.sampleDetails?.attachment?.map(filename => filename.replace(/^\d+_/g, ''))||[];
 const updatedFilenamemsds = detailedView.sampleDetails?.msdsAttached?.map(filename => filename.replace(/^\d+_/g, ''))||[];
   console.log(id)
@@ -77,6 +79,9 @@ const updatedFilenamemsds = detailedView.sampleDetails?.msdsAttached?.map(filena
       .then((response) => response.json())
     
       .then((data) => {
+        const dataString = JSON.stringify(data);
+localStorage.setItem('dit', dataString);
+        console.log("data",data)
         dispatch(changeSubmitDit(data))
         console.log("Success:", data);
         
@@ -153,11 +158,13 @@ const updatedFilenamemsds = detailedView.sampleDetails?.msdsAttached?.map(filena
   )}
 </td>
                 
-                  <td> {datasheet.map((item, i)=> (
+                  <td> {Array.isArray(datasheet) && datasheet.length > 0 ? (datasheet.map((item, i)=> (
    <ul style={{listStyleType:"none"}} key={i}><li style={{listStyleType:"none"}} ><PiFilePdfFill /> <a href={item.url} target="_blank" rel="noopener noreferrer">
    {item.testDataCode ? item.testDataCode : "No testdatacode available"}
  </a></li>
-   </ul>))}
+   </ul>))) : (
+  <span>No datasheets available</span>
+)}
     </td>
         </tr>      
 </tbody>

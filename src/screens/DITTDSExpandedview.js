@@ -16,8 +16,10 @@ import SidenavbarDIT from "../components/SidenavbarDIT";
 import axios from "axios";
 export default function DITTDSExpandedView() {
   const navigate = useNavigate();
-  const id = useSelector((state) => state.form.TdsId.TdsId);
-  const token  = useSelector((state) => state.form.usertoken.token);
+  // const id = useSelector((state) => state.form.TdsId.TdsId);
+  // const token  = useSelector((state) => state.form.usertoken.token);
+  const id = localStorage.getItem('tdsid');
+  const token = localStorage.getItem('accessToken');
   const [detailedView, setDetailedView] = useState({});
 
   const [tdsView,setTdsView]=useState({});
@@ -201,9 +203,7 @@ console.log("detail", tdsView)
                         <text className="cardcolhedtext mt-1">
                           {detailedView.sampleDetails.regulatory}
                         </text>
-                      ) : (
-                        "N/A"
-                      )}
+                      ) :(<text className="cardcolhedtext mt-1">NA</text>)}
                     </div>
                   </Col>
                   <Col className="columnMb">
@@ -211,12 +211,10 @@ console.log("detail", tdsView)
                       <text className="cardcolhed">Other than Regulatory </text>
                       {detailedView.sampleDetails.otherThanRegulatory ? (
                         <text className="cardcolhedtext mt-1">
-                          {detailedView.sampleDetails.otherThanRegulatory.join(
-                            "   ,  "
-                          )}
+                          {detailedView.sampleDetails.otherThanRegulatory.join("   ,  ")}
                         </text>
                       ) : (
-                        "N/A"
+                        <text className="cardcolhedtext mt-1">NA</text>
                       )}
                     </div>
                   </Col>
