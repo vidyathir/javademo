@@ -79,10 +79,10 @@ const Login = () => {
 
         dispatch(
           changeUserToken({
-            usertype: usertype,
-            token: token,
+            usertype: responseData.userType,
+            token: responseData.id,
             userid: responseData.userId,
-            username:username
+            username:responseData.userName
           })
         );
       } else {

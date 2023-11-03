@@ -21,10 +21,10 @@ import {FaRegWindowClose} from 'react-icons/fa';
 import NavbartitleAddco from "../components/NavbartitleAddco";
 import { useSelector,useDispatch } from "react-redux";
 import { changeSroId,changeRlplsearch } from "../redux/FormSlice";
-export default function ReviewDashboard() {
+export default function SroDashboard() {
   const navigate = useNavigate();
-  const token = useSelector((state) => state.form.usertoken.token);
-
+  // const token = useSelector((state) => state.form.usertoken.token);
+  const token = localStorage.getItem('accessToken');
   const dispatch = useDispatch();
   const [page, setPage] = useState(0);
 const[dashboard,setDashboard]=useState({});
@@ -149,31 +149,34 @@ const searchCompanies = () => {
             {/* -----------------------------------------Top Card Start---------------------------------- */}
 <div className="col" style={{display:"flex" ,alignItems:"center"}}>
             <div className='SearchCustomerSearchbox'>
+            <div >
+        
+        <select className="titleselectsearch titleselectsize"
+        id="profile"
+        value={selectedOption}
+        onChange={handleSelectChange}>
+          <option className="titleselect" >Type</option>
+          <option className="titleselect" value="RLPL">RLPL ID</option>
+          <option className="titleselect" value="TDS">TDS ID</option>
+        </select>
+      </div>
                 <div>
                     <input type='text' placeholder='Select type of search' className='SearchCustomerSearchbox-input'
                      value={searchQuery}
                       onChange={handleSearchInputChange}
+                      disabled={!selectedOption}
                       />
                 </div>
                 <div>
                     <button className='SearchCustomer-searchbox-button'
                      onClick={searchCompanies}
+                     disabled={!selectedOption}
                       >
                         <BsSearch className='SearchCustomer-searchbox-button-icon' /> <text className='SearchCustomer-searchbox-button-text'>Search</text>
                     </button>
                 </div>
                   </div>
-                  <div >
-        
-          <select className="titleselectsearch titleselectsize"
-          id="profile"
-          value={selectedOption}
-          onChange={handleSelectChange}>
-            <option className="titleselect" >type</option>
-            <option className="titleselect" value="RLPL">RLPL ID</option>
-            <option className="titleselect" value="TDS">TDS ID</option>
-          </select>
-        </div>
+                
         </div>
             <div className="mt-4 row wholeCardDiv">
               <div>

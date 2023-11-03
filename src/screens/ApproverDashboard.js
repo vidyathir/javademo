@@ -13,7 +13,8 @@ import { useDispatch,useSelector } from "react-redux";
 import { changeAnalystBatchId } from "../redux/FormSlice";
 export default function ApproverDashboard() {
   const navigate = useNavigate();
-  const token  = useSelector((state) => state.form.usertoken.token);
+  // const token  = useSelector((state) => state.form.usertoken.token);
+  const token = localStorage.getItem('accessToken');
   const dispatch = useDispatch();
   const [page, setPage] = useState(0);
   const[dashboard,setDashboard]=useState({});

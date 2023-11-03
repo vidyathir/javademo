@@ -34,11 +34,10 @@ import Printreject from './screens/Printreject';
 
 export default function App() {
   return (
-    <Fragment>
     <Provider store={store}>
     <BrowserRouter>
     <Routes>
-  
+    
      <Route exact path='/' element={<Login/>} />
      <Route exact path='/DITExpandedview' element={<DITExpandedview/>}/>
      <Route exact path ='/SroDashboard' element={<SroDashboard />} />
@@ -51,7 +50,7 @@ export default function App() {
      <Route exact path='/DitDashboard/DitExpandedView/DITSuccess' element={<DITSuccess/>}/> 
      <Route exact path='/DitDashboard/DitExpandedView/DITSuccess/DITTDSExpandedview' element={<DITTDSExpandedview/>}/> 
      <Route exact path='/SearchCustomer' element={<SearchCustomer/>}/>    
-     <Route exact path='/Progress' element={<Progress/>}/>  
+     <Route exact path='/Progress' element={<Progress/>} forceRefresh={true}/>  
      <Route exact path='/AddNewCustomer' element={<AddNewCustomer/>}/>
      <Route exact path='/Progress/RLPLgenerated' element={<RLPLgenerated/>}/>  
      <Route exact path='/Progress/RLPLNotgenerated' element={<RLPLNotgenerated/>}/>
@@ -70,7 +69,6 @@ export default function App() {
      </Routes>
     </BrowserRouter>
     </Provider>
-    </Fragment>
   )
 }
 

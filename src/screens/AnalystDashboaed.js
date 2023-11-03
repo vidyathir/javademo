@@ -20,13 +20,14 @@ import SidenavbarAnalyst from "../components/SidenavbarAnalyst";
 import { changeAnalystBatchId } from "../redux/FormSlice";
 import { useDispatch,useSelector } from "react-redux";
 export default function AnalystDashboaed() {
-  const token  = useSelector((state) => state.form.usertoken.token);
+  // const token  = useSelector((state) => state.form.usertoken.token);
+  const token = localStorage.getItem('accessToken');
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [page, setPage] = useState(0);
 
   const [data, setData] = useState([]); // Initialize data as an empty array
-const [dashBoard,setDashboard]=useState({});
+const [dashboard ,setDashboard]=useState({});
   const [filterData, setFilterData] = useState([]);
   const itemsPerPage = 10;
   useEffect(()=>{
@@ -109,7 +110,7 @@ console.log("data", data)
                     <div className="cardArrangement">
                       <div style={{ justifyContent: "space-evenly" }}>
                         <p>Samples Completed</p>
-                        <p className="cardNum">{dashBoard.todayCompleted}</p>
+                        <p className="cardNum">{dashboard.todayCompleted}</p>
                       </div>
                       <div>
                         <BsClipboardCheck size={50} color="#fff" />
@@ -125,7 +126,7 @@ console.log("data", data)
                     <div className="cardArrangement">
                       <div>
                         <p>Samples Awaiting</p>
-                        <p className="cardNum">{dashBoard.pending}</p>
+                        <p className="cardNum">{dashboard.pending}</p>
                       </div>
                       <div>
                         <LuClipboardEdit size={50} color="#fff" />

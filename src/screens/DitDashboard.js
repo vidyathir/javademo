@@ -14,7 +14,8 @@ import SidenavbarDIT from "../components/SidenavbarDIT";
 import { changeBatchId } from "../redux/FormSlice";
 import { useDispatch, useSelector } from "react-redux";
 export default function DitDashboard() {
-  const token = useSelector((state) => state.form.usertoken.token);
+  // const token = useSelector((state) => state.form.usertoken.token);
+  const token = localStorage.getItem('accessToken');
   console.log(token)
   const navigate = useNavigate();
   const dispatch = useDispatch();
