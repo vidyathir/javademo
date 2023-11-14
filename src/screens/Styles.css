@@ -585,6 +585,32 @@ margin-right: 10px;
   z-index: -1;
 }
 
+
+/* ------------------------------ admin screen---------------------- */
+
+.admincard{
+  border: 1px solid;
+  border-radius: 7px;
+  border-color: #D1D1D1;
+  width: 100%;
+  height: fit-content;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-bottom: 20px;
+}
+
+.AdminButton{
+  background-color: #3A4175;
+  color: #ffffff;
+  border-radius: 6px;
+  height: 40px;
+  width: 100%;
+  text-align: center;
+  border: none;
+  font-size: 14px;
+}
+
+
 /* ------------------ Printlogo-------------------------- */
 
 

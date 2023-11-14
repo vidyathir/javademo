@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react'
 import {BrowserRouter,Routes,Route} from 'react-router-dom';
 import Login from './screens/Login';
+import AdminScreen from './screens/AdminScreen';
 
 
 import AddNewCustomer from './screens/AddNewCustomer';
@@ -38,7 +39,8 @@ export default function App() {
     <BrowserRouter>
     <Routes>
     
-     <Route exact path='/' element={<Login/>} />
+     {/* <Route exact path='/' element={<Login/>} /> */}
+     <Route exact path='/' element={<AdminScreen/>} />
      <Route exact path='/DITExpandedview' element={<DITExpandedview/>}/>
      <Route exact path ='/SroDashboard' element={<SroDashboard />} />
      <Route exact path ='/SroDashboard/SroDetails' element={<SroDetails />} />
