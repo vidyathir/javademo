@@ -172,7 +172,7 @@ ditresponse:[
       sampleId: 0,
       batchId: "",
       tdsNumber:"",
-       id: "",
+       id: 0,
       testDataName: "",
       testDataCode:""
   }

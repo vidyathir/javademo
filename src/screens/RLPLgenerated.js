@@ -13,6 +13,7 @@ export default function RlplGenerated() {
     window.sessionStorage.removeItem("tableData");
     window.sessionStorage.removeItem("names");
     window.sessionStorage.removeItem("mnames");
+    
   }, []);
   const navigate = useNavigate();
   const token = useSelector((state) => state.form.usertoken.token);

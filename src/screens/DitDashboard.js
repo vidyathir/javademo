@@ -25,6 +25,10 @@ export default function DitDashboard() {
   const [filterData, setFilterData] = useState([]);
   const itemsPerPage = 10;
 
+useEffect(()=>{
+  window.sessionStorage.removeItem("tdsid");
+  window.sessionStorage.removeItem("dit");
+})
   useEffect(() => {
     // Fetch data from your API endpoint here
     fetch(

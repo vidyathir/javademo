@@ -25,6 +25,8 @@ export default function AnalystBatchandRLPLdetails() {
   const [anames, setANames] = useState([]);
   const fileInputRefs = useRef([]);
   const fileAnalytical =useRef([]);
+  const [previewFile, setPreviewFile] = useState(null);
+
   const navigate = useNavigate();
   // const id = useSelector((state) => state.form.AbatchId.AbatchId);
   // const token = useSelector((state) => state.form.usertoken.token);
@@ -146,7 +148,39 @@ export default function AnalystBatchandRLPLdetails() {
     setANames(updatedNames);
    
   };
- 
+  const handlePreview = (file) => {
+    try {
+      // Create a Blob object with the file data
+      const blob = new Blob([file.file], { type: 'application/pdf' });
+  
+      // Create a data URL for the blob
+      const fileURL = URL.createObjectURL(blob);
+      setPreviewFile(fileURL);
+    } catch (error) {
+      console.error('Error creating preview:', error);
+    }
+  };
+  
+
+  const closePreview = () => {
+    // Revoke the URL to release resources
+    URL.revokeObjectURL(previewFile);
+    setPreviewFile(null);
+  };
+  function FilePreviewModal() {
+    return (
+      <div className="preview-modal">
+        <div className="modal-content">
+          <button onClick={closePreview} className="close-button">
+            Close
+          </button>
+          {previewFile ? (
+            <iframe src={previewFile} width="100%" height="500" title="File Preview" />
+          ) : null}
+        </div>
+      </div>
+    );
+  }
   const handleSubmit = async (event) => {
     
     if (selectedFileNames.length > 0 || selectedAFileNames.length > 0) {
@@ -382,10 +416,12 @@ export default function AnalystBatchandRLPLdetails() {
                                     <li key={name}>
                                       {name}
                                       <MdOutlineDelete size={20} color="red" onClick={() => handleARemoveFile(name)}/>
+                                      <button onClick={() => handlePreview(name)}>Preview</button> 
                                     </li> 
+                                    
                                   ))}
                             
-                                
+                               
                       </label>
                                   
                       </td>
@@ -393,7 +429,14 @@ export default function AnalystBatchandRLPLdetails() {
                       </tr>
               </tbody>
             </Table>
-
+            {previewFile && (
+      <iframe
+        title="File Preview"
+        width="100%"
+        height="500"
+        src={previewFile}
+      ></iframe>
+    )}
             <div className="cardbuttonboubleend mb-3">
               <button
                 className="cardbutton"

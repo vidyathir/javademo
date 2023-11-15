@@ -80,7 +80,7 @@ const updatedFilenamemsds = detailedView.sampleDetails?.msdsAttached?.map(filena
     
       .then((data) => {
         const dataString = JSON.stringify(data);
-localStorage.setItem('dit', dataString);
+sessionStorage.setItem('dit', dataString);
         console.log("data",data)
         dispatch(changeSubmitDit(data))
         console.log("Success:", data);

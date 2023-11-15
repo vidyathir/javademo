@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect,useState } from "react";
 import "./Styles.css";
 
 import { useNavigate } from "react-router-dom";
@@ -11,9 +11,25 @@ import { changeTDSId } from "../redux/FormSlice";
 export default function DITSuccess() {
 const navigate=useNavigate()
 const dispatch = useDispatch();
-// const dit=useSelector(state=>state.form.ditresponse);
-const storedDataString = localStorage.getItem('dit');
-const dit = JSON.parse(storedDataString);
+const [ditFromLocalStorage, setDitFromLocalStorage] = useState([]);
+const [isLoading, setIsLoading] = useState(true);
+
+console.log("localdit",ditFromLocalStorage)
+useEffect(() => {
+  localfunction();
+}, []);
+const localfunction = () => {
+  try {
+    const storedDataString = sessionStorage.getItem('dit');
+    console.log('Stored data from localStorage:', storedDataString);
+    const localDit = JSON.parse(storedDataString) || [];
+    console.log('Parsed local dit data:', localDit);
+    setDitFromLocalStorage(localDit);
+    setIsLoading(false);
+  } catch (error) {
+    console.error('Error parsing local dit data:', error);
+  }
+};
 
 function handleSubmit(item) {
   console.log("item", item.id);
@@ -24,6 +40,10 @@ function handleSubmit(item) {
     })
    );
   navigate("DITTDSExpandedview");
+}
+if (isLoading) {
+  // You can render a loading state here
+  return <div>Loading...</div>;
 }
   return (
     <div className="app">
@@ -54,8 +74,9 @@ function handleSubmit(item) {
                     <th>View</th>
                   </tr>
                 </thead>
+                
                 <tbody className="tablebody-custom">
-                {dit.map((item,i)=>(
+                {ditFromLocalStorage.map((item,i)=>(
                   <tr key={i}>
                     <td>{i+1}</td>
                     <td>{item.tdsNumber}</td>
