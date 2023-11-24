@@ -23,8 +23,8 @@ import {LuClipboardEdit} from 'react-icons/lu';
 import {FaRegWindowClose} from 'react-icons/fa';
 import NavbartitleAddco from "../components/NavbartitleAddco";
 import { useSelector,useDispatch } from "react-redux";
-import { changeSroId,changeRlplsearch } from "../redux/FormSlice";
-export default function AdminScreen() {
+import { changeSroId,changeReportDetails } from "../redux/FormSlice";
+export default function Report() {
   const navigate = useNavigate();
   // const token = useSelector((state) => state.form.usertoken.token);
   const token = localStorage.getItem('accessToken');
@@ -34,25 +34,23 @@ export default function AdminScreen() {
   const [filterData, setFilterData] = useState([]);
   const [testData,setTestData]=useState([]);
   const itemsPerPage = 10; 
-  const [selectedOption, setSelectedOption] = useState('');
-  const[companyDetail,setCompanyDetail]=useState([]);
   const [isSubmit, setIsSubmit] = useState(false);
-const [searchQuery, setSearchQuery] = useState('');
+
 const initialInputs = {
 fromDate:"",
 toDate:"",
-companyName:"",
+companyId:"",
 type:"",
-id:""
+number:""
 };
 const typeData=[{value:1,label:"RLPL"},{value:2,label:"TDS"}]
 const [inputs, setInputs] = useState(initialInputs);
 const [formErrors, setFormErrors] = useState({
   fromDate:"",
   toDate:"",
-  companyName:"",
+  companyId:"",
   type:"",
-  id:""
+  number:""
 });
 const initialSelectedOptions = [];
 const [selectedOptions, setSelectedOptions] = useState(initialSelectedOptions);
@@ -62,7 +60,11 @@ const { handleSubmit } = useForm();
 const handleSelectChange = (selectedOptions) => {
   setSelectedOptions(selectedOptions);
   setInputs({
-    
+    fromDate:inputs.fromDate,
+    toDate:inputs.toDate,
+    companyId:selectedOptions,
+    number:inputs.number,
+ type:selectedtype,
 });
 setFormErrors({
   ...formErrors,
@@ -73,7 +75,11 @@ setFormErrors({
 const handleTypeChange = (selectedtype) => {
   setSelectedtype(selectedtype);
   setInputs({
-    
+    fromDate:inputs.fromDate,
+    toDate:inputs.toDate,
+    companyId:selectedOptions,
+    number:inputs.number,
+ type:selectedtype,
 });
 setFormErrors({
   ...formErrors,
@@ -110,41 +116,44 @@ const handlePageChange = (selectedPage) => {
   setPage(selectedPage.selected);
 };
 const handleChange = (e) => {
-  const { name, value } = e.target;
-
-  // Perform date validation for date fields
-  if (name === "fromDate" || name === "toDate") {
-    // Check if the entered date is a valid date
-    if (!/^\d{4}-\d{2}-\d{2}$/.test(value)) {
-      setFormErrors({
-        ...formErrors,
-        [name]: "Invalid date format. Please use YYYY-MM-DD format.",
-      });
+    const { name, value } = e.target;
+  
+    // Perform date validation for date fields
+    if (name === "fromDate" || name === "toDate") {
+      // Check if the entered date is a valid date
+      if (!/^\d{4}-\d{2}-\d{2}$/.test(value)) {
+        setFormErrors({
+          ...formErrors,
+          [name]: "Invalid date format. Please use YYYY-MM-DD format.",
+        });
     } else {
-      // Clear any previous error messages for the date field
-      setFormErrors({
-        ...formErrors,
-        [name]: "",
-      });
-
-      // Check if Exp. Date is greater than or equal to Mfg Date
-      if (name === "toDate" && inputs.fromDate) {
-        if (new Date(value) <= new Date(inputs.fromDate)) {
-          setFormErrors({
-            ...formErrors,
-            [name]: "TO Date must be after From Date!",
-          });
+        // Clear any previous error messages for the date field
+        setFormErrors({
+          ...formErrors,
+          [name]: "",
+        });
+  
+        // Check if Exp. Date is greater than or equal to Mfg Date
+        if (name === "toDate" && inputs.fromDate) {
+          if (new Date(value) <= new Date(inputs.fromDate)) {
+            setFormErrors({
+              ...formErrors,
+              [name]: "Exp Date must be after Mfg Date!",
+            });
+          }
         }
+  
+
       }
     }
-  }
-
-  // Update the inputs state
   setInputs({
-    ...inputs,
-    [name]: value,
-  });
-};
+       ...inputs,
+       [name]: value,
+     });
+
+  };
+  
+  
 
  useEffect(() => {
    
@@ -181,53 +190,18 @@ const handlePagination=(item) =>{
       SroId: item.id,
     })
    );
-  navigate("SroDetails");
+  navigate("SroReportdetail");
 }
 const saveData=()=>{
-  
-  const item={
-    'fromDate' : inputs.fromDate, 'toDate': inputs.toDate, 'companyId':selectedOptions.value,'type':selectedtype.label, 'number' : inputs.number}
-  console.log("item", item)
-fetch("http://54.167.30.227:3000/api/batchDetails/report", {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json",
-    'Authorization': token
-  },
 
-
-  body: JSON.stringify(item),
-})
-  .then((response) => response.json())
-
-  .then((data) => {
-
-    console.log("Success:", data);
-    
-     // handle the response data here
-  })
-
-  .catch((error) => {
-    // handle any errors here
-  });
-}
-const handleSearchInputChange = (event) => {
-  setSearchQuery(event.target.value);
-};
-
-// Function to make an API request with the search query
-const searchCompanies = () => {
-  const item={
-    "number":searchQuery,"type":selectedOption}
-    console.log(item)
-
-    fetch("http://54.167.30.227:3000/api/batchDetails/search", {
+    const item={
+        'fromDate' : inputs.fromDate, 'toDate': inputs.toDate, 'type':selectedtype.label, 'number' : inputs.number}
+      console.log("item",item)
+    fetch("http://54.167.30.227:3000/api/batchDetails/report", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-          'Authorization': token
-        
-        
+        'Authorization': token
       },
     
     
@@ -236,25 +210,17 @@ const searchCompanies = () => {
       .then((response) => response.json())
     
       .then((data) => {
-        console.log("result:", data);
-        setCompanyDetail(data)
-        dispatch(
-          changeRlplsearch({
-            companydetail:data ,
-          })
-         );
-        if(selectedOption==="RLPL"){
-        navigate('/SroDashboard/SearchRLPL')
+        dispatch(changeReportDetails(data))
+        console.log("Success:", data);
+        navigate('/Report/ReportDetails')
          // handle the response data here
-      }if(selectedOption==="TDS"){
-        navigate('/SroDashboard/SearchTDS')
-      }}
-      )
+      })
     
       .catch((error) => {
         // handle any errors here
       });
-    }
+}
+
 
   return (
     <div className="app">

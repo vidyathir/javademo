@@ -2,8 +2,6 @@ import React, { Fragment } from 'react'
 import {BrowserRouter,Routes,Route} from 'react-router-dom';
 import Login from './screens/Login';
 import AdminScreen from './screens/AdminScreen';
-
-
 import AddNewCustomer from './screens/AddNewCustomer';
 import Progress from './screens/Progress';
 import RLPLgenerated from './screens/RLPLgenerated';
@@ -31,6 +29,10 @@ import SroDetails from './screens/SroDetails';
 import SearchRLPL from './screens/SearchRLPL';
 import SearchTDS from './screens/SearchTDS';
 import Printreject from './screens/Printreject';
+import Report from './screens/Report';
+import Reportexpandedview from './screens/Reportexpandedview';
+import SroReportdetail from './screens/SroReportdetail';
+import ReportDetails from './screens/ReportDetails';
 
 
 export default function App() {
@@ -51,7 +53,12 @@ export default function App() {
      <Route exact path='/DitDashboard/DitExpandedView' element={<DITExpandedview/>}/>  
      <Route exact path='/DitDashboard/DitExpandedView/DITSuccess' element={<DITSuccess/>}/> 
      <Route exact path='/DitDashboard/DitExpandedView/DITSuccess/DITTDSExpandedview' element={<DITTDSExpandedview/>}/> 
-     <Route exact path='/SearchCustomer' element={<SearchCustomer/>}/>    
+     <Route exact path='/SearchCustomer' element={<SearchCustomer/>}/>  
+     <Route exact path='/AdminScreen' element={<AdminScreen/>}/>  
+     <Route exact path='/Report' element={<Report/>}/> 
+     <Route exact path='/Report/ReportDetails' element={<ReportDetails/>}/> 
+     <Route exact path='/Report/ReportDetails/Reportexpandedview' element={<Reportexpandedview/>}/>   
+     <Route exact path='/Report/SroReportdetail' element={<SroReportdetail/>}/>  
      <Route exact path='/Progress' element={<Progress/>} forceRefresh={true}/>  
      <Route exact path='/AddNewCustomer' element={<AddNewCustomer/>}/>
      <Route exact path='/Progress/RLPLgenerated' element={<RLPLgenerated/>}/>  

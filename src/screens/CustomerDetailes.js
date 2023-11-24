@@ -81,6 +81,7 @@ const token  = useSelector((state) => state.form.usertoken.token);
     dispatch(
       changeCustomerDetails({
         company: data.company.companyName,
+        companyId:data.company.companyId,
         contactPersonName: data.data2,
         licenceNo: data.data3,
         phoneNo: data.data4,

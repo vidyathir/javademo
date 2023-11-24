@@ -2,7 +2,7 @@ import React from "react";
 import {NavLink} from "react-router-dom";
 import { GiArchiveRegister} from "react-icons/gi";
 import { MdOutlineDashboard } from "react-icons/md";
-import { BiSearch } from "react-icons/bi";
+import { BiSearch, BiSolidReport } from "react-icons/bi";
 import {BsBuildingAdd} from "react-icons/bs";
 
 export default function Sidenavbar() {
@@ -13,6 +13,7 @@ export default function Sidenavbar() {
     { name: "Registration", link: "/Progress", icon: GiArchiveRegister },
     { name: "Add Company", link: "/AddNewCustomer", icon: BsBuildingAdd },
     { name: "Search Customer", link: "/SearchCustomer", icon: BiSearch },
+    { name: "Report", link: "/Report", icon: BiSolidReport },
   
   ];
 

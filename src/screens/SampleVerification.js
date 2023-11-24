@@ -57,6 +57,7 @@ console.log("sample",sample)
     console.log("data",data1)
     const item={
       companyName:form.company,
+      companyId:form.companyId,
       manufacturingLicenseNumber:form.licenceNo,
       contactPerson: form.contactPersonName,
       mobileNumber: form.phoneNo,
@@ -132,6 +133,7 @@ console.log("sample",sample)
     console.log("data",data1)
     const item={
       companyName:form.company,
+      companyId:form.companyId,
       manufacturingLicenseNumber:form.licenceNo,
       contactPerson: form.contactPersonName,
       mobileNumber: form.phoneNo,

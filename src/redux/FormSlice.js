@@ -6,6 +6,7 @@ const FormSlice = createSlice({
   initialState: {
  customer:{
     companyName: {},
+    companyId:0,
     contactPersonName: '',
     licenceNo: '',
     phoneNo: '',
@@ -189,7 +190,8 @@ companyId:'',
 AbatchId:'',
 TdsId:'',
 SroId:'',
-companydetail:['']
+companydetail:[''],
+ReportDetail:[{}]
   },
   reducers: { 
       changeCustomerDetails: (state,action)=> {
@@ -240,12 +242,14 @@ changeSroId:(state,action)=>{
 },
 changeRlplsearch:(state,action)=>{
   state.companydetail=action.payload
+},changeReportDetails:(state,action)=>{
+  state.ReportDetail=action.payload
 }
   },
 
 });
 
 export const { changeCustomerDetails,changeSampleDetails,changeTypeofAnalysis,changeBatchDetails,changeSubmitData,changeUserToken,
-changeBatchId,changeSubmitDit,changeCompanyId,changeTDSId,changeAnalystBatchId,changeSroId,changeRlplsearch,changeSubmitAccept} = FormSlice.actions;
+changeBatchId,changeSubmitDit,changeCompanyId,changeTDSId,changeAnalystBatchId,changeSroId,changeRlplsearch,changeSubmitAccept,changeReportDetails} = FormSlice.actions;
 
 export default FormSlice.reducer;
